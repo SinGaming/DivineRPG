@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "east": "divinerpg:blocks/hell_spider_pumpkin_side",
+    "south": "divinerpg:blocks/hell_spider_pumpkin_side",
+    "north": "divinerpg:blocks/hell_spider_pumpkin_front",
+    "west": "divinerpg:blocks/hell_spider_pumpkin_side",
+    "particle": "divinerpg:blocks/hell_spider_pumpkin_side",
+    "up": "divinerpg:blocks/hell_spider_pumpkin_top",
+    "down": "divinerpg:blocks/hell_spider_pumpkin_top"
+  }
+}

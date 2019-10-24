@@ -1,0 +1,23 @@
+{
+  "block.divinerpg.realmite_ore": "Realmite Ore",
+  "block.divinerpg.arlemite_ore": "Arlemite Ore",
+  "block.divinerpg.rupee_ore": "Rupee Ore",
+  "block.divinerpg.netherite_ore": "Netherite Ore",
+  "block.divinerpg.bloodgem_ore": "Bloodgem Ore",
+  "block.divinerpg.realmite_block": "Realmite Block",
+  "block.divinerpg.arlemite_block": "Arlemite Block",
+  "block.divinerpg.rupee_block": "Rupee Block",
+  "block.divinerpg.netherite_block": "Netherite Block",
+  "block.divinerpg.bloodgem_block": "Bloodgem Block",
+
+  "block.divinerpg.divine_rock": "Divine Rock",
+
+  "item.divinerpg.realmite_ingot": "Realmite Ingot",
+  "item.divinerpg.arlemite_ingot": "Arlemite Ingot",
+  "item.divinerpg.rupee_ingot": "Rupee Ingot",
+  "item.divinerpg.netherite_ingot": "Netherite Ingot",
+  "item.divinerpg.bloodgem": "Bloodgem",
+
+  "itemGroup.divinerpg.blocks": "DivineRPG: Blocks",
+  "itemGroup.divinerpg.items": "DivineRPG: Items"
+}

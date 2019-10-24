@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "divinerpg:bloodgem_ore"
+  },
+  "result": "divinerpg:bloodgem",
+  "experience": 0.7,
+  "cookingtime": 200
+}

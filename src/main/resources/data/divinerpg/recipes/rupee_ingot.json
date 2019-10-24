@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "divinerpg:rupee_ore"
+  },
+  "result": "divinerpg:rupee_ingot",
+  "experience": 0.7,
+  "cookingtime": 200
+}
