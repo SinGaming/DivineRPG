@@ -1,8 +1,0 @@
-{
-  "parent": "block/stairs",
-  "textures": {
-    "side": "divinerpg:blocks/wildwood_planks",
-    "top": "divinerpg:blocks/wildwood_planks",
-    "bottom": "divinerpg:blocks/wildwood_planks"
-  }
-}

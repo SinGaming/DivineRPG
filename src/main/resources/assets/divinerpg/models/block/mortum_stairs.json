@@ -1,8 +1,0 @@
-{
-  "parent": "block/stairs",
-  "textures": {
-    "side": "divinerpg:blocks/mortum_planks",
-    "top": "divinerpg:blocks/mortum_planks",
-    "bottom": "divinerpg:blocks/mortum_planks"
-  }
-}

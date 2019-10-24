@@ -1,8 +1,0 @@
-{
-  "parent": "block/half_slab",
-  "textures": {
-    "side": "divinerpg:blocks/skythern_planks",
-    "top": "divinerpg:blocks/skythern_planks",
-    "bottom": "divinerpg:blocks/skythern_planks"
-  }
-}

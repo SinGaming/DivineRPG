@@ -1,6 +1,0 @@
-{
-  "parent": "block/crop",
-  "textures": {
-    "crop": "divinerpg:blocks/aquamarine_plant_3"
-  }
-}

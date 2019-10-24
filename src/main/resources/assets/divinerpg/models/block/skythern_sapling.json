@@ -1,6 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "divinerpg:blocks/skythern_sapling"
-  }
-}

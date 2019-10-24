@@ -1,8 +1,0 @@
-{
-  "parent": "block/inner_stairs",
-  "textures": {
-    "side": "divinerpg:blocks/divine_planks",
-    "top": "divinerpg:blocks/divine_planks",
-    "bottom": "divinerpg:blocks/divine_planks"
-  }
-}
