@@ -44,10 +44,10 @@ public class ArmorSet implements IArmorSet {
         if (armorInventory.isEmpty())
             return false;
 
-        return isEmptyOrContains(helmets, armorInventory.get(0).getItem())
-                && isEmptyOrContains(chests, armorInventory.get(1).getItem())
-                && isEmptyOrContains(legs, armorInventory.get(2).getItem())
-                && isEmptyOrContains(boots, armorInventory.get(3).getItem())
+        return isEmptyOrContains(helmets, armorInventory.get(3).getItem())
+                && isEmptyOrContains(chests, armorInventory.get(2).getItem())
+                && isEmptyOrContains(legs, armorInventory.get(1).getItem())
+                && isEmptyOrContains(boots, armorInventory.get(0).getItem())
                 && isEmptyOrContains(shields, entity.inventory.offHandInventory.get(0).getItem());
     }
 

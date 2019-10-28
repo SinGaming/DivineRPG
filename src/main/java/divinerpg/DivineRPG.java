@@ -1,10 +1,12 @@
 package divinerpg;
 
-import net.minecraft.block.Block;
+import divinerpg.registry.MessageRegistry;
+import divinerpg.registry.PoweredArmorRegistry;
 import net.minecraft.block.Blocks;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -13,6 +15,8 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraftforge.fml.network.simple.SimpleChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,6 +27,15 @@ import java.util.stream.Collectors;
 public class DivineRPG
 {
     public static final String MODID = "divinerpg";
+
+    private static final String protocol_version = Integer.toString(1);
+
+    public static final SimpleChannel CHANNEL = NetworkRegistry
+            .ChannelBuilder.named(new ResourceLocation(MODID, "main_channel"))
+            .clientAcceptedVersions(protocol_version::equals)
+            .serverAcceptedVersions(protocol_version::equals)
+            .networkProtocolVersion(() -> protocol_version)
+            .simpleChannel();
 
 
     // Directly reference a log4j logger.
@@ -40,6 +53,8 @@ public class DivineRPG
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+
+        PoweredArmorRegistry.register();
     }
 
     private void setup(final FMLCommonSetupEvent event)
@@ -47,6 +62,8 @@ public class DivineRPG
         // some preinit code
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+
+        DeferredWorkQueue.runLater(MessageRegistry::register);
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

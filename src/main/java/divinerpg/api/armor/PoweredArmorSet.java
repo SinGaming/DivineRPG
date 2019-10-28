@@ -29,7 +29,7 @@ public class PoweredArmorSet implements IPoweredArmorSet {
     }
 
     @Override
-    public <T extends Event> IPoweredArmorSet addAbility(Class<T> clazz, IPowerAbility ability) {
+    public <T extends Event> IPoweredArmorSet addAbility(Class<T> clazz, IPowerAbility<T> ability) {
         if (!abilityMap.containsKey(clazz)) {
             abilityMap.put(clazz, new ArrayList<>());
         }

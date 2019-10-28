@@ -1,7 +1,7 @@
 package divinerpg.arcana;
 
 import divinerpg.api.arcana.IArcana;
-import divinerpg.time.TimedAction;
+import divinerpg.utils.time.TimedAction;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 

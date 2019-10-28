@@ -1,4 +1,4 @@
-package divinerpg.time;
+package divinerpg.utils.time;
 
 import net.minecraft.world.World;
 

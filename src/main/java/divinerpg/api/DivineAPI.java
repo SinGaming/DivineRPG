@@ -4,6 +4,7 @@ import divinerpg.api.arcana.ArcanaProvider;
 import divinerpg.api.arcana.IArcana;
 import divinerpg.api.armor.IPoweredArmorSet;
 import divinerpg.arcana.Arcana;
+import divinerpg.events.FullArmorEventHandler;
 import net.minecraft.entity.Entity;
 
 public class DivineAPI {
@@ -17,6 +18,6 @@ public class DivineAPI {
     }
 
     public static void addPowerHandlers(IPoweredArmorSet... sets) {
-        // TODO insert armor set handlers
+        FullArmorEventHandler.addPowerHandlers(sets);
     }
 }
