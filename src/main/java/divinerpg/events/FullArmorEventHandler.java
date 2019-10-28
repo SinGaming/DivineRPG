@@ -1,9 +1,9 @@
 package divinerpg.events;
 
-import divinerpg.api.armor.IPoweredArmorSet;
+import divinerpg.api.DivineAPI;
 import divinerpg.api.events.IsEquippedEvent;
 import divinerpg.utils.ArmorObserver;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
@@ -12,7 +12,8 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * Controls armor status of players
@@ -21,30 +22,30 @@ import java.util.*;
 public class FullArmorEventHandler {
 
     public static final HashMap<UUID, ArmorObserver> playerMap = new HashMap<>();
-    /**
-     * Contains all possible power sets data
-     */
-    private static final List<IPoweredArmorSet> powerSets = new ArrayList<>();
-
-    /**
-     * Single point for adding new powerd armor handlers
-     *
-     * @param sets - not null list of powered armor sets
-     */
-    public static void addPowerHandlers(IPoweredArmorSet... sets) {
-        Arrays.stream(sets).filter(x -> !powerSets.contains(x)).forEach(powerSets::add);
-    }
 
     /**
      * Removing leaving player from map
      */
     @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
     public static void onPlayerLeave(ClientPlayerNetworkEvent.LoggedOutEvent e) {
         // removing players
-        ClientPlayerEntity player = e.getPlayer();
+        PlayerEntity player = e.getPlayer();
 
         if (player != null)
             playerMap.remove(player.getUniqueID());
+    }
+
+    /**
+     * Addind player to map
+     */
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public static void onPLayerLoggedIn(ClientPlayerNetworkEvent.LoggedInEvent event) {
+        PlayerEntity player = event.getPlayer();
+        if (player != null) {
+            putNewPLayer(player);
+        }
     }
 
     /**
@@ -58,7 +59,8 @@ public class FullArmorEventHandler {
         if (playerMap.containsKey(id)) {
             playerMap.get(id).Update(e.player);
         } else {
-            playerMap.put(id, new ArmorObserver(e.player, powerSets));
+            // Awkward situation, we should add player in logged in event
+            putNewPLayer(e.player);
         }
     }
 
@@ -73,5 +75,13 @@ public class FullArmorEventHandler {
         if (event.getArmorSet().getArmorSetDescriber().isEquipped(event.getPlayer())) {
             event.confirmEquipment();
         }
+    }
+
+
+    /**
+     * Adding new player to list
+     */
+    public static void putNewPLayer(PlayerEntity playerEntity) {
+        playerMap.put(playerEntity.getUniqueID(), new ArmorObserver(playerEntity, DivineAPI.getPowerSets()));
     }
 }

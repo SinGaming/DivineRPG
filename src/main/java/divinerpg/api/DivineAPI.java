@@ -4,10 +4,20 @@ import divinerpg.api.arcana.ArcanaProvider;
 import divinerpg.api.arcana.IArcana;
 import divinerpg.api.armor.IPoweredArmorSet;
 import divinerpg.arcana.Arcana;
-import divinerpg.events.FullArmorEventHandler;
 import net.minecraft.entity.Entity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class DivineAPI {
+
+    /**
+     * Contains all possible power sets data
+     */
+    private static final List<IPoweredArmorSet> powerSets = new ArrayList<>();
 
     /**
      * Gets player's arcana ability
@@ -18,6 +28,13 @@ public class DivineAPI {
     }
 
     public static void addPowerHandlers(IPoweredArmorSet... sets) {
-        FullArmorEventHandler.addPowerHandlers(sets);
+        powerSets.addAll(Arrays.stream(sets).collect(Collectors.toList()));
+    }
+
+    /**
+     * @return Unmodiriable collection of all power sets
+     */
+    public static List<IPoweredArmorSet> getPowerSets() {
+        return Collections.unmodifiableList(powerSets);
     }
 }

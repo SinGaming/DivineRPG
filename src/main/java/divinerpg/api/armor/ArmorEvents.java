@@ -146,10 +146,8 @@ public class ArmorEvents {
         IAttributeInstance playerSpeedAttribute = player.getAttribute(speedAttr);
         AttributeModifier modifier = playerSpeedAttribute.getModifier(ARMOR_SPEED_UUID);
 
-        speedMultiplier = (float) (speedMultiplier * playerSpeedAttribute.getBaseValue() - playerSpeedAttribute.getBaseValue());
-
         // Detect if removing speed modifier
-        boolean isRemove = speedMultiplier < 0;
+        boolean isRemove = speedMultiplier <= 1;
 
         // changing step height on client
         if (isRemote(player)) {
@@ -163,7 +161,7 @@ public class ArmorEvents {
 
                 if (!isRemove) {
                     modifier = (new AttributeModifier(ARMOR_SPEED_UUID, "Armor speed modifier", speedMultiplier,
-                            AttributeModifier.Operation.ADDITION));
+                            AttributeModifier.Operation.MULTIPLY_BASE));
                     playerSpeedAttribute.applyModifier(modifier);
                 }
             }

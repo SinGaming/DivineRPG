@@ -53,6 +53,8 @@ public class EquipmentChangedMessage implements IMessage {
                     if (observer != null) {
                         // request update
                         observer.Update(player);
+                    } else {
+                        FullArmorEventHandler.putNewPLayer(player);
                     }
                 }
                 return;
