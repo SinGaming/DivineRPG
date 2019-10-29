@@ -1,5 +1,6 @@
 package divinerpg;
 
+import divinerpg.config.DivineConfig;
 import divinerpg.registry.MessageRegistry;
 import divinerpg.registry.PoweredArmorRegistry;
 import net.minecraft.block.Blocks;
@@ -7,7 +8,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
@@ -26,6 +29,7 @@ import java.util.stream.Collectors;
 public class DivineRPG
 {
     public static final String MODID = "divinerpg";
+    public static final DivineConfig CONFIG = new DivineConfig();
 
     private static final String protocol_version = Integer.toString(1);
 
@@ -54,6 +58,9 @@ public class DivineRPG
 
         PoweredArmorRegistry.register();
         MessageRegistry.register();
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.getCommonSpec());
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CONFIG.getClientSpec());
     }
 
     private void setup(final FMLCommonSetupEvent event)
