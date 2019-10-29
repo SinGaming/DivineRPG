@@ -6,8 +6,8 @@ import divinerpg.utils.ArmorObserver;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -27,8 +27,7 @@ public class FullArmorEventHandler {
      * Removing leaving player from map
      */
     @SubscribeEvent
-    @OnlyIn(Dist.CLIENT)
-    public static void onPlayerLeave(ClientPlayerNetworkEvent.LoggedOutEvent e) {
+    public static void onPlayerLeave(PlayerEvent.PlayerLoggedOutEvent e) {
         // removing players
         PlayerEntity player = e.getPlayer();
 
@@ -40,8 +39,7 @@ public class FullArmorEventHandler {
      * Addind player to map
      */
     @SubscribeEvent
-    @OnlyIn(Dist.CLIENT)
-    public static void onPLayerLoggedIn(ClientPlayerNetworkEvent.LoggedInEvent event) {
+    public static void onPLayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         PlayerEntity player = event.getPlayer();
         if (player != null) {
             putNewPLayer(player);
@@ -81,7 +79,7 @@ public class FullArmorEventHandler {
     /**
      * Adding new player to list
      */
-    public static void putNewPLayer(PlayerEntity playerEntity) {
+    private static void putNewPLayer(PlayerEntity playerEntity) {
         playerMap.put(playerEntity.getUniqueID(), new ArmorObserver(playerEntity, DivineAPI.getPowerSets()));
     }
 }

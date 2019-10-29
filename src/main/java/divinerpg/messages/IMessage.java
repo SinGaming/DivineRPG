@@ -20,7 +20,7 @@ public interface IMessage {
     void write(PacketBuffer buffer);
 
     /**
-     * Process message
+     * Process message. Don't forget to use 'enqueueWork' method
      */
     void consume(Supplier<NetworkEvent.Context> context);
 }

@@ -51,7 +51,6 @@ public class ArmorObserver {
             return;
 
         if (e.getEntityWorld().isRemote())
-            // TODO "Received invalid discriminator byte 0" on server side. Why!?!?!?!
             DivineRPG.CHANNEL.sendToServer(new EquipmentChangedMessage(e.getUniqueID()));
 
         for (IPoweredArmorSet armorSet : allPossible) {

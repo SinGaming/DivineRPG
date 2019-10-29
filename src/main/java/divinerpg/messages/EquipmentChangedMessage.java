@@ -53,11 +53,9 @@ public class EquipmentChangedMessage implements IMessage {
                     if (observer != null) {
                         // request update
                         observer.Update(player);
-                    } else {
-                        FullArmorEventHandler.putNewPLayer(player);
+                        return;
                     }
                 }
-                return;
             }
 
             throw new RuntimeException("Can't access to player world!");
