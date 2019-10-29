@@ -3,7 +3,6 @@ package divinerpg.blocks.nether;
 import divinerpg.blocks.base.DivineOre;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;

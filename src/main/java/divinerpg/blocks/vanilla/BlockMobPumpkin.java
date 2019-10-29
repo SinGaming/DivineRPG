@@ -1,6 +1,5 @@
 package divinerpg.blocks.vanilla;
 
-import divinerpg.DivineRPG;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;

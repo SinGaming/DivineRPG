@@ -1,7 +1,6 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

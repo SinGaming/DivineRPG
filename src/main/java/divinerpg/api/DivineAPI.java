@@ -22,9 +22,16 @@ public class DivineAPI {
     /**
      * Gets player's arcana ability
      */
-    public static IArcana getPLayerArcana(Entity player) {
-        return new Arcana(player.getCapability(ArcanaProvider.ARCANA_CAPABILITY)
-                .orElse(new Arcana(player)), player);
+    public static IArcana getPlayerArcana(Entity player) {
+        IArcana arcana = player
+                .getCapability(ArcanaProvider.ARCANA_CAPABILITY)
+                .orElse(new Arcana());
+
+        if (arcana instanceof Arcana) {
+            ((Arcana) arcana).withPlayer(player);
+        }
+
+        return arcana;
     }
 
     public static void addPowerHandlers(IPoweredArmorSet... sets) {

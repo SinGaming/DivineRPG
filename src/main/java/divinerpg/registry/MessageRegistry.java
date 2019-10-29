@@ -1,6 +1,7 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
+import divinerpg.messages.ArcanaMessage;
 import divinerpg.messages.EquipmentChangedMessage;
 import divinerpg.messages.IMessage;
 import net.minecraft.network.PacketBuffer;
@@ -17,6 +18,7 @@ public class MessageRegistry {
         int messageID = 0;
 
         registerMessage(messageID++, EquipmentChangedMessage.class);
+        registerMessage(messageID++, ArcanaMessage.class);
     }
 
 

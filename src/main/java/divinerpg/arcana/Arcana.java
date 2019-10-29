@@ -1,9 +1,13 @@
 package divinerpg.arcana;
 
+import divinerpg.DivineRPG;
 import divinerpg.api.arcana.IArcana;
+import divinerpg.messages.ArcanaMessage;
 import divinerpg.utils.time.TimedAction;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -22,27 +26,21 @@ public class Arcana implements IArcana {
      */
     public Arcana() {
         cooldown = new AtomicReference<>(0);
-        arcana = new AtomicReference<>(200.0F);
+        arcana = new AtomicReference<>(0.0F);
         max = new AtomicReference<>(200.0F);
-    }
 
-    public Arcana(Entity player) {
-        this();
-        entity = player;
-        action = new TimedAction(player.getEntityWorld(), getRegenCooldown());
+        action = new TimedAction(getRegenCooldown());
     }
 
     /**
-     * Inner copy
+     * Assotiating entity with capability
+     * @param e - player
      */
-    public Arcana(IArcana source, Entity player) {
-        this(player);
+    public Arcana withPlayer(Entity e) {
+        entity = e;
 
-        if (source != null) {
-            setArcana(source.getArcana(), false);
-            setRegenCooldown(source.getRegenCooldown());
-            setMaxArcana(source.getMaxArcana());
-        }
+        updateTimedAction();
+        return this;
     }
 
 
@@ -66,7 +64,7 @@ public class Arcana implements IArcana {
     public void setRegenCooldown(int ticks) {
         // Can't set cooldown more than 100 ticks
         setNumberAndSendPacket(cooldown, MathHelper.clamp(ticks, 0, 100));
-        action = new TimedAction(entity.getEntityWorld(), getRegenCooldown());
+        updateTimedAction();
     }
 
     @Override
@@ -98,6 +96,10 @@ public class Arcana implements IArcana {
     }
 
 
+    private void updateTimedAction() {
+        action.updateTicksCount(getRegenCooldown());
+    }
+
     private <T> void setNumberAndSendPacket(AtomicReference<T> prev, T val) {
         setNumberAndSendPacket(prev, val, true);
     }
@@ -112,7 +114,13 @@ public class Arcana implements IArcana {
         }
     }
 
+    /**
+     * Sending packet to client
+     */
     private void sendPacket() {
-        // TODO implement
+        if (entity instanceof ServerPlayerEntity) {
+            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) this.entity;
+            DivineRPG.CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new ArcanaMessage(this));
+        }
     }
 }

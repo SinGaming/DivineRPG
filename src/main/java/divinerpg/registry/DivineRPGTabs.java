@@ -1,7 +1,6 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 

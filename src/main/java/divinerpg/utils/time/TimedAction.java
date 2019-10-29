@@ -1,33 +1,43 @@
 package divinerpg.utils.time;
 
-import net.minecraft.world.World;
-
 /**
  * Using server ticks to check for timed actions
  */
 public class TimedAction {
-    private final World world;
-    private final int ticksCount;
+    /**
+     * Contains current ticks count
+     */
+    private int ticksCount;
 
-    // furute ticks count, when action can be executed
-    private long future;
+    /**
+     * Ticks counter
+     */
+    private int completedTicks = 0;
 
-    public TimedAction(World world, int ticks) {
+    public TimedAction(int ticks) {
         this.ticksCount = ticks;
-        this.world = world;
-
-        future = world.getGameTime() + ticksCount;
     }
 
     /**
      * Detect if we can execute timed action
      */
     public boolean tryExecute() {
-        long serverTime = world.getGameTime();
-        if (future > serverTime)
-            return false;
+        completedTicks++;
 
-        future = serverTime + ticksCount;
+        if (completedTicks < ticksCount) {
+            return false;
+        }
+
+        completedTicks = 0;
         return true;
+    }
+
+    /**
+     * Changing ticks count
+     *
+     * @param newTicksCount - new ticks count
+     */
+    public void updateTicksCount(int newTicksCount) {
+        ticksCount = newTicksCount;
     }
 }
