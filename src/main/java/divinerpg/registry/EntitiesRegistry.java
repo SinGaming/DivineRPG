@@ -36,6 +36,8 @@ public class EntitiesRegistry {
     public static void registerRender() {
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
+        // TODO no rendering on client. WHY!?!?!?
+
         // Projectiles
         RenderingRegistry.registerEntityRenderingHandler(CorruptedBulletEntity.class,
                 factory -> new SpriteRenderer<>(factory, itemRenderer));
