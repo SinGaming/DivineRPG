@@ -19,16 +19,22 @@ import net.minecraftforge.registries.ObjectHolder;
 @Mod.EventBusSubscriber(modid = DivineRPG.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(DivineRPG.MODID)
 public class EntitiesRegistry {
+
     @ObjectHolder("corrupted_bullet")
-    public static final EntityType<CorruptedBulletEntity> corruptedBullet = EntityType.Builder.<CorruptedBulletEntity>create(CorruptedBulletEntity::new, EntityClassification.MISC)
-            .size(0.2F, 0.2F).setUpdateInterval(20).setTrackingRange(64).build("corrupted_bullet");
+    public static final EntityType<CorruptedBulletEntity> corruptedBullet = null;
 
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
         IForgeRegistry<EntityType<?>> registry = e.getRegistry();
 
-        registry.register(corruptedBullet.setRegistryName(DivineRPG.MODID, "corrupted_bullet"));
+        registry.register(EntityType.Builder.<CorruptedBulletEntity>create(CorruptedBulletEntity::new, EntityClassification.MISC)
+                .size(0.2F, 0.2F)
+                .setUpdateInterval(1)
+                .setTrackingRange(64)
+                .setCustomClientFactory((type, world) -> corruptedBullet.create(world))
+                .build("corrupted_bullet")
+                .setRegistryName(DivineRPG.MODID, "corrupted_bullet"));
     }
 
 

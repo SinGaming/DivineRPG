@@ -8,10 +8,12 @@ import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
+import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class CorruptedBulletEntity extends ProjectileItemEntity {
 
@@ -46,9 +48,18 @@ public class CorruptedBulletEntity extends ProjectileItemEntity {
         }
     }
 
+    @Override
+    public void tick() {
+        super.tick();
+    }
 
     @Override
     protected Item func_213885_i() {
-        return ItemRegistry.corruptedShards;
+        return ItemRegistry.corruptedBullet;
+    }
+
+    @Override
+    public IPacket<?> createSpawnPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

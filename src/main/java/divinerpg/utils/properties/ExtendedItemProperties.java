@@ -2,9 +2,11 @@ package divinerpg.utils.properties;
 
 import net.minecraft.item.Item;
 
+import java.util.function.Supplier;
+
 public class ExtendedItemProperties extends Item.Properties {
     public IShootEntity spawnBullet;
-    public Item ammo;
+    public Supplier<Item> ammo;
     public int ammoConsumeCount = -1;
     public int cooldown = 0;
     public int bowLikeDuration = 0;
@@ -28,7 +30,7 @@ public class ExtendedItemProperties extends Item.Properties {
      * @param count - consuming ammoConsumeCount at once
      * @return this
      */
-    public ExtendedItemProperties withAmmo(Item ammo, int count) {
+    public ExtendedItemProperties withAmmo(Supplier<Item> ammo, int count) {
         this.ammo = ammo;
         this.ammoConsumeCount = count;
         return this;

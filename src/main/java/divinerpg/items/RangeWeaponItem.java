@@ -7,22 +7,21 @@ import divinerpg.utils.properties.IShootEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class RangeWeaponItem extends ShootableItem {
     private final int duration;
     private final IShootEntity spawnBullet;
     private final int consumeCount;
-    private final Item ammo;
+    private final Supplier<Item> ammo;
     private final int arcana;
     private final int delay;
-    private final String delayKey = "nextShootTime";
     private final UseAction useAction;
 
     public RangeWeaponItem(ExtendedItemProperties properties) {
@@ -65,7 +64,7 @@ public class RangeWeaponItem extends ShootableItem {
         }
 
         // damaging weapon
-        if (weaponStack != null && weaponStack.isDamageable()) {
+        if (weaponStack.isDamageable()) {
             weaponStack.damageItem(1, player, playerEntity -> playerEntity.sendBreakAnimation(hand));
         }
 
@@ -77,8 +76,7 @@ public class RangeWeaponItem extends ShootableItem {
 
         // set cooldown
         if (delay > 0 && !weaponStack.isEmpty()) {
-            CompoundNBT tag = weaponStack.getTag();
-            tag.putLong(delayKey, player.getEntityWorld().getGameTime() + delay);
+            player.getCooldownTracker().setCooldown(this, delay);
         }
     }
 
@@ -102,20 +100,7 @@ public class RangeWeaponItem extends ShootableItem {
         // check ammo
         if (ammo != null) {
             ItemStack ammo = player.findAmmo(weapon);
-            if (ammo.isEmpty() || ammo.getCount() < this.consumeCount)
-                return false;
-        }
-
-        // manage with cooldown
-        if (delay > 0) {
-
-            if (!weapon.hasTag()) {
-                weapon.setTag(new CompoundNBT());
-            }
-
-            CompoundNBT tag = weapon.getTag();
-
-            return tag == null || tag.getLong(delayKey) <= player.getEntityWorld().getGameTime();
+            return !ammo.isEmpty() && ammo.getCount() >= this.consumeCount;
         }
 
         return true;
@@ -162,10 +147,11 @@ public class RangeWeaponItem extends ShootableItem {
 
     @Override
     public Predicate<ItemStack> getInventoryAmmoPredicate() {
-        if (ammo == null)
+        if (ammo == null || ammo.get() == null)
             return o -> true;
 
-        return stack -> ammo.equals(stack.getItem());
+        Item item = ammo.get();
+        return stack -> item == stack.getItem();
     }
 
     @Override

@@ -57,13 +57,13 @@ public class ItemRegistry {
     public static Item terranStone;
     @ObjectHolder("corrupted_cannon")
     public static ShootableItem corruptedCannon;
+    @ObjectHolder("corrupted_bullet")
+    public static Item corruptedBullet;
 
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {
         IForgeRegistry<Item> registry = event.getRegistry();
         Item.Properties itemTabProperty = new Item.Properties().group(DivineRPGTabs.DivineItems);
-
-        corruptedShards = new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "corrupted_shards");
 
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "realmite_ingot"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "arlemite_ingot"));
@@ -71,7 +71,8 @@ public class ItemRegistry {
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "netherite_ingot"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "bloodgem"));
 
-        registry.register(corruptedShards);
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "corrupted_shards"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "corrupted_bullet"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "divine_shards"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "ender_shards"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "ice_shards"));
@@ -87,7 +88,7 @@ public class ItemRegistry {
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "molten_stone"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "terran_stone"));
         registry.register(new RangeWeaponItem((ExtendedItemProperties) new ExtendedItemProperties()
-                .withAmmo(corruptedShards, 1).withDelay(400)
+                .withAmmo(() -> corruptedBullet, 1).withDelay(15)
                 .withBulletOnLeftClick((world, player, power) -> SpawnHelper.singleSpawn(world, player, new CorruptedBulletEntity(world, player)))
                 .group(DivineRPGTabs.DivineItems)).setRegistryName(DivineRPG.MODID, "corrupted_cannon"));
     }
