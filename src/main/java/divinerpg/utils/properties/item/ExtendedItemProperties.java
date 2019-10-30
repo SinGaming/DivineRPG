@@ -1,4 +1,4 @@
-package divinerpg.utils.properties;
+package divinerpg.utils.properties.item;
 
 import net.minecraft.item.Item;
 

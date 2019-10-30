@@ -2,8 +2,8 @@ package divinerpg.items;
 
 import divinerpg.api.DivineAPI;
 import divinerpg.api.arcana.IArcana;
-import divinerpg.utils.properties.ExtendedItemProperties;
-import divinerpg.utils.properties.IShootEntity;
+import divinerpg.utils.properties.item.ExtendedItemProperties;
+import divinerpg.utils.properties.item.IShootEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
