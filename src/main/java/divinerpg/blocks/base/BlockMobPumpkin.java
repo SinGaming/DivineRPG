@@ -1,4 +1,4 @@
-package divinerpg.blocks.vanilla;
+package divinerpg.blocks.base;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

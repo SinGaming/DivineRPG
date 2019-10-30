@@ -27,10 +27,10 @@ public class ArcanaRender {
         int y = e.getWindow().getScaledHeight() - DivineRPG.CONFIG.arcanaBar.height.get();
         int x = e.getWindow().getScaledWidth() - DivineRPG.CONFIG.arcanaBar.width.get();
 
-        mc.getTextureManager().bindTexture(bar);
-
-        GL11.glEnable(GL11.GL_BLEND);
+        // TODO arcana renders over heart bar
         // use transparent background
+        GL11.glEnable(GL11.GL_BLEND);
+        mc.getTextureManager().bindTexture(bar);
         GuiUtils.drawTexturedModalRect(x, y, 0, 0, 100, 9, 0);
         GuiUtils.drawTexturedModalRect(x, y, 0, 9, percentage, 9, 0);
     }

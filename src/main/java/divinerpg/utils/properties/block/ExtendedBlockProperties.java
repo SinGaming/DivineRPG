@@ -2,11 +2,15 @@ package divinerpg.utils.properties.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraftforge.common.PlantType;
+import net.minecraftforge.common.ToolType;
 
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class ExtendedBlockProperties {
@@ -15,6 +19,18 @@ public class ExtendedBlockProperties {
     public PlantType type = PlantType.Plains;
     public VoxelShape shape = VoxelShapes.fullCube();
     public Predicate<Block> canSpreadGrass = block -> block == Blocks.DIRT;
+    public IExpDrop drop;
+    public Consumer<Entity> onCollision;
+
+    public static ExtendedBlockProperties createForOre(float hard, float resist, int harvestLevel, IExpDrop drop) {
+        return createForOre(hard, resist, harvestLevel).withCustomExpDrop(drop);
+    }
+
+    public static ExtendedBlockProperties createForOre(float hard, float resist, int harvestLevel) {
+        return new ExtendedBlockProperties(Block.Properties.create(Material.ROCK)
+                .harvestTool(ToolType.PICKAXE).hardnessAndResistance(hard, resist)
+                .harvestLevel(harvestLevel));
+    }
 
     public ExtendedBlockProperties(Block.Properties props) {
         this.props = props;
@@ -78,6 +94,16 @@ public class ExtendedBlockProperties {
             props.tickRandomly();
         }
         this.canSpreadGrass = canSpreadGrass;
+        return this;
+    }
+
+    public ExtendedBlockProperties withCustomExpDrop(IExpDrop drop) {
+        this.drop = drop;
+        return this;
+    }
+
+    public ExtendedBlockProperties onCollision(Consumer<Entity> onCollision) {
+        this.onCollision = onCollision;
         return this;
     }
 }

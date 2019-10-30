@@ -1,13 +1,9 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
-import divinerpg.blocks.base.BeaconBase;
-import divinerpg.blocks.base.DivineBushBlock;
-import divinerpg.blocks.base.DivineGrassBlock;
-import divinerpg.blocks.base.DivineOre;
-import divinerpg.blocks.nether.NetheriteOre;
-import divinerpg.blocks.vanilla.BlockMobPumpkin;
+import divinerpg.blocks.base.*;
 import divinerpg.utils.properties.block.ExtendedBlockProperties;
+import divinerpg.utils.properties.block.IExpDrop;
 import net.minecraft.block.Block;
 import net.minecraft.block.BushBlock;
 import net.minecraft.block.GrassBlock;
@@ -16,9 +12,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.PlantType;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -132,17 +129,24 @@ public class BlockRegistry {
     public static void registerBlocks(final RegistryEvent.Register<Block> event) {
         IForgeRegistry<Block> registry = event.getRegistry();
 
-        registry.register(new DivineOre(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.5F, 50F).harvestLevel(IRON).harvestTool(ToolType.PICKAXE), true).setRegistryName(DivineRPG.MODID, "realmite_ore"));
-        registry.register(new DivineOre(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.5F, 50F).harvestLevel(DIAMOND).harvestTool(ToolType.PICKAXE), true).setRegistryName(DivineRPG.MODID, "arlemite_ore"));
-        registry.register(new DivineOre(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 50F).harvestLevel(DIAMOND).harvestTool(ToolType.PICKAXE), true).setRegistryName(DivineRPG.MODID, "rupee_ore"));
-        registry.register(new NetheriteOre(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 50F).harvestLevel(DIAMOND).harvestTool(ToolType.PICKAXE), false).setRegistryName(DivineRPG.MODID, "netherite_ore"));
-        registry.register(new DivineOre(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 50F).harvestLevel(DIAMOND).harvestTool(ToolType.PICKAXE), false).setRegistryName(DivineRPG.MODID, "bloodgem_ore"));
+        IExpDrop regularDrop = (r, f, s) -> MathHelper.nextInt(r, 2, 6);
 
-        registry.register(new BeaconBase(Block.Properties.create(Material.ROCK).hardnessAndResistance(4.0F, 100F).harvestLevel(IRON).harvestTool(ToolType.PICKAXE)).setRegistryName(DivineRPG.MODID, "realmite_block"));
-        registry.register(new BeaconBase(Block.Properties.create(Material.ROCK).hardnessAndResistance(5.0F, 100F).harvestLevel(DIAMOND).harvestTool(ToolType.PICKAXE)).setRegistryName(DivineRPG.MODID, "arlemite_block"));
-        registry.register(new BeaconBase(Block.Properties.create(Material.ROCK).hardnessAndResistance(5.0F, 100F).harvestLevel(DIAMOND).harvestTool(ToolType.PICKAXE)).setRegistryName(DivineRPG.MODID, "rupee_block"));
-        registry.register(new BeaconBase(Block.Properties.create(Material.ROCK).hardnessAndResistance(5.0F, 100F).harvestLevel(DIAMOND).harvestTool(ToolType.PICKAXE)).setRegistryName(DivineRPG.MODID, "netherite_block"));
-        registry.register(new BeaconBase(Block.Properties.create(Material.ROCK).hardnessAndResistance(5.0F, 100F).harvestLevel(DIAMOND).harvestTool(ToolType.PICKAXE)).setRegistryName(DivineRPG.MODID, "bloodgem_block"));
+        registry.register(new DivineOre(ExtendedBlockProperties.createForOre(2.5F, 50, IRON, regularDrop))
+                .setRegistryName(DivineRPG.MODID, "realmite_ore"));
+        registry.register(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
+                .setRegistryName(DivineRPG.MODID, "arlemite_ore"));
+        registry.register(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
+                .setRegistryName(DivineRPG.MODID, "rupee_ore"));
+        registry.register(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND).onCollision(e -> e.attackEntityFrom(DamageSource.IN_FIRE, 1)))
+                .setRegistryName(DivineRPG.MODID, "netherite_ore"));
+        registry.register(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
+                .setRegistryName(DivineRPG.MODID, "bloodgem_ore"));
+
+        registry.register(new BeaconBase(ExtendedBlockProperties.createForOre(4, 100, IRON, regularDrop).props).setRegistryName(DivineRPG.MODID, "realmite_block"));
+        registry.register(new BeaconBase(ExtendedBlockProperties.createForOre(5, 100, DIAMOND, regularDrop).props).setRegistryName(DivineRPG.MODID, "arlemite_block"));
+        registry.register(new BeaconBase(ExtendedBlockProperties.createForOre(5, 100, DIAMOND, regularDrop).props).setRegistryName(DivineRPG.MODID, "rupee_block"));
+        registry.register(new BeaconBase(ExtendedBlockProperties.createForOre(5, 100, DIAMOND, regularDrop).props).setRegistryName(DivineRPG.MODID, "netherite_block"));
+        registry.register(new BeaconBase(ExtendedBlockProperties.createForOre(5, 100, DIAMOND, regularDrop).props).setRegistryName(DivineRPG.MODID, "bloodgem_block"));
 
         registry.register(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 10F)).setRegistryName(DivineRPG.MODID, "divine_rock"));
 
