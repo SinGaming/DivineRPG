@@ -40,6 +40,7 @@ public class DivineBushBlock extends BushBlock {
         return shape;
     }
 
+
     @Override
     public PlantType getPlantType(IBlockReader world, BlockPos pos) {
         return type;

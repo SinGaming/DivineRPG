@@ -3,6 +3,7 @@ package divinerpg.registry;
 import divinerpg.DivineRPG;
 import divinerpg.blocks.base.BeaconBase;
 import divinerpg.blocks.base.DivineBushBlock;
+import divinerpg.blocks.base.DivineGrassBlock;
 import divinerpg.blocks.base.DivineOre;
 import divinerpg.blocks.nether.NetheriteOre;
 import divinerpg.blocks.vanilla.BlockMobPumpkin;
@@ -115,6 +116,10 @@ public class BlockRegistry {
     public static Block edenDirt;
     @ObjectHolder("eden_brush")
     public static BushBlock edenBrush;
+    @ObjectHolder("sun_blossom")
+    public static BushBlock sunBlossom;
+    @ObjectHolder("sunbloom")
+    public static BushBlock sunbloom;
 
     private static int IRON = 2, DIAMOND = 3;
 
@@ -170,13 +175,19 @@ public class BlockRegistry {
         registry.register(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)).setRegistryName(DivineRPG.MODID, "red_vane"));
         registry.register(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)).setRegistryName(DivineRPG.MODID, "yellow_vane"));
 
-        registry.register((edenGrass = (GrassBlock) new GrassBlock(Block.Properties.create(Material.ORGANIC, MaterialColor.DIRT).tickRandomly()
-                .hardnessAndResistance(0.6F).sound(SoundType.PLANT)).setRegistryName(DivineRPG.MODID, "eden_grass")));
+        registry.register((edenGrass = (GrassBlock) new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.DIRT))
+                .withSpreading(block -> block == edenDirt)).setRegistryName(DivineRPG.MODID, "eden_grass")));
         registry.register(new Block(Block.Properties.create(Material.EARTH, MaterialColor.YELLOW).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lootFrom(edenGrass))
                 .setRegistryName(DivineRPG.MODID, "eden_dirt"));
-        registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.YELLOW))
+        registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.YELLOW))
                 .withGround((state, world, pos) -> state.getBlock() == edenGrass).withType(EDEN_PLANT).withSize(8, 16))
                 .setRegistryName(DivineRPG.MODID, "eden_brush"));
+        registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.YELLOW))
+                .withGround((state, world, pos) -> state.getBlock() == edenGrass).withType(EDEN_PLANT).withSize(8, 16))
+                .setRegistryName(DivineRPG.MODID, "sun_blossom"));
+        registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.YELLOW))
+                .withGround((state, world, pos) -> state.getBlock() == edenGrass).withType(EDEN_PLANT).withSize(16, 8))
+                .setRegistryName(DivineRPG.MODID, "sunbloom"));
     }
 
     @SubscribeEvent
@@ -229,6 +240,8 @@ public class BlockRegistry {
         registry.register(new BlockItem(BlockRegistry.edenGrass, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_grass"));
         registry.register(new BlockItem(BlockRegistry.edenDirt, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_dirt"));
         registry.register(new BlockItem(BlockRegistry.edenBrush, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_brush"));
+        registry.register(new BlockItem(BlockRegistry.sunBlossom, blockTabProperty).setRegistryName(DivineRPG.MODID, "sun_blossom"));
+        registry.register(new BlockItem(BlockRegistry.sunbloom, blockTabProperty).setRegistryName(DivineRPG.MODID, "sunbloom"));
     }
 
     //solely for reference

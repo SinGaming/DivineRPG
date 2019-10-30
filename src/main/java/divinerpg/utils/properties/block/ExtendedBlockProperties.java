@@ -1,16 +1,20 @@
 package divinerpg.utils.properties.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraftforge.common.PlantType;
+
+import java.util.function.Predicate;
 
 public class ExtendedBlockProperties {
     public final Block.Properties props;
     public IPlacementCheck validGround;
     public PlantType type = PlantType.Plains;
     public VoxelShape shape = VoxelShapes.fullCube();
+    public Predicate<Block> canSpreadGrass = block -> block == Blocks.DIRT;
 
     public ExtendedBlockProperties(Block.Properties props) {
         this.props = props;
@@ -66,6 +70,14 @@ public class ExtendedBlockProperties {
 
         shape = Block.makeCuboidShape(leftCorner, 0, leftCorner, rightCorner, height, rightCorner);
 
+        return this;
+    }
+
+    public ExtendedBlockProperties withSpreading(Predicate<Block> canSpreadGrass) {
+        if (props != null) {
+            props.tickRandomly();
+        }
+        this.canSpreadGrass = canSpreadGrass;
         return this;
     }
 }
