@@ -4,6 +4,7 @@ import divinerpg.api.arcana.IArcana;
 import divinerpg.arcana.Arcana;
 import divinerpg.arcana.ArcanaStorage;
 import divinerpg.config.DivineConfig;
+import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.MessageRegistry;
 import divinerpg.registry.PoweredArmorRegistry;
 import net.minecraft.block.Blocks;
@@ -79,6 +80,8 @@ public class DivineRPG
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
         LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
+
+        EntitiesRegistry.registerRender();
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

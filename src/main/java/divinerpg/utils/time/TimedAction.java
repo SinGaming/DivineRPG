@@ -5,7 +5,7 @@ package divinerpg.utils.time;
  */
 public class TimedAction {
     /**
-     * Contains current ticks count
+     * Contains current ticks ammoConsumeCount
      */
     private int ticksCount;
 
@@ -33,9 +33,9 @@ public class TimedAction {
     }
 
     /**
-     * Changing ticks count
+     * Changing ticks ammoConsumeCount
      *
-     * @param newTicksCount - new ticks count
+     * @param newTicksCount - new ticks ammoConsumeCount
      */
     public void updateTicksCount(int newTicksCount) {
         ticksCount = newTicksCount;

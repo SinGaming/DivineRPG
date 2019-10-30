@@ -3,11 +3,11 @@ package divinerpg.utils.properties;
 import net.minecraft.item.Item;
 
 public class ExtendedItemProperties extends Item.Properties {
-    public ISpawnEntity spawnBullet;
+    public IShootEntity spawnBullet;
     public Item ammo;
-    public int count = -1;
-    public int delay = 0;
-    public int useDuration = 0;
+    public int ammoConsumeCount = -1;
+    public int cooldown = 0;
+    public int bowLikeDuration = 0;
     public int arcana = 0;
 
     /**
@@ -16,7 +16,7 @@ public class ExtendedItemProperties extends Item.Properties {
      * @param spawnBullet - function for creating bullet entity
      * @return this
      */
-    public ExtendedItemProperties withBulletOnLeftClick(ISpawnEntity spawnBullet) {
+    public ExtendedItemProperties withBulletOnLeftClick(IShootEntity spawnBullet) {
         this.spawnBullet = spawnBullet;
         return this;
     }
@@ -25,20 +25,20 @@ public class ExtendedItemProperties extends Item.Properties {
      * Consuming some amount of ammo
      *
      * @param ammo  - ammo item
-     * @param count - consuming count at once
+     * @param count - consuming ammoConsumeCount at once
      * @return this
      */
     public ExtendedItemProperties withAmmo(Item ammo, int count) {
         this.ammo = ammo;
-        this.count = count;
+        this.ammoConsumeCount = count;
         return this;
     }
 
     /**
-     * Set delay between shoots
+     * Set cooldown between shoots
      */
     public ExtendedItemProperties withDelay(int ticks) {
-        this.delay = ticks;
+        this.cooldown = ticks;
         return this;
     }
 
@@ -46,7 +46,7 @@ public class ExtendedItemProperties extends Item.Properties {
      * Set max duration like for bow
      */
     public ExtendedItemProperties withUseDuration(int duration) {
-        this.useDuration = duration;
+        this.bowLikeDuration = duration;
         return this;
     }
 

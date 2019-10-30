@@ -3,10 +3,9 @@ package divinerpg.items;
 import divinerpg.api.DivineAPI;
 import divinerpg.api.arcana.IArcana;
 import divinerpg.utils.properties.ExtendedItemProperties;
-import divinerpg.utils.properties.ISpawnEntity;
+import divinerpg.utils.properties.IShootEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
@@ -16,9 +15,9 @@ import net.minecraft.world.World;
 
 import java.util.function.Predicate;
 
-public class RangedWeaponBased extends ShootableItem {
+public class RangeWeaponItem extends ShootableItem {
     private final int duration;
-    private final ISpawnEntity spawnBullet;
+    private final IShootEntity spawnBullet;
     private final int consumeCount;
     private final Item ammo;
     private final int arcana;
@@ -26,15 +25,15 @@ public class RangedWeaponBased extends ShootableItem {
     private final String delayKey = "nextShootTime";
     private final UseAction useAction;
 
-    public RangedWeaponBased(ExtendedItemProperties properties) {
+    public RangeWeaponItem(ExtendedItemProperties properties) {
         super(properties.maxStackSize(1));
 
-        duration = Math.max(0, properties.useDuration);
+        duration = Math.max(0, properties.bowLikeDuration);
         spawnBullet = properties.spawnBullet;
-        consumeCount = properties.count;
+        consumeCount = properties.ammoConsumeCount;
         ammo = properties.ammo;
         arcana = properties.arcana;
-        delay = properties.delay;
+        delay = properties.cooldown;
         useAction = duration > 0 ? UseAction.BOW : UseAction.NONE;
     }
 
@@ -46,15 +45,12 @@ public class RangedWeaponBased extends ShootableItem {
      * @param ammoStack   - stack with ammo
      * @param weaponStack - stack with weapon
      * @param hand        - main hand
-     * @param speed       - usually 1.5F
      * @param percentage  - loaded power in percentage
      */
-    private void performShoot(World world, PlayerEntity player, ItemStack ammoStack, ItemStack weaponStack, Hand hand, float speed, int percentage) {
+    private void performShoot(World world, PlayerEntity player, ItemStack ammoStack, ItemStack weaponStack, Hand hand, int percentage) {
         // spawn entity only on server side
         if (spawnBullet != null && !world.isRemote) {
-            ThrowableEntity bullet = spawnBullet.createEntity(world, player, percentage);
-            bullet.shoot(player, player.rotationPitch, player.rotationYaw, 0, speed, 1);
-            world.addEntity(bullet);
+            spawnBullet.shoot(world, player, percentage);
         }
 
         if (player.isCreative())
@@ -79,7 +75,7 @@ public class RangedWeaponBased extends ShootableItem {
             arcana.consume(this.arcana);
         }
 
-        // set delay
+        // set cooldown
         if (delay > 0 && !weaponStack.isEmpty()) {
             CompoundNBT tag = weaponStack.getTag();
             tag.putLong(delayKey, player.getEntityWorld().getGameTime() + delay);
@@ -110,7 +106,7 @@ public class RangedWeaponBased extends ShootableItem {
                 return false;
         }
 
-        // manage with delay
+        // manage with cooldown
         if (delay > 0) {
 
             if (!weapon.hasTag()) {
@@ -155,7 +151,7 @@ public class RangedWeaponBased extends ShootableItem {
 
             if (result.getType() != ActionResultType.FAIL) {
                 if (canShoot(playerIn, result.getResult())) {
-                    performShoot(worldIn, playerIn, playerIn.findAmmo(weaponStack), weaponStack, handIn, 1.5F, 100);
+                    performShoot(worldIn, playerIn, playerIn.findAmmo(weaponStack), weaponStack, handIn, 100);
                     result = ActionResult.newResult(ActionResultType.SUCCESS, weaponStack);
                 }
             }
@@ -181,7 +177,7 @@ public class RangedWeaponBased extends ShootableItem {
         float speed = BowItem.getArrowVelocity(this.getUseDuration(stack) - timeLeft);
         if (speed > 0.1 && canShoot(player, stack)) {
             float percantage = (float) timeLeft / getUseDuration(stack) * 100;
-            performShoot(worldIn, player, player.findAmmo(stack), stack, Hand.MAIN_HAND, speed, (int) percantage);
+            performShoot(worldIn, player, player.findAmmo(stack), stack, Hand.MAIN_HAND, (int) percantage);
         }
     }
 }

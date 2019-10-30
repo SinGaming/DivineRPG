@@ -1,8 +1,10 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
-import divinerpg.items.RangedWeaponBased;
+import divinerpg.entities.projectiles.CorruptedBulletEntity;
+import divinerpg.items.RangeWeaponItem;
 import divinerpg.utils.properties.ExtendedItemProperties;
+import divinerpg.utils.properties.SpawnHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ShootableItem;
 import net.minecraftforge.event.RegistryEvent;
@@ -84,8 +86,9 @@ public class ItemRegistry {
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "jungle_stone"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "molten_stone"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "terran_stone"));
-        registry.register(new RangedWeaponBased((ExtendedItemProperties) new ExtendedItemProperties()
-                .withAmmo(corruptedShards, 1).withDelay(15).useArcana(5).withUseDuration(64000)
+        registry.register(new RangeWeaponItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withAmmo(corruptedShards, 1).withDelay(400)
+                .withBulletOnLeftClick((world, player, power) -> SpawnHelper.singleSpawn(world, player, new CorruptedBulletEntity(world, player)))
                 .group(DivineRPGTabs.DivineItems)).setRegistryName(DivineRPG.MODID, "corrupted_cannon"));
     }
 }
