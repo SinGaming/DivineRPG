@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=north": {
       "model": "divinerpg:block/zombie_pumpkin"
+    },
+    "facing=south": {
+      "model": "divinerpg:block/zombie_pumpkin",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "divinerpg:block/zombie_pumpkin",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "divinerpg:block/zombie_pumpkin",
+      "y": 90
     }
   }
 }

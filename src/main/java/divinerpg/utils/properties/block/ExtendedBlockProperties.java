@@ -2,7 +2,9 @@ package divinerpg.utils.properties.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -30,6 +32,20 @@ public class ExtendedBlockProperties {
         return new ExtendedBlockProperties(Block.Properties.create(Material.ROCK)
                 .harvestTool(ToolType.PICKAXE).hardnessAndResistance(hard, resist)
                 .harvestLevel(harvestLevel));
+    }
+
+    public static ExtendedBlockProperties createForSapling(MaterialColor color) {
+        ExtendedBlockProperties result = new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, color)
+                .doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.PLANT));
+
+        // default size
+        result.shape = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D);
+
+        return result;
+    }
+
+    public static ExtendedBlockProperties createForLeaves(MaterialColor color) {
+        return new ExtendedBlockProperties(Block.Properties.create(Material.LEAVES, color).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT));
     }
 
     public ExtendedBlockProperties(Block.Properties props) {

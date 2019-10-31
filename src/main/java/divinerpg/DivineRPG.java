@@ -5,6 +5,7 @@ import divinerpg.arcana.Arcana;
 import divinerpg.arcana.ArcanaStorage;
 import divinerpg.config.DivineConfig;
 import divinerpg.registry.EntitiesRegistry;
+import divinerpg.registry.FeatureRegistry;
 import divinerpg.registry.MessageRegistry;
 import divinerpg.registry.PoweredArmorRegistry;
 import net.minecraft.block.Blocks;
@@ -66,6 +67,8 @@ public class DivineRPG
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.getCommonSpec());
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CONFIG.getClientSpec());
+
+        FeatureRegistry.registerFeatures();
     }
 
     private void setup(final FMLCommonSetupEvent event)
@@ -75,6 +78,7 @@ public class DivineRPG
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
 
         CapabilityManager.INSTANCE.register(IArcana.class, new ArcanaStorage(), Arcana::new);
+        FeatureRegistry.registerWorldGen();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

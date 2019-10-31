@@ -35,11 +35,6 @@ public class DivineBushBlock extends BushBlock {
         return shape;
     }
 
-    @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return shape;
-    }
-
 
     @Override
     public PlantType getPlantType(IBlockReader world, BlockPos pos) {

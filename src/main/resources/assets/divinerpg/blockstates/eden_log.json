@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "divinerpg:block/eden_log"
+    },
+    "axis=z": {
+      "model": "divinerpg:block/eden_log",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "divinerpg:block/eden_log",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

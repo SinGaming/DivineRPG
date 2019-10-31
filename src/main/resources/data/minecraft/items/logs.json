@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "divinerpg:eden_log",
+    "divinerpg:apalacia_log",
+    "divinerpg:wildwood_log",
+    "divinerpg:skythern_log",
+    "divinerpg:mortum_log"
+  ]
+}
