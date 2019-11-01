@@ -126,6 +126,8 @@ public class BlockRegistry {
     public static SaplingBlock edenSapling;
     @ObjectHolder("twilight_stone")
     public static Block twilightStone;
+    @ObjectHolder("eden_ore")
+    public static Block edenOre;
 
 
     private static int IRON = 2, DIAMOND = 3;
@@ -213,6 +215,8 @@ public class BlockRegistry {
         registry.register(new DivineSaplingBlock(new DivineTree(new DivineTreeFeature(true, 7,
                 () -> edenSapling, () -> edenLog, () -> edenLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.YELLOW).withType(EDEN_PLANT))
                 .setRegistryName(DivineRPG.MODID, "eden_sapling"));
+        registry.register(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
+                .setRegistryName(DivineRPG.MODID, "eden_ore"));
 
         registry.register(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(6))
                 .setRegistryName(DivineRPG.MODID, "twilight_stone"));
@@ -275,6 +279,7 @@ public class BlockRegistry {
         registry.register(new BlockItem(BlockRegistry.edenPlanks, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_planks"));
         registry.register(new BlockItem(BlockRegistry.edenSapling, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_sapling"));
         registry.register(new BlockItem(BlockRegistry.twilightStone, blockTabProperty).setRegistryName(DivineRPG.MODID, "twilight_stone"));
+        registry.register(new BlockItem(BlockRegistry.edenOre, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_ore"));
     }
 
     //solely for reference

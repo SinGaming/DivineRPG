@@ -2,8 +2,10 @@ package divinerpg.registry;
 
 import divinerpg.DivineRPG;
 import divinerpg.world.feature.DivineFlowersFeature;
+import divinerpg.world.feature.DivineOreFeature;
 import divinerpg.world.feature.DivineTreeFeature;
 import divinerpg.world.feature.IslandFeature;
+import divinerpg.world.feature.config.DivineOreFeatureConfig;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
@@ -11,7 +13,8 @@ import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.placement.ChanceConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeManager;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -23,6 +26,8 @@ public class FeatureRegistry {
     public static IslandFeature twilight_stone_islands = null;
     @ObjectHolder("eden_flowers_feature")
     public static DivineFlowersFeature eden_flowers_feature = null;
+    @ObjectHolder("ore_feature")
+    public static DivineOreFeature ORE;
 
     /**
      * Injecting features to worldgen
@@ -44,8 +49,9 @@ public class FeatureRegistry {
     /**
      * Registering features
      */
-    public static void registerFeatures() {
-        IForgeRegistry<Feature<?>> registry = ForgeRegistries.FEATURES;
+    @SubscribeEvent
+    public static void registerFeatures(RegistryEvent.Register<Feature<?>> e) {
+        IForgeRegistry<Feature<?>> registry = e.getRegistry();
 
         registry.register(new DivineTreeFeature(false, 7, () -> BlockRegistry.edenSapling,
                 () -> BlockRegistry.edenLog, () -> BlockRegistry.edenLeaves).setRegistryName(DivineRPG.MODID, "eden_tree_feature"));
@@ -65,5 +71,6 @@ public class FeatureRegistry {
 
             return BlockRegistry.edenBrush.getDefaultState();
         })).setRegistryName(DivineRPG.MODID, "eden_flowers_feature"));
+        registry.register(new DivineOreFeature(DivineOreFeatureConfig::deserialize).setRegistryName(DivineRPG.MODID, "ore_feature"));
     }
 }
