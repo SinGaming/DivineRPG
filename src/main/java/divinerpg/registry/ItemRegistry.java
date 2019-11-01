@@ -3,6 +3,7 @@ package divinerpg.registry;
 import divinerpg.DivineRPG;
 import divinerpg.entities.projectiles.CorruptedBulletEntity;
 import divinerpg.items.RangeWeaponItem;
+import divinerpg.items.vanilla.TwilightClock;
 import divinerpg.utils.properties.item.ExtendedItemProperties;
 import divinerpg.utils.properties.item.SpawnHelper;
 import net.minecraft.item.Item;
@@ -59,6 +60,8 @@ public class ItemRegistry {
     public static ShootableItem corruptedCannon;
     @ObjectHolder("corrupted_bullet")
     public static Item corruptedBullet;
+    @ObjectHolder("twilight_clock")
+    public static TwilightClock twilightClock;
 
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {
@@ -91,5 +94,6 @@ public class ItemRegistry {
                 .withAmmo(() -> corruptedBullet, 1).withDelay(15)
                 .withBulletOnLeftClick((world, player, power) -> SpawnHelper.singleSpawn(world, player, new CorruptedBulletEntity(world, player)))
                 .group(DivineRPGTabs.DivineItems)).setRegistryName(DivineRPG.MODID, "corrupted_cannon"));
+        registry.register(new TwilightClock(itemTabProperty).setRegistryName(DivineRPG.MODID, "twilight_clock"));
     }
 }
