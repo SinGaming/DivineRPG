@@ -2,6 +2,7 @@ package divinerpg.registry;
 
 import divinerpg.DivineRPG;
 import divinerpg.blocks.base.*;
+import divinerpg.blocks.twilight.DivineVerticalPortal;
 import divinerpg.utils.properties.block.ExtendedBlockProperties;
 import divinerpg.utils.properties.block.IExpDrop;
 import divinerpg.world.DivineTree;
@@ -11,6 +12,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
@@ -128,6 +130,8 @@ public class BlockRegistry {
     public static Block twilightStone;
     @ObjectHolder("eden_ore")
     public static Block edenOre;
+    @ObjectHolder("eden_portal")
+    public static DivineVerticalPortal edenPortal;
 
 
     private static int IRON = 2, DIAMOND = 3;
@@ -198,13 +202,13 @@ public class BlockRegistry {
         registry.register(new Block(Block.Properties.create(Material.EARTH, MaterialColor.YELLOW).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lootFrom(edenGrass))
                 .setRegistryName(DivineRPG.MODID, "eden_dirt"));
         registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.YELLOW))
-                .withGround((state, world, pos) -> state.getBlock() == edenGrass).withType(EDEN_PLANT).withSize(8, 16))
+                .withType(EDEN_PLANT).withSize(8, 16))
                 .setRegistryName(DivineRPG.MODID, "eden_brush"));
         registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.YELLOW))
-                .withGround((state, world, pos) -> state.getBlock() == edenGrass).withType(EDEN_PLANT).withSize(8, 16))
+                .withType(EDEN_PLANT).withSize(8, 16))
                 .setRegistryName(DivineRPG.MODID, "sun_blossom"));
         registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.YELLOW))
-                .withGround((state, world, pos) -> state.getBlock() == edenGrass).withType(EDEN_PLANT).withSize(16, 8))
+                .withType(EDEN_PLANT).withSize(16, 8))
                 .setRegistryName(DivineRPG.MODID, "sunbloom"));
         registry.register(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.YELLOW).props)
                 .setRegistryName(DivineRPG.MODID, "eden_leaves"));
@@ -217,9 +221,14 @@ public class BlockRegistry {
                 .setRegistryName(DivineRPG.MODID, "eden_sapling"));
         registry.register(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
                 .setRegistryName(DivineRPG.MODID, "eden_ore"));
-
         registry.register(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(6))
                 .setRegistryName(DivineRPG.MODID, "twilight_stone"));
+        registry.register(new DivineVerticalPortal(
+                Block.Properties.create(Material.PORTAL, MaterialColor.YELLOW),
+                DimensionRegistry.EDEN,
+                // TODO right particle type
+                ParticleTypes.FIREWORK).setRegistryName(DivineRPG.MODID, "eden_portal"));
+
     }
 
     @SubscribeEvent
@@ -280,6 +289,7 @@ public class BlockRegistry {
         registry.register(new BlockItem(BlockRegistry.edenSapling, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_sapling"));
         registry.register(new BlockItem(BlockRegistry.twilightStone, blockTabProperty).setRegistryName(DivineRPG.MODID, "twilight_stone"));
         registry.register(new BlockItem(BlockRegistry.edenOre, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_ore"));
+        registry.register(new BlockItem(BlockRegistry.edenPortal, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_portal"));
     }
 
     //solely for reference

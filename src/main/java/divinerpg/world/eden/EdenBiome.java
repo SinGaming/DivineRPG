@@ -10,7 +10,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.placement.FrequencyConfig;
-import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
@@ -35,16 +34,13 @@ public class EdenBiome extends Biome {
                 .downfall(1)
         );
 
-        // Base gen
-        this.addFeature(GenerationStage.Decoration.RAW_GENERATION,
-                createDecoratedFeature(FeatureRegistry.twilight_stone_islands,
-                        IFeatureConfig.NO_FEATURE_CONFIG,
-                        Placement.END_ISLAND,
-                        IPlacementConfig.NO_PLACEMENT_CONFIG));
-
         // Flowers gen
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, createDecoratedFeature(FeatureRegistry.eden_flowers_feature,
                 IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(100)));
+
+        // Tree gen
+        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, createDecoratedFeature(FeatureRegistry.eden_tree_feature,
+                IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP, new FrequencyConfig(8)));
 
         // ore gen
         addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(FeatureRegistry.ORE,

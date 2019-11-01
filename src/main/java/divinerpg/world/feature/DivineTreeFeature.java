@@ -1,13 +1,14 @@
 package divinerpg.world.feature;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.VineBlock;
+import net.minecraft.block.*;
 import net.minecraft.state.BooleanProperty;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.IWorldWriter;
+import net.minecraft.world.gen.IWorldGenerationBaseReader;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -27,13 +28,13 @@ public class DivineTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     private final Supplier<Block> leaf;
     private final Supplier<Block> cocoa;
     private final Supplier<Block> vien;
-    private Supplier<IPlantable> saplingFunc;
+    private Supplier<SaplingBlock> saplingFunc;
 
-    public DivineTreeFeature(boolean notifyClient, int minHeight, Supplier<IPlantable> sapling, Supplier<Block> trunkState, Supplier<Block> leafState) {
+    public DivineTreeFeature(boolean notifyClient, int minHeight, Supplier<SaplingBlock> sapling, Supplier<Block> trunkState, Supplier<Block> leafState) {
         this(notifyClient, minHeight, sapling, trunkState, leafState, null, null);
     }
 
-    public DivineTreeFeature(boolean notifyClient, int minHeight, Supplier<IPlantable> sapling, Supplier<Block> trunkState, Supplier<Block> leafState,
+    public DivineTreeFeature(boolean notifyClient, int minHeight, Supplier<SaplingBlock> sapling, Supplier<Block> trunkState, Supplier<Block> leafState,
                              Supplier<Block> cocoa, Supplier<Block> vien) {
         super(NoFeatureConfig::deserialize, notifyClient);
         this.minTreeHeight = minHeight;
@@ -70,7 +71,7 @@ public class DivineTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
                 for (int l = position.getX() - k; l <= position.getX() + k && canPlace; ++l) {
                     for (int i1 = position.getZ() - k; i1 <= position.getZ() + k && canPlace; ++i1) {
                         if (j >= 0 && j < worldIn.getMaxHeight()) {
-                            if (!func_214587_a(worldIn, mutableBlockPos.setPos(l, j, i1))) {
+                            if (!canPlaceSapling(worldIn, mutableBlockPos.setPos(l, j, i1), (SaplingBlock) getSapling())) {
                                 canPlace = false;
                             }
                         } else {
@@ -188,7 +189,7 @@ public class DivineTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     }
 
     protected int getHeight(Random random) {
-        return this.minTreeHeight + random.nextInt(3);
+        return this.minTreeHeight + random.nextInt(6);
     }
 
     private void placeCocoa(IWorldWriter worldIn, int age, BlockPos pos, Direction side) {
@@ -208,6 +209,16 @@ public class DivineTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
             blockpos = blockpos.down();
         }
 
+    }
+
+    protected boolean canPlaceSapling(IWorldGenerationBaseReader world, BlockPos pos, SaplingBlock sapling) {
+        // TODO work with tags, json currently not working
+        return world.hasBlockState(pos, state -> (!(world instanceof IWorldReader) || sapling.isValidPosition(state, (IWorldReader) world, pos))
+                || state.isIn(BlockTags.LEAVES)
+                || state.getBlock() == Blocks.AIR
+                || state.isIn(BlockTags.LOGS)
+                || state.isIn(BlockTags.SAPLINGS)
+                || state.getBlock() == Blocks.VINE);
     }
 
     @Override

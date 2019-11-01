@@ -1,5 +1,6 @@
 package divinerpg.utils.properties.block;
 
+import divinerpg.registry.BlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
@@ -66,6 +67,11 @@ public class ExtendedBlockProperties {
      */
     public ExtendedBlockProperties withType(PlantType type) {
         this.type = type;
+
+        if (type == BlockRegistry.EDEN_PLANT) {
+            withGround((state, world, pos) -> state.getBlock() == BlockRegistry.edenGrass);
+        }
+
         return this;
     }
 

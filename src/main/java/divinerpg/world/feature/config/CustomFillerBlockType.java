@@ -3,6 +3,7 @@ package divinerpg.world.feature.config;
 import divinerpg.DivineRPG;
 import divinerpg.registry.BlockRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +34,10 @@ public class CustomFillerBlockType {
         if (!values.containsKey(id)) {
             values.put(id, this);
         }
+    }
+
+    public CustomFillerBlockType(OreFeatureConfig.FillerBlockType type) {
+        this(type.func_214737_a(), type.func_214738_b());
     }
 
     public static CustomFillerBlockType find(String id) {

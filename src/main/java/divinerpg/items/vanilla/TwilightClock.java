@@ -1,5 +1,6 @@
 package divinerpg.items.vanilla;
 
+import divinerpg.registry.BlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.pattern.BlockPattern;
@@ -25,6 +26,7 @@ public class TwilightClock extends Item {
 
         // TODO add actual portals
         netherLikePortals.put(Blocks.OBSIDIAN, Blocks.NETHER_PORTAL);
+        netherLikePortals.put(BlockRegistry.divineRock, BlockRegistry.edenPortal);
     }
 
     @Override
