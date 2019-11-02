@@ -68,8 +68,6 @@ public class DivineRPG
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.getCommonSpec());
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CONFIG.getClientSpec());
         FeatureRegistry.registerFeatures();
-        // TODO enable
-        //DimensionRegistry.register();
     }
 
     private void setup(final FMLCommonSetupEvent event)

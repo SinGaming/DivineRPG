@@ -20,16 +20,17 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Random;
+import java.util.function.Supplier;
 
 public class DivineVerticalPortal extends Block {
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.HORIZONTAL_AXIS;
 
     protected static final VoxelShape X_AABB = Block.makeCuboidShape(0.0D, 0.0D, 6.0D, 16.0D, 16.0D, 10.0D);
     protected static final VoxelShape Z_AABB = Block.makeCuboidShape(6.0D, 0.0D, 0.0D, 10.0D, 16.0D, 16.0D);
-    private final DimensionType type;
+    private final Supplier<DimensionType> type;
     private final BasicParticleType particle;
 
-    public DivineVerticalPortal(Properties properties, DimensionType type, BasicParticleType particle) {
+    public DivineVerticalPortal(Properties properties, Supplier<DimensionType> type, BasicParticleType particle) {
         super(properties.tickRandomly().doesNotBlockMovement().hardnessAndResistance(-1.0F).sound(SoundType.GLASS).lightValue(11).noDrops());
         this.type = type;
         this.particle = particle;
@@ -85,12 +86,17 @@ public class DivineVerticalPortal extends Block {
     @Override
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         if (!worldIn.isRemote
+                && type != null
                 && !entityIn.isPassenger()
                 && !entityIn.isBeingRidden()
                 && entityIn.isNonBoss()) {
-            entityIn.changeDimension(worldIn.dimension.getType() == type
-                    ? DimensionType.OVERWORLD
-                    : type);
+            DimensionType portalDimension = type.get();
+
+            if (portalDimension != null) {
+                entityIn.changeDimension(worldIn.dimension.getType() == portalDimension
+                        ? DimensionType.OVERWORLD
+                        : portalDimension);
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 package divinerpg.world.eden;
 
+import com.google.common.collect.Lists;
 import divinerpg.DivineRPG;
 import divinerpg.registry.BlockRegistry;
 import divinerpg.registry.FeatureRegistry;
@@ -8,7 +9,9 @@ import divinerpg.world.feature.config.DivineCountRangeConfig;
 import divinerpg.world.feature.config.DivineOreFeatureConfig;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.SphereReplaceConfig;
 import net.minecraft.world.gen.placement.FrequencyConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
@@ -23,7 +26,7 @@ public class EdenBiome extends Biome {
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(BlockRegistry.edenGrass.getDefaultState(),
                         BlockRegistry.edenDirt.getDefaultState(), BlockRegistry.edenDirt.getDefaultState()))
                 .precipitation(RainType.RAIN)
-                .category(Category.THEEND)
+                .category(Category.NONE)
                 .waterColor(Color.YELLOW.getRGB())
                 .waterFogColor(Color.YELLOW.brighter().getRGB())
                 .parent("")
@@ -37,6 +40,12 @@ public class EdenBiome extends Biome {
         // Flowers gen
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, createDecoratedFeature(FeatureRegistry.eden_flowers_feature,
                 IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(100)));
+
+        // Add twilight stone gen
+        this.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
+                Biome.createDecoratedFeature(Feature.DISK, new SphereReplaceConfig(BlockRegistry.twilightStone.getDefaultState(),
+                                6, 2, Lists.newArrayList(BlockRegistry.edenGrass.getDefaultState(), BlockRegistry.edenDirt.getDefaultState())),
+                        Placement.COUNT_TOP_SOLID, new FrequencyConfig(1)));
 
         // Tree gen
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, createDecoratedFeature(FeatureRegistry.eden_tree_feature,

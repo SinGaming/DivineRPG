@@ -2,12 +2,14 @@ package divinerpg.items.vanilla;
 
 import divinerpg.registry.BlockRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.block.pattern.BlockPatternBuilder;
 import net.minecraft.block.pattern.BlockStateMatcher;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.CachedBlockInfo;
 import net.minecraft.util.Direction;
@@ -108,7 +110,15 @@ public class TwilightClock extends Item {
             }
         }
 
-        airBlocks.forEach(x -> world.setBlockState(x, portal.getDefaultState()));
+        BlockState portalState = portal.getDefaultState();
+
+        if (portalState.has(BlockStateProperties.HORIZONTAL_AXIS)) {
+            portalState = portalState.with(BlockStateProperties.HORIZONTAL_AXIS, rightDir.getAxis());
+        }
+
+        for (BlockPos x : airBlocks) {
+            world.setBlockState(x, portalState);
+        }
 
         return true;
     }

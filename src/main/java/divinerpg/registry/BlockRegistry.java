@@ -225,7 +225,7 @@ public class BlockRegistry {
                 .setRegistryName(DivineRPG.MODID, "twilight_stone"));
         registry.register(new DivineVerticalPortal(
                 Block.Properties.create(Material.PORTAL, MaterialColor.YELLOW),
-                DimensionRegistry.EDEN,
+                () -> DimensionRegistry.EDEN_TYPE,
                 // TODO right particle type
                 ParticleTypes.FIREWORK).setRegistryName(DivineRPG.MODID, "eden_portal"));
 
