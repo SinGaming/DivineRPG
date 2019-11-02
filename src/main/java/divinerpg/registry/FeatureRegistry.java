@@ -55,6 +55,8 @@ public class FeatureRegistry {
      * Injecting features to worldgen
      */
     public static void registerWorldGen() {
+        // TODO inject features in chunk gen, not in biomes
+
         for (BiomeManager.BiomeType type : BiomeManager.BiomeType.values()) {
             for (BiomeManager.BiomeEntry entry : BiomeManager.getBiomes(type)) {
                 Biome biome = entry.biome;
@@ -65,6 +67,7 @@ public class FeatureRegistry {
                                     new ChanceConfig(10)));
                 }
 
+                // TODO balancing
                 registerOre(biome, DivineRPG.CONFIG.worlgen.realmit, BlockRegistry.realmiteOre, new CustomFillerBlockType(OreFeatureConfig.FillerBlockType.NATURAL_STONE));
                 registerOre(biome, DivineRPG.CONFIG.worlgen.arlemit, BlockRegistry.arlemiteOre, new CustomFillerBlockType(OreFeatureConfig.FillerBlockType.NATURAL_STONE));
                 registerOre(biome, DivineRPG.CONFIG.worlgen.rupee, BlockRegistry.rupeeOre, new CustomFillerBlockType(OreFeatureConfig.FillerBlockType.NATURAL_STONE));

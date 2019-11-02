@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
+/**
+ * Extending ore gen with whis config. Can add new custom values
+ */
 public class CustomFillerBlockType {
     public static final CustomFillerBlockType TWILIGHT;
     private static final Map<String, CustomFillerBlockType> values = new HashMap<>();
@@ -40,6 +43,9 @@ public class CustomFillerBlockType {
         this(type.func_214737_a(), type.func_214738_b());
     }
 
+    /**
+     * Find predicate by it's name (deserialization)
+     */
     public static CustomFillerBlockType find(String id) {
         return values.get(id);
     }

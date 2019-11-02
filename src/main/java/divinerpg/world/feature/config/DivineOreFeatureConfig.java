@@ -7,6 +7,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 
+/**
+ * Custom ore feature, more customizable than vanilla
+ */
 public class DivineOreFeatureConfig implements IFeatureConfig {
 
     public final CustomFillerBlockType canReplace;

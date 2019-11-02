@@ -75,6 +75,14 @@ public class TwilightClock extends Item {
         return false;
     }
 
+    /**
+     * Trying to create nether like portal.
+     *
+     * @param pos    - pos of clicked block
+     * @param frame  - clicked block. Already checked above if it one of well-known portal frames
+     * @param portal - assotiated portal block with current frame
+     * @return true if activated
+     */
     private boolean tryCreateNetherLikePortal(World world, BlockPos pos, Block frame, Block portal) {
         BlockPattern portalShape = BlockPatternBuilder.start()
                 .aisle("?xx?")
@@ -112,8 +120,9 @@ public class TwilightClock extends Item {
 
         BlockState portalState = portal.getDefaultState();
 
-        if (portalState.has(BlockStateProperties.HORIZONTAL_AXIS)) {
-            portalState = portalState.with(BlockStateProperties.HORIZONTAL_AXIS, rightDir.getAxis());
+        // set block orientation
+        if (portalState.has(BlockStateProperties.AXIS)) {
+            portalState = portalState.with(BlockStateProperties.AXIS, rightDir.getAxis());
         }
 
         for (BlockPos x : airBlocks) {

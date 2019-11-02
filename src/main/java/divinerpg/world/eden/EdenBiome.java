@@ -29,6 +29,7 @@ public class EdenBiome extends Biome {
                 .category(Category.NONE)
                 .waterColor(Color.YELLOW.getRGB())
                 .waterFogColor(Color.YELLOW.brighter().getRGB())
+                // TODO some unknown values below. If we can live with it, remove this line
                 .parent("")
                 .temperature(0.7F)
                 .scale(0.025F)

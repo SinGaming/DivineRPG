@@ -31,7 +31,7 @@ public class EdenDimension extends Dimension {
 
 
     ///////////////////////////////////////
-    // TODO Implement all below
+    // TODO Test if all good
     ///////////////////////////////////////
 
 
@@ -67,7 +67,7 @@ public class EdenDimension extends Dimension {
 
     @Override
     public Vec3d getFogColor(float celestialAngle, float partialTicks) {
-        // TODO stolen from nether
+        // TODO stolen from nether, reset to yellow
         return new Vec3d((double) 0.2F, (double) 0.03F, (double) 0.03F);
     }
 

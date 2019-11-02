@@ -2,7 +2,7 @@ package divinerpg.registry;
 
 import divinerpg.DivineRPG;
 import divinerpg.blocks.base.*;
-import divinerpg.blocks.twilight.DivineVerticalPortal;
+import divinerpg.blocks.twilight.DivinePortalBlock;
 import divinerpg.utils.properties.block.ExtendedBlockProperties;
 import divinerpg.utils.properties.block.IExpDrop;
 import divinerpg.world.DivineTree;
@@ -131,7 +131,7 @@ public class BlockRegistry {
     @ObjectHolder("eden_ore")
     public static Block edenOre;
     @ObjectHolder("eden_portal")
-    public static DivineVerticalPortal edenPortal;
+    public static DivinePortalBlock edenPortal;
 
 
     private static int IRON = 2, DIAMOND = 3;
@@ -223,7 +223,7 @@ public class BlockRegistry {
                 .setRegistryName(DivineRPG.MODID, "eden_ore"));
         registry.register(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(6))
                 .setRegistryName(DivineRPG.MODID, "twilight_stone"));
-        registry.register(new DivineVerticalPortal(
+        registry.register(new DivinePortalBlock(
                 Block.Properties.create(Material.PORTAL, MaterialColor.YELLOW),
                 () -> DimensionRegistry.EDEN_TYPE,
                 // TODO right particle type

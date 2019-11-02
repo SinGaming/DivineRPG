@@ -12,6 +12,9 @@ import net.minecraft.world.lighting.LightEngine;
 import java.util.Random;
 import java.util.function.Predicate;
 
+/**
+ * Basic grass block. Overrided for custom block spreading
+ */
 public class DivineGrassBlock extends GrassBlock {
     private final Predicate<Block> canSpreadGrass;
 

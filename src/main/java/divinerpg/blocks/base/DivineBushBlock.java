@@ -11,6 +11,9 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.PlantType;
 
+/**
+ * Basic bush. Can have customized size and ground to place.
+ */
 public class DivineBushBlock extends BushBlock {
     private final IPlacementCheck validGround;
     private final PlantType type;

@@ -15,6 +15,9 @@ import net.minecraftforge.common.ToolType;
 
 import java.util.function.Consumer;
 
+/**
+ * Custom ore block. Have customizable exp drop and entity collision callback
+ */
 public class DivineOre extends OreBlock {
     protected static final VoxelShape small = Block.makeCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 15.0D, 15.0D);
     protected static final VoxelShape taller = Block.makeCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);

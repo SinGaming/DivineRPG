@@ -32,6 +32,7 @@ public class EntitiesRegistry {
                 .size(0.2F, 0.2F)
                 .setUpdateInterval(1)
                 .setTrackingRange(64)
+                // Need to be set for client to see the entity
                 .setCustomClientFactory((type, world) -> corruptedBullet.create(world))
                 .build("corrupted_bullet")
                 .setRegistryName(DivineRPG.MODID, "corrupted_bullet"));

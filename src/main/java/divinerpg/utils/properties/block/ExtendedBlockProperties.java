@@ -111,6 +111,9 @@ public class ExtendedBlockProperties {
         return this;
     }
 
+    /**
+     * Adds spreading function predicate (for grass)
+     */
     public ExtendedBlockProperties withSpreading(Predicate<Block> canSpreadGrass) {
         if (props != null) {
             props.tickRandomly();
@@ -119,11 +122,17 @@ public class ExtendedBlockProperties {
         return this;
     }
 
+    /**
+     * Callback on block destroy by player
+     */
     public ExtendedBlockProperties withCustomExpDrop(IExpDrop drop) {
         this.drop = drop;
         return this;
     }
 
+    /**
+     * Callback on entuty collision
+     */
     public ExtendedBlockProperties onCollision(Consumer<Entity> onCollision) {
         this.onCollision = onCollision;
         return this;

@@ -78,7 +78,6 @@ public class DivineRPG
 
         CapabilityManager.INSTANCE.register(IArcana.class, new ArcanaStorage(), Arcana::new);
         FeatureRegistry.registerWorldGen();
-        // BiomeRegisty.registerBiomes();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

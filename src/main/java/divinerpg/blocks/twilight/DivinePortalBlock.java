@@ -22,28 +22,47 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class DivineVerticalPortal extends Block {
-    public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.HORIZONTAL_AXIS;
+/**
+ * Custom dim travel and particle
+ */
+public class DivinePortalBlock extends Block {
+    public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
 
+    protected static final VoxelShape Y_AABB = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D);
     protected static final VoxelShape X_AABB = Block.makeCuboidShape(0.0D, 0.0D, 6.0D, 16.0D, 16.0D, 10.0D);
     protected static final VoxelShape Z_AABB = Block.makeCuboidShape(6.0D, 0.0D, 0.0D, 10.0D, 16.0D, 16.0D);
     private final Supplier<DimensionType> type;
     private final BasicParticleType particle;
 
-    public DivineVerticalPortal(Properties properties, Supplier<DimensionType> type, BasicParticleType particle) {
+    public DivinePortalBlock(Properties properties, Supplier<DimensionType> type, BasicParticleType particle) {
+        this(properties, type, particle, false);
+    }
+
+    public DivinePortalBlock(Properties properties, Supplier<DimensionType> type, BasicParticleType particle,
+                             boolean isHorizontal) {
         super(properties.tickRandomly().doesNotBlockMovement().hardnessAndResistance(-1.0F).sound(SoundType.GLASS).lightValue(11).noDrops());
         this.type = type;
         this.particle = particle;
 
-        this.setDefaultState(this.stateContainer.getBaseState().with(AXIS, Direction.Axis.X));
+        Direction.Axis defaultVal = isHorizontal
+                ? Direction.Axis.Y
+                : Direction.Axis.X;
+
+        this.setDefaultState(this.stateContainer.getBaseState().with(AXIS, defaultVal));
     }
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        if (state.get(AXIS) == Direction.Axis.Z)
-            return Z_AABB;
+        switch (state.get(AXIS)) {
+            case Z:
+                return Z_AABB;
+            case X:
+                return X_AABB;
+            case Y:
+                return Y_AABB;
+        }
 
-        return X_AABB;
+        return Z_AABB;
     }
 
     /**

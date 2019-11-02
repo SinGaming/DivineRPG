@@ -14,6 +14,10 @@ import java.util.BitSet;
 import java.util.Random;
 import java.util.function.Function;
 
+/**
+ * Copy of OreFeature
+ * Works with DivineConfig
+ */
 public class DivineOreFeature extends Feature<DivineOreFeatureConfig> {
 
     public DivineOreFeature(Function<Dynamic<?>, ? extends DivineOreFeatureConfig> configFactoryIn) {

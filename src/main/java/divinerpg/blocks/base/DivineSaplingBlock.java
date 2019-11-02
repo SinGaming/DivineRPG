@@ -12,7 +12,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 
 /**
- * Needed just for open constuctor
+ * Divine sapling. Created for open ctor and valid groung checks
  */
 public class DivineSaplingBlock extends SaplingBlock {
     private final IPlacementCheck validGround;
