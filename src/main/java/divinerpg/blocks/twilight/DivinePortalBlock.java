@@ -1,8 +1,11 @@
 package divinerpg.blocks.twilight;
 
+import divinerpg.utils.PortalHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.entity.Entity;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.state.EnumProperty;
@@ -14,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
@@ -130,5 +134,15 @@ public class DivinePortalBlock extends Block {
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(AXIS);
+    }
+
+    @Override
+    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+        // TODO optimize, heavy calculation
+        BlockPattern.PatternHelper match = PortalHelper.createNetherLikePattern(frame.get(), this).match(worldIn, currentPos);
+        if (match == null)
+            return Blocks.AIR.getDefaultState();
+
+        return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 }

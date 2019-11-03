@@ -3,6 +3,7 @@ package divinerpg.registry;
 import divinerpg.DivineRPG;
 import divinerpg.blocks.base.*;
 import divinerpg.blocks.twilight.DivinePortalBlock;
+import divinerpg.utils.DivinePlantType;
 import divinerpg.utils.properties.block.ExtendedBlockProperties;
 import divinerpg.utils.properties.block.IExpDrop;
 import divinerpg.world.DivineTree;
@@ -16,7 +17,6 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.common.PlantType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -132,16 +132,39 @@ public class BlockRegistry {
     public static Block edenOre;
     @ObjectHolder("eden_portal")
     public static DivinePortalBlock edenPortal;
+    @ObjectHolder("eden_block")
+    public static Block edenBlock;
+
+    @ObjectHolder("wildwood_grass")
+    public static GrassBlock wildwoodGrass;
+    @ObjectHolder("wildwood_dirt")
+    public static Block wildwoodDirt;
+    @ObjectHolder("moon_bud")
+    public static BushBlock moonBud;
+    @ObjectHolder("moonlight_fern")
+    public static BushBlock moonlightFern;
+    //    @ObjectHolder("sunbloom")
+//    public static BushBlock sunbloom;
+    @ObjectHolder("wildwood_leaves")
+    public static LeavesBlock wildwoodLeaves;
+    @ObjectHolder("wildwood_log")
+    public static LogBlock wildwoodLog;
+    @ObjectHolder("wildwood_planks")
+    public static Block wildwoodPlanks;
+    @ObjectHolder("wildwood_sapling")
+    public static SaplingBlock wildwoodSapling;
+    @ObjectHolder("wildwood_ore")
+    public static Block wildwoodOre;
+    @ObjectHolder("wildwood_portal")
+    public static DivinePortalBlock wildwoodPortal;
+    @ObjectHolder("wildwood_block")
+    public static Block wildwoodBlock;
 
 
     private static int IRON = 2, DIAMOND = 3;
 
-    // TODO seems like Forge problem
-    // BUG live here https://github.com/MinecraftForge/MinecraftForge/issues/6286
-    public static PlantType EDEN_PLANT = PlantType.Nether;
-    public static PlantType ARCANA_PLANT = PlantType.Nether;
 
-
+    // TODO add block tags. 1) Leaves are decaying, 2) Logs are not accepting in furnace, etc.
     @SubscribeEvent
     public static void registerBlocks(final RegistryEvent.Register<Block> event) {
         IForgeRegistry<Block> registry = event.getRegistry();
@@ -196,19 +219,25 @@ public class BlockRegistry {
         registry.register(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)).setRegistryName(DivineRPG.MODID, "red_vane"));
         registry.register(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)).setRegistryName(DivineRPG.MODID, "yellow_vane"));
 
-        registry.register((edenGrass = (GrassBlock) new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.DIRT)
+        registry.register(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(6))
+                .setRegistryName(DivineRPG.MODID, "twilight_stone"));
+
+        /////////////////////
+        // EDEN
+        ////////////////////
+        registry.register((edenGrass = (GrassBlock) new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.LIGHT_BLUE)
                 .hardnessAndResistance(0.5F, 1)).withSpreading(block -> block == edenDirt))
                 .setRegistryName(DivineRPG.MODID, "eden_grass")));
-        registry.register(new Block(Block.Properties.create(Material.EARTH, MaterialColor.YELLOW).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lootFrom(edenGrass))
+        registry.register(new Block(Block.Properties.create(Material.EARTH, MaterialColor.YELLOW).hardnessAndResistance(0.5F).sound(SoundType.GROUND))
                 .setRegistryName(DivineRPG.MODID, "eden_dirt"));
-        registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.YELLOW))
-                .withType(EDEN_PLANT).withSize(8, 16))
+        registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.YELLOW))
+                .withNonVanillaType(DivinePlantType.EDEN).withSize(8, 16))
                 .setRegistryName(DivineRPG.MODID, "eden_brush"));
         registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.YELLOW))
-                .withType(EDEN_PLANT).withSize(8, 16))
+                .withNonVanillaType(DivinePlantType.EDEN).withSize(8, 16))
                 .setRegistryName(DivineRPG.MODID, "sun_blossom"));
         registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.YELLOW))
-                .withType(EDEN_PLANT).withSize(16, 8))
+                .withNonVanillaType(DivinePlantType.EDEN).withSize(16, 8))
                 .setRegistryName(DivineRPG.MODID, "sunbloom"));
         registry.register(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.YELLOW).props)
                 .setRegistryName(DivineRPG.MODID, "eden_leaves"));
@@ -217,19 +246,58 @@ public class BlockRegistry {
         registry.register(new Block(Block.Properties.create(Material.WOOD, MaterialColor.YELLOW).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
                 .setRegistryName(DivineRPG.MODID, "eden_planks"));
         registry.register(new DivineSaplingBlock(new DivineTree(new DivineTreeFeature(true, 7,
-                () -> edenSapling, () -> edenLog, () -> edenLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.YELLOW).withType(EDEN_PLANT))
+                () -> edenSapling, () -> edenLog, () -> edenLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.YELLOW).withNonVanillaType(DivinePlantType.EDEN))
                 .setRegistryName(DivineRPG.MODID, "eden_sapling"));
         registry.register(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
                 .setRegistryName(DivineRPG.MODID, "eden_ore"));
-        registry.register(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(6))
-                .setRegistryName(DivineRPG.MODID, "twilight_stone"));
         registry.register(new DivinePortalBlock(
                 Block.Properties.create(Material.PORTAL, MaterialColor.YELLOW),
                 () -> DimensionRegistry.EDEN_TYPE,
                 () -> BlockRegistry.divineRock,
                 // TODO right particle type
                 ParticleTypes.FIREWORK).setRegistryName(DivineRPG.MODID, "eden_portal"));
+        registry.register(new Block(Block.Properties.create(Material.ROCK, MaterialColor.YELLOW).hardnessAndResistance(2).sound(SoundType.STONE))
+                .setRegistryName(DivineRPG.MODID, "eden_block"));
 
+
+        ////////////////////////
+        // WILDWOOD
+        ///////////////////////
+        registry.register(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.LIGHT_BLUE)
+                .hardnessAndResistance(0.5F, 1)).withSpreading(block -> block == wildwoodDirt))
+                .setRegistryName(DivineRPG.MODID, "wildwood_grass"));
+        registry.register(new Block(Block.Properties.create(Material.EARTH, MaterialColor.LIGHT_BLUE).hardnessAndResistance(0.5F).sound(SoundType.GROUND))
+                .setRegistryName(DivineRPG.MODID, "wildwood_dirt"));
+        registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.LIGHT_BLUE))
+                .withNonVanillaType(DivinePlantType.WILDWOOD).withSize(12, 12))
+                .setRegistryName(DivineRPG.MODID, "moonlight_fern"));
+        registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.LIGHT_BLUE))
+                .withNonVanillaType(DivinePlantType.WILDWOOD).withSize(12, 11))
+                .setRegistryName(DivineRPG.MODID, "moon_bud"));
+
+//        registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.LIGHT_BLUE))
+//                .withNonVanillaType(EDEN_PLANT).withSize(16, 8))
+//                .setRegistryName(DivineRPG.MODID, "sunbloom"));
+
+        registry.register(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.LIGHT_BLUE).props)
+                .setRegistryName(DivineRPG.MODID, "wildwood_leaves"));
+        registry.register(new LogBlock(MaterialColor.YELLOW, Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2.0F).sound(SoundType.WOOD))
+                .setRegistryName(DivineRPG.MODID, "wildwood_log"));
+        registry.register(new Block(Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
+                .setRegistryName(DivineRPG.MODID, "wildwood_planks"));
+        registry.register(new DivineSaplingBlock(new DivineTree(new DivineTreeFeature(true, 7,
+                () -> wildwoodSapling, () -> wildwoodLog, () -> wildwoodLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.LIGHT_BLUE).withNonVanillaType(DivinePlantType.WILDWOOD))
+                .setRegistryName(DivineRPG.MODID, "wildwood_sapling"));
+        registry.register(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
+                .setRegistryName(DivineRPG.MODID, "wildwood_ore"));
+        registry.register(new DivinePortalBlock(
+                Block.Properties.create(Material.PORTAL, MaterialColor.LIGHT_BLUE),
+                () -> DimensionRegistry.WILDWOOD_TYPE,
+                () -> BlockRegistry.edenBlock,
+                // TODO right particle type
+                ParticleTypes.FIREWORK).setRegistryName(DivineRPG.MODID, "wildwood_portal"));
+        registry.register(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2).sound(SoundType.STONE))
+                .setRegistryName(DivineRPG.MODID, "wildwood_block"));
     }
 
     @SubscribeEvent
@@ -279,6 +347,9 @@ public class BlockRegistry {
         registry.register(new BlockItem(BlockRegistry.redVane, blockTabProperty).setRegistryName(DivineRPG.MODID, "red_vane"));
         registry.register(new BlockItem(BlockRegistry.yellowVane, blockTabProperty).setRegistryName(DivineRPG.MODID, "yellow_vane"));
 
+        registry.register(new BlockItem(BlockRegistry.twilightStone, blockTabProperty).setRegistryName(DivineRPG.MODID, "twilight_stone"));
+
+        // EDEN
         registry.register(new BlockItem(BlockRegistry.edenGrass, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_grass"));
         registry.register(new BlockItem(BlockRegistry.edenDirt, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_dirt"));
         registry.register(new BlockItem(BlockRegistry.edenBrush, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_brush"));
@@ -288,9 +359,23 @@ public class BlockRegistry {
         registry.register(new BlockItem(BlockRegistry.edenLog, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_log"));
         registry.register(new BlockItem(BlockRegistry.edenPlanks, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_planks"));
         registry.register(new BlockItem(BlockRegistry.edenSapling, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_sapling"));
-        registry.register(new BlockItem(BlockRegistry.twilightStone, blockTabProperty).setRegistryName(DivineRPG.MODID, "twilight_stone"));
         registry.register(new BlockItem(BlockRegistry.edenOre, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_ore"));
         registry.register(new BlockItem(BlockRegistry.edenPortal, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_portal"));
+        registry.register(new BlockItem(BlockRegistry.edenBlock, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_block"));
+
+        // WILDWOOD
+        registry.register(new BlockItem(BlockRegistry.wildwoodGrass, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_grass"));
+        registry.register(new BlockItem(BlockRegistry.wildwoodDirt, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_dirt"));
+        registry.register(new BlockItem(BlockRegistry.moonlightFern, blockTabProperty).setRegistryName(DivineRPG.MODID, "moonlight_fern"));
+        registry.register(new BlockItem(BlockRegistry.moonBud, blockTabProperty).setRegistryName(DivineRPG.MODID, "moon_bud"));
+        // registry.register(new BlockItem(BlockRegistry.wildwoodloom, blockTabProperty).setRegistryName(DivineRPG.MODID,      "sunbloom"));
+        registry.register(new BlockItem(BlockRegistry.wildwoodLeaves, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_leaves"));
+        registry.register(new BlockItem(BlockRegistry.wildwoodLog, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_log"));
+        registry.register(new BlockItem(BlockRegistry.wildwoodPlanks, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_planks"));
+        registry.register(new BlockItem(BlockRegistry.wildwoodSapling, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_sapling"));
+        registry.register(new BlockItem(BlockRegistry.wildwoodOre, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_ore"));
+        registry.register(new BlockItem(BlockRegistry.wildwoodPortal, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_portal"));
+        registry.register(new BlockItem(BlockRegistry.wildwoodBlock, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_block"));
     }
 
     //solely for reference

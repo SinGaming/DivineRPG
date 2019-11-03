@@ -1,6 +1,5 @@
-package divinerpg.world.eden;
+package divinerpg.world.wildwood;
 
-import com.google.common.collect.Lists;
 import divinerpg.DivineRPG;
 import divinerpg.registry.BlockRegistry;
 import divinerpg.registry.FeatureRegistry;
@@ -10,10 +9,7 @@ import divinerpg.world.feature.config.DivineOreFeatureConfig;
 import divinerpg.world.feature.config.FlowerFeatureConfig;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.SphereReplaceConfig;
-import net.minecraft.world.gen.placement.ChanceConfig;
 import net.minecraft.world.gen.placement.FrequencyConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
@@ -21,16 +17,16 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
 import java.awt.*;
 
-public class EdenBiome extends Biome {
+public class WildwoodBiome extends Biome {
 
-    public EdenBiome() {
+    public WildwoodBiome() {
         super(new Builder()
-                .surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(BlockRegistry.edenGrass.getDefaultState(),
-                        BlockRegistry.edenDirt.getDefaultState(), BlockRegistry.twilightStone.getDefaultState()))
+                .surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(BlockRegistry.wildwoodGrass.getDefaultState(),
+                        BlockRegistry.wildwoodDirt.getDefaultState(), BlockRegistry.twilightStone.getDefaultState()))
                 .precipitation(RainType.RAIN)
                 .category(Category.NONE)
-                .waterColor(Color.YELLOW.getRGB())
-                .waterFogColor(Color.YELLOW.brighter().getRGB())
+                .waterColor(Color.BLUE.getRGB())
+                .waterFogColor(Color.BLUE.brighter().getRGB())
                 // TODO some unknown values below. If we can live with it, remove this line
                 .parent("")
                 .temperature(0.7F)
@@ -41,24 +37,24 @@ public class EdenBiome extends Biome {
         );
 
         // Tree gen
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, createDecoratedFeature(FeatureRegistry.eden_tree_feature,
+        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, createDecoratedFeature(FeatureRegistry.wildwood_tree_feature,
                 IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP, new FrequencyConfig(8)));
 
         // Flowers gen
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, createDecoratedFeature(FeatureRegistry.flowers_feature,
                 new FlowerFeatureConfig(10, BlockRegistry.sunbloom.getDefaultState(),
-                        40, BlockRegistry.sunBlossom.getDefaultState(),
-                        50, BlockRegistry.edenBrush.getDefaultState()), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(100)));
+                        40, BlockRegistry.moonlightFern.getDefaultState(),
+                        50, BlockRegistry.moonBud.getDefaultState()), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(100)));
 
         // Add twilight stone gen
-        this.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
-                Biome.createDecoratedFeature(Feature.DISK, new SphereReplaceConfig(BlockRegistry.twilightStone.getDefaultState(),
-                                8, 8, Lists.newArrayList(BlockRegistry.edenGrass.getDefaultState(), BlockRegistry.edenDirt.getDefaultState())),
-                        Placement.CHANCE_PASSTHROUGH, new ChanceConfig(10)));
+//        this.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
+//                Biome.createDecoratedFeature(Feature.DISK, new SphereReplaceConfig(BlockRegistry.twilightStone.getDefaultState(),
+//                                8, 8, Lists.newArrayList(BlockRegistry.wildwoodGrass.getDefaultState(), BlockRegistry.wildwoodDirt.getDefaultState())),
+//                        Placement.CHANCE_PASSTHROUGH, new ChanceConfig(10)));
 
         // ore gen
         addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(FeatureRegistry.ORE,
-                new DivineOreFeatureConfig(CustomFillerBlockType.TWILIGHT, BlockRegistry.edenOre.getDefaultState(),
+                new DivineOreFeatureConfig(CustomFillerBlockType.TWILIGHT, BlockRegistry.wildwoodOre.getDefaultState(),
                         DivineRPG.CONFIG.worlgen.twilights.vein.get()),
                 Placement.COUNT_RANGE,
                 new DivineCountRangeConfig(DivineRPG.CONFIG.worlgen.twilights)));

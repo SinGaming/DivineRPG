@@ -1,14 +1,17 @@
 package divinerpg.blocks.base;
 
+import divinerpg.utils.DivinePlantType;
 import divinerpg.utils.properties.block.ExtendedBlockProperties;
 import divinerpg.utils.properties.block.IPlacementCheck;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BushBlock;
 import net.minecraft.block.SoundType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraftforge.common.PlantType;
 
 /**
@@ -16,13 +19,13 @@ import net.minecraftforge.common.PlantType;
  */
 public class DivineBushBlock extends BushBlock {
     private final IPlacementCheck validGround;
-    private final PlantType type;
+    private final DivinePlantType specialType;
     private final VoxelShape shape;
 
     public DivineBushBlock(ExtendedBlockProperties props) {
         super(props.props.doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT));
         validGround = props.validGround;
-        type = props.type;
+        specialType = props.type;
         shape = props.shape;
     }
 
@@ -38,9 +41,14 @@ public class DivineBushBlock extends BushBlock {
         return shape;
     }
 
-
     @Override
     public PlantType getPlantType(IBlockReader world, BlockPos pos) {
-        return type;
+        return specialType.type;
+    }
+
+    @Override
+    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+        // TODO implement ground check
+        return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 }

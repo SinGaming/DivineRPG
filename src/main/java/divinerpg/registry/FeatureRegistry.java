@@ -25,8 +25,9 @@ import net.minecraftforge.registries.ObjectHolder;
 @ObjectHolder(DivineRPG.MODID)
 public class FeatureRegistry {
     public static DivineTreeFeature eden_tree_feature;
+    public static DivineTreeFeature wildwood_tree_feature;
     public static IslandFeature twilight_stone_islands;
-    public static DivineFlowersFeature eden_flowers_feature;
+    public static DivineFlowersFeature flowers_feature;
 
     @ObjectHolder("ore_feature")
     public static DivineOreFeature ORE;
@@ -34,19 +35,10 @@ public class FeatureRegistry {
     static {
         eden_tree_feature = new DivineTreeFeature(false, 7, () -> BlockRegistry.edenSapling,
                 () -> BlockRegistry.edenLog, () -> BlockRegistry.edenLeaves);
+        wildwood_tree_feature = new DivineTreeFeature(false, 7, () -> BlockRegistry.wildwoodSapling,
+                () -> BlockRegistry.wildwoodLog, () -> BlockRegistry.wildwoodLeaves);
         twilight_stone_islands = new IslandFeature(() -> BlockRegistry.twilightStone.getDefaultState());
-        eden_flowers_feature = new DivineFlowersFeature(((random, pos) -> {
-            int i = random.nextInt(100);
-            if (i > 90) {
-                return BlockRegistry.sunbloom.getDefaultState();
-            }
-
-            if (i > 50) {
-                return BlockRegistry.sunBlossom.getDefaultState();
-            }
-
-            return BlockRegistry.edenBrush.getDefaultState();
-        }));
+        flowers_feature = new DivineFlowersFeature();
 
         ORE = new DivineOreFeature(DivineOreFeatureConfig::deserialize);
     }
@@ -93,8 +85,9 @@ public class FeatureRegistry {
         IForgeRegistry<Feature<?>> registry = ForgeRegistries.FEATURES;
 
         registry.register(eden_tree_feature.setRegistryName(DivineRPG.MODID, "eden_tree_feature"));
+        registry.register(wildwood_tree_feature.setRegistryName(DivineRPG.MODID, "wildwood_tree_feature"));
         registry.register(twilight_stone_islands.setRegistryName(DivineRPG.MODID, "twilight_stone_islands"));
-        registry.register(eden_flowers_feature.setRegistryName(DivineRPG.MODID, "eden_flowers_feature"));
+        registry.register(flowers_feature.setRegistryName(DivineRPG.MODID, "flowers_feature"));
         registry.register(ORE.setRegistryName(DivineRPG.MODID, "ore_feature"));
     }
 }

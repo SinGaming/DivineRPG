@@ -28,6 +28,7 @@ public class TwilightClock extends Item {
         // TODO add actual portals
         netherLikePortals.put(Blocks.OBSIDIAN, Blocks.NETHER_PORTAL);
         netherLikePortals.put(BlockRegistry.divineRock, BlockRegistry.edenPortal);
+        netherLikePortals.put(BlockRegistry.edenBlock, BlockRegistry.wildwoodPortal);
     }
 
     @Override

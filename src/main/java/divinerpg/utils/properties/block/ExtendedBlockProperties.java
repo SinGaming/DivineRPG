@@ -1,6 +1,7 @@
 package divinerpg.utils.properties.block;
 
 import divinerpg.registry.BlockRegistry;
+import divinerpg.utils.DivinePlantType;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
@@ -19,7 +20,7 @@ import java.util.function.Predicate;
 public class ExtendedBlockProperties {
     public final Block.Properties props;
     public IPlacementCheck validGround;
-    public PlantType type = PlantType.Plains;
+    public DivinePlantType type = new DivinePlantType(PlantType.Plains);
     public VoxelShape shape = VoxelShapes.fullCube();
     public Predicate<Block> canSpreadGrass = block -> block == Blocks.DIRT;
     public IExpDrop drop;
@@ -65,11 +66,15 @@ public class ExtendedBlockProperties {
      * @param type - special plant type
      * @return
      */
-    public ExtendedBlockProperties withType(PlantType type) {
+    public ExtendedBlockProperties withNonVanillaType(DivinePlantType type) {
         this.type = type;
 
-        if (type == BlockRegistry.EDEN_PLANT) {
+        if (type == DivinePlantType.EDEN) {
             withGround((state, world, pos) -> state.getBlock() == BlockRegistry.edenGrass);
+        }
+
+        if (type == DivinePlantType.WILDWOOD) {
+            withGround((state, world, pos) -> state.getBlock() == BlockRegistry.wildwoodGrass);
         }
 
         return this;

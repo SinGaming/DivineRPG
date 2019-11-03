@@ -1,15 +1,15 @@
-package divinerpg.world.eden;
+package divinerpg.world.twilight;
 
-import divinerpg.registry.BiomeRegisty;
-import divinerpg.registry.BlockRegistry;
-import divinerpg.registry.DimensionRegistry;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.SingleBiomeProvider;
 import net.minecraft.world.biome.provider.SingleBiomeProviderSettings;
 import net.minecraft.world.dimension.Dimension;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraft.world.gen.EndGenerationSettings;
@@ -17,23 +17,20 @@ import net.minecraft.world.gen.EndGenerationSettings;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class EdenDimension extends Dimension {
+public class FloatingDimension extends Dimension {
     private final SingleBiomeProvider biomeProvider;
+    private final Vec3d fog;
     private final EndGenerationSettings settings;
 
-    public EdenDimension(World worldIn) {
-        super(worldIn, DimensionRegistry.EDEN_TYPE);
-        biomeProvider = new SingleBiomeProvider(new SingleBiomeProviderSettings().setBiome(BiomeRegisty.EDEN));
+    public FloatingDimension(World worldIn, DimensionType typeIn, BlockState defaultBlock, Biome singleBiome, Vec3d fog) {
+        super(worldIn, typeIn);
+
+        biomeProvider = new SingleBiomeProvider(new SingleBiomeProviderSettings().setBiome(singleBiome));
+        this.fog = fog;
         settings = ChunkGeneratorType.FLOATING_ISLANDS.createSettings();
 
-        settings.setDefaultBlock(BlockRegistry.edenDirt.getDefaultState());
+        settings.setDefaultBlock(defaultBlock);
     }
-
-
-    ///////////////////////////////////////
-    // TODO Test if all good
-    ///////////////////////////////////////
-
 
     @Override
     public ChunkGenerator<?> createChunkGenerator() {
@@ -67,8 +64,7 @@ public class EdenDimension extends Dimension {
 
     @Override
     public Vec3d getFogColor(float celestialAngle, float partialTicks) {
-        // TODO stolen from nether, reset to yellow
-        return new Vec3d((double) 0.2F, (double) 0.03F, (double) 0.03F);
+        return fog;
     }
 
     @Override
