@@ -12,28 +12,49 @@ import java.util.HashMap;
 public class DivinePlantType {
     public static final DivinePlantType EDEN = register("eden");
     public static final DivinePlantType WILDWOOD = register("wildwood");
-    private static final HashMap<String, DivinePlantType> values = new HashMap<>();
+    private static HashMap<String, DivinePlantType> values;
     public final PlantType type;
     public final String id;
 
     private DivinePlantType(String id, PlantType type) {
         this.type = type;
         this.id = id;
-
-        if (!values.containsKey(id)) {
-            values.put(id, this);
-        }
     }
 
-    public DivinePlantType(PlantType type) {
-        this(type.name(), type);
+
+    /**
+     * registry Call can be eralier static ctor, so we need to init by ourself
+     */
+    private static HashMap<String, DivinePlantType> getValues() {
+        if (values == null) {
+            values = new HashMap<>();
+        }
+
+        return values;
+    }
+
+    /**
+     * Registering helping method
+     */
+    private static DivinePlantType tryRegistrate(String id, PlantType type) {
+        HashMap<String, DivinePlantType> map = getValues();
+
+        if (!map.containsKey(id)) {
+            map.put(id, new DivinePlantType(id, type));
+        }
+
+        return map.get(id);
     }
 
     public static DivinePlantType findById(String id) {
-        return values.get(id);
+        return getValues().get(id);
+    }
+
+    public static DivinePlantType fromPlantType(PlantType type) {
+        return tryRegistrate(type.name(), type);
     }
 
     public static DivinePlantType register(String id) {
-        return new DivinePlantType(id, PlantType.Nether);
+        return tryRegistrate(id, PlantType.Nether);
     }
 }

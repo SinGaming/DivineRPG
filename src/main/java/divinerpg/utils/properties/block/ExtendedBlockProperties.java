@@ -20,7 +20,7 @@ import java.util.function.Predicate;
 public class ExtendedBlockProperties {
     public final Block.Properties props;
     public IPlacementCheck validGround;
-    public DivinePlantType type = new DivinePlantType(PlantType.Plains);
+    public DivinePlantType type;
     public VoxelShape shape = VoxelShapes.fullCube();
     public Predicate<Block> canSpreadGrass = block -> block == Blocks.DIRT;
     public IExpDrop drop;
@@ -52,6 +52,7 @@ public class ExtendedBlockProperties {
 
     public ExtendedBlockProperties(Block.Properties props) {
         this.props = props;
+        type = DivinePlantType.fromPlantType(PlantType.Plains);
     }
 
     public ExtendedBlockProperties withGround(IPlacementCheck validGround) {
