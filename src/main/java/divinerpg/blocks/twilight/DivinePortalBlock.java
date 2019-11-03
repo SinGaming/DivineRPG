@@ -16,6 +16,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -33,16 +34,18 @@ public class DivinePortalBlock extends Block {
     protected static final VoxelShape Z_AABB = Block.makeCuboidShape(6.0D, 0.0D, 0.0D, 10.0D, 16.0D, 16.0D);
     private final Supplier<DimensionType> type;
     private final BasicParticleType particle;
+    private final Supplier<Block> frame;
 
-    public DivinePortalBlock(Properties properties, Supplier<DimensionType> type, BasicParticleType particle) {
-        this(properties, type, particle, false);
+    public DivinePortalBlock(Properties properties, Supplier<DimensionType> type, Supplier<Block> frame, BasicParticleType particle) {
+        this(properties, type, frame, particle, false);
     }
 
-    public DivinePortalBlock(Properties properties, Supplier<DimensionType> type, BasicParticleType particle,
-                             boolean isHorizontal) {
+    public DivinePortalBlock(Properties properties, Supplier<DimensionType> type, Supplier<Block> frame,
+                             BasicParticleType particle, boolean isHorizontal) {
         super(properties.tickRandomly().doesNotBlockMovement().hardnessAndResistance(-1.0F).sound(SoundType.GLASS).lightValue(11).noDrops());
         this.type = type;
         this.particle = particle;
+        this.frame = frame;
 
         Direction.Axis defaultVal = isHorizontal
                 ? Direction.Axis.Y
@@ -108,14 +111,19 @@ public class DivinePortalBlock extends Block {
                 && type != null
                 && !entityIn.isPassenger()
                 && !entityIn.isBeingRidden()
-                && entityIn.isNonBoss()) {
-            DimensionType portalDimension = type.get();
+                && entityIn.isNonBoss()
+                && worldIn instanceof ServerWorld) {
+            DimensionType destination = type.get();
 
-            if (portalDimension != null) {
-                entityIn.changeDimension(worldIn.dimension.getType() == portalDimension
-                        ? DimensionType.OVERWORLD
-                        : portalDimension);
+            if (worldIn.getDimension().getType() == destination) {
+                destination = DimensionType.OVERWORLD;
             }
+
+            entityIn.changeDimension(destination);
+
+            // TODO currently not working
+//            PortalHelper.tryChangeDimention(entityIn, destination,
+//                    new DivineTeleporter(((ServerWorld) worldIn), frame.get(), this));
         }
     }
 

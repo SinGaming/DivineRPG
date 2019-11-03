@@ -12,6 +12,7 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.SphereReplaceConfig;
+import net.minecraft.world.gen.placement.ChanceConfig;
 import net.minecraft.world.gen.placement.FrequencyConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
@@ -45,8 +46,8 @@ public class EdenBiome extends Biome {
         // Add twilight stone gen
         this.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
                 Biome.createDecoratedFeature(Feature.DISK, new SphereReplaceConfig(BlockRegistry.twilightStone.getDefaultState(),
-                                6, 2, Lists.newArrayList(BlockRegistry.edenGrass.getDefaultState(), BlockRegistry.edenDirt.getDefaultState())),
-                        Placement.COUNT_TOP_SOLID, new FrequencyConfig(1)));
+                                8, 8, Lists.newArrayList(BlockRegistry.edenGrass.getDefaultState(), BlockRegistry.edenDirt.getDefaultState())),
+                        Placement.CHANCE_PASSTHROUGH, new ChanceConfig(10)));
 
         // Tree gen
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, createDecoratedFeature(FeatureRegistry.eden_tree_feature,

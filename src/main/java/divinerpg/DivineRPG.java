@@ -4,10 +4,7 @@ import divinerpg.api.arcana.IArcana;
 import divinerpg.arcana.Arcana;
 import divinerpg.arcana.ArcanaStorage;
 import divinerpg.config.DivineConfig;
-import divinerpg.registry.EntitiesRegistry;
-import divinerpg.registry.FeatureRegistry;
-import divinerpg.registry.MessageRegistry;
-import divinerpg.registry.PoweredArmorRegistry;
+import divinerpg.registry.*;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -78,6 +75,7 @@ public class DivineRPG
 
         CapabilityManager.INSTANCE.register(IArcana.class, new ArcanaStorage(), Arcana::new);
         FeatureRegistry.registerWorldGen();
+        DimensionRegistry.registerDimTypes();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

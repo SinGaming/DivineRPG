@@ -226,6 +226,7 @@ public class BlockRegistry {
         registry.register(new DivinePortalBlock(
                 Block.Properties.create(Material.PORTAL, MaterialColor.YELLOW),
                 () -> DimensionRegistry.EDEN_TYPE,
+                () -> BlockRegistry.divineRock,
                 // TODO right particle type
                 ParticleTypes.FIREWORK).setRegistryName(DivineRPG.MODID, "eden_portal"));
 

@@ -5,19 +5,18 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.pattern.BlockPattern;
-import net.minecraft.block.pattern.BlockPatternBuilder;
-import net.minecraft.block.pattern.BlockStateMatcher;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.CachedBlockInfo;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static divinerpg.utils.PortalHelper.createNetherLikePattern;
 
 public class TwilightClock extends Item {
 
@@ -84,19 +83,9 @@ public class TwilightClock extends Item {
      * @return true if activated
      */
     private boolean tryCreateNetherLikePortal(World world, BlockPos pos, Block frame, Block portal) {
-        BlockPattern portalShape = BlockPatternBuilder.start()
-                .aisle("?xx?")
-                .aisle("x..x")
-                .aisle("x..x")
-                .aisle("x..x")
-                .aisle("?xx?")
-                .where('?', CachedBlockInfo.hasState(BlockStateMatcher.ANY))
-                .where('x', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(frame)))
-                .where('.', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(Blocks.AIR)))
-                .build();
-
         // Pretty heavy function, think about it
-        BlockPattern.PatternHelper match = portalShape.match(world, pos);
+        // TODO think how to replace deprecated method
+        BlockPattern.PatternHelper match = createNetherLikePattern(frame, BlockState::isAir).match(world, pos);
         if (match == null)
             return false;
 
