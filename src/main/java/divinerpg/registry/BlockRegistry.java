@@ -16,12 +16,16 @@ import net.minecraft.item.Item;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.Tuple;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 
@@ -143,8 +147,6 @@ public class BlockRegistry {
     public static BushBlock moonBud;
     @ObjectHolder("moonlight_fern")
     public static BushBlock moonlightFern;
-    //    @ObjectHolder("sunbloom")
-//    public static BushBlock sunbloom;
     @ObjectHolder("wildwood_leaves")
     public static LeavesBlock wildwoodLeaves;
     @ObjectHolder("wildwood_log")
@@ -162,220 +164,159 @@ public class BlockRegistry {
 
 
     private static int IRON = 2, DIAMOND = 3;
+    private static List<Tuple<Block, Item.Properties>> blockItems = new ArrayList<>();
 
 
     // TODO add block tags. 1) Leaves are decaying, 2) Logs are not accepting in furnace, etc.
     @SubscribeEvent
     public static void registerBlocks(final RegistryEvent.Register<Block> event) {
-        IForgeRegistry<Block> registry = event.getRegistry();
-
+        Item.Properties blockTabProperty = new Item.Properties().group(DivineRPGTabs.DivineBlocks);
         IExpDrop regularDrop = (r, f, s) -> MathHelper.nextInt(r, 2, 6);
 
-        registry.register(new DivineOre(ExtendedBlockProperties.createForOre(2.5F, 50, IRON, regularDrop))
-                .setRegistryName(DivineRPG.MODID, "realmite_ore"));
-        registry.register(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
-                .setRegistryName(DivineRPG.MODID, "arlemite_ore"));
-        registry.register(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
-                .setRegistryName(DivineRPG.MODID, "rupee_ore"));
-        registry.register(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND).onCollision(e -> e.attackEntityFrom(DamageSource.IN_FIRE, 1)))
-                .setRegistryName(DivineRPG.MODID, "netherite_ore"));
-        registry.register(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
-                .setRegistryName(DivineRPG.MODID, "bloodgem_ore"));
+        registerBlock(new DivineOre(ExtendedBlockProperties.createForOre(2.5F, 50, IRON, regularDrop)), "realmite_ore", blockTabProperty);
+        registerBlock(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop)), "arlemite_ore", blockTabProperty);
+        registerBlock(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop)), "rupee_ore", blockTabProperty);
+        registerBlock(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND).onCollision(e -> e.attackEntityFrom(DamageSource.IN_FIRE, 1))),
+                "netherite_ore", blockTabProperty);
+        registerBlock(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop)), "bloodgem_ore", blockTabProperty);
 
-        registry.register(new BeaconBase(ExtendedBlockProperties.createForOre(4, 100, IRON, regularDrop).props).setRegistryName(DivineRPG.MODID, "realmite_block"));
-        registry.register(new BeaconBase(ExtendedBlockProperties.createForOre(5, 100, DIAMOND, regularDrop).props).setRegistryName(DivineRPG.MODID, "arlemite_block"));
-        registry.register(new BeaconBase(ExtendedBlockProperties.createForOre(5, 100, DIAMOND, regularDrop).props).setRegistryName(DivineRPG.MODID, "rupee_block"));
-        registry.register(new BeaconBase(ExtendedBlockProperties.createForOre(5, 100, DIAMOND, regularDrop).props).setRegistryName(DivineRPG.MODID, "netherite_block"));
-        registry.register(new BeaconBase(ExtendedBlockProperties.createForOre(5, 100, DIAMOND, regularDrop).props).setRegistryName(DivineRPG.MODID, "bloodgem_block"));
+        registerBlock(new BeaconBase(ExtendedBlockProperties.createForOre(4, 100, IRON, regularDrop).props), "realmite_block", blockTabProperty);
+        registerBlock(new BeaconBase(ExtendedBlockProperties.createForOre(5, 100, DIAMOND, regularDrop).props), "arlemite_block", blockTabProperty);
+        registerBlock(new BeaconBase(ExtendedBlockProperties.createForOre(5, 100, DIAMOND, regularDrop).props), "rupee_block", blockTabProperty);
+        registerBlock(new BeaconBase(ExtendedBlockProperties.createForOre(5, 100, DIAMOND, regularDrop).props), "netherite_block", blockTabProperty);
+        registerBlock(new BeaconBase(ExtendedBlockProperties.createForOre(5, 100, DIAMOND, regularDrop).props), "bloodgem_block", blockTabProperty);
 
-        registry.register(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 10F)).setRegistryName(DivineRPG.MODID, "divine_rock"));
+        registerBlock(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 10F)), "divine_rock", blockTabProperty);
 
-        registry.register(new BlockMobPumpkin(SoundEvents.ENTITY_SPIDER_AMBIENT).setRegistryName(DivineRPG.MODID, "spider_pumpkin"));
-        registry.register(new BlockMobPumpkin(SoundEvents.ENTITY_ENDERMAN_SCREAM).setRegistryName(DivineRPG.MODID, "ender_pumpkin"));
-        registry.register(new BlockMobPumpkin(SoundEvents.ENTITY_CREEPER_PRIMED).setRegistryName(DivineRPG.MODID, "creeper_pumpkin"));
-        registry.register(new BlockMobPumpkin(SoundEvents.ENTITY_SKELETON_AMBIENT).setRegistryName(DivineRPG.MODID, "skeleton_pumpkin"));
-        registry.register(new BlockMobPumpkin(SoundEvents.ENTITY_BLAZE_AMBIENT).setRegistryName(DivineRPG.MODID, "blaze_pumpkin"));
-        registry.register(new BlockMobPumpkin(SoundEvents.ENTITY_ZOMBIE_AMBIENT).setRegistryName(DivineRPG.MODID, "zombie_pumpkin"));
-        registry.register(new BlockMobPumpkin(SoundRegistry.FROST).setRegistryName(DivineRPG.MODID, "frost_pumpkin"));
-        registry.register(new BlockMobPumpkin(SoundRegistry.CYCLOPS).setRegistryName(DivineRPG.MODID, "cyclops_pumpkin"));
-        registry.register(new BlockMobPumpkin(SoundEvents.ENTITY_GHAST_SCREAM).setRegistryName(DivineRPG.MODID, "ghast_pumpkin"));
-        registry.register(new BlockMobPumpkin(SoundRegistry.GLACIDE).setRegistryName(DivineRPG.MODID, "glacon_pumpkin"));
-        registry.register(new BlockMobPumpkin(SoundEvents.ENTITY_ENDERMAN_SCREAM).setRegistryName(DivineRPG.MODID, "ender_watcher_pumpkin"));
-        registry.register(new BlockMobPumpkin(SoundRegistry.HELL_SPIDER).setRegistryName(DivineRPG.MODID, "jungle_spider_pumpkin"));
-        registry.register(new BlockMobPumpkin(SoundRegistry.HELL_SPIDER).setRegistryName(DivineRPG.MODID, "hell_spider_pumpkin"));
+        registerBlock(new BlockMobPumpkin(SoundEvents.ENTITY_SPIDER_AMBIENT), "spider_pumpkin", blockTabProperty);
+        registerBlock(new BlockMobPumpkin(SoundEvents.ENTITY_ENDERMAN_SCREAM), "ender_pumpkin", blockTabProperty);
+        registerBlock(new BlockMobPumpkin(SoundEvents.ENTITY_CREEPER_PRIMED), "creeper_pumpkin", blockTabProperty);
+        registerBlock(new BlockMobPumpkin(SoundEvents.ENTITY_SKELETON_AMBIENT), "skeleton_pumpkin", blockTabProperty);
+        registerBlock(new BlockMobPumpkin(SoundEvents.ENTITY_BLAZE_AMBIENT), "blaze_pumpkin", blockTabProperty);
+        registerBlock(new BlockMobPumpkin(SoundEvents.ENTITY_ZOMBIE_AMBIENT), "zombie_pumpkin", blockTabProperty);
+        registerBlock(new BlockMobPumpkin(SoundRegistry.FROST), "frost_pumpkin", blockTabProperty);
+        registerBlock(new BlockMobPumpkin(SoundRegistry.CYCLOPS), "cyclops_pumpkin", blockTabProperty);
+        registerBlock(new BlockMobPumpkin(SoundEvents.ENTITY_GHAST_SCREAM), "ghast_pumpkin", blockTabProperty);
+        registerBlock(new BlockMobPumpkin(SoundRegistry.GLACIDE), "glacon_pumpkin", blockTabProperty);
+        registerBlock(new BlockMobPumpkin(SoundEvents.ENTITY_ENDERMAN_SCREAM), "ender_watcher_pumpkin", blockTabProperty);
+        registerBlock(new BlockMobPumpkin(SoundRegistry.HELL_SPIDER), "jungle_spider_pumpkin", blockTabProperty);
+        registerBlock(new BlockMobPumpkin(SoundRegistry.HELL_SPIDER), "hell_spider_pumpkin", blockTabProperty);
 
-        //registry.register(new BasicTorch(ParticleTypes.FLAME).setRegistryName(DivineRPG.MODID, "aqua_torch"));
-        //registry.register(new BasicTorch(ParticleTypes.FLAME).setRegistryName(DivineRPG.MODID, "skeleton_torch"));
+        //registerBlock(new BasicTorch(ParticleTypes.FLAME), "aqua_torch"));
+        //registerBlock(new BasicTorch(ParticleTypes.FLAME), "skeleton_torch"));
 
-        registry.register(new Block(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH).hardnessAndResistance(0.8F)).setRegistryName(DivineRPG.MODID, "checker"));
-        registry.register(new Block(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH).hardnessAndResistance(0.8F)).setRegistryName(DivineRPG.MODID, "rainbow_wool"));
-        registry.register(new Block(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F)).setRegistryName(DivineRPG.MODID, "crate"));
-        registry.register(new Block(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F)).setRegistryName(DivineRPG.MODID, "plank_design"));
-        registry.register(new Block(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).hardnessAndResistance(1.5F).lightValue(15)).setRegistryName(DivineRPG.MODID, "blue_stone"));
+        registerBlock(new Block(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH).hardnessAndResistance(0.8F)), "checker", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH).hardnessAndResistance(0.8F)), "rainbow_wool", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F)), "crate", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F)), "plank_design", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).hardnessAndResistance(1.5F).lightValue(15)), "blue_stone", blockTabProperty);
 
-        registry.register(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)).setRegistryName(DivineRPG.MODID, "blue_vane"));
-        registry.register(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)).setRegistryName(DivineRPG.MODID, "cyan_vane"));
-        registry.register(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)).setRegistryName(DivineRPG.MODID, "purple_vane"));
-        registry.register(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)).setRegistryName(DivineRPG.MODID, "red_vane"));
-        registry.register(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)).setRegistryName(DivineRPG.MODID, "yellow_vane"));
+        registerBlock(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)), "blue_vane", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)), "cyan_vane", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)), "purple_vane", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)), "red_vane", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)), "yellow_vane", blockTabProperty);
 
-        registry.register(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(6))
-                .setRegistryName(DivineRPG.MODID, "twilight_stone"));
+        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(6)), "twilight_stone", blockTabProperty);
 
         /////////////////////
         // EDEN
         ////////////////////
-        registry.register((edenGrass = (GrassBlock) new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.LIGHT_BLUE)
-                .hardnessAndResistance(0.5F, 1)).withSpreading(block -> block == edenDirt))
-                .setRegistryName(DivineRPG.MODID, "eden_grass")));
-        registry.register(new Block(Block.Properties.create(Material.EARTH, MaterialColor.YELLOW).hardnessAndResistance(0.5F).sound(SoundType.GROUND))
-                .setRegistryName(DivineRPG.MODID, "eden_dirt"));
-        registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.YELLOW))
-                .withNonVanillaType(DivinePlantType.EDEN).withSize(8, 16))
-                .setRegistryName(DivineRPG.MODID, "eden_brush"));
-        registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.YELLOW))
-                .withNonVanillaType(DivinePlantType.EDEN).withSize(8, 16))
-                .setRegistryName(DivineRPG.MODID, "sun_blossom"));
-        registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.YELLOW))
-                .withNonVanillaType(DivinePlantType.EDEN).withSize(16, 8))
-                .setRegistryName(DivineRPG.MODID, "sunbloom"));
-        registry.register(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.YELLOW).props)
-                .setRegistryName(DivineRPG.MODID, "eden_leaves"));
-        registry.register(new LogBlock(MaterialColor.YELLOW, Block.Properties.create(Material.WOOD, MaterialColor.YELLOW).hardnessAndResistance(2.0F).sound(SoundType.WOOD))
-                .setRegistryName(DivineRPG.MODID, "eden_log"));
-        registry.register(new Block(Block.Properties.create(Material.WOOD, MaterialColor.YELLOW).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
-                .setRegistryName(DivineRPG.MODID, "eden_planks"));
-        registry.register(new DivineSaplingBlock(new DivineTree(new DivineTreeFeature(true, 7,
-                () -> edenSapling, () -> edenLog, () -> edenLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.YELLOW).withNonVanillaType(DivinePlantType.EDEN))
-                .setRegistryName(DivineRPG.MODID, "eden_sapling"));
-        registry.register(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
-                .setRegistryName(DivineRPG.MODID, "eden_ore"));
-        registry.register(new DivinePortalBlock(
+        registerBlock(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.LIGHT_BLUE)
+                        .hardnessAndResistance(0.5F, 1)).withSpreading(block -> block == edenDirt))
+                , "eden_grass", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.YELLOW).hardnessAndResistance(0.5F).sound(SoundType.GROUND))
+                , "eden_dirt", blockTabProperty);
+        registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.YELLOW))
+                        .withNonVanillaType(DivinePlantType.EDEN).withSize(8, 16))
+                , "eden_brush", blockTabProperty);
+        registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.YELLOW))
+                        .withNonVanillaType(DivinePlantType.EDEN).withSize(8, 16))
+                , "sun_blossom", blockTabProperty);
+        registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.YELLOW))
+                        .withNonVanillaType(DivinePlantType.EDEN).withSize(16, 8))
+                , "sunbloom", blockTabProperty);
+        registerBlock(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.YELLOW).props)
+                , "eden_leaves", blockTabProperty);
+        registerBlock(new LogBlock(MaterialColor.YELLOW, Block.Properties.create(Material.WOOD, MaterialColor.YELLOW).hardnessAndResistance(2.0F).sound(SoundType.WOOD))
+                , "eden_log", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.YELLOW).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
+                , "eden_planks", blockTabProperty);
+        registerBlock(new DivineSaplingBlock(new DivineTree(new DivineTreeFeature(true, 7,
+                        () -> edenSapling, () -> edenLog, () -> edenLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.YELLOW).withNonVanillaType(DivinePlantType.EDEN))
+                , "eden_sapling", blockTabProperty);
+        registerBlock(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
+                , "eden_ore", blockTabProperty);
+        registerBlock(new DivinePortalBlock(
                 Block.Properties.create(Material.PORTAL, MaterialColor.YELLOW),
                 () -> DimensionRegistry.EDEN_TYPE,
                 () -> BlockRegistry.divineRock,
                 // TODO right particle type
-                ParticleTypes.FIREWORK).setRegistryName(DivineRPG.MODID, "eden_portal"));
-        registry.register(new Block(Block.Properties.create(Material.ROCK, MaterialColor.YELLOW).hardnessAndResistance(2).sound(SoundType.STONE))
-                .setRegistryName(DivineRPG.MODID, "eden_block"));
+                ParticleTypes.FIREWORK), "eden_portal", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.YELLOW).hardnessAndResistance(2).sound(SoundType.STONE))
+                , "eden_block", blockTabProperty);
 
 
         ////////////////////////
         // WILDWOOD
         ///////////////////////
-        registry.register(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.LIGHT_BLUE)
-                .hardnessAndResistance(0.5F, 1)).withSpreading(block -> block == wildwoodDirt))
-                .setRegistryName(DivineRPG.MODID, "wildwood_grass"));
-        registry.register(new Block(Block.Properties.create(Material.EARTH, MaterialColor.LIGHT_BLUE).hardnessAndResistance(0.5F).sound(SoundType.GROUND))
-                .setRegistryName(DivineRPG.MODID, "wildwood_dirt"));
-        registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.LIGHT_BLUE))
-                .withNonVanillaType(DivinePlantType.WILDWOOD).withSize(12, 12))
-                .setRegistryName(DivineRPG.MODID, "moonlight_fern"));
-        registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.LIGHT_BLUE))
-                .withNonVanillaType(DivinePlantType.WILDWOOD).withSize(12, 11))
-                .setRegistryName(DivineRPG.MODID, "moon_bud"));
-
-//        registry.register(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.LIGHT_BLUE))
-//                .withNonVanillaType(EDEN_PLANT).withSize(16, 8))
-//                .setRegistryName(DivineRPG.MODID, "sunbloom"));
-
-        registry.register(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.LIGHT_BLUE).props)
-                .setRegistryName(DivineRPG.MODID, "wildwood_leaves"));
-        registry.register(new LogBlock(MaterialColor.YELLOW, Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2.0F).sound(SoundType.WOOD))
-                .setRegistryName(DivineRPG.MODID, "wildwood_log"));
-        registry.register(new Block(Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
-                .setRegistryName(DivineRPG.MODID, "wildwood_planks"));
-        registry.register(new DivineSaplingBlock(new DivineTree(new DivineTreeFeature(true, 7,
-                () -> wildwoodSapling, () -> wildwoodLog, () -> wildwoodLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.LIGHT_BLUE).withNonVanillaType(DivinePlantType.WILDWOOD))
-                .setRegistryName(DivineRPG.MODID, "wildwood_sapling"));
-        registry.register(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
-                .setRegistryName(DivineRPG.MODID, "wildwood_ore"));
-        registry.register(new DivinePortalBlock(
+        registerBlock(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.LIGHT_BLUE)
+                        .hardnessAndResistance(0.5F, 1)).withSpreading(block -> block == wildwoodDirt))
+                , "wildwood_grass", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.LIGHT_BLUE).hardnessAndResistance(0.5F).sound(SoundType.GROUND))
+                , "wildwood_dirt", blockTabProperty);
+        registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.LIGHT_BLUE))
+                        .withNonVanillaType(DivinePlantType.WILDWOOD).withSize(12, 12))
+                , "moonlight_fern", blockTabProperty);
+        registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.LIGHT_BLUE))
+                        .withNonVanillaType(DivinePlantType.WILDWOOD).withSize(12, 11))
+                , "moon_bud", blockTabProperty);
+        // TODO add bouble tall wilwood grass
+        registerBlock(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.LIGHT_BLUE).props)
+                , "wildwood_leaves", blockTabProperty);
+        registerBlock(new LogBlock(MaterialColor.YELLOW, Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2.0F).sound(SoundType.WOOD))
+                , "wildwood_log", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
+                , "wildwood_planks", blockTabProperty);
+        registerBlock(new DivineSaplingBlock(new DivineTree(new DivineTreeFeature(true, 7,
+                        () -> wildwoodSapling, () -> wildwoodLog, () -> wildwoodLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.LIGHT_BLUE).withNonVanillaType(DivinePlantType.WILDWOOD))
+                , "wildwood_sapling", blockTabProperty);
+        registerBlock(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
+                , "wildwood_ore", blockTabProperty);
+        registerBlock(new DivinePortalBlock(
                 Block.Properties.create(Material.PORTAL, MaterialColor.LIGHT_BLUE),
                 () -> DimensionRegistry.WILDWOOD_TYPE,
                 () -> BlockRegistry.edenBlock,
                 // TODO right particle type
-                ParticleTypes.FIREWORK).setRegistryName(DivineRPG.MODID, "wildwood_portal"));
-        registry.register(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2).sound(SoundType.STONE))
-                .setRegistryName(DivineRPG.MODID, "wildwood_block"));
+                ParticleTypes.FIREWORK), "wildwood_portal", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2).sound(SoundType.STONE))
+                , "wildwood_block", blockTabProperty);
     }
 
     @SubscribeEvent
     public static void registerItemBlocks(final RegistryEvent.Register<Item> event) {
-        IForgeRegistry<Item> registry = event.getRegistry();
-        Item.Properties blockTabProperty = new Item.Properties().group(DivineRPGTabs.DivineBlocks);
 
-        registry.register(new BlockItem(BlockRegistry.realmiteOre, blockTabProperty).setRegistryName(DivineRPG.MODID, "realmite_ore"));
-        registry.register(new BlockItem(BlockRegistry.arlemiteOre, blockTabProperty).setRegistryName(DivineRPG.MODID, "arlemite_ore"));
-        registry.register(new BlockItem(BlockRegistry.rupeeOre, blockTabProperty).setRegistryName(DivineRPG.MODID, "rupee_ore"));
-        registry.register(new BlockItem(BlockRegistry.netheriteOre, blockTabProperty).setRegistryName(DivineRPG.MODID, "netherite_ore"));
-        registry.register(new BlockItem(BlockRegistry.bloodgemOre, blockTabProperty).setRegistryName(DivineRPG.MODID, "bloodgem_ore"));
-        registry.register(new BlockItem(BlockRegistry.realmiteBlock, blockTabProperty).setRegistryName(DivineRPG.MODID, "realmite_block"));
-        registry.register(new BlockItem(BlockRegistry.arlemiteBlock, blockTabProperty).setRegistryName(DivineRPG.MODID, "arlemite_block"));
-        registry.register(new BlockItem(BlockRegistry.rupeeBlock, blockTabProperty).setRegistryName(DivineRPG.MODID, "rupee_block"));
-        registry.register(new BlockItem(BlockRegistry.netheriteBlock, blockTabProperty).setRegistryName(DivineRPG.MODID, "netherite_block"));
-        registry.register(new BlockItem(BlockRegistry.bloodgemBlock, blockTabProperty).setRegistryName(DivineRPG.MODID, "bloodgem_block"));
-        registry.register(new BlockItem(BlockRegistry.divineRock, blockTabProperty).setRegistryName(DivineRPG.MODID, "divine_rock"));
+        blockItems.forEach(x -> {
+            event.getRegistry().register(new BlockItem(x.getA(), x.getB()).setRegistryName(x.getA().getRegistryName()));
+        });
 
-        registry.register(new BlockItem(BlockRegistry.spiderPumpkin, blockTabProperty).setRegistryName(DivineRPG.MODID, "spider_pumpkin"));
-        registry.register(new BlockItem(BlockRegistry.enderPumpkin, blockTabProperty).setRegistryName(DivineRPG.MODID, "ender_pumpkin"));
-        registry.register(new BlockItem(BlockRegistry.creeperPumpkin, blockTabProperty).setRegistryName(DivineRPG.MODID, "creeper_pumpkin"));
-        registry.register(new BlockItem(BlockRegistry.skeletonPumpkin, blockTabProperty).setRegistryName(DivineRPG.MODID, "skeleton_pumpkin"));
-        registry.register(new BlockItem(BlockRegistry.blazePumpkin, blockTabProperty).setRegistryName(DivineRPG.MODID, "blaze_pumpkin"));
-        registry.register(new BlockItem(BlockRegistry.zombiePumpkin, blockTabProperty).setRegistryName(DivineRPG.MODID, "zombie_pumpkin"));
-        registry.register(new BlockItem(BlockRegistry.frostPumpkin, blockTabProperty).setRegistryName(DivineRPG.MODID, "frost_pumpkin"));
-        registry.register(new BlockItem(BlockRegistry.cyclopsPumpkin, blockTabProperty).setRegistryName(DivineRPG.MODID, "cyclops_pumpkin"));
-        registry.register(new BlockItem(BlockRegistry.ghastPumpkin, blockTabProperty).setRegistryName(DivineRPG.MODID, "ghast_pumpkin"));
-        registry.register(new BlockItem(BlockRegistry.glaconPumpkin, blockTabProperty).setRegistryName(DivineRPG.MODID, "glacon_pumpkin"));
-        registry.register(new BlockItem(BlockRegistry.enderWatcherPumpkin, blockTabProperty).setRegistryName(DivineRPG.MODID, "ender_watcher_pumpkin"));
-        registry.register(new BlockItem(BlockRegistry.jungleSpiderPumpkin, blockTabProperty).setRegistryName(DivineRPG.MODID, "jungle_spider_pumpkin"));
-        registry.register(new BlockItem(BlockRegistry.hellSpiderPumpkin, blockTabProperty).setRegistryName(DivineRPG.MODID, "hell_spider_pumpkin"));
 
-        //Torches don't quite work yet.
-        //registry.register(new BlockItem(BlockRegistry.aquaTorch, blockTabProperty).setRegistryName(DivineRPG.MODID, "aqua_torch"));
-        //registry.register(new BlockItem(BlockRegistry.skeletonTorch, blockTabProperty).setRegistryName(DivineRPG.MODID, "skeleton_torch"));
+        // clear memory
+        blockItems.clear();
+    }
 
-        registry.register(new BlockItem(BlockRegistry.checker, blockTabProperty).setRegistryName(DivineRPG.MODID, "checker"));
-        registry.register(new BlockItem(BlockRegistry.rainbowWool, blockTabProperty).setRegistryName(DivineRPG.MODID, "rainbow_wool"));
-        registry.register(new BlockItem(BlockRegistry.crate, blockTabProperty).setRegistryName(DivineRPG.MODID, "crate"));
-        registry.register(new BlockItem(BlockRegistry.plankDesign, blockTabProperty).setRegistryName(DivineRPG.MODID, "plank_design"));
-        registry.register(new BlockItem(BlockRegistry.blueStone, blockTabProperty).setRegistryName(DivineRPG.MODID, "blue_stone"));
+    /**
+     * Register block instance
+     *
+     * @param block - block to register
+     * @param name  - his name
+     * @param props - oprtional item block props. Pass null to not add to items
+     */
+    private static void registerBlock(Block block, String name, Item.Properties props) {
+        ForgeRegistries.BLOCKS.register(block.setRegistryName(DivineRPG.MODID, name));
 
-        registry.register(new BlockItem(BlockRegistry.blueVane, blockTabProperty).setRegistryName(DivineRPG.MODID, "blue_vane"));
-        registry.register(new BlockItem(BlockRegistry.cyanVane, blockTabProperty).setRegistryName(DivineRPG.MODID, "cyan_vane"));
-        registry.register(new BlockItem(BlockRegistry.purpleVane, blockTabProperty).setRegistryName(DivineRPG.MODID, "purple_vane"));
-        registry.register(new BlockItem(BlockRegistry.redVane, blockTabProperty).setRegistryName(DivineRPG.MODID, "red_vane"));
-        registry.register(new BlockItem(BlockRegistry.yellowVane, blockTabProperty).setRegistryName(DivineRPG.MODID, "yellow_vane"));
-
-        registry.register(new BlockItem(BlockRegistry.twilightStone, blockTabProperty).setRegistryName(DivineRPG.MODID, "twilight_stone"));
-
-        // EDEN
-        registry.register(new BlockItem(BlockRegistry.edenGrass, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_grass"));
-        registry.register(new BlockItem(BlockRegistry.edenDirt, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_dirt"));
-        registry.register(new BlockItem(BlockRegistry.edenBrush, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_brush"));
-        registry.register(new BlockItem(BlockRegistry.sunBlossom, blockTabProperty).setRegistryName(DivineRPG.MODID, "sun_blossom"));
-        registry.register(new BlockItem(BlockRegistry.sunbloom, blockTabProperty).setRegistryName(DivineRPG.MODID, "sunbloom"));
-        registry.register(new BlockItem(BlockRegistry.edenLeaves, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_leaves"));
-        registry.register(new BlockItem(BlockRegistry.edenLog, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_log"));
-        registry.register(new BlockItem(BlockRegistry.edenPlanks, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_planks"));
-        registry.register(new BlockItem(BlockRegistry.edenSapling, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_sapling"));
-        registry.register(new BlockItem(BlockRegistry.edenOre, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_ore"));
-        registry.register(new BlockItem(BlockRegistry.edenPortal, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_portal"));
-        registry.register(new BlockItem(BlockRegistry.edenBlock, blockTabProperty).setRegistryName(DivineRPG.MODID, "eden_block"));
-
-        // WILDWOOD
-        registry.register(new BlockItem(BlockRegistry.wildwoodGrass, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_grass"));
-        registry.register(new BlockItem(BlockRegistry.wildwoodDirt, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_dirt"));
-        registry.register(new BlockItem(BlockRegistry.moonlightFern, blockTabProperty).setRegistryName(DivineRPG.MODID, "moonlight_fern"));
-        registry.register(new BlockItem(BlockRegistry.moonBud, blockTabProperty).setRegistryName(DivineRPG.MODID, "moon_bud"));
-        // registry.register(new BlockItem(BlockRegistry.wildwoodloom, blockTabProperty).setRegistryName(DivineRPG.MODID,      "sunbloom"));
-        registry.register(new BlockItem(BlockRegistry.wildwoodLeaves, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_leaves"));
-        registry.register(new BlockItem(BlockRegistry.wildwoodLog, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_log"));
-        registry.register(new BlockItem(BlockRegistry.wildwoodPlanks, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_planks"));
-        registry.register(new BlockItem(BlockRegistry.wildwoodSapling, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_sapling"));
-        registry.register(new BlockItem(BlockRegistry.wildwoodOre, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_ore"));
-        registry.register(new BlockItem(BlockRegistry.wildwoodPortal, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_portal"));
-        registry.register(new BlockItem(BlockRegistry.wildwoodBlock, blockTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_block"));
+        if (props != null)
+            blockItems.add(new Tuple<>(block, props));
     }
 
     //solely for reference
