@@ -20,13 +20,17 @@ import net.minecraftforge.fml.network.NetworkHooks;
 public class CorruptedBulletEntity extends ProjectileItemEntity {
     ////////////////////
     // OVERRIDE THESE VALUES
+    // damage, render, getEntityType()
     ///////////////////
     private static LazyLoadBase<Item> render = new LazyLoadBase<>(() -> ItemRegistry.corruptedBullet);
     private final int damage = 10;
+
+    private static EntityType<? extends ProjectileItemEntity> getEntityType() {
+        return EntitiesRegistry.corruptedBullet;
+    }
+
+
     private final IParticleData particle = new ItemParticleData(ParticleTypes.ITEM, new ItemStack(render.getValue()));
-
-
-
     protected CorruptedBulletEntity(World world) {
         super(getEntityType(), world);
     }
@@ -37,10 +41,6 @@ public class CorruptedBulletEntity extends ProjectileItemEntity {
 
     public CorruptedBulletEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn) {
         super(type, worldIn);
-    }
-
-    private static EntityType<? extends ProjectileItemEntity> getEntityType() {
-        return EntitiesRegistry.corruptedBullet;
     }
 
     @Override

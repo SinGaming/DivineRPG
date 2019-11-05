@@ -17,30 +17,30 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class EdenSlicerEntity extends ProjectileItemEntity {
+public class MortumSlicerEntity extends ProjectileItemEntity {
     ////////////////////
     // OVERRIDE THESE VALUES
     // damage, render, getEntityType()
     ///////////////////
-    private static LazyLoadBase<Item> render = new LazyLoadBase<>(() -> ItemRegistry.edenSlicer);
-    private final int damage = 8;
-
-    private static EntityType<? extends ProjectileItemEntity> getEntityType() {
-        return EntitiesRegistry.eden_slicer;
-    }
-
-
+    private static LazyLoadBase<Item> render = new LazyLoadBase<>(() -> ItemRegistry.mortumSlicer);
+    private final int damage = 16;
     private final IParticleData particle = new ItemParticleData(ParticleTypes.ITEM, new ItemStack(render.getValue()));
-    protected EdenSlicerEntity(World world) {
+
+
+    protected MortumSlicerEntity(World world) {
         super(getEntityType(), world);
     }
 
-    public EdenSlicerEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn) {
+    public MortumSlicerEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
-    public EdenSlicerEntity(World world, LivingEntity thrower) {
+    public MortumSlicerEntity(World world, LivingEntity thrower) {
         super(getEntityType(), thrower, world);
+    }
+
+    private static EntityType<? extends ProjectileItemEntity> getEntityType() {
+        return EntitiesRegistry.mortum_slicer;
     }
 
     @Override

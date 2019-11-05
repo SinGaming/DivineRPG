@@ -14,6 +14,10 @@ public class DivineItemTier implements IItemTier {
             10, () -> Ingredient.fromItems(ItemRegistry.arlemiteIngot));
     public static final DivineItemTier RUPEE = new DivineItemTier(3, 2500, 16.0F, 7.0F,
             10, () -> Ingredient.fromItems(ItemRegistry.rupeeIngot));
+    public static final DivineItemTier CORRUPTED = new DivineItemTier(3, 6000, 16, 5.0F,
+            15, () -> Ingredient.fromItems(ItemRegistry.corruptedStone));
+    public static final DivineItemTier PALAVENCE = new DivineItemTier(3, 60, 1, 0,
+            15, Ingredient::fromItems);
 
     private final int harvestLevel;
     private final int maxUses;

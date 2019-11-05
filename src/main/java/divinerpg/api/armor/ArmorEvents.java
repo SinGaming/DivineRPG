@@ -1,6 +1,7 @@
 package divinerpg.api.armor;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -277,6 +278,20 @@ public class ArmorEvents {
                 && !source.isDamageAbsolute() && !source.isUnblockable();
     }
 
+    /**
+     * Trying to heal entity
+     *
+     * @param e      - healing entity
+     * @param amount - life points amount
+     * @return - true is healed
+     */
+    public static boolean tryHeal(LivingEntity e, float amount) {
+        if (e.getHealth() >= e.getMaxHealth())
+            return false;
+
+        e.heal(amount);
+        return true;
+    }
 
     /**
      * Trying to check wherever player motion is more than passed maxSpeed

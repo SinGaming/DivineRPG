@@ -1,8 +1,7 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
-import divinerpg.entities.projectiles.CorruptedBulletEntity;
-import divinerpg.entities.projectiles.EdenSlicerEntity;
+import divinerpg.entities.projectiles.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
@@ -30,6 +29,16 @@ public class EntitiesRegistry {
     public static final EntityType<CorruptedBulletEntity> corruptedBullet = null;
     @ObjectHolder("eden_slicer")
     public static final EntityType<EdenSlicerEntity> eden_slicer = null;
+    @ObjectHolder("wildwood_slicer")
+    public static final EntityType<WildwoodSlicerEntity> wildwood_slicer = null;
+    @ObjectHolder("apalachia_slicer")
+    public static final EntityType<ApalachiaSlicerEntity> apalachia_slicer = null;
+    @ObjectHolder("skythern_slicer")
+    public static final EntityType<SkythernSlicerEntity> skythern_slicer = null;
+    @ObjectHolder("mortum_slicer")
+    public static final EntityType<MortumSlicerEntity> mortum_slicer = null;
+    @ObjectHolder("halite_slicer")
+    public static final EntityType<HaliteSlicerEntity> halite_slicer = null;
 
     private static final ArrayList<Class> bulletEntityClasses = new ArrayList<>();
 
@@ -40,6 +49,11 @@ public class EntitiesRegistry {
 
         registerBulletEntity(CorruptedBulletEntity.class, registry, CorruptedBulletEntity::new, w -> corruptedBullet.create(w), "corrupted_bullet");
         registerBulletEntity(EdenSlicerEntity.class, registry, EdenSlicerEntity::new, w -> eden_slicer.create(w), "eden_slicer");
+        registerBulletEntity(WildwoodSlicerEntity.class, registry, WildwoodSlicerEntity::new, w -> wildwood_slicer.create(w), "wildwood_slicer");
+        registerBulletEntity(ApalachiaSlicerEntity.class, registry, ApalachiaSlicerEntity::new, w -> apalachia_slicer.create(w), "apalachia_slicer");
+        registerBulletEntity(SkythernSlicerEntity.class, registry, SkythernSlicerEntity::new, w -> skythern_slicer.create(w), "skythern_slicer");
+        registerBulletEntity(MortumSlicerEntity.class, registry, MortumSlicerEntity::new, w -> mortum_slicer.create(w), "mortum_slicer");
+        registerBulletEntity(HaliteSlicerEntity.class, registry, HaliteSlicerEntity::new, w -> halite_slicer.create(w), "halite_slicer");
     }
 
 

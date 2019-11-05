@@ -17,30 +17,30 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class EdenSlicerEntity extends ProjectileItemEntity {
+public class ApalachiaSlicerEntity extends ProjectileItemEntity {
     ////////////////////
-    // OVERRIDE THESE VALUES
+    // OVERRIDE THESE VALUES:
     // damage, render, getEntityType()
     ///////////////////
-    private static LazyLoadBase<Item> render = new LazyLoadBase<>(() -> ItemRegistry.edenSlicer);
-    private final int damage = 8;
-
-    private static EntityType<? extends ProjectileItemEntity> getEntityType() {
-        return EntitiesRegistry.eden_slicer;
-    }
-
-
+    private static LazyLoadBase<Item> render = new LazyLoadBase<>(() -> ItemRegistry.apalachiaSlicer);
+    private final int damage = 12;
     private final IParticleData particle = new ItemParticleData(ParticleTypes.ITEM, new ItemStack(render.getValue()));
-    protected EdenSlicerEntity(World world) {
+
+
+    protected ApalachiaSlicerEntity(World world) {
         super(getEntityType(), world);
     }
 
-    public EdenSlicerEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn) {
+    public ApalachiaSlicerEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
-    public EdenSlicerEntity(World world, LivingEntity thrower) {
+    public ApalachiaSlicerEntity(World world, LivingEntity thrower) {
         super(getEntityType(), thrower, world);
+    }
+
+    private static EntityType<? extends ProjectileItemEntity> getEntityType() {
+        return EntitiesRegistry.apalachia_slicer;
     }
 
     @Override

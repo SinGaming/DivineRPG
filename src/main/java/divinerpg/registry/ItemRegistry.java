@@ -1,17 +1,13 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
-import divinerpg.entities.projectiles.CorruptedBulletEntity;
-import divinerpg.entities.projectiles.EdenSlicerEntity;
-import divinerpg.items.RangeWeaponItem;
-import divinerpg.items.Shickaxe;
-import divinerpg.items.ThrowableItem;
-import divinerpg.items.TwilightClock;
+import divinerpg.api.armor.ArmorEvents;
+import divinerpg.entities.projectiles.*;
+import divinerpg.items.*;
 import divinerpg.utils.DivineItemTier;
 import divinerpg.utils.properties.item.ExtendedItemProperties;
 import divinerpg.utils.properties.item.SpawnHelper;
-import net.minecraft.item.Item;
-import net.minecraft.item.ShootableItem;
+import net.minecraft.item.*;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -141,6 +137,31 @@ public class ItemRegistry {
     @ObjectHolder("halite_slicer")
     public static ThrowableItem haliteSlicer;
 
+    @ObjectHolder("corrupted_pickaxe")
+    public static PickaxeItem corruptedPickaxe;
+    @ObjectHolder("corrupted_axe")
+    public static AxeItem corruptedAxe;
+    @ObjectHolder("corrupted_shovel")
+    public static ShovelItem corrupted_shovel;
+    @ObjectHolder("corrupted_maul")
+    public static SwordItem corrupted_maul;
+
+    @ObjectHolder("realmite_pickaxe")
+    public static PickaxeItem realmitePickaxe;
+    @ObjectHolder("realmite_axe")
+    public static AxeItem realmiteAxe;
+    @ObjectHolder("realmite_shovel")
+    public static ShovelItem realmiteShovel;
+    @ObjectHolder("realmite_hoe")
+    public static HoeItem realmiteHoe;
+    @ObjectHolder("realmite_sword")
+    public static SwordItem realmite_sword;
+
+    @ObjectHolder("palavence")
+    public static SpecialSwordItem palavence;
+    @ObjectHolder("massivence")
+    public static SpecialSwordItem massivence;
+
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {
         IForgeRegistry<Item> registry = event.getRegistry();
@@ -170,11 +191,12 @@ public class ItemRegistry {
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "terran_stone"));
         registry.register(new RangeWeaponItem((ExtendedItemProperties) new ExtendedItemProperties()
                 .withAmmo(() -> corruptedBullet, 1).withDelay(15)
-                .withShooter((world, player, power) -> SpawnHelper.singleSpawn(world, player, new CorruptedBulletEntity(world, player)))
+                .withShooter((world, player, power) -> SpawnHelper.spawnRange(world, player, power, 4, (w, p1, p2) -> new CorruptedBulletEntity(world, player)))
                 .group(DivineRPGTabs.DivineItems)).setRegistryName(DivineRPG.MODID, "corrupted_cannon"));
         registry.register(new TwilightClock(itemTabProperty).setRegistryName(DivineRPG.MODID, "twilight_clock"));
-        registry.register(new Shickaxe(-2.8F, DivineItemTier.RUPEE.forShickaxe(), itemTabProperty.maxDamage(-1)).setRegistryName(DivineRPG.MODID, "rupee_shickaxe"));
-        registry.register(new Shickaxe(-2.8F, DivineItemTier.ARLEMIT.forShickaxe(), itemTabProperty).setRegistryName(DivineRPG.MODID, "arlemite_shickaxe"));
+        registry.register(new Shickaxe(-2.8F, DivineItemTier.RUPEE.forShickaxe(), new Item.Properties().group(DivineRPGTabs.DivineItems).maxDamage(-1)).setRegistryName(DivineRPG.MODID, "rupee_shickaxe"));
+        registry.register(new Shickaxe(-2.8F, DivineItemTier.ARLEMIT.forShickaxe(), new Item.Properties().group(DivineRPGTabs.DivineItems))
+                .setRegistryName(DivineRPG.MODID, "arlemite_shickaxe"));
 
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "eden_soul"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "wildwood_soul"));
@@ -212,5 +234,56 @@ public class ItemRegistry {
                 .withShooter(((world, thrower, percentagePower) -> SpawnHelper.singleSpawn(world, thrower, new EdenSlicerEntity(world, thrower))))
                 .group(DivineRPGTabs.DivineItems)
         ).setRegistryName(DivineRPG.MODID, "eden_slicer"));
+        registry.register(new ThrowableItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withShooter(((world, thrower, percentagePower) -> SpawnHelper.singleSpawn(world, thrower, new WildwoodSlicerEntity(world, thrower))))
+                .group(DivineRPGTabs.DivineItems)
+        ).setRegistryName(DivineRPG.MODID, "wildwood_slicer"));
+        registry.register(new ThrowableItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withShooter(((world, thrower, percentagePower) -> SpawnHelper.singleSpawn(world, thrower, new ApalachiaSlicerEntity(world, thrower))))
+                .group(DivineRPGTabs.DivineItems)
+        ).setRegistryName(DivineRPG.MODID, "apalachia_slicer"));
+        registry.register(new ThrowableItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withShooter(((world, thrower, percentagePower) -> SpawnHelper.singleSpawn(world, thrower, new SkythernSlicerEntity(world, thrower))))
+                .group(DivineRPGTabs.DivineItems)
+        ).setRegistryName(DivineRPG.MODID, "skythern_slicer"));
+        registry.register(new ThrowableItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withShooter(((world, thrower, percentagePower) -> SpawnHelper.singleSpawn(world, thrower, new MortumSlicerEntity(world, thrower))))
+                .group(DivineRPGTabs.DivineItems)
+        ).setRegistryName(DivineRPG.MODID, "mortum_slicer"));
+        registry.register(new ThrowableItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withShooter(((world, thrower, percentagePower) -> SpawnHelper.singleSpawn(world, thrower, new HaliteSlicerEntity(world, thrower))))
+                .group(DivineRPGTabs.DivineItems)
+        ).setRegistryName(DivineRPG.MODID, "halite_slicer"));
+
+        registry.register(new PickaxeItem(DivineItemTier.CORRUPTED, 1, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineItems))
+                .setRegistryName(DivineRPG.MODID, "corrupted_pickaxe"));
+        registry.register(new AxeItem(DivineItemTier.CORRUPTED, 2, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineItems))
+                .setRegistryName(DivineRPG.MODID, "corrupted_axe"));
+        registry.register(new ShovelItem(DivineItemTier.CORRUPTED, 0, -3F, new Item.Properties().group(DivineRPGTabs.DivineItems))
+                .setRegistryName(DivineRPG.MODID, "corrupted_shovel"));
+        registry.register(new SwordItem(DivineItemTier.CORRUPTED, 8, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineItems))
+                .setRegistryName(DivineRPG.MODID, "corrupted_maul"));
+        // TODO add corrupted hoe?
+
+
+        registry.register(new PickaxeItem(DivineItemTier.REALMIT, 1, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineItems))
+                .setRegistryName(DivineRPG.MODID, "realmite_pickaxe"));
+        registry.register(new AxeItem(DivineItemTier.REALMIT, 2, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineItems))
+                .setRegistryName(DivineRPG.MODID, "realmite_axe"));
+        registry.register(new ShovelItem(DivineItemTier.REALMIT, 0, -3F, new Item.Properties().group(DivineRPGTabs.DivineItems))
+                .setRegistryName(DivineRPG.MODID, "realmite_shovel"));
+        registry.register(new HoeItem(DivineItemTier.REALMIT, 0, new Item.Properties().group(DivineRPGTabs.DivineItems))
+                .setRegistryName(DivineRPG.MODID, "realmite_hoe"));
+        registry.register(new SwordItem(DivineItemTier.REALMIT, 3, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineItems))
+                .setRegistryName(DivineRPG.MODID, "realmite_sword"));
+
+        registry.register(new SpecialSwordItem(DivineItemTier.PALAVENCE, 0, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onRightClick((world, player, hand) -> ArmorEvents.tryHeal(player, 0.5F))
+                        .disableSword(true).group(DivineRPGTabs.DivineItems)
+        ).setRegistryName(DivineRPG.MODID, "palavence"));
+        registry.register(new SpecialSwordItem(DivineItemTier.PALAVENCE, 0, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onRightClick((world, player, hand) -> ArmorEvents.tryHeal(player, 1))
+                        .disableSword(true).group(DivineRPGTabs.DivineItems)
+        ).setRegistryName(DivineRPG.MODID, "massivence"));
     }
 }

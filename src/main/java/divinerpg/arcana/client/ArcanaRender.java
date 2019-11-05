@@ -7,9 +7,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.common.Mod;
-import org.lwjgl.opengl.GL11;
 
 @Mod.EventBusSubscriber
 @OnlyIn(Dist.CLIENT)
@@ -29,9 +27,9 @@ public class ArcanaRender {
 
         // TODO arcana renders over heart bar
         // use transparent background
-        GL11.glEnable(GL11.GL_BLEND);
-        mc.getTextureManager().bindTexture(bar);
-        GuiUtils.drawTexturedModalRect(x, y, 0, 0, 100, 9, 0);
-        GuiUtils.drawTexturedModalRect(x, y, 0, 9, percentage, 9, 0);
+//        GL11.glEnable(GL11.GL_BLEND);
+//        mc.getTextureManager().bindTexture(bar);
+//        GuiUtils.drawTexturedModalRect(x, y, 0, 0, 100, 9, 0);
+//        GuiUtils.drawTexturedModalRect(x, y, 0, 9, percentage, 9, 0);
     }
 }

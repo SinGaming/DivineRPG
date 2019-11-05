@@ -11,6 +11,9 @@ public class ExtendedItemProperties extends Item.Properties {
     public int cooldown = 0;
     public int bowLikeDuration = 0;
     public int arcana = 0;
+    public IRightClick rightClick;
+    public IHitEntity onHit;
+    public boolean disableSword = false;
 
     /**
      * Adding shoot ability
@@ -57,6 +60,27 @@ public class ExtendedItemProperties extends Item.Properties {
      */
     public ExtendedItemProperties useArcana(int arcana) {
         this.arcana = arcana;
+        return this;
+    }
+
+    /**
+     * With callback on right click
+     */
+    public ExtendedItemProperties onRightClick(IRightClick rightClick) {
+        this.rightClick = rightClick;
+        return this;
+    }
+
+    /**
+     * With callback on entity hit
+     */
+    public ExtendedItemProperties onHit(IHitEntity onHit) {
+        this.onHit = onHit;
+        return this;
+    }
+
+    public ExtendedItemProperties disableSword(boolean isDisabled) {
+        disableSword = isDisabled;
         return this;
     }
 }

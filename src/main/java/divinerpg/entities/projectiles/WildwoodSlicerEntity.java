@@ -17,30 +17,30 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class EdenSlicerEntity extends ProjectileItemEntity {
+public class WildwoodSlicerEntity extends ProjectileItemEntity {
     ////////////////////
     // OVERRIDE THESE VALUES
     // damage, render, getEntityType()
     ///////////////////
-    private static LazyLoadBase<Item> render = new LazyLoadBase<>(() -> ItemRegistry.edenSlicer);
-    private final int damage = 8;
-
-    private static EntityType<? extends ProjectileItemEntity> getEntityType() {
-        return EntitiesRegistry.eden_slicer;
-    }
-
-
+    private static LazyLoadBase<Item> render = new LazyLoadBase<>(() -> ItemRegistry.wildwoodSlicer);
+    private final int damage = 10;
     private final IParticleData particle = new ItemParticleData(ParticleTypes.ITEM, new ItemStack(render.getValue()));
-    protected EdenSlicerEntity(World world) {
+
+
+    protected WildwoodSlicerEntity(World world) {
         super(getEntityType(), world);
     }
 
-    public EdenSlicerEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn) {
+    public WildwoodSlicerEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
-    public EdenSlicerEntity(World world, LivingEntity thrower) {
+    public WildwoodSlicerEntity(World world, LivingEntity thrower) {
         super(getEntityType(), thrower, world);
+    }
+
+    private static EntityType<? extends ProjectileItemEntity> getEntityType() {
+        return EntitiesRegistry.wildwood_slicer;
     }
 
     @Override
