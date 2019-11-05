@@ -12,6 +12,7 @@ import java.util.HashMap;
 public class DivinePlantType {
     public static final DivinePlantType EDEN = register("eden");
     public static final DivinePlantType WILDWOOD = register("wildwood");
+
     private static HashMap<String, DivinePlantType> values;
     public final PlantType type;
     public final String id;

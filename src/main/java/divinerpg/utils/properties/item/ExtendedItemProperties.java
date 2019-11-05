@@ -18,7 +18,7 @@ public class ExtendedItemProperties extends Item.Properties {
      * @param spawnBullet - function for creating bullet entity
      * @return this
      */
-    public ExtendedItemProperties withBulletOnLeftClick(IShootEntity spawnBullet) {
+    public ExtendedItemProperties withShooter(IShootEntity spawnBullet) {
         this.spawnBullet = spawnBullet;
         return this;
     }

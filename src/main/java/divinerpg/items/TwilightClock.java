@@ -1,4 +1,4 @@
-package divinerpg.items.vanilla;
+package divinerpg.items;
 
 import divinerpg.registry.BlockRegistry;
 import net.minecraft.block.Block;

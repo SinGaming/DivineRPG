@@ -18,6 +18,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.Tuple;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -163,7 +164,7 @@ public class BlockRegistry {
     public static Block wildwoodBlock;
 
 
-    private static int IRON = 2, DIAMOND = 3;
+    private static int STONE = 1, IRON = 2, DIAMOND = 3;
     private static List<Tuple<Block, Item.Properties>> blockItems = new ArrayList<>();
 
 
@@ -186,7 +187,7 @@ public class BlockRegistry {
         registerBlock(new BeaconBase(ExtendedBlockProperties.createForOre(5, 100, DIAMOND, regularDrop).props), "netherite_block", blockTabProperty);
         registerBlock(new BeaconBase(ExtendedBlockProperties.createForOre(5, 100, DIAMOND, regularDrop).props), "bloodgem_block", blockTabProperty);
 
-        registerBlock(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 10F)), "divine_rock", blockTabProperty);
+        registerBlock(new Block(ExtendedBlockProperties.createForOre(1.5F, 10, STONE).props), "divine_rock", blockTabProperty);
 
         registerBlock(new BlockMobPumpkin(SoundEvents.ENTITY_SPIDER_AMBIENT), "spider_pumpkin", blockTabProperty);
         registerBlock(new BlockMobPumpkin(SoundEvents.ENTITY_ENDERMAN_SCREAM), "ender_pumpkin", blockTabProperty);
@@ -211,22 +212,23 @@ public class BlockRegistry {
         registerBlock(new Block(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F)), "plank_design", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).hardnessAndResistance(1.5F).lightValue(15)), "blue_stone", blockTabProperty);
 
-        registerBlock(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)), "blue_vane", blockTabProperty);
-        registerBlock(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)), "cyan_vane", blockTabProperty);
-        registerBlock(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)), "purple_vane", blockTabProperty);
-        registerBlock(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)), "red_vane", blockTabProperty);
-        registerBlock(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 10.0F)), "yellow_vane", blockTabProperty);
 
-        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(6)), "twilight_stone", blockTabProperty);
+        registerBlock(new Block(ExtendedBlockProperties.createForOre(2, 10, STONE, regularDrop).props), "blue_vane", blockTabProperty);
+        registerBlock(new Block(ExtendedBlockProperties.createForOre(2, 10, STONE, regularDrop).props), "cyan_vane", blockTabProperty);
+        registerBlock(new Block(ExtendedBlockProperties.createForOre(2, 10, STONE, regularDrop).props), "purple_vane", blockTabProperty);
+        registerBlock(new Block(ExtendedBlockProperties.createForOre(2, 10, STONE, regularDrop).props), "red_vane", blockTabProperty);
+        registerBlock(new Block(ExtendedBlockProperties.createForOre(2, 10, STONE, regularDrop).props), "yellow_vane", blockTabProperty);
+
+        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(6).harvestTool(ToolType.PICKAXE)), "twilight_stone", blockTabProperty);
 
         /////////////////////
         // EDEN
         ////////////////////
         registerBlock(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.LIGHT_BLUE)
-                        .hardnessAndResistance(0.5F, 1)).withSpreading(block -> block == edenDirt))
+                        .harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.5F, 1)).withSpreading(block -> block == edenDirt))
                 , "eden_grass", blockTabProperty);
-        registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.YELLOW).hardnessAndResistance(0.5F).sound(SoundType.GROUND))
-                , "eden_dirt", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.YELLOW).hardnessAndResistance(0.5F).sound(SoundType.GROUND)
+                .harvestTool(ToolType.SHOVEL)), "eden_dirt", blockTabProperty);
         registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.YELLOW))
                         .withNonVanillaType(DivinePlantType.EDEN).withSize(8, 16))
                 , "eden_brush", blockTabProperty);
@@ -238,9 +240,9 @@ public class BlockRegistry {
                 , "sunbloom", blockTabProperty);
         registerBlock(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.YELLOW).props)
                 , "eden_leaves", blockTabProperty);
-        registerBlock(new LogBlock(MaterialColor.YELLOW, Block.Properties.create(Material.WOOD, MaterialColor.YELLOW).hardnessAndResistance(2.0F).sound(SoundType.WOOD))
+        registerBlock(new LogBlock(MaterialColor.YELLOW, Block.Properties.create(Material.WOOD, MaterialColor.YELLOW).hardnessAndResistance(2.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
                 , "eden_log", blockTabProperty);
-        registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.YELLOW).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
+        registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.YELLOW).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
                 , "eden_planks", blockTabProperty);
         registerBlock(new DivineSaplingBlock(new DivineTree(new DivineTreeFeature(true, 7,
                         () -> edenSapling, () -> edenLog, () -> edenLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.YELLOW).withNonVanillaType(DivinePlantType.EDEN))
@@ -253,7 +255,7 @@ public class BlockRegistry {
                 () -> BlockRegistry.divineRock,
                 // TODO right particle type
                 ParticleTypes.FIREWORK), "eden_portal", blockTabProperty);
-        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.YELLOW).hardnessAndResistance(2).sound(SoundType.STONE))
+        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.YELLOW).hardnessAndResistance(2).sound(SoundType.STONE).harvestTool(ToolType.SHOVEL))
                 , "eden_block", blockTabProperty);
 
 
@@ -261,9 +263,9 @@ public class BlockRegistry {
         // WILDWOOD
         ///////////////////////
         registerBlock(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.LIGHT_BLUE)
-                        .hardnessAndResistance(0.5F, 1)).withSpreading(block -> block == wildwoodDirt))
+                        .hardnessAndResistance(0.5F, 1).harvestTool(ToolType.SHOVEL)).withSpreading(block -> block == wildwoodDirt))
                 , "wildwood_grass", blockTabProperty);
-        registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.LIGHT_BLUE).hardnessAndResistance(0.5F).sound(SoundType.GROUND))
+        registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.LIGHT_BLUE).hardnessAndResistance(0.5F).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL))
                 , "wildwood_dirt", blockTabProperty);
         registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.LIGHT_BLUE))
                         .withNonVanillaType(DivinePlantType.WILDWOOD).withSize(12, 12))
@@ -274,9 +276,9 @@ public class BlockRegistry {
         // TODO add bouble tall wilwood grass
         registerBlock(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.LIGHT_BLUE).props)
                 , "wildwood_leaves", blockTabProperty);
-        registerBlock(new LogBlock(MaterialColor.YELLOW, Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2.0F).sound(SoundType.WOOD))
+        registerBlock(new LogBlock(MaterialColor.YELLOW, Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
                 , "wildwood_log", blockTabProperty);
-        registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
+        registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
                 , "wildwood_planks", blockTabProperty);
         registerBlock(new DivineSaplingBlock(new DivineTree(new DivineTreeFeature(true, 7,
                         () -> wildwoodSapling, () -> wildwoodLog, () -> wildwoodLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.LIGHT_BLUE).withNonVanillaType(DivinePlantType.WILDWOOD))
@@ -289,7 +291,7 @@ public class BlockRegistry {
                 () -> BlockRegistry.edenBlock,
                 // TODO right particle type
                 ParticleTypes.FIREWORK), "wildwood_portal", blockTabProperty);
-        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2).sound(SoundType.STONE))
+        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE))
                 , "wildwood_block", blockTabProperty);
     }
 

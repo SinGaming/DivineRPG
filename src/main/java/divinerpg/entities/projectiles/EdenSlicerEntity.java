@@ -17,30 +17,29 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class CorruptedBulletEntity extends ProjectileItemEntity {
+public class EdenSlicerEntity extends ProjectileItemEntity {
     ////////////////////
     // OVERRIDE THESE VALUES
     ///////////////////
-    private static LazyLoadBase<Item> render = new LazyLoadBase<>(() -> ItemRegistry.corruptedBullet);
-    private final int damage = 10;
+    private static LazyLoadBase<Item> render = new LazyLoadBase<>(() -> ItemRegistry.edenSlicer);
+    private final int damage = 8;
     private final IParticleData particle = new ItemParticleData(ParticleTypes.ITEM, new ItemStack(render.getValue()));
 
 
-
-    protected CorruptedBulletEntity(World world) {
+    protected EdenSlicerEntity(World world) {
         super(getEntityType(), world);
     }
 
-    public CorruptedBulletEntity(World world, LivingEntity thrower) {
-        super(getEntityType(), thrower, world);
-    }
-
-    public CorruptedBulletEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn) {
+    public EdenSlicerEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
+    public EdenSlicerEntity(World world, LivingEntity thrower) {
+        super(getEntityType(), thrower, world);
+    }
+
     private static EntityType<? extends ProjectileItemEntity> getEntityType() {
-        return EntitiesRegistry.corruptedBullet;
+        return EntitiesRegistry.eden_slicer;
     }
 
     @Override
