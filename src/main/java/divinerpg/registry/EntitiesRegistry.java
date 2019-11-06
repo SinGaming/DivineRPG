@@ -40,20 +40,41 @@ public class EntitiesRegistry {
     @ObjectHolder("halite_slicer")
     public static final EntityType<HaliteSlicerEntity> halite_slicer = null;
 
-    private static final ArrayList<Class> bulletEntityClasses = new ArrayList<>();
 
+    @ObjectHolder("eden_dust")
+    public static final EntityType<EdenDustEntity> eden_dust = null;
+    @ObjectHolder("wildwood_dust")
+    public static final EntityType<WildwoodDustEntity> wildwood_dust = null;
+    @ObjectHolder("mortum_dust")
+    public static final EntityType<MortumDustEntity> mortum_dust = null;
+    @ObjectHolder("apalachia_dust")
+    public static EntityType<ApalachiaDustEntity> apalachia_dust = null;
+    @ObjectHolder("skythern_dust")
+    public static EntityType<SkythernDustEntity> skythern_dust = null;
+
+
+    private static final ArrayList<Class> bulletEntityClasses = new ArrayList<>();
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
         IForgeRegistry<EntityType<?>> registry = e.getRegistry();
 
         registerBulletEntity(CorruptedBulletEntity.class, registry, CorruptedBulletEntity::new, w -> corruptedBullet.create(w), "corrupted_bullet");
+
         registerBulletEntity(EdenSlicerEntity.class, registry, EdenSlicerEntity::new, w -> eden_slicer.create(w), "eden_slicer");
         registerBulletEntity(WildwoodSlicerEntity.class, registry, WildwoodSlicerEntity::new, w -> wildwood_slicer.create(w), "wildwood_slicer");
         registerBulletEntity(ApalachiaSlicerEntity.class, registry, ApalachiaSlicerEntity::new, w -> apalachia_slicer.create(w), "apalachia_slicer");
         registerBulletEntity(SkythernSlicerEntity.class, registry, SkythernSlicerEntity::new, w -> skythern_slicer.create(w), "skythern_slicer");
         registerBulletEntity(MortumSlicerEntity.class, registry, MortumSlicerEntity::new, w -> mortum_slicer.create(w), "mortum_slicer");
         registerBulletEntity(HaliteSlicerEntity.class, registry, HaliteSlicerEntity::new, w -> halite_slicer.create(w), "halite_slicer");
+
+        registerBulletEntity(EdenDustEntity.class, registry, EdenDustEntity::new, w -> eden_dust.create(w), "eden_dust");
+        registerBulletEntity(WildwoodDustEntity.class, registry, WildwoodDustEntity::new, w -> wildwood_dust.create(w), "wildwood_dust");
+        registerBulletEntity(ApalachiaDustEntity.class, registry, ApalachiaDustEntity::new, w -> apalachia_dust.create(w), "apalachia_dust");
+        registerBulletEntity(SkythernDustEntity.class, registry, SkythernDustEntity::new, w -> skythern_dust.create(w), "skythern_dust");
+        registerBulletEntity(MortumDustEntity.class, registry, MortumDustEntity::new, w -> mortum_dust.create(w), "mortum_dust");
+
+        //registerBulletEntity(HaliteSlicerEntity.class, registry, HaliteSlicerEntity::new, w -> halite_dust.create(w), "halite_dust");
     }
 
 

@@ -10,7 +10,7 @@ import net.minecraftforge.common.ToolType;
 public class Shickaxe extends ToolItem {
 
     public Shickaxe(float attackSpeedIn, IItemTier tier, Properties builder) {
-        super(tier.getAttackDamage(), attackSpeedIn, tier, ImmutableSet.of(),
+        super(0, attackSpeedIn, tier, ImmutableSet.of(),
                 builder.addToolType(ToolType.PICKAXE, tier.getHarvestLevel())
                         .addToolType(ToolType.AXE, tier.getHarvestLevel())
                         .addToolType(ToolType.SHOVEL, tier.getHarvestLevel()));
