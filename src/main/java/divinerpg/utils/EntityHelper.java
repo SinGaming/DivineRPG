@@ -9,6 +9,7 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 
 import java.util.Random;
+import java.util.function.Supplier;
 
 public class EntityHelper {
     /**
@@ -18,7 +19,7 @@ public class EntityHelper {
      * @param result - ray trace result
      * @param damage - damage amount
      */
-    public static void handleImpact(ThrowableEntity bullet, RayTraceResult result, int damage) {
+    public static void handleImpact(ThrowableEntity bullet, RayTraceResult result, float damage) {
         if (result instanceof EntityRayTraceResult) {
             Entity target = ((EntityRayTraceResult) result).getEntity();
             // ignore other bullets
@@ -41,7 +42,8 @@ public class EntityHelper {
         double z = bullet.posZ;
 
         Random rand = bullet.getEntityWorld().rand;
+        Supplier<Integer> randPos = () -> rand.nextInt(2) - 1;
 
-        bullet.getEntityWorld().addParticle(data, x, y, z, rand.nextInt(1), rand.nextInt(1), rand.nextInt(1));
+        bullet.getEntityWorld().addParticle(data, x, y, z, randPos.get(), randPos.get(), randPos.get());
     }
 }
