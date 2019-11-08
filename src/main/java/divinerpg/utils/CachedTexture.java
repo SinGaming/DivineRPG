@@ -6,25 +6,24 @@ import net.minecraft.util.ResourceLocation;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CachedTexture implements ITextured {
+public class CachedTexture {
     // single instance to store all loaded values
     private static final Map<String, ResourceLocation> values = new HashMap<>();
-    private final String name;
+    private String pattern;
 
-    public CachedTexture(String name, String pattern) {
-        this.name = name;
+    public CachedTexture(String pattern) {
+        this.pattern = pattern;
+    }
 
+    public static CachedTexture createForProjectiles() {
+        return new CachedTexture("textures/projectiles/%s.png");
+    }
+
+    public ResourceLocation getTexture(String name) {
         if (!values.containsKey(name)) {
             values.put(name, new ResourceLocation(DivineRPG.MODID, String.format(pattern, name)));
         }
-    }
 
-    public static CachedTexture createForProjectiles(String name) {
-        return new CachedTexture(name, "textures/projectiles/%s.png");
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
         return values.get(name);
     }
 }

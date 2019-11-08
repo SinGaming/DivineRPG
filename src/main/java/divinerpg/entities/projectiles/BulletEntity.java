@@ -48,7 +48,7 @@ public class BulletEntity extends ThrowableEntity implements ITextured {
 
         manager.set(DAMAGE, damage);
         manager.set(NAME, name);
-        texture = CachedTexture.createForProjectiles(name);
+        texture = CachedTexture.createForProjectiles();
 
         if (particleData != null) {
             manager.set(PARTICLE, particleData);
@@ -77,7 +77,7 @@ public class BulletEntity extends ThrowableEntity implements ITextured {
 
     @OnlyIn(Dist.CLIENT)
     public ResourceLocation getTexture() {
-        return texture.getTexture();
+        return texture.getTexture(getDataManager().get(NAME));
     }
 
     @Override

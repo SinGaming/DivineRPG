@@ -248,8 +248,7 @@ public class ItemRegistry {
                 new RangeWeaponItem(
                         (ExtendedItemProperties) new ExtendedItemProperties()
                                 .withShooter((world, thrower, percentagePower) -> SpawnHelper.singleSpawn(world, thrower,
-                                        new DivineArrowEntity(world, thrower, "ender_arrow", 16, null
-                                        )))
+                                        new DivineArrowEntity(world, thrower, "ender_arrow", 16)))
                                 .withUseDuration(72000)
                                 .group(DivineRPGTabs.DivineItems)
                 ).setRegistryName(DivineRPG.MODID, "ender_bow")

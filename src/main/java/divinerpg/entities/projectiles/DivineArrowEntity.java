@@ -11,16 +11,19 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class DivineArrowEntity extends ArrowEntity implements ITextured {
     private static final DataParameter<String> NAME = EntityDataManager.createKey(DivineArrowEntity.class, DataSerializers.STRING);
     private CachedTexture texture;
-    private Consumer<RayTraceResult> onHit;
+    private final List<Consumer<RayTraceResult>> onHit = new ArrayList<>();
 
     protected DivineArrowEntity(World world) {
         this(EntitiesRegistry.arrow_entity, world);
@@ -30,7 +33,7 @@ public class DivineArrowEntity extends ArrowEntity implements ITextured {
         super(type, world);
     }
 
-    public DivineArrowEntity(World worldIn, LivingEntity shooter, String name, int damage, Consumer<RayTraceResult> onHit) {
+    public DivineArrowEntity(World worldIn, LivingEntity shooter, String name, int damage) {
         super(EntitiesRegistry.arrow_entity, worldIn);
 
         setDamage(damage);
@@ -39,8 +42,15 @@ public class DivineArrowEntity extends ArrowEntity implements ITextured {
         this.setShooter(shooter);
         setPositionAndRotation(shooter.posX, shooter.posY + shooter.getEyeHeight(), shooter.posZ, shooter.rotationYaw, shooter.rotationPitch);
 
-        this.onHit = onHit;
-        texture = CachedTexture.createForProjectiles(name);
+        texture = CachedTexture.createForProjectiles();
+    }
+
+    public DivineArrowEntity withExposion(float power) {
+        onHit.add(rayTraceResult ->
+                this.getEntityWorld().createExplosion(getShooter(), this.posX, this.posY, this.posZ, power, false, Explosion.Mode.NONE)
+        );
+
+        return this;
     }
 
     @Override
@@ -53,14 +63,11 @@ public class DivineArrowEntity extends ArrowEntity implements ITextured {
     @Override
     protected void onHit(RayTraceResult raytrace) {
         super.onHit(raytrace);
-
-        if (onHit != null) {
-            onHit(raytrace);
-        }
+        onHit.forEach(x -> x.accept(raytrace));
     }
 
     @OnlyIn(Dist.CLIENT)
     public ResourceLocation getTexture() {
-        return texture.getTexture();
+        return texture.getTexture(getDataManager().get(NAME));
     }
 }
