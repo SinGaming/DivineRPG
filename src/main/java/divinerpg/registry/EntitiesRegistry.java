@@ -2,8 +2,10 @@ package divinerpg.registry;
 
 import divinerpg.DivineRPG;
 import divinerpg.entities.projectiles.BulletEntity;
+import divinerpg.entities.projectiles.DivineArrowEntity;
 import divinerpg.entities.projectiles.ItemBulletEntity;
 import divinerpg.entities.render.BulletEntityRender;
+import divinerpg.entities.render.DivineEntityRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
@@ -31,6 +33,8 @@ public class EntitiesRegistry {
     public static final EntityType<ItemBulletEntity> bullet_item_entity = null;
     @ObjectHolder("bullet_entity")
     public static final EntityType<BulletEntity> bullet_entity = null;
+    @ObjectHolder("arrow_entity")
+    public static final EntityType<DivineArrowEntity> arrow_entity = null;
 
 
     private static final ArrayList<Class> bulletEntityClasses = new ArrayList<>();
@@ -41,6 +45,7 @@ public class EntitiesRegistry {
 
         registerBulletEntity(ItemBulletEntity.class, registry, ItemBulletEntity::new, w -> bullet_item_entity.create(w), "bullet_item_entity");
         registerBulletEntity(null, registry, BulletEntity::new, w -> bullet_entity.create(w), "bullet_entity");
+        registerBulletEntity(null, registry, DivineArrowEntity::new, w -> arrow_entity.create(w), "arrow_entity");
     }
 
 
@@ -55,6 +60,7 @@ public class EntitiesRegistry {
 
         // Still projectiles, but without items
         RenderingRegistry.registerEntityRenderingHandler(BulletEntity.class, BulletEntityRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(DivineArrowEntity.class, DivineEntityRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(Class<T> clazz, IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,

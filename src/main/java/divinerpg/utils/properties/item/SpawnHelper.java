@@ -1,6 +1,7 @@
 package divinerpg.utils.properties.item;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.world.World;
 
@@ -13,6 +14,20 @@ public class SpawnHelper {
      * Spawn single entity
      */
     public static void singleSpawn(World world, LivingEntity player, ThrowableEntity bullet) {
+        if (world.isRemote())
+            return;
+
+        float playerVelocity = (float) player.getDistanceSq(player.prevPosX, player.prevPosY, player.prevPosZ);
+
+        bullet.shoot(player, player.prevRotationPitch, player.prevRotationYaw, 0, 1.5F + playerVelocity, 1F);
+        world.addEntity(bullet);
+    }
+
+    /**
+     * ONLY SERVERSIDE ACTION
+     * Spawn single entity
+     */
+    public static void singleSpawn(World world, LivingEntity player, AbstractArrowEntity bullet) {
         if (world.isRemote())
             return;
 

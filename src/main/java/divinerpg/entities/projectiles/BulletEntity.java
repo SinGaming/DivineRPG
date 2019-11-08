@@ -1,8 +1,9 @@
 package divinerpg.entities.projectiles;
 
-import divinerpg.DivineRPG;
 import divinerpg.registry.EntitiesRegistry;
+import divinerpg.utils.CachedTexture;
 import divinerpg.utils.EntityHelper;
+import divinerpg.utils.ITextured;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
@@ -22,10 +23,11 @@ import net.minecraftforge.fml.network.NetworkHooks;
 /**
  * Textured bullet
  */
-public class BulletEntity extends ThrowableEntity {
+public class BulletEntity extends ThrowableEntity implements ITextured {
     protected static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(BulletEntity.class, DataSerializers.FLOAT);
     protected static final DataParameter<String> NAME = EntityDataManager.createKey(BulletEntity.class, DataSerializers.STRING);
     protected static final DataParameter<IParticleData> PARTICLE = EntityDataManager.createKey(BulletEntity.class, DataSerializers.PARTICLE_DATA);
+    private CachedTexture texture;
 
     public BulletEntity(World worldIn) {
         this(EntitiesRegistry.bullet_entity, worldIn);
@@ -46,6 +48,7 @@ public class BulletEntity extends ThrowableEntity {
 
         manager.set(DAMAGE, damage);
         manager.set(NAME, name);
+        texture = CachedTexture.createForProjectiles(name);
 
         if (particleData != null) {
             manager.set(PARTICLE, particleData);
@@ -74,7 +77,7 @@ public class BulletEntity extends ThrowableEntity {
 
     @OnlyIn(Dist.CLIENT)
     public ResourceLocation getTexture() {
-        return new ResourceLocation(DivineRPG.MODID, "textures/projectiles/" + getDataManager().get(NAME) + ".png");
+        return texture.getTexture();
     }
 
     @Override

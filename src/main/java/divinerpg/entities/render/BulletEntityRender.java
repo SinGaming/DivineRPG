@@ -28,16 +28,15 @@ public class BulletEntityRender extends EntityRenderer<BulletEntity> {
      */
     @Override
     public void doRender(BulletEntity entity, double x, double y, double z, float entityYaw, float partialTicks) {
+        float scale = 0.5F;
+
         GlStateManager.pushMatrix();
         this.bindEntityTexture(entity);
         GlStateManager.translatef((float) x, (float) y, (float) z);
         GlStateManager.enableRescaleNormal();
-        GlStateManager.scalef(2.0F, 2.0F, 2.0F);
+        GlStateManager.scalef(scale, scale, scale);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
-        float f = 1.0F;
-        float f1 = 0.5F;
-        float f2 = 0.25F;
         GlStateManager.rotatef(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotatef((float) (this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * -this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
         if (this.renderOutlines) {

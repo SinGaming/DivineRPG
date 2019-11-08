@@ -120,7 +120,7 @@ public class RangeWeaponItem extends ShootableItem {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack weaponStack = playerIn.getHeldItem(handIn);
 
-        if (duration > 0) {
+        if (useAction == UseAction.BOW) {
 
             if (canShoot(playerIn, weaponStack)) {
                 ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onArrowNock(weaponStack, worldIn, playerIn, handIn, true);

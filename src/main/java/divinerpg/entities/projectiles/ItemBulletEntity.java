@@ -25,6 +25,7 @@ public class ItemBulletEntity extends ThrowableEntity implements IRendersAsItem 
     protected static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(ItemBulletEntity.class, DataSerializers.FLOAT);
     protected static final DataParameter<IParticleData> PARTICLE = EntityDataManager.createKey(ItemBulletEntity.class, DataSerializers.PARTICLE_DATA);
 
+
     /**
      * Needed for creation factory
      */
