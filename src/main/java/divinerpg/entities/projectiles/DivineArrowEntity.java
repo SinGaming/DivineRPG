@@ -19,7 +19,6 @@ import java.util.function.Consumer;
 
 public class DivineArrowEntity extends ArrowEntity implements ITextured {
     private static final DataParameter<String> NAME = EntityDataManager.createKey(DivineArrowEntity.class, DataSerializers.STRING);
-    private CachedTexture texture;
     private Consumer<RayTraceResult> onHit;
 
     protected DivineArrowEntity(World world) {
@@ -40,7 +39,6 @@ public class DivineArrowEntity extends ArrowEntity implements ITextured {
         setPositionAndRotation(shooter.posX, shooter.posY + shooter.getEyeHeight(), shooter.posZ, shooter.rotationYaw, shooter.rotationPitch);
 
         this.onHit = onHit;
-        texture = CachedTexture.createForProjectiles(name);
     }
 
     @Override
@@ -61,6 +59,6 @@ public class DivineArrowEntity extends ArrowEntity implements ITextured {
 
     @OnlyIn(Dist.CLIENT)
     public ResourceLocation getTexture() {
-        return texture.getTexture();
+        return CachedTexture.PROJECTILES.getTexture(getDataManager().get(NAME));
     }
 }
