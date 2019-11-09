@@ -1,8 +1,13 @@
 package divinerpg.utils.properties.item;
 
+import net.minecraft.item.ArrowItem;
 import net.minecraft.item.Item;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class ExtendedItemProperties extends Item.Properties {
     public IShootEntity spawnBullet;
@@ -14,6 +19,8 @@ public class ExtendedItemProperties extends Item.Properties {
     public IRightClick rightClick;
     public IHitEntity onHit;
     public boolean disableSword = false;
+    public final List<ArrowItem> possibleArrows = new ArrayList<>();
+    public boolean infiniteArrows = false;
 
     /**
      * Adding shoot ability
@@ -79,8 +86,34 @@ public class ExtendedItemProperties extends Item.Properties {
         return this;
     }
 
+    /**
+     * Disabling possiblity of sword hitting the entity
+     *
+     * @param isDisabled
+     * @return
+     */
     public ExtendedItemProperties disableSword(boolean isDisabled) {
         disableSword = isDisabled;
+        return this;
+    }
+
+    /**
+     * Adding arrows for shooting. The first will be used as default
+     *
+     * @param arrows - list of possible arrows
+     */
+    public ExtendedItemProperties withArrows(ArrowItem... arrows) {
+        if (arrows != null && arrows.length > 0) {
+            possibleArrows.addAll(Arrays.stream(arrows).collect(Collectors.toList()));
+        }
+        return this;
+    }
+
+    /**
+     * Will bow need arrows at all or not
+     */
+    public ExtendedItemProperties infiiniteArrows(boolean isInfinite) {
+        infiniteArrows = isInfinite;
         return this;
     }
 }

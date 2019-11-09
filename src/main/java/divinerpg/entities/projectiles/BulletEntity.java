@@ -37,10 +37,10 @@ public class BulletEntity extends ThrowableEntity implements ITextured {
     }
 
     public BulletEntity(World worldIn, LivingEntity thrower, float damage, String name) {
-        this(thrower, worldIn, damage, name, null);
+        this(worldIn, thrower, damage, name, null);
     }
 
-    public BulletEntity(LivingEntity thrower, World worldIn, float damage, String name, IParticleData particleData) {
+    public BulletEntity(World worldIn, LivingEntity thrower, float damage, String name, IParticleData particleData) {
         super(EntitiesRegistry.bullet_entity, thrower, worldIn);
 
         EntityDataManager manager = getDataManager();

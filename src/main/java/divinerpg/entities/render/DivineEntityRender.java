@@ -9,8 +9,8 @@ import javax.annotation.Nullable;
 
 public class DivineEntityRender extends ArrowRenderer<DivineArrowEntity> {
 
-    public DivineEntityRender(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn);
+    public DivineEntityRender(EntityRendererManager manager) {
+        super(manager);
     }
 
     @Nullable
