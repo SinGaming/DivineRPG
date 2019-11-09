@@ -11,41 +11,53 @@ import net.minecraft.item.ArrowItem;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class DivineBowItem extends BowItem {
     /**
      * Default Arrow is used for shooting if bow if infinite
      */
     private final List<ArrowItem> arrows = new ArrayList<>();
+    private final List<EffectInstance> effects = new ArrayList<>();
     private final boolean isInfinite;
     private final int damage;
-    private final Consumer<RayTraceResult> hitAction;
+    private final String power;
     private final int duration;
     private final SoundEvent sound;
+    private final String arrowName;
 
-    public DivineBowItem(ExtendedItemProperties builder, int arrowDamage, Consumer<RayTraceResult> onHit, SoundEvent sound) {
+    public DivineBowItem(ExtendedItemProperties builder, int arrowDamage, String power, SoundEvent sound, String arrowName) {
         super(builder);
         this.damage = arrowDamage;
         this.isInfinite = builder.infiniteArrows;
-        this.hitAction = onHit;
+        this.power = power;
         duration = builder.bowLikeDuration;
         this.sound = sound;
+        this.arrowName = arrowName;
 
         arrows.addAll(builder.possibleArrows);
         if (arrows.isEmpty()) {
             arrows.add((ArrowItem) Items.ARROW);
         }
     }
+
+    public DivineBowItem withEffects(EffectInstance... effects) {
+        if (effects != null && effects.length > 0)
+            this.effects.addAll(Arrays.stream(effects).collect(Collectors.toList()));
+
+        return this;
+    }
+
 
     @Override
     public void onPlayerStoppedUsing(ItemStack bow, World worldIn, LivingEntity entityLiving, int timeLeft) {
@@ -71,8 +83,7 @@ public class DivineBowItem extends BowItem {
                         || (ammo.getItem() instanceof ArrowItem && ((ArrowItem) ammo.getItem()).isInfinite(ammo, bow, player));
 
                 if (!worldIn.isRemote) {
-                    // same re
-                    AbstractArrowEntity arrowEntity = createNew(worldIn, ammo, player, getRegistryName().getPath());
+                    AbstractArrowEntity arrowEntity = createNew(worldIn, ammo, player, arrowName);
                     arrowEntity = customeArrow(arrowEntity);
                     arrowEntity.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, f * 3.0F, 1.0F);
                     if (f == 1.0F) {
@@ -117,9 +128,10 @@ public class DivineBowItem extends BowItem {
         }
     }
 
-    protected AbstractArrowEntity createNew(World world, ItemStack bow, PlayerEntity player, String arrowName) {
-        DivineArrowEntity arrowEntity = new DivineArrowEntity(world, player, arrowName, this.damage, this.hitAction);
-        arrowEntity.setPotionEffect(bow);
+    protected AbstractArrowEntity createNew(World world, ItemStack ammo, PlayerEntity player, String arrowName) {
+        DivineArrowEntity arrowEntity = new DivineArrowEntity(world, player, arrowName, this.damage, this.power);
+        arrowEntity.setPotionEffect(ammo);
+        effects.forEach(arrowEntity::addEffect);
         return arrowEntity;
     }
 

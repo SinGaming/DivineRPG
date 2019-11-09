@@ -10,6 +10,8 @@ import divinerpg.utils.DivineParticleTypes;
 import divinerpg.utils.properties.item.ExtendedItemProperties;
 import divinerpg.utils.properties.item.SpawnHelper;
 import net.minecraft.item.*;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -72,6 +74,14 @@ public class ItemRegistry {
 
     @ObjectHolder("ender_bow")
     public static BowItem ender_bow;
+    @ObjectHolder("hunter_bow")
+    public static BowItem hunter_bow;
+    @ObjectHolder("shadow_bow")
+    public static BowItem shadow_bow;
+    @ObjectHolder("bluefire_bow")
+    public static BowItem bluefire_bow;
+    @ObjectHolder("inferno_bow")
+    public static BowItem inferno_bow;
 
     @ObjectHolder("eden_soul")
     public static Item edenSoul;
@@ -239,13 +249,34 @@ public class ItemRegistry {
         registry.register(new SwordItem(DivineItemTier.REALMIT, 3, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineItems))
                 .setRegistryName(DivineRPG.MODID, "realmite_sword"));
 
-        registry.register(
-                new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
-                        .withUseDuration(7200)
-                        .infiiniteArrows(true)
-                        .group(DivineRPGTabs.DivineItems), 16, null, SoundEvents.ENTITY_ARROW_SHOOT)
-                        .setRegistryName(DivineRPG.MODID, "ender_bow")
-        );
+        // Bows
+        registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withUseDuration(36000)
+                .group(DivineRPGTabs.DivineItems)
+                .maxDamage(10000), 11, null, SoundEvents.ENTITY_ARROW_SHOOT, "shadow_arrow")
+                .setRegistryName(DivineRPG.MODID, "shadow_bow"));
+        registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withUseDuration(72000)
+                .group(DivineRPGTabs.DivineItems)
+                .maxDamage(2500), 11, null, SoundEvents.ENTITY_ARROW_SHOOT, "hunter_arrow")
+                .withEffects(new EffectInstance(Effects.POISON, 40, 2))
+                .setRegistryName(DivineRPG.MODID, "hunter_bow"));
+
+        registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withUseDuration(72000)
+                .infiiniteArrows(true)
+                .group(DivineRPGTabs.DivineItems), 16, "", SoundEvents.ENTITY_ARROW_SHOOT, "ender_arrow")
+                .setRegistryName(DivineRPG.MODID, "ender_bow"));
+        registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withUseDuration(72000)
+                .infiiniteArrows(true)
+                .group(DivineRPGTabs.DivineItems), 11, "explosion", SoundEvents.ENTITY_ARROW_SHOOT, "bluefire_arrow")
+                .setRegistryName(DivineRPG.MODID, "bluefire_bow"));
+        registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withUseDuration(72000)
+                .infiiniteArrows(true)
+                .group(DivineRPGTabs.DivineItems), 11, "fire", SoundEvents.ENTITY_ARROW_SHOOT, "inferno_arrow")
+                .setRegistryName(DivineRPG.MODID, "inferno_bow"));
 
 
         // Shards
