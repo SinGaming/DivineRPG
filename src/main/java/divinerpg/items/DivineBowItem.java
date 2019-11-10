@@ -13,8 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -58,6 +57,21 @@ public class DivineBowItem extends BowItem {
         return this;
     }
 
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        ItemStack itemstack = playerIn.getHeldItem(handIn);
+        boolean flag = isInfinite || !playerIn.findAmmo(itemstack).isEmpty();
+
+        ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onArrowNock(itemstack, worldIn, playerIn, handIn, flag);
+        if (ret != null) return ret;
+
+        if (!playerIn.abilities.isCreativeMode && !flag) {
+            return flag ? new ActionResult<>(ActionResultType.PASS, itemstack) : new ActionResult<>(ActionResultType.FAIL, itemstack);
+        } else {
+            playerIn.setActiveHand(handIn);
+            return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
+        }
+    }
 
     @Override
     public void onPlayerStoppedUsing(ItemStack bow, World worldIn, LivingEntity entityLiving, int timeLeft) {

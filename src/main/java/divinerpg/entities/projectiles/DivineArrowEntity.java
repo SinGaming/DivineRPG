@@ -3,6 +3,7 @@ package divinerpg.entities.projectiles;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.utils.CachedTexture;
 import divinerpg.utils.ITextured;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,6 +12,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -68,6 +70,11 @@ public class DivineArrowEntity extends ArrowEntity implements ITextured {
         if (raytrace.getType() == RayTraceResult.Type.MISS)
             return;
 
+        Entity victim = null;
+        if (raytrace instanceof EntityRayTraceResult) {
+            victim = ((EntityRayTraceResult) raytrace).getEntity();
+        }
+
         String powerRaw = getDataManager().get(POWER);
         if (powerRaw != null && powerRaw != "") {
             String[] allPowers = powerRaw.split(";");
@@ -79,7 +86,9 @@ public class DivineArrowEntity extends ArrowEntity implements ITextured {
                         break;
 
                     case "fire":
-                        this.setFire(12);
+                        if (victim != null) {
+                            victim.setFire(12);
+                        }
                         break;
                 }
             }
