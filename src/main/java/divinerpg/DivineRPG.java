@@ -65,7 +65,6 @@ public class DivineRPG
         MessageRegistry.register();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.getCommonSpec());
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CONFIG.getClientSpec());
-        FeatureRegistry.registerFeatures();
     }
 
     private void setup(final FMLCommonSetupEvent event)

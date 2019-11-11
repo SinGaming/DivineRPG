@@ -18,17 +18,23 @@ import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.placement.ChanceConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeManager;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(DivineRPG.MODID)
 public class FeatureRegistry {
+    @ObjectHolder("eden_tree_feature")
     public static DivineTreeFeature eden_tree_feature;
+    @ObjectHolder("wildwood_tree_feature")
     public static DivineTreeFeature wildwood_tree_feature;
+    @ObjectHolder("twilight_stone_islands")
     public static IslandFeature twilight_stone_islands;
+    @ObjectHolder("flowers_feature")
     public static DivineFlowersFeature flowers_feature;
-
     @ObjectHolder("ore_feature")
     public static DivineOreFeature ORE;
 
@@ -78,11 +84,9 @@ public class FeatureRegistry {
                 new DivineCountRangeConfig(config)));
     }
 
-    /**
-     * Registering features
-     */
-    public static void registerFeatures() {
-        IForgeRegistry<Feature<?>> registry = ForgeRegistries.FEATURES;
+    @SubscribeEvent
+    public static void registerFeatures(RegistryEvent.Register<Feature<?>> e) {
+        IForgeRegistry<Feature<?>> registry = e.getRegistry();
 
         registry.register(eden_tree_feature.setRegistryName(DivineRPG.MODID, "eden_tree_feature"));
         registry.register(wildwood_tree_feature.setRegistryName(DivineRPG.MODID, "wildwood_tree_feature"));
