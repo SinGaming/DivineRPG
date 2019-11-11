@@ -5,31 +5,22 @@ import divinerpg.utils.properties.block.ExtendedBlockProperties;
 import divinerpg.utils.properties.block.IPlacementCheck;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.SaplingBlock;
+import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.trees.Tree;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraftforge.common.PlantType;
 
-/**
- * Divine sapling. Created for open ctor and valid groung checks
- */
-public class DivineSaplingBlock extends SaplingBlock implements ISpecialPlant {
+public class DivineDoublePlantBlock extends DoublePlantBlock implements ISpecialPlant {
     private final IPlacementCheck validGround;
-    private final VoxelShape shape;
     private final DivinePlantType specialType;
 
-    public DivineSaplingBlock(Tree tree, ExtendedBlockProperties properties) {
-        super(tree, properties.props.doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT));
-        validGround = properties.validGround;
-        specialType = properties.type;
-
-        shape = properties.shape;
+    public DivineDoublePlantBlock(ExtendedBlockProperties props) {
+        super(props.props.doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT));
+        validGround = props.validGround;
+        specialType = props.type;
     }
 
     @Override
@@ -37,11 +28,6 @@ public class DivineSaplingBlock extends SaplingBlock implements ISpecialPlant {
         return validGround == null
                 ? super.isValidGround(state, worldIn, pos)
                 : validGround.canPlace(state, worldIn, pos);
-    }
-
-    @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return shape;
     }
 
     @Override

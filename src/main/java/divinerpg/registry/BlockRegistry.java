@@ -148,6 +148,8 @@ public class BlockRegistry {
     public static BushBlock moonBud;
     @ObjectHolder("moonlight_fern")
     public static BushBlock moonlightFern;
+    @ObjectHolder("wildwood_tallgrass")
+    public static DoublePlantBlock wildwoodTallgrass;
     @ObjectHolder("wildwood_leaves")
     public static LeavesBlock wildwoodLeaves;
     @ObjectHolder("wildwood_log")
@@ -273,7 +275,9 @@ public class BlockRegistry {
         registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.PLANTS, MaterialColor.LIGHT_BLUE))
                         .withNonVanillaType(DivinePlantType.WILDWOOD).withSize(12, 11))
                 , "moon_bud", blockTabProperty);
-        // TODO add bouble tall wilwood grass
+        registerBlock(new DivineDoublePlantBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.LIGHT_BLUE))
+                        .withNonVanillaType(DivinePlantType.WILDWOOD))
+                , "wildwood_tallgrass", blockTabProperty);
         registerBlock(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.LIGHT_BLUE).props)
                 , "wildwood_leaves", blockTabProperty);
         registerBlock(new LogBlock(MaterialColor.YELLOW, Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
@@ -292,6 +296,11 @@ public class BlockRegistry {
                 DivineParticleTypes.WILDWOOD), "wildwood_portal", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE))
                 , "wildwood_block", blockTabProperty);
+
+
+        /////////////////////////
+        // APALACHIA
+        /////////////////////////
     }
 
     @SubscribeEvent

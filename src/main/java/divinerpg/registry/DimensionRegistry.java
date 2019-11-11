@@ -19,32 +19,33 @@ import net.minecraftforge.registries.ObjectHolder;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = DivineRPG.MODID)
 @ObjectHolder(DivineRPG.MODID)
 public class DimensionRegistry {
-
     public static DimensionType EDEN_TYPE;
     public static DimensionType WILDWOOD_TYPE;
-
     public static DimensionType APALACHIA_TYPE;
     public static DimensionType SKYTHERN_TYPE;
 
 
-    public static ModDimension EDEN_DIM = new DivineDimension((world, dimensionType) ->
-            new FloatingDimension(world, EDEN_TYPE, BlockRegistry.edenDirt.getDefaultState(), BiomeRegisty.EDEN,
-                    // TODO stolen from nether
-                    new Vec3d((double) 0.2F, (double) 0.03F, (double) 0.03F)));
-
-    public static ModDimension WILDWOOD_DIM = new DivineDimension((world, dimensionType) ->
-            new FloatingDimension(world, WILDWOOD_TYPE, BlockRegistry.wildwoodDirt.getDefaultState(), BiomeRegisty.WILDWOOD,
-                    // TODO stolen from nether
-                    new Vec3d((double) 0.2F, (double) 0.03F, (double) 0.03F)));
-
+    @ObjectHolder("eden_dim")
+    public static ModDimension EDEN_DIM;
+    @ObjectHolder("wildwood_dim")
+    public static ModDimension WILDWOOD_DIM;
 
 
     @SubscribeEvent
     public static void registerDimensions(RegistryEvent.Register<ModDimension> e) {
         IForgeRegistry<ModDimension> registry = e.getRegistry();
 
-        registry.register(EDEN_DIM.setRegistryName(DivineRPG.MODID, "eden_dim"));
-        registry.register(WILDWOOD_DIM.setRegistryName(DivineRPG.MODID, "wildwood_dim"));
+        registry.register(new DivineDimension((world, dimensionType) ->
+                new FloatingDimension(world, EDEN_TYPE, BlockRegistry.edenDirt.getDefaultState(), BiomeRegisty.EDEN,
+                        // TODO stolen from nether
+                        new Vec3d((double) 0.2F, (double) 0.03F, (double) 0.03F)))
+                .setRegistryName(DivineRPG.MODID, "eden_dim"));
+
+        registry.register(new DivineDimension((world, dimensionType) ->
+                new FloatingDimension(world, WILDWOOD_TYPE, BlockRegistry.wildwoodDirt.getDefaultState(), BiomeRegisty.WILDWOOD,
+                        // TODO stolen from nether
+                        new Vec3d((double) 0.2F, (double) 0.03F, (double) 0.03F)))
+                .setRegistryName(DivineRPG.MODID, "wildwood_dim"));
     }
 
     public static void registerDimTypes() {

@@ -1,4 +1,4 @@
-package divinerpg.world.wildwood;
+package divinerpg.world.biomes;
 
 import divinerpg.DivineRPG;
 import divinerpg.registry.BlockRegistry;

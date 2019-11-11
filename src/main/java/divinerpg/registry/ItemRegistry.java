@@ -33,6 +33,16 @@ public class ItemRegistry {
     @ObjectHolder("bloodgem")
     public static Item bloodgem;
 
+
+    @ObjectHolder("shadow_bar")
+    public static Item shadowBar;
+    @ObjectHolder("aquatic_ingot")
+    public static Item aquaticIngot;
+    @ObjectHolder("aquatic_pellets")
+    public static Item aquaticPellets;
+    @ObjectHolder("hellstone_ingot")
+    public static Item hellstoneIngot;
+
     @ObjectHolder("corrupted_shards")
     public static Item corruptedShards;
     @ObjectHolder("divine_shards")
@@ -47,6 +57,9 @@ public class ItemRegistry {
     public static Item moltenShards;
     @ObjectHolder("terran_shards")
     public static Item terranShards;
+    @ObjectHolder("snow_flake")
+    public static Item snowFlake;
+
     @ObjectHolder("corrupted_stone")
     public static Item corruptedStone;
     @ObjectHolder("divine_stone")
@@ -61,6 +74,9 @@ public class ItemRegistry {
     public static Item moltenStone;
     @ObjectHolder("terran_stone")
     public static Item terranStone;
+    @ObjectHolder("shadow_stone")
+    public static Item shadowStone;
+
     @ObjectHolder("corrupted_cannon")
     public static ShootableItem corruptedCannon;
     @ObjectHolder("corrupted_bullet")
@@ -233,6 +249,7 @@ public class ItemRegistry {
         IForgeRegistry<Item> registry = event.getRegistry();
         Item.Properties itemTabProperty = new Item.Properties().group(DivineRPGTabs.DivineItems);
 
+
         // CORRUPTED
         registry.register(new RangeWeaponItem((ExtendedItemProperties) new ExtendedItemProperties()
                 .withAmmo(() -> corruptedBullet, 1).withDelay(15)
@@ -323,6 +340,10 @@ public class ItemRegistry {
                 .group(DivineRPGTabs.DivineRanged)
                 .maxDamage(1000)).setRegistryName(DivineRPG.MODID, "bowhead_cannon"));
 
+        // Swords
+//        registry.register(new SpecialSwordItem(DivineItemTier.PALAVENCE, 0, -2.4F,
+//                (ExtendedItemProperties) new ExtendedItemProperties().onRightClick((world, player, hand) -> ArmorEvents.tryHeal(player, 0.5F))
+//                        .disableSword(true).group(DivineRPGTabs.DivineItems)
 
 
         // Shards
@@ -334,6 +355,8 @@ public class ItemRegistry {
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "jungle_shards"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "molten_shards"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "terran_shards"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "snow_flake"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "aquatic_pellets"));
 
         // STONES
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "corrupted_stone"));
@@ -343,6 +366,7 @@ public class ItemRegistry {
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "jungle_stone"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "molten_stone"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "terran_stone"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "shadow_stone"));
 
         // INGOTS
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "realmite_ingot"));
@@ -350,6 +374,9 @@ public class ItemRegistry {
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "rupee_ingot"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "netherite_ingot"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "bloodgem"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "hellstone_ingot"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "aquatic_ingot"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "shadow_bar"));
 
         // SHICKAXES
         registry.register(new Shickaxe(-2.8F, DivineItemTier.RUPEE.forShickaxe(), new Item.Properties().group(DivineRPGTabs.DivineTools).maxDamage(-1)).setRegistryName(DivineRPG.MODID, "rupee_shickaxe"));

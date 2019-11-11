@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
 
+// TODO not working
 public class DivineEntityRender extends ArrowRenderer<DivineArrowEntity> {
 
     public DivineEntityRender(EntityRendererManager manager) {

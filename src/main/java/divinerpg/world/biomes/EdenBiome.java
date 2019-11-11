@@ -1,4 +1,4 @@
-package divinerpg.world.eden;
+package divinerpg.world.biomes;
 
 import com.google.common.collect.Lists;
 import divinerpg.DivineRPG;

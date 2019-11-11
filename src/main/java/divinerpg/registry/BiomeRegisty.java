@@ -1,8 +1,8 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
-import divinerpg.world.eden.EdenBiome;
-import divinerpg.world.wildwood.WildwoodBiome;
+import divinerpg.world.biomes.EdenBiome;
+import divinerpg.world.biomes.WildwoodBiome;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

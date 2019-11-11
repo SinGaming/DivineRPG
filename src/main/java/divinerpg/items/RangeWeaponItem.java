@@ -25,7 +25,7 @@ public class RangeWeaponItem extends ShootableItem {
     private final UseAction useAction;
 
     public RangeWeaponItem(ExtendedItemProperties properties) {
-        super(properties.maxStackSize(1));
+        super(properties);
 
         duration = Math.max(0, properties.bowLikeDuration);
         spawnBullet = properties.spawnBullet;

@@ -4,6 +4,7 @@ import divinerpg.utils.DivinePlantType;
 import divinerpg.utils.properties.block.ExtendedBlockProperties;
 import divinerpg.utils.properties.block.IPlacementCheck;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.BushBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.util.Direction;
@@ -17,7 +18,7 @@ import net.minecraftforge.common.PlantType;
 /**
  * Basic bush. Can have customized size and ground to place.
  */
-public class DivineBushBlock extends BushBlock {
+public class DivineBushBlock extends BushBlock implements ISpecialPlant {
     private final IPlacementCheck validGround;
     private final DivinePlantType specialType;
     private final VoxelShape shape;
@@ -48,7 +49,10 @@ public class DivineBushBlock extends BushBlock {
 
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        // TODO implement ground check
+        if (!canStandOnPostPlacement(validGround, stateIn, worldIn, currentPos)) {
+            return Blocks.AIR.getDefaultState();
+        }
+
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 }

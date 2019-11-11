@@ -4,6 +4,7 @@ import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.RedstoneParticleData;
 
 public class DivineParticleTypes {
+    // TODO Original particles are bigger, think about it
     public static final IParticleData EDEN = createFromRGB(219, 182, 17);
     public static final IParticleData WILDWOOD = createFromRGB(16, 83, 218);
     public static final IParticleData APALACHIA = createFromRGB(142, 54, 165);

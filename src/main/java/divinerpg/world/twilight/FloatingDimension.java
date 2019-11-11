@@ -53,6 +53,11 @@ public class FloatingDimension extends Dimension {
     }
 
     @Override
+    public int getSeaLevel() {
+        return 100;
+    }
+
+    @Override
     public float calculateCelestialAngle(long worldTime, float partialTicks) {
         return 0;
     }

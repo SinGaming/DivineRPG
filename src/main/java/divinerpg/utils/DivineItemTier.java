@@ -21,8 +21,22 @@ public class DivineItemTier implements IItemTier {
             15, Ingredient::fromItems);
     public static final DivineItemTier SLIME = new DivineItemTier(3, 1000, 7, 11,
             22, () -> Ingredient.fromItems(Items.DIAMOND_SWORD));
-    public static final DivineItemTier TERRAIN = new DivineItemTier(3, 750, 7, 12,
+    public static final DivineItemTier TERRAN_KNIFE = new DivineItemTier(3, 750, 7, 12,
             10, () -> Ingredient.fromItems(ItemRegistry.terranStone));
+    public static final DivineItemTier TERRAN_MAUL = new DivineItemTier(3, 1200, 7, 15,
+            10, () -> Ingredient.fromItems(ItemRegistry.terranStone));
+    public static final DivineItemTier OCEAN = new DivineItemTier(3, 2000, 7, 14,
+            15, () -> Ingredient.fromItems(ItemRegistry.aquaticIngot));
+    public static final DivineItemTier MOLTEN = new DivineItemTier(3, 5000, 7, 10,
+            15, () -> Ingredient.fromItems(ItemRegistry.moltenStone));
+    public static final DivineItemTier SHADOW = new DivineItemTier(3, 10000, 7, 26,
+            22, () -> Ingredient.fromItems(ItemRegistry.shadowStone));
+    public static final DivineItemTier JUNGLE_PARIER = new DivineItemTier(3, 1200, 7, 16,
+            10, () -> Ingredient.fromItems(ItemRegistry.jungleStone));
+    public static final DivineItemTier JUNGLE_KNIFE = new DivineItemTier(3, 2000, 7, 12,
+            10, () -> Ingredient.fromItems(ItemRegistry.jungleStone));
+    public static final DivineItemTier GLACIER = new DivineItemTier(3, 1000, 7, 18,
+            15, () -> Ingredient.fromItems(ItemRegistry.snowFlake));
 
     public static final DivineItemTier EDEN = new DivineItemTier(3, 6000, 20, 12, //(22)
             22, () -> Ingredient.fromItems(ItemRegistry.edenGem));
@@ -36,6 +50,7 @@ public class DivineItemTier implements IItemTier {
             22, () -> Ingredient.fromItems(ItemRegistry.mortumGem));
     public static final DivineItemTier HALITE = new DivineItemTier(3, 7000, 56, 26, //(36)
             22, () -> Ingredient.fromItems(ItemRegistry.mortumGem));
+
 
     private final int harvestLevel;
     private final int maxUses;
