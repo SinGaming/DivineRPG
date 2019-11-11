@@ -27,7 +27,6 @@ public class BulletEntity extends ThrowableEntity implements ITextured {
     protected static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(BulletEntity.class, DataSerializers.FLOAT);
     protected static final DataParameter<String> NAME = EntityDataManager.createKey(BulletEntity.class, DataSerializers.STRING);
     protected static final DataParameter<IParticleData> PARTICLE = EntityDataManager.createKey(BulletEntity.class, DataSerializers.PARTICLE_DATA);
-    private CachedTexture texture;
 
     public BulletEntity(World worldIn) {
         this(EntitiesRegistry.bullet_entity, worldIn);
@@ -38,17 +37,16 @@ public class BulletEntity extends ThrowableEntity implements ITextured {
     }
 
     public BulletEntity(World worldIn, LivingEntity thrower, float damage, String name) {
-        this(thrower, worldIn, damage, name, null);
+        this(worldIn, thrower, damage, name, null);
     }
 
-    public BulletEntity(LivingEntity thrower, World worldIn, float damage, String name, IParticleData particleData) {
+    public BulletEntity(World worldIn, LivingEntity thrower, float damage, String name, IParticleData particleData) {
         super(EntitiesRegistry.bullet_entity, thrower, worldIn);
 
         EntityDataManager manager = getDataManager();
 
         manager.set(DAMAGE, damage);
         manager.set(NAME, name);
-        texture = CachedTexture.createForProjectiles();
 
         if (particleData != null) {
             manager.set(PARTICLE, particleData);
@@ -77,7 +75,7 @@ public class BulletEntity extends ThrowableEntity implements ITextured {
 
     @OnlyIn(Dist.CLIENT)
     public ResourceLocation getTexture() {
-        return texture.getTexture(getDataManager().get(NAME));
+        return CachedTexture.PROJECTILES.getTexture(getDataManager().get(NAME));
     }
 
     @Override

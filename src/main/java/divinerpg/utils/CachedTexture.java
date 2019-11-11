@@ -9,14 +9,12 @@ import java.util.Map;
 public class CachedTexture {
     // single instance to store all loaded values
     private static final Map<String, ResourceLocation> values = new HashMap<>();
-    private String pattern;
+    public static final CachedTexture PROJECTILES = new CachedTexture("textures/projectiles/%s.png");
+
+    private final String pattern;
 
     public CachedTexture(String pattern) {
         this.pattern = pattern;
-    }
-
-    public static CachedTexture createForProjectiles() {
-        return new CachedTexture("textures/projectiles/%s.png");
     }
 
     public ResourceLocation getTexture(String name) {

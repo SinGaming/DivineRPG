@@ -49,9 +49,10 @@ public class EntitiesRegistry {
     public static void registerRender() {
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
-        RenderingRegistry.registerEntityRenderingHandler(ItemBulletEntity.class, factory -> new SpriteRenderer<>(factory, itemRenderer));
+        // projectiles
         RenderingRegistry.registerEntityRenderingHandler(BulletEntity.class, BulletEntityRender::new);
         RenderingRegistry.registerEntityRenderingHandler(DivineArrowEntity.class, DivineEntityRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(ItemBulletEntity.class, factory -> new SpriteRenderer<>(factory, itemRenderer));
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,

@@ -7,7 +7,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.entity.Entity;
-import net.minecraft.particles.BasicParticleType;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -37,15 +37,15 @@ public class DivinePortalBlock extends Block {
     protected static final VoxelShape X_AABB = Block.makeCuboidShape(0.0D, 0.0D, 6.0D, 16.0D, 16.0D, 10.0D);
     protected static final VoxelShape Z_AABB = Block.makeCuboidShape(6.0D, 0.0D, 0.0D, 10.0D, 16.0D, 16.0D);
     private final Supplier<DimensionType> type;
-    private final BasicParticleType particle;
+    private final IParticleData particle;
     private final Supplier<Block> frame;
 
-    public DivinePortalBlock(Properties properties, Supplier<DimensionType> type, Supplier<Block> frame, BasicParticleType particle) {
+    public DivinePortalBlock(Properties properties, Supplier<DimensionType> type, Supplier<Block> frame, IParticleData particle) {
         this(properties, type, frame, particle, false);
     }
 
     public DivinePortalBlock(Properties properties, Supplier<DimensionType> type, Supplier<Block> frame,
-                             BasicParticleType particle, boolean isHorizontal) {
+                             IParticleData particle, boolean isHorizontal) {
         super(properties.tickRandomly().doesNotBlockMovement().hardnessAndResistance(-1.0F).sound(SoundType.GLASS).lightValue(11).noDrops());
         this.type = type;
         this.particle = particle;
@@ -103,9 +103,9 @@ public class DivinePortalBlock extends Block {
      */
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-        double d0 = (double) ((float) pos.getX() + rand.nextFloat());
-        double d1 = (double) ((float) pos.getY() + 0.8F);
-        double d2 = (double) ((float) pos.getZ() + rand.nextFloat());
+        double d0 = (float) pos.getX() + rand.nextFloat();
+        double d1 = (float) pos.getY() + 0.8F;
+        double d2 = (float) pos.getZ() + rand.nextFloat();
         worldIn.addParticle(particle, d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 

@@ -3,6 +3,7 @@ package divinerpg.registry;
 import divinerpg.DivineRPG;
 import divinerpg.blocks.base.*;
 import divinerpg.blocks.twilight.DivinePortalBlock;
+import divinerpg.utils.DivineParticleTypes;
 import divinerpg.utils.DivinePlantType;
 import divinerpg.utils.properties.block.ExtendedBlockProperties;
 import divinerpg.utils.properties.block.IExpDrop;
@@ -13,7 +14,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.Tuple;
@@ -254,7 +254,7 @@ public class BlockRegistry {
                 () -> DimensionRegistry.EDEN_TYPE,
                 () -> BlockRegistry.divineRock,
                 // TODO right particle type
-                ParticleTypes.FIREWORK), "eden_portal", blockTabProperty);
+                DivineParticleTypes.EDEN), "eden_portal", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.YELLOW).hardnessAndResistance(2).sound(SoundType.STONE).harvestTool(ToolType.SHOVEL))
                 , "eden_block", blockTabProperty);
 
@@ -289,8 +289,7 @@ public class BlockRegistry {
                 Block.Properties.create(Material.PORTAL, MaterialColor.LIGHT_BLUE),
                 () -> DimensionRegistry.WILDWOOD_TYPE,
                 () -> BlockRegistry.edenBlock,
-                // TODO right particle type
-                ParticleTypes.FIREWORK), "wildwood_portal", blockTabProperty);
+                DivineParticleTypes.WILDWOOD), "wildwood_portal", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE))
                 , "wildwood_block", blockTabProperty);
     }
