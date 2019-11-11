@@ -2,6 +2,8 @@ package divinerpg.api.armor;
 
 import net.minecraftforge.eventbus.api.Event;
 
+import javax.annotation.Nullable;
+
 public interface IPoweredArmorSet {
 
     /**
@@ -12,6 +14,7 @@ public interface IPoweredArmorSet {
     /**
      * Gets equipped callback. Can be null
      */
+    @Nullable
     IEquipped getEquippedHandler();
 
     /**

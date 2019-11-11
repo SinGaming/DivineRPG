@@ -4,7 +4,10 @@ import divinerpg.api.arcana.IArcana;
 import divinerpg.arcana.Arcana;
 import divinerpg.arcana.ArcanaStorage;
 import divinerpg.config.DivineConfig;
-import divinerpg.registry.*;
+import divinerpg.registry.ArmorRegistry;
+import divinerpg.registry.EntitiesRegistry;
+import divinerpg.registry.FeatureRegistry;
+import divinerpg.registry.MessageRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -59,9 +62,7 @@ public class DivineRPG
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
-        PoweredArmorRegistry.register();
         MessageRegistry.register();
-
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.getCommonSpec());
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CONFIG.getClientSpec());
         FeatureRegistry.registerFeatures();
@@ -75,7 +76,8 @@ public class DivineRPG
 
         CapabilityManager.INSTANCE.register(IArcana.class, new ArcanaStorage(), Arcana::new);
         FeatureRegistry.registerWorldGen();
-        DimensionRegistry.registerDimTypes();
+
+        ArmorRegistry.initSuperpowers();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

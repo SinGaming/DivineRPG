@@ -18,6 +18,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.Tuple;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -170,7 +171,6 @@ public class BlockRegistry {
     private static List<Tuple<Block, Item.Properties>> blockItems = new ArrayList<>();
 
 
-    // TODO add block tags. 1) Leaves are decaying, 2) Logs are not accepting in furnace, etc.
     @SubscribeEvent
     public static void registerBlocks(final RegistryEvent.Register<Block> event) {
         Item.Properties blockTabProperty = new Item.Properties().group(DivineRPGTabs.DivineBlocks);
@@ -253,7 +253,7 @@ public class BlockRegistry {
                 , "eden_ore", blockTabProperty);
         registerBlock(new DivinePortalBlock(
                 Block.Properties.create(Material.PORTAL, MaterialColor.YELLOW),
-                () -> DimensionRegistry.EDEN_TYPE,
+                () -> DimensionType.byName(DimensionTypeRegistry.EDEN),
                 () -> BlockRegistry.divineRock,
                 // TODO right particle type
                 DivineParticleTypes.EDEN), "eden_portal", blockTabProperty);
@@ -291,7 +291,7 @@ public class BlockRegistry {
                 , "wildwood_ore", blockTabProperty);
         registerBlock(new DivinePortalBlock(
                 Block.Properties.create(Material.PORTAL, MaterialColor.LIGHT_BLUE),
-                () -> DimensionRegistry.WILDWOOD_TYPE,
+                () -> DimensionType.byName(DimensionTypeRegistry.WILDWOOD),
                 () -> BlockRegistry.edenBlock,
                 DivineParticleTypes.WILDWOOD), "wildwood_portal", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE))

@@ -51,12 +51,6 @@ public class FloatingDimension extends Dimension {
     public BlockPos findSpawn(int posX, int posZ, boolean checkValid) {
         return this.findSpawn(new ChunkPos(posX >> 4, posZ >> 4), checkValid);
     }
-
-    @Override
-    public int getSeaLevel() {
-        return 100;
-    }
-
     @Override
     public float calculateCelestialAngle(long worldTime, float partialTicks) {
         return 0;

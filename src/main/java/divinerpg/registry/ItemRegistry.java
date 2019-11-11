@@ -1,14 +1,17 @@
 package divinerpg.registry;
 
+import com.google.common.base.Function;
 import divinerpg.DivineRPG;
 import divinerpg.api.armor.ArmorEvents;
 import divinerpg.entities.projectiles.BulletEntity;
 import divinerpg.entities.projectiles.ItemBulletEntity;
 import divinerpg.items.*;
+import divinerpg.utils.DivineArmorMaterial;
 import divinerpg.utils.DivineItemTier;
 import divinerpg.utils.DivineParticleTypes;
 import divinerpg.utils.properties.item.ExtendedItemProperties;
 import divinerpg.utils.properties.item.SpawnHelper;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -260,6 +263,8 @@ public class ItemRegistry {
         IForgeRegistry<Item> registry = event.getRegistry();
         Item.Properties itemTabProperty = new Item.Properties().group(DivineRPGTabs.DivineItems);
 
+        String[] colors = ArmorRegistry.getArmorColors();
+        Item.Properties armorGroup = new Item.Properties().group(DivineRPGTabs.DivineArmor);
 
         // CORRUPTED
         registry.register(new RangeWeaponItem((ExtendedItemProperties) new ExtendedItemProperties()
@@ -299,6 +304,15 @@ public class ItemRegistry {
                 .setRegistryName(DivineRPG.MODID, "rupee_hoe"));
         registry.register(new SwordItem(DivineItemTier.RUPEE, 3, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineTools))
                 .setRegistryName(DivineRPG.MODID, "rupee_rapier"));
+        registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.RUPEE, EquipmentSlotType.HEAD, armorGroup)
+                .setRegistryName(DivineRPG.MODID, color + "rupee_helmet"), colors);
+        registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.RUPEE, EquipmentSlotType.CHEST, armorGroup)
+                .setRegistryName(DivineRPG.MODID, color + "rupee_chestplate"), colors);
+        registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.RUPEE, EquipmentSlotType.LEGS, armorGroup)
+                .setRegistryName(DivineRPG.MODID, color + "rupee_leggings"), colors);
+        registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.RUPEE, EquipmentSlotType.FEET, armorGroup)
+                .setRegistryName(DivineRPG.MODID, color + "rupee_boots"), colors);
+
 
         // Bows
         registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
@@ -559,5 +573,12 @@ public class ItemRegistry {
                         new BulletEntity(world, player, 29, "halite_phaser", DivineParticleTypes.HALITE)))
                 .group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "halite_phaser"));
 
+    }
+
+    private static void registerColors(IForgeRegistry<Item> registry, Function<String, Item> createFunc, String... colors) {
+        for (String color : colors) {
+            Item item = createFunc.apply(color);
+            registry.register(item);
+        }
     }
 }

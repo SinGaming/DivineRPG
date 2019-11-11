@@ -1,6 +1,7 @@
 package divinerpg.utils;
 
 import divinerpg.DivineRPG;
+import divinerpg.api.armor.IEquipped;
 import divinerpg.api.armor.IPoweredArmorSet;
 import divinerpg.api.events.IsEquippedEvent;
 import divinerpg.messages.EquipmentChangedMessage;
@@ -70,7 +71,10 @@ public class ArmorObserver {
             }
 
             // Should work on both sides
-            armorSet.getEquippedHandler().onEquppedChanged(e, event.isEquipped());
+            IEquipped equippedHandler = armorSet.getEquippedHandler();
+
+            if (equippedHandler != null)
+                equippedHandler.onEquppedChanged(e, event.isEquipped());
         }
     }
 

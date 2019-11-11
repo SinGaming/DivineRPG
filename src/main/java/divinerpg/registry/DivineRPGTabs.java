@@ -3,6 +3,7 @@ package divinerpg.registry;
 import divinerpg.DivineRPG;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 
 public class DivineRPGTabs {
 
@@ -14,12 +15,6 @@ public class DivineRPGTabs {
 //        }
 //    };
 //
-//    public static ItemGroup armor = new ItemGroup("Armor") {
-//        @Override
-//        public ItemStack createIcon() {
-//            return new ItemStack(ItemRegistry.divineHelmet);
-//        }
-//    };
 //    public static ItemGroup spawner = new ItemGroup("Spawner") {
 //        @Override
 //        public ItemStack createIcon() {
@@ -68,6 +63,13 @@ public class DivineRPGTabs {
         @Override
         public ItemStack createIcon() {
             return new ItemStack(ItemRegistry.halite_phaser);
+        }
+    };
+    public static final ItemGroup DivineArmor = new ItemGroup("Armor") {
+        @Override
+        public ItemStack createIcon() {
+            // TODO use divine icon
+            return new ItemStack(Items.DIAMOND_HELMET);
         }
     };
 }
