@@ -200,6 +200,17 @@ public class ItemRegistry {
     @ObjectHolder("realmite_sword")
     public static SwordItem realmite_sword;
 
+    @ObjectHolder("rupee_pickaxe")
+    public static PickaxeItem rupeePickaxe;
+    @ObjectHolder("rupee_axe")
+    public static AxeItem rupeeAxe;
+    @ObjectHolder("rupee_shovel")
+    public static ShovelItem rupeeShovel;
+    @ObjectHolder("rupee_hoe")
+    public static HoeItem rupeeHoe;
+    @ObjectHolder("rupee_rapier")
+    public static SwordItem rupee_rapier;
+
     @ObjectHolder("palavence")
     public static SpecialSwordItem palavence;
     @ObjectHolder("massivence")
@@ -266,16 +277,28 @@ public class ItemRegistry {
         // TODO add corrupted hoe?
 
         // REALMIT
-        registry.register(new PickaxeItem(DivineItemTier.REALMIT, 1, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
+        registry.register(new PickaxeItem(DivineItemTier.REALMIT, -2, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
                 .setRegistryName(DivineRPG.MODID, "realmite_pickaxe"));
         registry.register(new AxeItem(DivineItemTier.REALMIT, 2, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
                 .setRegistryName(DivineRPG.MODID, "realmite_axe"));
-        registry.register(new ShovelItem(DivineItemTier.REALMIT, 0, -3F, new Item.Properties().group(DivineRPGTabs.DivineTools))
+        registry.register(new ShovelItem(DivineItemTier.REALMIT, -2, -3F, new Item.Properties().group(DivineRPGTabs.DivineTools))
                 .setRegistryName(DivineRPG.MODID, "realmite_shovel"));
         registry.register(new HoeItem(DivineItemTier.REALMIT, 0, new Item.Properties().group(DivineRPGTabs.DivineTools))
                 .setRegistryName(DivineRPG.MODID, "realmite_hoe"));
         registry.register(new SwordItem(DivineItemTier.REALMIT, 3, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineTools))
                 .setRegistryName(DivineRPG.MODID, "realmite_sword"));
+
+        // RUPEE
+        registry.register(new PickaxeItem(DivineItemTier.RUPEE, -2, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "rupee_pickaxe"));
+        registry.register(new AxeItem(DivineItemTier.RUPEE, 2, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "rupee_axe"));
+        registry.register(new ShovelItem(DivineItemTier.RUPEE, -2, -3F, new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "rupee_shovel"));
+        registry.register(new HoeItem(DivineItemTier.RUPEE, 0, new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "rupee_hoe"));
+        registry.register(new SwordItem(DivineItemTier.RUPEE, 3, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "rupee_rapier"));
 
         // Bows
         registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
