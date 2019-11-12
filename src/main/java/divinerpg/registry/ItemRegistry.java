@@ -60,7 +60,7 @@ public class ItemRegistry {
     public static Item moltenShards;
     @ObjectHolder("terran_shards")
     public static Item terranShards;
-    @ObjectHolder("snow_flake")
+    @ObjectHolder("snowflake")
     public static Item snowFlake;
 
     @ObjectHolder("corrupted_stone")

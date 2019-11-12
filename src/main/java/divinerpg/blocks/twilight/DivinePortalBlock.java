@@ -1,6 +1,7 @@
 package divinerpg.blocks.twilight;
 
-import divinerpg.utils.PortalHelper;
+import divinerpg.utils.portal.DivineTeleporter;
+import divinerpg.utils.portal.PortalHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -123,11 +124,11 @@ public class DivinePortalBlock extends Block {
                 destination = DimensionType.OVERWORLD;
             }
 
-            entityIn.changeDimension(destination);
+            // entityIn.changeDimension(destination);
 
             // TODO currently not working
-//            PortalHelper.tryChangeDimention(entityIn, destination,
-//                    new DivineTeleporter(((ServerWorld) worldIn), frame.get(), this));
+            PortalHelper.tryChangeDimention(entityIn, destination,
+                    DivineTeleporter.register(this.getRegistryName(), ((ServerWorld) worldIn), frame.get(), this));
         }
     }
 
