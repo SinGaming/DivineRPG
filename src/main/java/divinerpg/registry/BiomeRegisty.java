@@ -1,6 +1,7 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
+import divinerpg.world.biomes.ApalachiaBiome;
 import divinerpg.world.biomes.EdenBiome;
 import divinerpg.world.biomes.WildwoodBiome;
 import net.minecraft.world.biome.Biome;
@@ -19,12 +20,17 @@ public class BiomeRegisty {
     @ObjectHolder("biome_wildwood")
     public static Biome WILDWOOD;
 
+    @ObjectHolder("biome_apalachia")
+    public static Biome APALACHIA;
+
     @SubscribeEvent
     public static void registerBiomes(final RegistryEvent.Register<Biome> event) {
         IForgeRegistry<Biome> registry = event.getRegistry();
 
+        // TODO no twilight stone in that biomes!
         registry.register(new EdenBiome().setRegistryName(DivineRPG.MODID, "biome_eden"));
         registry.register(new WildwoodBiome().setRegistryName(DivineRPG.MODID, "biome_wildwood"));
+        registry.register(new ApalachiaBiome().setRegistryName(DivineRPG.MODID, "biome_apalachia"));
 
     }
 }

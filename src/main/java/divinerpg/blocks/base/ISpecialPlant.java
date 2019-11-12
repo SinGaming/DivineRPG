@@ -25,7 +25,7 @@ public interface ISpecialPlant {
             }
 
             // perform checks than
-            return validGround.canPlace(state, world, pos);
+            return validGround.canPlace(down, world, pos);
         }
 
         return true;

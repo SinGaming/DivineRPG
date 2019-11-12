@@ -17,16 +17,15 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
 import java.awt.*;
 
-public class WildwoodBiome extends Biome {
-
-    public WildwoodBiome() {
+public class ApalachiaBiome extends Biome {
+    public ApalachiaBiome() {
         super(new Builder()
-                .surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(BlockRegistry.wildwoodGrass.getDefaultState(),
-                        BlockRegistry.wildwoodDirt.getDefaultState(), BlockRegistry.twilightStone.getDefaultState()))
+                .surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(BlockRegistry.apalachiaGrass.getDefaultState(),
+                        BlockRegistry.apalachiaDirt.getDefaultState(), BlockRegistry.twilightStone.getDefaultState()))
                 .precipitation(RainType.RAIN)
                 .category(Category.NONE)
-                .waterColor(Color.BLUE.getRGB())
-                .waterFogColor(Color.BLUE.brighter().getRGB())
+                .waterColor(Color.PINK.getRGB())
+                .waterFogColor(Color.PINK.brighter().getRGB())
                 // TODO some unknown values below. If we can live with it, remove this line
                 .parent("")
                 .temperature(0.7F)
@@ -37,19 +36,18 @@ public class WildwoodBiome extends Biome {
         );
 
         // Tree gen
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, createDecoratedFeature(FeatureRegistry.wildwood_tree_feature,
+        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, createDecoratedFeature(FeatureRegistry.apalachia_tree_feature,
                 IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP, new FrequencyConfig(8)));
 
         // Flowers gen
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, createDecoratedFeature(FeatureRegistry.flowers_feature,
-                new FlowerFeatureConfig(10, BlockRegistry.sunbloom.getDefaultState(),
-                        40, BlockRegistry.moonlightFern.getDefaultState(),
-                        50, BlockRegistry.moonBud.getDefaultState()), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(100)));
-
+                new FlowerFeatureConfig(10, BlockRegistry.apalachiaTallgrass.getDefaultState(),
+                        40, BlockRegistry.dusk_bloom.getDefaultState(),
+                        50, BlockRegistry.dusk_flower.getDefaultState()), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(100)));
 
         // ore gen
         addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(FeatureRegistry.ORE,
-                new DivineOreFeatureConfig(CustomFillerBlockType.TWILIGHT, BlockRegistry.wildwoodOre.getDefaultState(),
+                new DivineOreFeatureConfig(CustomFillerBlockType.TWILIGHT, BlockRegistry.apalachiaOre.getDefaultState(),
                         DivineRPG.CONFIG.worlgen.twilights.vein.get()),
                 Placement.COUNT_RANGE,
                 new DivineCountRangeConfig(DivineRPG.CONFIG.worlgen.twilights)));

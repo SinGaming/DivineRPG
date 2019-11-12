@@ -31,6 +31,8 @@ public class FeatureRegistry {
     public static DivineTreeFeature eden_tree_feature;
     @ObjectHolder("wildwood_tree_feature")
     public static DivineTreeFeature wildwood_tree_feature;
+    @ObjectHolder("apalachia_tree_feature")
+    public static DivineTreeFeature apalachia_tree_feature;
     @ObjectHolder("twilight_stone_islands")
     public static IslandFeature twilight_stone_islands;
     @ObjectHolder("flowers_feature")
@@ -43,6 +45,9 @@ public class FeatureRegistry {
                 () -> BlockRegistry.edenLog, () -> BlockRegistry.edenLeaves);
         wildwood_tree_feature = new DivineTreeFeature(false, 7, () -> BlockRegistry.wildwoodSapling,
                 () -> BlockRegistry.wildwoodLog, () -> BlockRegistry.wildwoodLeaves);
+        apalachia_tree_feature = new DivineTreeFeature(false, 7, () -> BlockRegistry.apalachiaSapling,
+                () -> BlockRegistry.apalachiaLog, () -> BlockRegistry.apalachiaLeaves);
+
         twilight_stone_islands = new IslandFeature(() -> BlockRegistry.twilightStone.getDefaultState());
         flowers_feature = new DivineFlowersFeature();
 
@@ -90,6 +95,8 @@ public class FeatureRegistry {
 
         registry.register(eden_tree_feature.setRegistryName(DivineRPG.MODID, "eden_tree_feature"));
         registry.register(wildwood_tree_feature.setRegistryName(DivineRPG.MODID, "wildwood_tree_feature"));
+        registry.register(apalachia_tree_feature.setRegistryName(DivineRPG.MODID, "apalachia_tree_feature"));
+
         registry.register(twilight_stone_islands.setRegistryName(DivineRPG.MODID, "twilight_stone_islands"));
         registry.register(flowers_feature.setRegistryName(DivineRPG.MODID, "flowers_feature"));
         registry.register(ORE.setRegistryName(DivineRPG.MODID, "ore_feature"));

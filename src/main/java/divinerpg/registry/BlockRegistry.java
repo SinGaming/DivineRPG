@@ -166,6 +166,31 @@ public class BlockRegistry {
     @ObjectHolder("wildwood_block")
     public static Block wildwoodBlock;
 
+    @ObjectHolder("apalachia_grass")
+    public static GrassBlock apalachiaGrass;
+    @ObjectHolder("apalachia_dirt")
+    public static Block apalachiaDirt;
+    @ObjectHolder("dusk_flower")
+    public static DoublePlantBlock dusk_flower;
+    @ObjectHolder("dusk_bloom")
+    public static BushBlock dusk_bloom;
+    @ObjectHolder("apalachia_tallgrass")
+    public static BushBlock apalachiaTallgrass;
+    @ObjectHolder("apalachia_leaves")
+    public static LeavesBlock apalachiaLeaves;
+    @ObjectHolder("apalachia_log")
+    public static LogBlock apalachiaLog;
+    @ObjectHolder("apalachia_planks")
+    public static Block apalachiaPlanks;
+    @ObjectHolder("apalachia_sapling")
+    public static SaplingBlock apalachiaSapling;
+    @ObjectHolder("apalachia_ore")
+    public static Block apalachiaOre;
+    @ObjectHolder("apalachia_portal")
+    public static DivinePortalBlock apalachiaPortal;
+    @ObjectHolder("apalachia_block")
+    public static Block apalachiaBlock;
+
 
     private static int STONE = 1, IRON = 2, DIAMOND = 3;
     private static List<Tuple<Block, Item.Properties>> blockItems = new ArrayList<>();
@@ -280,7 +305,7 @@ public class BlockRegistry {
                 , "wildwood_tallgrass", blockTabProperty);
         registerBlock(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.LIGHT_BLUE).props)
                 , "wildwood_leaves", blockTabProperty);
-        registerBlock(new LogBlock(MaterialColor.YELLOW, Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
+        registerBlock(new LogBlock(MaterialColor.LIGHT_BLUE, Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
                 , "wildwood_log", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
                 , "wildwood_planks", blockTabProperty);
@@ -301,6 +326,38 @@ public class BlockRegistry {
         /////////////////////////
         // APALACHIA
         /////////////////////////
+        registerBlock(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.PURPLE)
+                        .hardnessAndResistance(0.5F, 1).harvestTool(ToolType.SHOVEL)).withSpreading(block -> block == apalachiaDirt))
+                , "apalachia_grass", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.PURPLE).hardnessAndResistance(0.5F).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL))
+                , "apalachia_dirt", blockTabProperty);
+        registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.PURPLE))
+                        .withNonVanillaType(DivinePlantType.APALACHIA).withSize(8, 8))
+                , "dusk_bloom", blockTabProperty);
+        registerBlock(new DivineDoublePlantBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.PURPLE))
+                        .withNonVanillaType(DivinePlantType.APALACHIA))
+                , "dusk_flower", blockTabProperty);
+        registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.PURPLE))
+                        .withNonVanillaType(DivinePlantType.APALACHIA))
+                , "apalachia_tallgrass", blockTabProperty);
+        registerBlock(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.PURPLE).props)
+                , "apalachia_leaves", blockTabProperty);
+        registerBlock(new LogBlock(MaterialColor.PURPLE, Block.Properties.create(Material.WOOD, MaterialColor.PURPLE).hardnessAndResistance(2.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
+                , "apalachia_log", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.PURPLE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
+                , "apalachia_planks", blockTabProperty);
+        registerBlock(new DivineSaplingBlock(new DivineTree(new DivineTreeFeature(true, 7,
+                        () -> apalachiaSapling, () -> apalachiaLog, () -> apalachiaLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.PURPLE).withNonVanillaType(DivinePlantType.APALACHIA))
+                , "apalachia_sapling", blockTabProperty);
+        registerBlock(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
+                , "apalachia_ore", blockTabProperty);
+        registerBlock(new DivinePortalBlock(
+                Block.Properties.create(Material.PORTAL, MaterialColor.PURPLE),
+                () -> DimensionType.byName(DimensionTypeRegistry.APALACHIA),
+                () -> BlockRegistry.wildwoodBlock,
+                DivineParticleTypes.APALACHIA), "apalachia_portal", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.PURPLE).hardnessAndResistance(2).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE))
+                , "apalachia_block", blockTabProperty);
     }
 
     @SubscribeEvent

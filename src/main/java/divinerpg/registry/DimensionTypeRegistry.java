@@ -25,5 +25,9 @@ public class DimensionTypeRegistry {
         if (DimensionType.byName(WILDWOOD) == null) {
             DimensionManager.registerDimension(WILDWOOD, DimensionRegistry.WILDWOOD_DIM, null, true);
         }
+
+        if (DimensionType.byName(APALACHIA) == null) {
+            DimensionManager.registerDimension(APALACHIA, DimensionRegistry.APALACHIA_DIM, null, true);
+        }
     }
 }

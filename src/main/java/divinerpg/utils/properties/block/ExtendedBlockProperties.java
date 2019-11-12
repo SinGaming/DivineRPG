@@ -78,6 +78,10 @@ public class ExtendedBlockProperties {
             withGround((state, world, pos) -> state.getBlock() == BlockRegistry.wildwoodGrass);
         }
 
+        if (type == DivinePlantType.APALACHIA) {
+            withGround((state, world, pos) -> state.getBlock() == BlockRegistry.apalachiaGrass);
+        }
+
         return this;
     }
 

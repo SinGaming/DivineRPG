@@ -21,6 +21,8 @@ public class DimensionRegistry {
     public static ModDimension EDEN_DIM;
     @ObjectHolder("wildwood_dim")
     public static ModDimension WILDWOOD_DIM;
+    @ObjectHolder("apalachia_dim")
+    public static ModDimension APALACHIA_DIM;
 
 
     @SubscribeEvent
@@ -36,5 +38,10 @@ public class DimensionRegistry {
                 new FloatingDimension(world, DimensionType.byName(DimensionTypeRegistry.WILDWOOD), BlockRegistry.wildwoodDirt.getDefaultState(), BiomeRegisty.WILDWOOD,
                         RGBHelper.vecFromColor(Color.BLUE)))
                 .setRegistryName(DivineRPG.MODID, "wildwood_dim"));
+
+        registry.register(new DivineDimension((world, dimensionType) ->
+                new FloatingDimension(world, DimensionType.byName(DimensionTypeRegistry.APALACHIA), BlockRegistry.apalachiaDirt.getDefaultState(), BiomeRegisty.APALACHIA,
+                        RGBHelper.vecFromColor(Color.PINK)))
+                .setRegistryName(DivineRPG.MODID, "apalachia_dim"));
     }
 }
