@@ -29,10 +29,10 @@ import net.minecraftforge.registries.ObjectHolder;
 public class FeatureRegistry {
     @ObjectHolder("eden_tree_feature")
     public static DivineTreeFeature eden_tree_feature;
-    @ObjectHolder("wildwood_tree_feature")
-    public static DivineTreeFeature wildwood_tree_feature;
-    @ObjectHolder("apalachia_tree_feature")
-    public static DivineTreeFeature apalachia_tree_feature;
+    //    @ObjectHolder("wildwood_tree_feature")
+//    public static DivineTreeFeature wildwood_tree_feature;
+//    @ObjectHolder("apalachia_tree_feature")
+//    public static DivineTreeFeature apalachia_tree_feature;
     @ObjectHolder("twilight_stone_islands")
     public static IslandFeature twilight_stone_islands;
     @ObjectHolder("flowers_feature")
@@ -43,10 +43,10 @@ public class FeatureRegistry {
     static {
         eden_tree_feature = new DivineTreeFeature(false, 7, () -> BlockRegistry.edenSapling,
                 () -> BlockRegistry.edenLog, () -> BlockRegistry.edenLeaves);
-        wildwood_tree_feature = new DivineTreeFeature(false, 7, () -> BlockRegistry.wildwoodSapling,
-                () -> BlockRegistry.wildwoodLog, () -> BlockRegistry.wildwoodLeaves);
-        apalachia_tree_feature = new DivineTreeFeature(false, 7, () -> BlockRegistry.apalachiaSapling,
-                () -> BlockRegistry.apalachiaLog, () -> BlockRegistry.apalachiaLeaves);
+//        wildwood_tree_feature = new DivineTreeFeature(false, 7, () -> BlockRegistry.wildwoodSapling,
+//                () -> BlockRegistry.wildwoodLog, () -> BlockRegistry.wildwoodLeaves);
+//        apalachia_tree_feature = new DivineTreeFeature(false, 7, () -> BlockRegistry.apalachiaSapling,
+//                () -> BlockRegistry.apalachiaLog, () -> BlockRegistry.apalachiaLeaves);
 
         twilight_stone_islands = new IslandFeature(() -> BlockRegistry.twilightStone.getDefaultState());
         flowers_feature = new DivineFlowersFeature();
@@ -94,8 +94,8 @@ public class FeatureRegistry {
         IForgeRegistry<Feature<?>> registry = e.getRegistry();
 
         registry.register(eden_tree_feature.setRegistryName(DivineRPG.MODID, "eden_tree_feature"));
-        registry.register(wildwood_tree_feature.setRegistryName(DivineRPG.MODID, "wildwood_tree_feature"));
-        registry.register(apalachia_tree_feature.setRegistryName(DivineRPG.MODID, "apalachia_tree_feature"));
+//        registry.register(wildwood_tree_feature.setRegistryName(DivineRPG.MODID, "wildwood_tree_feature"));
+//        registry.register(apalachia_tree_feature.setRegistryName(DivineRPG.MODID, "apalachia_tree_feature"));
 
         registry.register(twilight_stone_islands.setRegistryName(DivineRPG.MODID, "twilight_stone_islands"));
         registry.register(flowers_feature.setRegistryName(DivineRPG.MODID, "flowers_feature"));

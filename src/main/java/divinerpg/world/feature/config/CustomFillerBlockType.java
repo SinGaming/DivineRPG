@@ -14,11 +14,20 @@ import java.util.function.Predicate;
  */
 public class CustomFillerBlockType {
     public static final CustomFillerBlockType TWILIGHT;
+    public static final CustomFillerBlockType EDEN_DIRT;
+    public static final CustomFillerBlockType WILDWOOD_DIRT;
+    public static final CustomFillerBlockType APALACHIA_DIRT;
     private static final Map<String, CustomFillerBlockType> values = new HashMap<>();
 
     static {
         TWILIGHT = new CustomFillerBlockType(DivineRPG.MODID + "_twilight",
                 state -> state.getBlock() == BlockRegistry.twilightStone);
+        EDEN_DIRT = new CustomFillerBlockType(DivineRPG.MODID + "_eden_dirt",
+                state -> state.getBlock() == BlockRegistry.edenDirt);
+        WILDWOOD_DIRT = new CustomFillerBlockType(DivineRPG.MODID + "_wildwood_dirt",
+                state -> state.getBlock() == BlockRegistry.wildwoodDirt);
+        APALACHIA_DIRT = new CustomFillerBlockType(DivineRPG.MODID + "_apalachia_dirt",
+                state -> state.getBlock() == BlockRegistry.apalachiaDirt);
     }
 
     public final String id;
