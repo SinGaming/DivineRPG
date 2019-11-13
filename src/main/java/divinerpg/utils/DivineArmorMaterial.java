@@ -1,10 +1,12 @@
 package divinerpg.utils;
 
+import divinerpg.DivineRPG;
 import divinerpg.registry.ItemRegistry;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.LazyLoadBase;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
@@ -14,17 +16,8 @@ import java.util.Arrays;
 import java.util.function.Supplier;
 
 public class DivineArmorMaterial implements IArmorMaterial {
-    public static final DivineArmorMaterial RUPEE = new DivineArmorMaterial("rupee", -1, 20, 15,
-            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2F, () -> Ingredient.fromItems(ItemRegistry.rupeeIngot));
-
-    private final int[] MAX_DAMAGE_ARRAY;
-    private final String name;
-    private final float chestplateDamage;
-    private final int[] damageReductionAmountArray;
-    private final int enchantability;
-    private final SoundEvent soundEvent;
-    private final float toughness;
-    private final LazyLoadBase<Ingredient> repairMaterial;
+    public static final DivineArmorMaterial JACK_O_MAN = new DivineArmorMaterial("jack_o_man", -1, 0, 22,
+            SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, Ingredient::fromItems);
 
     /**
      * @param name                   - name of armor material
@@ -37,15 +30,18 @@ public class DivineArmorMaterial implements IArmorMaterial {
      */
     public DivineArmorMaterial(String name, int chestplateDamage, int totalDefense, int enchantabilityIn, SoundEvent onEquip, float toughness, Supplier<Ingredient> repairMaterialSupplier) {
         MAX_DAMAGE_ARRAY = new int[]{4, 7, 8, 5};
-        this.damageReductionAmountArray = new int[4];
+        this.damageReductionAmountArray = new int[]{0, 0, 0, 0};
 
         // damage by single ingot
         this.chestplateDamage = chestplateDamage / 8F;
-        this.name = name;
+        this.name = new ResourceLocation(DivineRPG.MODID, name).toString();
         this.enchantability = enchantabilityIn;
         this.soundEvent = onEquip;
         this.toughness = toughness;
         this.repairMaterial = new LazyLoadBase<>(repairMaterialSupplier);
+
+        if (totalDefense < 1)
+            return;
 
         // Total amount of ingots
         float defenceByIngot = (float) totalDefense / Arrays.stream(MAX_DAMAGE_ARRAY).sum();
@@ -60,6 +56,20 @@ public class DivineArmorMaterial implements IArmorMaterial {
         if (totalDefense != 0) {
             damageReductionAmountArray[2] += totalDefense;
         }
+    }
+
+    private final int[] MAX_DAMAGE_ARRAY;
+    private final String name;
+    private final float chestplateDamage;
+    private final int[] damageReductionAmountArray;
+    private final int enchantability;
+    private final SoundEvent soundEvent;
+    private final float toughness;
+    private final LazyLoadBase<Ingredient> repairMaterial;
+
+    public static DivineArmorMaterial forRupee(String color) {
+        return new DivineArmorMaterial(color + "rupee", -1, 20, 15,
+                SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2F, () -> Ingredient.fromItems(ItemRegistry.rupeeIngot));
     }
 
     public int getDurability(EquipmentSlotType slotIn) {

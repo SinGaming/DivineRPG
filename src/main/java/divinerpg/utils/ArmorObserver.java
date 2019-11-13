@@ -8,6 +8,7 @@ import divinerpg.messages.EquipmentChangedMessage;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.Event;
 
@@ -80,5 +81,9 @@ public class ArmorObserver {
 
     public <T extends Event> void Handle(T event) {
         current.forEach(x -> x.handleAbility(event));
+    }
+
+    public boolean isOn(ResourceLocation armorSetID) {
+        return current.stream().anyMatch(x -> armorSetID.equals(x.getRegistryName()));
     }
 }

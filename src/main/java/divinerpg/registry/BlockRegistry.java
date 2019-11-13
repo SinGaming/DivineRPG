@@ -47,46 +47,8 @@ public class BlockRegistry {
     @ObjectHolder("bloodgem_ore")
     public static Block bloodgemOre;
 
-    @ObjectHolder("realmite_block")
-    public static Block realmiteBlock;
-    @ObjectHolder("arlemite_block")
-    public static Block arlemiteBlock;
-    @ObjectHolder("rupee_block")
-    public static Block rupeeBlock;
-    @ObjectHolder("netherite_block")
-    public static Block netheriteBlock;
-    @ObjectHolder("bloodgem_block")
-    public static Block bloodgemBlock;
-
     @ObjectHolder("divine_rock")
-    public static Block divineRock;
-
-    @ObjectHolder("spider_pumpkin")
-    public static Block spiderPumpkin;
-    @ObjectHolder("ender_pumpkin")
-    public static Block enderPumpkin;
-    @ObjectHolder("creeper_pumpkin")
-    public static Block creeperPumpkin;
-    @ObjectHolder("skeleton_pumpkin")
-    public static Block skeletonPumpkin;
-    @ObjectHolder("blaze_pumpkin")
-    public static Block blazePumpkin;
-    @ObjectHolder("zombie_pumpkin")
-    public static Block zombiePumpkin;
-    @ObjectHolder("frost_pumpkin")
-    public static Block frostPumpkin;
-    @ObjectHolder("cyclops_pumpkin")
-    public static Block cyclopsPumpkin;
-    @ObjectHolder("ghast_pumpkin")
-    public static Block ghastPumpkin;
-    @ObjectHolder("glacon_pumpkin")
-    public static Block glaconPumpkin;
-    @ObjectHolder("ender_watcher_pumpkin")
-    public static Block enderWatcherPumpkin;
-    @ObjectHolder("jungle_spider_pumpkin")
-    public static Block jungleSpiderPumpkin;
-    @ObjectHolder("hell_spider_pumpkin")
-    public static Block hellSpiderPumpkin;
+    public static Block divineRock;//
 
     @ObjectHolder("white_mushroom_plant")
     public static DivineCropsBlock white_mushroom_plant;
@@ -95,29 +57,6 @@ public class BlockRegistry {
 
     //@ObjectHolder("divinerpg:aqua_torch") public static Block aquaTorch;
     //@ObjectHolder("divinerpg:skeleton_torch") public static Block skeletonTorch;
-
-    @ObjectHolder("checker")
-    public static Block checker;
-    @ObjectHolder("rainbow_wool")
-    public static Block rainbowWool;
-    @ObjectHolder("crate")
-    public static Block crate;
-    @ObjectHolder("plank_design")
-    public static Block plankDesign;
-    @ObjectHolder("blue_stone")
-    public static Block blueStone;
-
-    @ObjectHolder("blue_vane")
-    public static Block blueVane;
-    @ObjectHolder("cyan_vane")
-    public static Block cyanVane;
-    @ObjectHolder("purple_vane")
-    public static Block purpleVane;
-    @ObjectHolder("red_vane")
-    public static Block redVane;
-    @ObjectHolder("yellow_vane")
-    public static Block yellowVane;
-
 
     @ObjectHolder("eden_grass")
     public static GrassBlock edenGrass;

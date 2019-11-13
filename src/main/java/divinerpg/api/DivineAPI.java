@@ -4,20 +4,22 @@ import divinerpg.api.arcana.ArcanaProvider;
 import divinerpg.api.arcana.IArcana;
 import divinerpg.api.armor.IPoweredArmorSet;
 import divinerpg.arcana.Arcana;
+import divinerpg.events.FullArmorEventHandler;
+import divinerpg.utils.ArmorObserver;
 import net.minecraft.entity.Entity;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 
 public class DivineAPI {
 
     /**
      * Contains all possible power sets data
      */
-    private static final List<IPoweredArmorSet> powerSets = new ArrayList<>();
+    public static IForgeRegistry<IPoweredArmorSet> getPowerRegistry() {
+        return GameRegistry.findRegistry(IPoweredArmorSet.class);
+    }
 
     /**
      * Gets player's arcana ability
@@ -34,14 +36,19 @@ public class DivineAPI {
         return arcana;
     }
 
-    public static void addPowerHandlers(IPoweredArmorSet... sets) {
-        powerSets.addAll(Arrays.stream(sets).collect(Collectors.toList()));
-    }
-
     /**
-     * @return Unmodiriable collection of all power sets
+     * Checks if player wears that type of armor
+     * @param entity - player
+     * @param id - ID of powered armor set
      */
-    public static List<IPoweredArmorSet> getPowerSets() {
-        return Collections.unmodifiableList(powerSets);
+    public static boolean isOn(Entity entity, ResourceLocation id) {
+        if (id == null || !(entity instanceof PlayerEntity))
+            return false;
+
+        ArmorObserver observer = FullArmorEventHandler.playerMap.get(entity.getUniqueID());
+        if (observer == null)
+            return false;
+
+        return observer.isOn(id);
     }
 }

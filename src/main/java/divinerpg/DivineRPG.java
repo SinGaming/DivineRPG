@@ -1,10 +1,10 @@
 package divinerpg;
 
 import divinerpg.api.arcana.IArcana;
+import divinerpg.api.armor.IPoweredArmorSet;
 import divinerpg.arcana.Arcana;
 import divinerpg.arcana.ArcanaStorage;
 import divinerpg.config.DivineConfig;
-import divinerpg.registry.ArmorRegistry;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.FeatureRegistry;
 import divinerpg.registry.MessageRegistry;
@@ -12,6 +12,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -25,6 +26,7 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.registries.RegistryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -59,6 +61,8 @@ public class DivineRPG
         // Register the doClientStuff method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::createRegistries);
+
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
@@ -75,8 +79,6 @@ public class DivineRPG
 
         CapabilityManager.INSTANCE.register(IArcana.class, new ArcanaStorage(), Arcana::new);
         FeatureRegistry.registerWorldGen();
-
-        ArmorRegistry.initSuperpowers();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
@@ -98,6 +100,16 @@ public class DivineRPG
         LOGGER.info("Got IMC {}", event.getIMCStream().
                 map(m->m.getMessageSupplier().get()).
                 collect(Collectors.toList()));
+    }
+
+    /**
+     * Creating new registry here
+     */
+    private void createRegistries(RegistryEvent.NewRegistry event) {
+        new RegistryBuilder<IPoweredArmorSet>()
+                .setName(new ResourceLocation(DivineRPG.MODID, "powers"))
+                .setType(IPoweredArmorSet.class)
+                .create();
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

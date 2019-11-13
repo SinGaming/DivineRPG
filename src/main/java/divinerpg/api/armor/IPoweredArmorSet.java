@@ -1,10 +1,11 @@
 package divinerpg.api.armor;
 
 import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
-public interface IPoweredArmorSet {
+public interface IPoweredArmorSet extends IForgeRegistryEntry<IPoweredArmorSet> {
 
     /**
      * Gets current set describer

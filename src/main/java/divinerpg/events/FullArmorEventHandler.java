@@ -12,6 +12,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -80,6 +81,6 @@ public class FullArmorEventHandler {
      * Adding new player to list
      */
     private static void putNewPLayer(PlayerEntity playerEntity) {
-        playerMap.put(playerEntity.getUniqueID(), new ArmorObserver(playerEntity, DivineAPI.getPowerSets()));
+        playerMap.put(playerEntity.getUniqueID(), new ArmorObserver(playerEntity, new ArrayList<>(DivineAPI.getPowerRegistry().getValues())));
     }
 }

@@ -2,6 +2,7 @@ package divinerpg.registry;
 
 import com.google.common.base.Function;
 import divinerpg.DivineRPG;
+import divinerpg.api.DivineAPI;
 import divinerpg.api.armor.ArmorEvents;
 import divinerpg.entities.projectiles.BulletEntity;
 import divinerpg.entities.projectiles.ItemBulletEntity;
@@ -13,6 +14,7 @@ import divinerpg.utils.properties.item.ExtendedItemProperties;
 import divinerpg.utils.properties.item.SpawnHelper;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.SoundEvents;
@@ -288,6 +290,15 @@ public class ItemRegistry {
     @ObjectHolder("purple_blaze")
     public static Item purpleBlaze;
 
+    @ObjectHolder("jack_o_man_helmet")
+    public static ArrowItem jack_o_man_helmet;
+    @ObjectHolder("jack_o_man_chestplate")
+    public static ArrowItem jack_o_man_chestplate;
+    @ObjectHolder("jack_o_man_leggings")
+    public static ArrowItem jack_o_man_leggings;
+    @ObjectHolder("jack_o_man_boots")
+    public static ArrowItem jack_o_man_boots;
+
 
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {
@@ -484,43 +495,47 @@ public class ItemRegistry {
                 .setRegistryName(DivineRPG.MODID, "corrupted_axe"));
         registry.register(new AxeItem(DivineItemTier.REALMIT, 2, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
                 .setRegistryName(DivineRPG.MODID, "realmite_axe"));
+        registry.register(new AxeItem(DivineItemTier.RUPEE, 2, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "rupee_axe"));
 
         // Hoes
         // TODO add corrupted hoe?
         registry.register(new HoeItem(DivineItemTier.REALMIT, 0, new Item.Properties().group(DivineRPGTabs.DivineTools))
                 .setRegistryName(DivineRPG.MODID, "realmite_hoe"));
+        registry.register(new HoeItem(DivineItemTier.RUPEE, 0, new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "rupee_hoe"));
 
         // Shovels
         registry.register(new ShovelItem(DivineItemTier.CORRUPTED, 0, -3F, new Item.Properties().group(DivineRPGTabs.DivineTools))
                 .setRegistryName(DivineRPG.MODID, "corrupted_shovel"));
         registry.register(new ShovelItem(DivineItemTier.REALMIT, -2, -3F, new Item.Properties().group(DivineRPGTabs.DivineTools))
                 .setRegistryName(DivineRPG.MODID, "realmite_shovel"));
+        registry.register(new ShovelItem(DivineItemTier.RUPEE, -2, -3F, new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "rupee_shovel"));
 
         // Pickaxes
         registry.register(new PickaxeItem(DivineItemTier.CORRUPTED, 1, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
                 .setRegistryName(DivineRPG.MODID, "corrupted_pickaxe"));
         registry.register(new PickaxeItem(DivineItemTier.REALMIT, -2, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
                 .setRegistryName(DivineRPG.MODID, "realmite_pickaxe"));
-
-
-        // RUPEE
         registry.register(new PickaxeItem(DivineItemTier.RUPEE, -2, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
                 .setRegistryName(DivineRPG.MODID, "rupee_pickaxe"));
-        registry.register(new AxeItem(DivineItemTier.RUPEE, 2, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
-                .setRegistryName(DivineRPG.MODID, "rupee_axe"));
-        registry.register(new ShovelItem(DivineItemTier.RUPEE, -2, -3F, new Item.Properties().group(DivineRPGTabs.DivineTools))
-                .setRegistryName(DivineRPG.MODID, "rupee_shovel"));
-        registry.register(new HoeItem(DivineItemTier.RUPEE, 0, new Item.Properties().group(DivineRPGTabs.DivineTools))
-                .setRegistryName(DivineRPG.MODID, "rupee_hoe"));
 
-        registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.RUPEE, EquipmentSlotType.HEAD, armorGroup)
+
+        // ARMOR
+        registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.forRupee(color), EquipmentSlotType.HEAD, armorGroup)
                 .setRegistryName(DivineRPG.MODID, color + "rupee_helmet"), colors);
-        registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.RUPEE, EquipmentSlotType.CHEST, armorGroup)
+        registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.forRupee(color), EquipmentSlotType.CHEST, armorGroup)
                 .setRegistryName(DivineRPG.MODID, color + "rupee_chestplate"), colors);
-        registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.RUPEE, EquipmentSlotType.LEGS, armorGroup)
+        registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.forRupee(color), EquipmentSlotType.LEGS, armorGroup)
                 .setRegistryName(DivineRPG.MODID, color + "rupee_leggings"), colors);
-        registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.RUPEE, EquipmentSlotType.FEET, armorGroup)
+        registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.forRupee(color), EquipmentSlotType.FEET, armorGroup)
                 .setRegistryName(DivineRPG.MODID, color + "rupee_boots"), colors);
+
+        registry.register(new ArmorItem(DivineArmorMaterial.JACK_O_MAN, EquipmentSlotType.HEAD, armorGroup).setRegistryName(DivineRPG.MODID, "jack_o_man_helmet"));
+        registry.register(new ArmorItem(DivineArmorMaterial.JACK_O_MAN, EquipmentSlotType.CHEST, armorGroup).setRegistryName(DivineRPG.MODID, "jack_o_man_chestplate"));
+        registry.register(new ArmorItem(DivineArmorMaterial.JACK_O_MAN, EquipmentSlotType.LEGS, armorGroup).setRegistryName(DivineRPG.MODID, "jack_o_man_leggings"));
+        registry.register(new ArmorItem(DivineArmorMaterial.JACK_O_MAN, EquipmentSlotType.FEET, armorGroup).setRegistryName(DivineRPG.MODID, "jack_o_man_boots"));
 
 
         // Bows
@@ -589,6 +604,19 @@ public class ItemRegistry {
                 .withAmmo(() -> corruptedBullet, 1).withDelay(15)
                 .withShooter((world, player, power) -> SpawnHelper.spawnRange(world, player, power, 4, (w, p1, p2) -> new ItemBulletEntity(world, player, ItemRegistry.corruptedBullet, 10)))
                 .group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "corrupted_cannon"));
+        registry.register(new RangeWeaponItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withShooter((world, thrower, percentagePower) -> {
+                    float damage = 6;
+                    IParticleData particle = null;
+
+                    if (DivineAPI.isOn(thrower, ArmorRegistry.JACKOMAN)) {
+                        damage = 16;
+                        particle = DivineParticleTypes.MORTUM;
+                    }
+
+                    SpawnHelper.singleSpawn(world, thrower, new BulletEntity(world, thrower, damage, "scythe", particle));
+                })
+                .group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "scythe"));
 
 
         // Shards
