@@ -8,6 +8,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
@@ -16,6 +17,7 @@ import net.minecraftforge.common.ToolType;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class ExtendedBlockProperties {
     public final Block.Properties props;
@@ -25,6 +27,9 @@ public class ExtendedBlockProperties {
     public Predicate<Block> canSpreadGrass = block -> block == Blocks.DIRT;
     public IExpDrop drop;
     public Consumer<Entity> onCollision;
+    public int maxAge = 7;
+    public boolean noBoneMeal = false;
+    public Supplier<IItemProvider> getSeed;
 
     public static ExtendedBlockProperties createForOre(float hard, float resist, int harvestLevel, IExpDrop drop) {
         return createForOre(hard, resist, harvestLevel).withCustomExpDrop(drop);
@@ -55,6 +60,10 @@ public class ExtendedBlockProperties {
         type = DivinePlantType.fromPlantType(PlantType.Plains);
     }
 
+    public ExtendedBlockProperties withGround(Block block) {
+        return withGround((state, worldIn, pos) -> state.getBlock() == block);
+    }
+
     public ExtendedBlockProperties withGround(IPlacementCheck validGround) {
         this.validGround = validGround;
         return this;
@@ -71,15 +80,15 @@ public class ExtendedBlockProperties {
         this.type = type;
 
         if (type == DivinePlantType.EDEN) {
-            withGround((state, world, pos) -> state.getBlock() == BlockRegistry.edenGrass);
+            withGround(BlockRegistry.edenGrass);
         }
 
         if (type == DivinePlantType.WILDWOOD) {
-            withGround((state, world, pos) -> state.getBlock() == BlockRegistry.wildwoodGrass);
+            withGround(BlockRegistry.wildwoodGrass);
         }
 
         if (type == DivinePlantType.APALACHIA) {
-            withGround((state, world, pos) -> state.getBlock() == BlockRegistry.apalachiaGrass);
+            withGround(BlockRegistry.apalachiaGrass);
         }
 
         return this;
@@ -145,6 +154,21 @@ public class ExtendedBlockProperties {
      */
     public ExtendedBlockProperties onCollision(Consumer<Entity> onCollision) {
         this.onCollision = onCollision;
+        return this;
+    }
+
+    public ExtendedBlockProperties withAge(int age) {
+        this.maxAge = age;
+        return this;
+    }
+
+    public ExtendedBlockProperties disableBonemeal() {
+        noBoneMeal = true;
+        return this;
+    }
+
+    public ExtendedBlockProperties withSeed(Supplier<IItemProvider> getSeed) {
+        this.getSeed = getSeed;
         return this;
     }
 }

@@ -36,6 +36,8 @@ public class ItemRegistry {
     @ObjectHolder("bloodgem")
     public static Item bloodgem;
 
+    @ObjectHolder("bacon")
+    public static Item bacon;
 
     @ObjectHolder("shadow_bar")
     public static Item shadowBar;
@@ -258,6 +260,17 @@ public class ItemRegistry {
     @ObjectHolder("halite_phaser")
     public static RangeWeaponItem halite_phaser;
 
+    @ObjectHolder("white_mushroom_seeds")
+    public static BlockItem white_mushroom_seeds;
+    @ObjectHolder("tomato_seeds")
+    public static BlockItem tomato_seeds;
+    @ObjectHolder("purple_glowbone_seeds")
+    public static BlockItem purple_glowbone_seeds;
+    @ObjectHolder("pink_glowbone_seeds")
+    public static BlockItem pink_glowbone_seeds;
+    @ObjectHolder("sky_plant_seeds")
+    public static BlockItem sky_plant_seeds;
+
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {
         IForgeRegistry<Item> registry = event.getRegistry();
@@ -265,6 +278,108 @@ public class ItemRegistry {
 
         String[] colors = ArmorRegistry.getArmorColors();
         Item.Properties armorGroup = new Item.Properties().group(DivineRPGTabs.DivineArmor);
+
+        // Seeds
+        Item.Properties foodGroup = new Item.Properties().group(DivineRPGTabs.DivineFood);
+        registry.register(new BlockItem(BlockRegistry.white_mushroom_plant, foodGroup).setRegistryName(DivineRPG.MODID, "white_mushroom_seeds"));
+        registry.register(new BlockItem(BlockRegistry.tomato_plant, foodGroup).setRegistryName(DivineRPG.MODID, "tomato_seeds"));
+
+//        registry.register(new BlockItem(foodGroup).setRegistryName(DivineRPG.MODID, "purple_glowbone_seeds"));
+//        registry.register(new BlockItem(foodGroup).setRegistryName(DivineRPG.MODID, "pink_glowbone_seeds"));
+//        registry.register(new BlockItem(foodGroup).setRegistryName(DivineRPG.MODID, "sky_plant_seeds"));
+
+        // Food
+        registry.register(
+                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().meat().hunger(2).saturation(3).build())
+                ).setRegistryName(DivineRPG.MODID, "bacon")
+        );
+        registry.register(
+                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().hunger(1).saturation(0.3F).build())
+                ).setRegistryName(DivineRPG.MODID, "peppermints")
+        );
+        registry.register(
+                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().hunger(4).saturation(1).build())
+                ).setRegistryName(DivineRPG.MODID, "chocolate_log")
+        );
+        registry.register(
+                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().hunger(2).saturation(0.3F).build())
+                ).setRegistryName(DivineRPG.MODID, "snow_cones")
+        );
+        registry.register(
+                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().hunger(16).saturation(2).build())
+                ).setRegistryName(DivineRPG.MODID, "fruit_cake")
+        );
+        registry.register(
+                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().hunger(4).saturation(1).build())
+                ).setRegistryName(DivineRPG.MODID, "winterberry")
+        );
+        registry.register(
+                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().hunger(5).saturation(7).build())
+                ).setRegistryName(DivineRPG.MODID, "hot_pumpkin_pie")
+        );
+        registry.register(
+                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().hunger(4).saturation(0.5F).build())
+                ).setRegistryName(DivineRPG.MODID, "boiled_egg")
+        );
+        registry.register(
+                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().hunger(2).saturation(0.2F).build())
+                ).setRegistryName(DivineRPG.MODID, "cheese")
+        );
+        registry.register(
+                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().hunger(1).saturation(0.1F).build())
+                ).setRegistryName(DivineRPG.MODID, "white_mushroom")
+        );
+        registry.register(
+                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().hunger(10).saturation(10).build())
+                ).setRegistryName(DivineRPG.MODID, "advanced_mushroom_stew")
+        );
+        registry.register(
+                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().hunger(20).saturation(20).build())
+                ).setRegistryName(DivineRPG.MODID, "chicken_dinner")
+        );
+        registry.register(
+                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().hunger(4).saturation(0.3F).build())
+                ).setRegistryName(DivineRPG.MODID, "tomato")
+        );
+        registry.register(
+                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().hunger(16).saturation(0.3F).build())
+                ).setRegistryName(DivineRPG.MODID, "donut")
+        );
+        registry.register(
+                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().hunger(5).saturation(2).fastToEat().meat().build())
+                ).setRegistryName(DivineRPG.MODID, "raw_empowered_meat")
+        );
+        registry.register(
+                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().hunger(10).saturation(4).fastToEat().meat().build())
+                ).setRegistryName(DivineRPG.MODID, "empowered_meat")
+        );
+        registry.register(
+                new FoodItem(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().hunger(5).saturation(1).meat().build()),
+                        true).setRegistryName(DivineRPG.MODID, "magic_meat")
+        );
+        registry.register(
+                new FoodItem(new Item.Properties().group(DivineRPGTabs.DivineFood)
+                        .food(new Food.Builder().hunger(7).saturation(2.5F).meat().build()),
+                        true).setRegistryName(DivineRPG.MODID, "enriched_magic_meat")
+        );
+
 
         // CORRUPTED
         registry.register(new RangeWeaponItem((ExtendedItemProperties) new ExtendedItemProperties()

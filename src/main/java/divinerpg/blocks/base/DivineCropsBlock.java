@@ -5,31 +5,36 @@ import divinerpg.utils.properties.block.ExtendedBlockProperties;
 import divinerpg.utils.properties.block.IPlacementCheck;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.SaplingBlock;
+import net.minecraft.block.CropsBlock;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.trees.Tree;
 import net.minecraft.util.Direction;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 import net.minecraftforge.common.PlantType;
 
-/**
- * Divine sapling. Created for open ctor and valid groung checks
- */
-public class DivineSaplingBlock extends SaplingBlock implements IDivinePlant {
+import java.util.Random;
+import java.util.function.Supplier;
+
+public class DivineCropsBlock extends CropsBlock implements IDivinePlant {
     private final IPlacementCheck validGround;
-    private final VoxelShape shape;
     private final DivinePlantType specialType;
+    private final boolean canUseBonemeal;
+    private final int maxAge;
+    private final Supplier<IItemProvider> getSeed;
 
-    public DivineSaplingBlock(Tree tree, ExtendedBlockProperties properties) {
-        super(tree, properties.props.doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT));
-        validGround = properties.validGround;
-        specialType = properties.type;
+    public DivineCropsBlock(ExtendedBlockProperties builder) {
+        super(builder.props.doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT).tickRandomly());
+        validGround = builder.validGround;
+        specialType = builder.type;
+        canUseBonemeal = !builder.noBoneMeal;
+        maxAge = builder.maxAge;
 
-        shape = properties.shape;
+        getSeed = builder.getSeed == null
+                ? () -> super.getSeedsItem()
+                : builder.getSeed;
     }
 
     @Override
@@ -37,11 +42,6 @@ public class DivineSaplingBlock extends SaplingBlock implements IDivinePlant {
         return validGround == null
                 ? super.isValidGround(state, worldIn, pos)
                 : validGround.canPlace(state, worldIn, pos);
-    }
-
-    @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return shape;
     }
 
     @Override
@@ -56,5 +56,20 @@ public class DivineSaplingBlock extends SaplingBlock implements IDivinePlant {
         }
 
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    }
+
+    @Override
+    public int getMaxAge() {
+        return maxAge;
+    }
+
+    @Override
+    protected IItemProvider getSeedsItem() {
+        return getSeed.get();
+    }
+
+    @Override
+    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
+        return canUseBonemeal;
     }
 }

@@ -18,7 +18,7 @@ import net.minecraftforge.common.PlantType;
 /**
  * Basic bush. Can have customized size and ground to place.
  */
-public class DivineBushBlock extends BushBlock implements ISpecialPlant {
+public class DivineBushBlock extends BushBlock implements IDivinePlant {
     private final IPlacementCheck validGround;
     private final DivinePlantType specialType;
     private final VoxelShape shape;
@@ -49,7 +49,7 @@ public class DivineBushBlock extends BushBlock implements ISpecialPlant {
 
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        if (!canStandOnPostPlacement(validGround, stateIn, worldIn, currentPos)) {
+        if (!canStandOnPostPlacement(validGround, worldIn, currentPos)) {
             return Blocks.AIR.getDefaultState();
         }
 

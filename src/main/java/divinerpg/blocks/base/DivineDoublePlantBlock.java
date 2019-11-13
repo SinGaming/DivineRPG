@@ -13,7 +13,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraftforge.common.PlantType;
 
-public class DivineDoublePlantBlock extends DoublePlantBlock implements ISpecialPlant {
+public class DivineDoublePlantBlock extends DoublePlantBlock implements IDivinePlant {
     private final IPlacementCheck validGround;
     private final DivinePlantType specialType;
 
@@ -37,7 +37,7 @@ public class DivineDoublePlantBlock extends DoublePlantBlock implements ISpecial
 
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        if (!canStandOnPostPlacement(validGround, stateIn, worldIn, currentPos)) {
+        if (!canStandOnPostPlacement(validGround, worldIn, currentPos)) {
             return Blocks.AIR.getDefaultState();
         }
 

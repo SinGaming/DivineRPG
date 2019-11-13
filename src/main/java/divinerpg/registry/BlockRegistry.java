@@ -88,6 +88,11 @@ public class BlockRegistry {
     @ObjectHolder("hell_spider_pumpkin")
     public static Block hellSpiderPumpkin;
 
+    @ObjectHolder("white_mushroom_plant")
+    public static DivineCropsBlock white_mushroom_plant;
+    @ObjectHolder("tomato_plant")
+    public static DivineCropsBlock tomato_plant;
+
     //@ObjectHolder("divinerpg:aqua_torch") public static Block aquaTorch;
     //@ObjectHolder("divinerpg:skeleton_torch") public static Block skeletonTorch;
 
@@ -230,6 +235,25 @@ public class BlockRegistry {
         registerBlock(new BlockMobPumpkin(SoundRegistry.HELL_SPIDER), "jungle_spider_pumpkin", blockTabProperty);
         registerBlock(new BlockMobPumpkin(SoundRegistry.HELL_SPIDER), "hell_spider_pumpkin", blockTabProperty);
 
+        // Plants
+        Block.Properties plantProps = Block.Properties.create(Material.PLANTS);
+
+        registerBlock(new DivineCropsBlock(new ExtendedBlockProperties(plantProps)
+                .withAge(2)
+                .withSeed(() -> ItemRegistry.white_mushroom_seeds)), "white_mushroom_plant", null);
+        registerBlock(new DivineCropsBlock(new ExtendedBlockProperties(plantProps)
+                .withSeed(() -> ItemRegistry.tomato_seeds)), "tomato_plant", null);
+
+        // TODO double crop with seeds
+//        registerBlock(new DivineCropsBlock(new ExtendedBlockProperties(plantProps)
+//                .withGround(Blocks.GRASS_BLOCK).withSeed(() -> ItemRegistry.purple_glowbone_seeds)), "purple_glowbone_plant", null);
+//        registerBlock(new DivineCropsBlock(new ExtendedBlockProperties(plantProps)
+//                .withGround(Blocks.GRASS_BLOCK).withSeed(() -> ItemRegistry.pink_glowbone_seeds)), "pink_glowbone_plant", null);
+//        registerBlock(new DivineCropsBlock(new ExtendedBlockProperties(plantProps)
+//                .withGround(Blocks.GRASS_BLOCK).withSeed(() -> ItemRegistry.sky_plant_seeds)), "sky_plant_plant", null);
+
+        // TODO Arcana plants
+
         //registerBlock(new BasicTorch(ParticleTypes.FLAME), "aqua_torch"));
         //registerBlock(new BasicTorch(ParticleTypes.FLAME), "skeleton_torch"));
 
@@ -358,6 +382,18 @@ public class BlockRegistry {
                 DivineParticleTypes.APALACHIA), "apalachia_portal", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.PURPLE).hardnessAndResistance(2).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE))
                 , "apalachia_block", blockTabProperty);
+
+        ///////////////////////
+        // TODO Skythern
+        //////////////////////
+
+        ///////////////////////
+        // TODO Mortum
+        //////////////////////
+
+        ///////////////////////
+        // TODO Arcana
+        //////////////////////
     }
 
     @SubscribeEvent

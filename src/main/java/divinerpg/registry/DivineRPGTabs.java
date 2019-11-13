@@ -27,14 +27,13 @@ public class DivineRPGTabs {
 //            return new ItemStack(ItemRegistry.snowGlobe);
 //        }
 //    };
-//    public static ItemGroup food = new ItemGroup("Food") {
-//        @Override
-//        public ItemStack createIcon() {
-//            return new ItemStack(ItemRegistry.bacon);
-//        }
-//    };
 
-
+    public static ItemGroup DivineFood = new ItemGroup("Food") {
+        @Override
+        public ItemStack createIcon() {
+            return new ItemStack(ItemRegistry.bacon);
+        }
+    };
     public static final ItemGroup DivineBlocks = new ItemGroup(DivineRPG.MODID + ".blocks") {
         @Override
         public ItemStack createIcon() {

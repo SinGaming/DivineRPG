@@ -6,16 +6,20 @@ import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 
-public interface ISpecialPlant {
+/**
+ * Shared code beetween different plant types.
+ * TODO Find out if overriding every crop type is not nessesary and we can
+ * inherit directly from DivineBushBlock
+ */
+public interface IDivinePlant {
     /**
      * Perform check on post placement.
      *
      * @param validGround - valid groung callback
-     * @param state       - current state
      * @param world       - current world
      * @param pos         - plant pos
      */
-    default boolean canStandOnPostPlacement(IPlacementCheck validGround, BlockState state, IWorld world, BlockPos pos) {
+    default boolean canStandOnPostPlacement(IPlacementCheck validGround, IWorld world, BlockPos pos) {
         if (validGround != null) {
             BlockState down = world.getBlockState(pos.down());
 
