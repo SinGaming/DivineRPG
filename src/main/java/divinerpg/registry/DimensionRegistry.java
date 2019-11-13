@@ -23,6 +23,11 @@ public class DimensionRegistry {
     public static ModDimension WILDWOOD_DIM;
     @ObjectHolder("apalachia_dim")
     public static ModDimension APALACHIA_DIM;
+    @ObjectHolder("skythern_dim")
+    public static ModDimension SKYTHERN_DIM;
+    @ObjectHolder("mortum_dim")
+    public static ModDimension MORTUM_DIM;
+
 
 
     @SubscribeEvent
@@ -43,5 +48,16 @@ public class DimensionRegistry {
                 new FloatingDimension(world, DimensionType.byName(DimensionTypeRegistry.APALACHIA), BlockRegistry.apalachiaDirt.getDefaultState(), BiomeRegisty.APALACHIA,
                         RGBHelper.vecFromColor(Color.PINK)))
                 .setRegistryName(DivineRPG.MODID, "apalachia_dim"));
+
+        registry.register(new DivineDimension((world, dimensionType) ->
+                new FloatingDimension(world, DimensionType.byName(DimensionTypeRegistry.SKYTHERN), BlockRegistry.skythernDirt.getDefaultState(), BiomeRegisty.SKYTHERN,
+                        RGBHelper.vecFromColor(Color.GRAY)))
+                .setRegistryName(DivineRPG.MODID, "skythern_dim"));
+
+        // TODO hell based dimension
+        registry.register(new DivineDimension((world, dimensionType) ->
+                new FloatingDimension(world, DimensionType.byName(DimensionTypeRegistry.MORTUM), BlockRegistry.mortumDirt.getDefaultState(), BiomeRegisty.MORTUM,
+                        RGBHelper.vecFromColor(Color.BLACK)))
+                .setRegistryName(DivineRPG.MODID, "mortum_dim"));
     }
 }

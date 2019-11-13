@@ -17,6 +17,8 @@ public class CustomFillerBlockType {
     public static final CustomFillerBlockType EDEN_DIRT;
     public static final CustomFillerBlockType WILDWOOD_DIRT;
     public static final CustomFillerBlockType APALACHIA_DIRT;
+    public static final CustomFillerBlockType SKYTHERN_DIRT;
+    public static final CustomFillerBlockType MORTUM_DIRT;
     private static final Map<String, CustomFillerBlockType> values = new HashMap<>();
 
     static {
@@ -28,6 +30,10 @@ public class CustomFillerBlockType {
                 state -> state.getBlock() == BlockRegistry.wildwoodDirt);
         APALACHIA_DIRT = new CustomFillerBlockType(DivineRPG.MODID + "_apalachia_dirt",
                 state -> state.getBlock() == BlockRegistry.apalachiaDirt);
+        SKYTHERN_DIRT = new CustomFillerBlockType(DivineRPG.MODID + "skythern_dirt",
+                state -> state.getBlock() == BlockRegistry.skythernDirt);
+        MORTUM_DIRT = new CustomFillerBlockType(DivineRPG.MODID + "mortum_dirt",
+                state -> state.getBlock() == BlockRegistry.mortumDirt);
     }
 
     public final String id;

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=z": {
+      "model": "divinerpg:block/mortum_portal_ew"
+    },
+    "axis=x": {
+      "model": "divinerpg:block/mortum_portal_ns"
+    }
+  }
+}

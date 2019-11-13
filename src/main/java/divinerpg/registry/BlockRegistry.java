@@ -196,6 +196,56 @@ public class BlockRegistry {
     @ObjectHolder("apalachia_block")
     public static Block apalachiaBlock;
 
+    @ObjectHolder("skythern_grass")
+    public static GrassBlock skythernGrass;
+    @ObjectHolder("skythern_dirt")
+    public static Block skythernDirt;
+    @ObjectHolder("skythern_brush")
+    public static BushBlock skythern_brush;
+    @ObjectHolder("dust_lily")
+    public static BushBlock dust_lily;
+    @ObjectHolder("dust_brambles")
+    public static BushBlock dust_brambles;
+    @ObjectHolder("skythern_leaves")
+    public static LeavesBlock skythernLeaves;
+    @ObjectHolder("skythern_log")
+    public static LogBlock skythernLog;
+    @ObjectHolder("skythern_planks")
+    public static Block skythernPlanks;
+    @ObjectHolder("skythern_sapling")
+    public static SaplingBlock skythernSapling;
+    @ObjectHolder("skythern_ore")
+    public static Block skythernOre;
+    @ObjectHolder("skythern_portal")
+    public static DivinePortalBlock skythernPortal;
+    @ObjectHolder("skythern_block")
+    public static Block skythernBlock;
+
+    @ObjectHolder("mortum_grass")
+    public static GrassBlock mortumGrass;
+    @ObjectHolder("mortum_dirt")
+    public static Block mortumDirt;
+    @ObjectHolder("mortum_brush")
+    public static BushBlock mortum_brush;
+    @ObjectHolder("demon_brambles")
+    public static BushBlock demon_brambles;
+    @ObjectHolder("eye_plant")
+    public static BushBlock eye_plant;
+    @ObjectHolder("mortum_leaves")
+    public static LeavesBlock mortumLeaves;
+    @ObjectHolder("mortum_log")
+    public static LogBlock mortumLog;
+    @ObjectHolder("mortum_planks")
+    public static Block mortumPlanks;
+    @ObjectHolder("mortum_sapling")
+    public static SaplingBlock mortumSapling;
+    @ObjectHolder("mortum_ore")
+    public static Block mortumOre;
+    @ObjectHolder("mortum_portal")
+    public static DivinePortalBlock mortumPortal;
+    @ObjectHolder("mortum_block")
+    public static Block mortumBlock;
+
 
     private static int STONE = 1, IRON = 2, DIAMOND = 3;
     private static List<Tuple<Block, Item.Properties>> blockItems = new ArrayList<>();
@@ -252,8 +302,6 @@ public class BlockRegistry {
 //        registerBlock(new DivineCropsBlock(new ExtendedBlockProperties(plantProps)
 //                .withGround(Blocks.GRASS_BLOCK).withSeed(() -> ItemRegistry.sky_plant_seeds)), "sky_plant_plant", null);
 
-        // TODO Arcana plants
-
         //registerBlock(new BasicTorch(ParticleTypes.FLAME), "aqua_torch"));
         //registerBlock(new BasicTorch(ParticleTypes.FLAME), "skeleton_torch"));
 
@@ -276,9 +324,9 @@ public class BlockRegistry {
         // EDEN
         ////////////////////
         registerBlock(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.LIGHT_BLUE)
-                        .harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.5F, 1)).withSpreading(block -> block == edenDirt))
+                        .harvestTool(ToolType.SHOVEL).hardnessAndResistance(3)).withSpreading(block -> block == edenDirt))
                 , "eden_grass", blockTabProperty);
-        registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.YELLOW).hardnessAndResistance(0.5F).sound(SoundType.GROUND)
+        registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.YELLOW).hardnessAndResistance(3).sound(SoundType.GROUND)
                 .harvestTool(ToolType.SHOVEL)), "eden_dirt", blockTabProperty);
         registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.YELLOW))
                         .withNonVanillaType(DivinePlantType.EDEN).withSize(8, 16))
@@ -291,7 +339,7 @@ public class BlockRegistry {
                 , "sunbloom", blockTabProperty);
         registerBlock(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.YELLOW).props)
                 , "eden_leaves", blockTabProperty);
-        registerBlock(new LogBlock(MaterialColor.YELLOW, Block.Properties.create(Material.WOOD, MaterialColor.YELLOW).hardnessAndResistance(2.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
+        registerBlock(new LogBlock(MaterialColor.YELLOW, Block.Properties.create(Material.WOOD, MaterialColor.YELLOW).hardnessAndResistance(3).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
                 , "eden_log", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.YELLOW).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
                 , "eden_planks", blockTabProperty);
@@ -304,9 +352,8 @@ public class BlockRegistry {
                 Block.Properties.create(Material.PORTAL, MaterialColor.YELLOW),
                 () -> DimensionType.byName(DimensionTypeRegistry.EDEN),
                 () -> BlockRegistry.divineRock,
-                // TODO right particle type
                 DivineParticleTypes.EDEN), "eden_portal", blockTabProperty);
-        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.YELLOW).hardnessAndResistance(2).sound(SoundType.STONE).harvestTool(ToolType.SHOVEL))
+        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.YELLOW).hardnessAndResistance(3).sound(SoundType.STONE).harvestTool(ToolType.SHOVEL))
                 , "eden_block", blockTabProperty);
 
 
@@ -314,9 +361,9 @@ public class BlockRegistry {
         // WILDWOOD
         ///////////////////////
         registerBlock(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.LIGHT_BLUE)
-                        .hardnessAndResistance(0.5F, 1).harvestTool(ToolType.SHOVEL)).withSpreading(block -> block == wildwoodDirt))
+                        .hardnessAndResistance(5).harvestTool(ToolType.SHOVEL)).withSpreading(block -> block == wildwoodDirt))
                 , "wildwood_grass", blockTabProperty);
-        registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.LIGHT_BLUE).hardnessAndResistance(0.5F).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL))
+        registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.LIGHT_BLUE).hardnessAndResistance(5).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL))
                 , "wildwood_dirt", blockTabProperty);
         registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.LIGHT_BLUE))
                         .withNonVanillaType(DivinePlantType.WILDWOOD).withSize(12, 12))
@@ -329,7 +376,7 @@ public class BlockRegistry {
                 , "wildwood_tallgrass", blockTabProperty);
         registerBlock(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.LIGHT_BLUE).props)
                 , "wildwood_leaves", blockTabProperty);
-        registerBlock(new LogBlock(MaterialColor.LIGHT_BLUE, Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
+        registerBlock(new LogBlock(MaterialColor.LIGHT_BLUE, Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(5).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
                 , "wildwood_log", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
                 , "wildwood_planks", blockTabProperty);
@@ -343,7 +390,7 @@ public class BlockRegistry {
                 () -> DimensionType.byName(DimensionTypeRegistry.WILDWOOD),
                 () -> BlockRegistry.edenBlock,
                 DivineParticleTypes.WILDWOOD), "wildwood_portal", blockTabProperty);
-        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE))
+        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(5).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE))
                 , "wildwood_block", blockTabProperty);
 
 
@@ -351,9 +398,9 @@ public class BlockRegistry {
         // APALACHIA
         /////////////////////////
         registerBlock(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.PURPLE)
-                        .hardnessAndResistance(0.5F, 1).harvestTool(ToolType.SHOVEL)).withSpreading(block -> block == apalachiaDirt))
+                        .hardnessAndResistance(7).harvestTool(ToolType.SHOVEL)).withSpreading(block -> block == apalachiaDirt))
                 , "apalachia_grass", blockTabProperty);
-        registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.PURPLE).hardnessAndResistance(0.5F).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL))
+        registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.PURPLE).hardnessAndResistance(7).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL))
                 , "apalachia_dirt", blockTabProperty);
         registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.PURPLE))
                         .withNonVanillaType(DivinePlantType.APALACHIA).withSize(8, 8))
@@ -366,7 +413,7 @@ public class BlockRegistry {
                 , "apalachia_tallgrass", blockTabProperty);
         registerBlock(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.PURPLE).props)
                 , "apalachia_leaves", blockTabProperty);
-        registerBlock(new LogBlock(MaterialColor.PURPLE, Block.Properties.create(Material.WOOD, MaterialColor.PURPLE).hardnessAndResistance(2.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
+        registerBlock(new LogBlock(MaterialColor.PURPLE, Block.Properties.create(Material.WOOD, MaterialColor.PURPLE).hardnessAndResistance(7).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
                 , "apalachia_log", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.PURPLE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
                 , "apalachia_planks", blockTabProperty);
@@ -380,16 +427,85 @@ public class BlockRegistry {
                 () -> DimensionType.byName(DimensionTypeRegistry.APALACHIA),
                 () -> BlockRegistry.wildwoodBlock,
                 DivineParticleTypes.APALACHIA), "apalachia_portal", blockTabProperty);
-        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.PURPLE).hardnessAndResistance(2).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE))
+        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.PURPLE).hardnessAndResistance(7).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE))
                 , "apalachia_block", blockTabProperty);
 
         ///////////////////////
-        // TODO Skythern
+        // Skythern
         //////////////////////
+        registerBlock(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.GRAY)
+                        .hardnessAndResistance(9).harvestTool(ToolType.SHOVEL)).withSpreading(block -> block == skythernDirt))
+                , "skythern_grass", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.GRAY).hardnessAndResistance(9).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL))
+                , "skythern_dirt", blockTabProperty);
+        registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.GRAY))
+                        .withNonVanillaType(DivinePlantType.SKYTHERN))
+                , "skythern_brush", blockTabProperty);
+        registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.GRAY))
+                        .withNonVanillaType(DivinePlantType.SKYTHERN))
+                , "dust_lily", blockTabProperty);
+        registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.GRAY))
+                        .withNonVanillaType(DivinePlantType.SKYTHERN)
+                        .onCollision(e -> e.attackEntityFrom(DamageSource.CACTUS, 6))
+                        .onHarvest(e -> e.attackEntityFrom(DamageSource.CACTUS, 1)))
+                , "dust_brambles", blockTabProperty);
+        registerBlock(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.GRAY).props)
+                , "skythern_leaves", blockTabProperty);
+        registerBlock(new LogBlock(MaterialColor.GRAY, Block.Properties.create(Material.WOOD, MaterialColor.GRAY).hardnessAndResistance(9).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
+                , "skythern_log", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.GRAY).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
+                , "skythern_planks", blockTabProperty);
+        registerBlock(new DivineSaplingBlock(new DivineTree(new DivineTreeFeature(true, 7,
+                        () -> skythernSapling, () -> skythernLog, () -> skythernLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.GRAY).withNonVanillaType(DivinePlantType.SKYTHERN))
+                , "skythern_sapling", blockTabProperty);
+        registerBlock(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
+                , "skythern_ore", blockTabProperty);
+        registerBlock(new DivinePortalBlock(
+                Block.Properties.create(Material.PORTAL, MaterialColor.GRAY),
+                () -> DimensionType.byName(DimensionTypeRegistry.SKYTHERN),
+                () -> BlockRegistry.apalachiaBlock,
+                DivineParticleTypes.SKYTHERN), "skythern_portal", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.GRAY).hardnessAndResistance(9).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE))
+                , "skythern_block", blockTabProperty);
 
         ///////////////////////
-        // TODO Mortum
+        // Mortum
         //////////////////////
+        registerBlock(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.BLACK)
+                        .hardnessAndResistance(12).harvestTool(ToolType.SHOVEL)).withSpreading(block -> block == mortumDirt))
+                , "mortum_grass", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.BLACK).hardnessAndResistance(12).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL))
+                , "mortum_dirt", blockTabProperty);
+        registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.BLACK))
+                        .withNonVanillaType(DivinePlantType.MORTUM))
+                , "mortum_brush", blockTabProperty);
+        registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.BLACK))
+                        .withNonVanillaType(DivinePlantType.MORTUM).withSize(8, 8))
+                , "eye_plant", blockTabProperty);
+        registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.BLACK))
+                        .withNonVanillaType(DivinePlantType.MORTUM)
+                        .onCollision(e -> e.attackEntityFrom(DamageSource.CACTUS, 6))
+                        .onHarvest(e -> e.attackEntityFrom(DamageSource.CACTUS, 1)))
+                , "demon_brambles", blockTabProperty);
+        registerBlock(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.BLACK).props)
+                , "mortum_leaves", blockTabProperty);
+        registerBlock(new LogBlock(MaterialColor.BLACK, Block.Properties.create(Material.WOOD, MaterialColor.BLACK).hardnessAndResistance(12).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
+                , "mortum_log", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.BLACK).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
+                , "mortum_planks", blockTabProperty);
+        registerBlock(new DivineSaplingBlock(new DivineTree(new DivineTreeFeature(true, 7,
+                        () -> mortumSapling, () -> mortumLog, () -> mortumLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.BLACK)
+                        .withNonVanillaType(DivinePlantType.MORTUM))
+                , "mortum_sapling", blockTabProperty);
+        registerBlock(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
+                , "mortum_ore", blockTabProperty);
+        registerBlock(new DivinePortalBlock(
+                Block.Properties.create(Material.PORTAL, MaterialColor.BLACK),
+                () -> DimensionType.byName(DimensionTypeRegistry.MORTUM),
+                () -> BlockRegistry.skythernBlock,
+                DivineParticleTypes.MORTUM), "mortum_portal", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.BLACK).hardnessAndResistance(12).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE))
+                , "mortum_block", blockTabProperty);
 
         ///////////////////////
         // TODO Arcana

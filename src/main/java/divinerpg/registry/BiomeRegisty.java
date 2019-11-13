@@ -25,6 +25,12 @@ public class BiomeRegisty {
     @ObjectHolder("biome_apalachia")
     public static Biome APALACHIA;
 
+    @ObjectHolder("biome_skythern")
+    public static Biome SKYTHERN;
+
+    @ObjectHolder("biome_mortum")
+    public static Biome MORTUM;
+
     @SubscribeEvent
     public static void registerBiomes(final RegistryEvent.Register<Biome> event) {
         IForgeRegistry<Biome> registry = event.getRegistry();
@@ -62,6 +68,28 @@ public class BiomeRegisty {
                 BlockRegistry.dusk_flower,
                 BlockRegistry.dusk_bloom,
                 BlockRegistry.apalachiaOre).setRegistryName(DivineRPG.MODID, "biome_apalachia"));
+
+        registry.register(new DivineBiome(
+                BlockRegistry.skythernGrass,
+                BlockRegistry.skythernDirt,
+                Color.GRAY,
+                CustomFillerBlockType.SKYTHERN_DIRT,
+                new DivineTreeFeature(false, 7, () -> BlockRegistry.skythernSapling, () -> BlockRegistry.skythernLog, () -> BlockRegistry.skythernLeaves),
+                BlockRegistry.dust_lily,
+                BlockRegistry.dust_brambles,
+                BlockRegistry.skythern_brush,
+                BlockRegistry.skythernOre).setRegistryName(DivineRPG.MODID, "biome_skythern"));
+
+        registry.register(new DivineBiome(
+                BlockRegistry.mortumGrass,
+                BlockRegistry.mortumDirt,
+                Color.BLACK,
+                CustomFillerBlockType.MORTUM_DIRT,
+                new DivineTreeFeature(false, 7, () -> BlockRegistry.mortumSapling, () -> BlockRegistry.mortumLog, () -> BlockRegistry.mortumLeaves),
+                BlockRegistry.eye_plant,
+                BlockRegistry.mortum_brush,
+                BlockRegistry.demon_brambles,
+                BlockRegistry.mortumOre).setRegistryName(DivineRPG.MODID, "biome_mortum"));
 
     }
 }

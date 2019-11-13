@@ -37,6 +37,9 @@ public class PortalHelper {
     }
 
     public static void placeNetherLikePortal(World world, BlockPos topLeft, Direction right, Direction down, Block frame, Block portal) {
+        if (frame == null && portal == null)
+            return;
+
         if (frame != null) {
             // width
             for (int i = 0; i < 4; i++) {
@@ -54,18 +57,18 @@ public class PortalHelper {
         if (portal == null) {
             // Making hole in portal
             portal = Blocks.AIR;
+        }
 
-            // width
-            for (int i = 0; i < 2; i++) {
-                // height
-                for (int z = 0; z < 3; z++) {
-                    BlockPos portalPlace = topLeft
-                            // need to add 1 block offset because it is frame
-                            .offset(right, i + 1)
-                            .offset(down, z + 1);
+        // width
+        for (int i = 0; i < 2; i++) {
+            // height
+            for (int z = 0; z < 3; z++) {
+                BlockPos portalPlace = topLeft
+                        // need to add 1 block offset because it is frame
+                        .offset(right, i + 1)
+                        .offset(down, z + 1);
 
-                    world.setBlockState(portalPlace, portal.getDefaultState().with(BlockStateProperties.AXIS, right.getAxis()));
-                }
+                world.setBlockState(portalPlace, portal.getDefaultState().with(BlockStateProperties.AXIS, right.getAxis()));
             }
         }
     }

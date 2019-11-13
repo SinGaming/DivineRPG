@@ -27,6 +27,7 @@ public class ExtendedBlockProperties {
     public Predicate<Block> canSpreadGrass = block -> block == Blocks.DIRT;
     public IExpDrop drop;
     public Consumer<Entity> onCollision;
+    public Consumer<Entity> onHarvest;
     public int maxAge = 7;
     public boolean noBoneMeal = false;
     public Supplier<IItemProvider> getSeed;
@@ -89,6 +90,14 @@ public class ExtendedBlockProperties {
 
         if (type == DivinePlantType.APALACHIA) {
             withGround(BlockRegistry.apalachiaGrass);
+        }
+
+        if (type == DivinePlantType.SKYTHERN) {
+            withGround(BlockRegistry.skythernGrass);
+        }
+
+        if (type == DivinePlantType.MORTUM) {
+            withGround(BlockRegistry.mortumGrass);
         }
 
         return this;
@@ -169,6 +178,11 @@ public class ExtendedBlockProperties {
 
     public ExtendedBlockProperties withSeed(Supplier<IItemProvider> getSeed) {
         this.getSeed = getSeed;
+        return this;
+    }
+
+    public ExtendedBlockProperties onHarvest(Consumer<Entity> onHarvest) {
+        this.onHarvest = onHarvest;
         return this;
     }
 }

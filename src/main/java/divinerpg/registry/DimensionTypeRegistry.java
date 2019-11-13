@@ -29,5 +29,13 @@ public class DimensionTypeRegistry {
         if (DimensionType.byName(APALACHIA) == null) {
             DimensionManager.registerDimension(APALACHIA, DimensionRegistry.APALACHIA_DIM, null, true);
         }
+
+        if (DimensionType.byName(SKYTHERN) == null) {
+            DimensionManager.registerDimension(SKYTHERN, DimensionRegistry.SKYTHERN_DIM, null, true);
+        }
+
+        if (DimensionType.byName(MORTUM) == null) {
+            DimensionManager.registerDimension(MORTUM, DimensionRegistry.MORTUM_DIM, null, true);
+        }
     }
 }
