@@ -18,25 +18,6 @@
                 }
               ],
               "name": "divinerpg:apalachia_tallgrass"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:survives_explosion"
-                },
-                {
-                  "condition": "minecraft:block_state_property",
-                  "block": "divinerpg:apalachia_tallgrass",
-                  "properties": {
-                    "half": "lower"
-                  }
-                },
-                {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.125
-                }
-              ]
             }
           ]
         }

@@ -9,7 +9,10 @@ import net.minecraft.util.LazyLoadBase;
 import java.util.function.Supplier;
 
 public class DivineItemTier implements IItemTier {
-    public static final DivineItemTier REALMIT = new DivineItemTier(3, 4000, 12.0F, 6.0F,
+    public static final DivineItemTier UNREPAIRABLE = new DivineItemTier(3, 1, 1, 0,
+            15, Ingredient::fromItems);
+
+    public static final DivineItemTier REALMIT = new DivineItemTier(3, 4000, 12.0F, 3,
             10, () -> Ingredient.fromItems(ItemRegistry.realmiteIngot));
     public static final DivineItemTier ARLEMIT = new DivineItemTier(3, 3000, 13.0F, 6.0F,
             10, () -> Ingredient.fromItems(ItemRegistry.arlemiteIngot));
@@ -17,26 +20,40 @@ public class DivineItemTier implements IItemTier {
             10, () -> Ingredient.fromItems(ItemRegistry.rupeeIngot));
     public static final DivineItemTier CORRUPTED = new DivineItemTier(3, 6000, 16, 5.0F,
             15, () -> Ingredient.fromItems(ItemRegistry.corruptedStone));
-    public static final DivineItemTier PALAVENCE = new DivineItemTier(3, 60, 1, 0,
-            15, Ingredient::fromItems);
     public static final DivineItemTier SLIME = new DivineItemTier(3, 1000, 7, 11,
             22, () -> Ingredient.fromItems(Items.DIAMOND_SWORD));
-    public static final DivineItemTier TERRAN_KNIFE = new DivineItemTier(3, 750, 7, 12,
+    public static final DivineItemTier TERRAN = new DivineItemTier(3, 750, 7, 12,
             10, () -> Ingredient.fromItems(ItemRegistry.terranStone));
-    public static final DivineItemTier TERRAN_MAUL = new DivineItemTier(3, 1200, 7, 15,
-            10, () -> Ingredient.fromItems(ItemRegistry.terranStone));
-    public static final DivineItemTier OCEAN = new DivineItemTier(3, 2000, 7, 14,
+    public static final DivineItemTier OCEAN = new DivineItemTier(3, 2000, 7, 10,
             15, () -> Ingredient.fromItems(ItemRegistry.aquaticIngot));
     public static final DivineItemTier MOLTEN = new DivineItemTier(3, 5000, 7, 10,
             15, () -> Ingredient.fromItems(ItemRegistry.moltenStone));
     public static final DivineItemTier SHADOW = new DivineItemTier(3, 10000, 7, 26,
             22, () -> Ingredient.fromItems(ItemRegistry.shadowStone));
-    public static final DivineItemTier JUNGLE_PARIER = new DivineItemTier(3, 1200, 7, 16,
-            10, () -> Ingredient.fromItems(ItemRegistry.jungleStone));
-    public static final DivineItemTier JUNGLE_KNIFE = new DivineItemTier(3, 2000, 7, 12,
+    public static final DivineItemTier SHADOWBAR = new DivineItemTier(3, 3000, 7, 20,
+            15, () -> Ingredient.fromItems(ItemRegistry.shadowBar));
+    public static final DivineItemTier JUNGLE = new DivineItemTier(3, 1200, 7, 12,
             10, () -> Ingredient.fromItems(ItemRegistry.jungleStone));
     public static final DivineItemTier GLACIER = new DivineItemTier(3, 1000, 7, 18,
             15, () -> Ingredient.fromItems(ItemRegistry.snowFlake));
+    public static final DivineItemTier CYCLOP = new DivineItemTier(3, 1000, 7, 12,
+            10, () -> Ingredient.fromItems(ItemRegistry.cyclops_eye));
+    public static final DivineItemTier BEDROCK = new DivineItemTier(3, 14000, 20, 14,
+            22, () -> Ingredient.fromItems(ItemRegistry.bedrock_chunk));
+    public static final DivineItemTier DIVINE = new DivineItemTier(3, 35000, 20, 10,
+            22, () -> Ingredient.fromItems(ItemRegistry.divineStone));
+    public static final DivineItemTier FROST = new DivineItemTier(3, 5000, 7, 10,
+            15, () -> Ingredient.fromItems(ItemRegistry.iceStone));
+    public static final DivineItemTier AQUATOOTH = new DivineItemTier(3, 3500, 7, 15,
+            10, () -> Ingredient.fromItems(ItemRegistry.liopleurodonSkull));
+    public static final DivineItemTier CRAB_CLAW = new DivineItemTier(3, 4000, 7, 11,
+            15, () -> Ingredient.fromItems(ItemRegistry.crabClaw));
+    public static final DivineItemTier SCORCHING = new DivineItemTier(3, 500, 7, 20,
+            15, () -> Ingredient.fromItems(ItemRegistry.purpleBlaze));
+    public static final DivineItemTier ENDER = new DivineItemTier(3, -1, 7, 16,
+            16, () -> Ingredient.fromItems(ItemRegistry.enderStone));
+
+
 
     public static final DivineItemTier EDEN = new DivineItemTier(3, 6000, 20, 12, //(22)
             22, () -> Ingredient.fromItems(ItemRegistry.edenGem));

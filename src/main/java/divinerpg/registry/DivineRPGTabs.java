@@ -8,12 +8,6 @@ import net.minecraft.item.Items;
 public class DivineRPGTabs {
 
 
-//    public static DivineRPGTabs swords = new DivineRPGTabs("Swords", "Melee Weapons") {
-//        @Override
-//        public ItemStack createIcon() {
-//            return new ItemStack(ItemRegistry.aquaton);
-//        }
-//    };
 //
 //    public static ItemGroup spawner = new ItemGroup("Spawner") {
 //        @Override
@@ -69,6 +63,12 @@ public class DivineRPGTabs {
         public ItemStack createIcon() {
             // TODO use divine icon
             return new ItemStack(Items.DIAMOND_HELMET);
+        }
+    };
+    public static ItemGroup DivineSwords = new ItemGroup("Swords") {
+        @Override
+        public ItemStack createIcon() {
+            return new ItemStack(ItemRegistry.corrupted_maul);
         }
     };
 }

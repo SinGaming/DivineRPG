@@ -64,6 +64,13 @@ public class ItemRegistry {
     public static Item terranShards;
     @ObjectHolder("snowflake")
     public static Item snowFlake;
+    @ObjectHolder("cyclops_eye_shards")
+    public static Item cyclops_eye_shards;
+    @ObjectHolder("cyclops_eye")
+    public static Item cyclops_eye;
+
+    @ObjectHolder("bedrock_chunk")
+    public static Item bedrock_chunk;
 
     @ObjectHolder("corrupted_stone")
     public static Item corruptedStone;
@@ -81,6 +88,9 @@ public class ItemRegistry {
     public static Item terranStone;
     @ObjectHolder("shadow_stone")
     public static Item shadowStone;
+    @ObjectHolder("bluefire_stone")
+    public static Item bluefire_stone;
+
 
     @ObjectHolder("corrupted_cannon")
     public static ShootableItem corruptedCannon;
@@ -271,6 +281,14 @@ public class ItemRegistry {
     @ObjectHolder("sky_plant_seeds")
     public static BlockItem sky_plant_seeds;
 
+    @ObjectHolder("liopleurodon_skull")
+    public static Item liopleurodonSkull;
+    @ObjectHolder("crab_claw")
+    public static Item crabClaw;
+    @ObjectHolder("purple_blaze")
+    public static Item purpleBlaze;
+
+
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {
         IForgeRegistry<Item> registry = event.getRegistry();
@@ -380,33 +398,110 @@ public class ItemRegistry {
                         true).setRegistryName(DivineRPG.MODID, "enriched_magic_meat")
         );
 
-
-        // CORRUPTED
-        registry.register(new RangeWeaponItem((ExtendedItemProperties) new ExtendedItemProperties()
-                .withAmmo(() -> corruptedBullet, 1).withDelay(15)
-                .withShooter((world, player, power) -> SpawnHelper.spawnRange(world, player, power, 4, (w, p1, p2) -> new ItemBulletEntity(world, player, ItemRegistry.corruptedBullet, 10)))
-                .group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "corrupted_cannon"));
-        registry.register(new PickaxeItem(DivineItemTier.CORRUPTED, 1, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
-                .setRegistryName(DivineRPG.MODID, "corrupted_pickaxe"));
-        registry.register(new AxeItem(DivineItemTier.CORRUPTED, 2, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
-                .setRegistryName(DivineRPG.MODID, "corrupted_axe"));
-        registry.register(new ShovelItem(DivineItemTier.CORRUPTED, 0, -3F, new Item.Properties().group(DivineRPGTabs.DivineTools))
-                .setRegistryName(DivineRPG.MODID, "corrupted_shovel"));
-        registry.register(new SwordItem(DivineItemTier.CORRUPTED, 8, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineTools))
+        ///////////
+        // Swords
+        ///////////
+        registry.register(new SwordItem(DivineItemTier.CYCLOP, 0, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords))
+                .setRegistryName(DivineRPG.MODID, "cyclopsian_sword"));
+        registry.register(new SwordItem(DivineItemTier.ARLEMIT, 6, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords))
+                .setRegistryName(DivineRPG.MODID, "arlemite_stabber"));
+        registry.register(new SwordItem(DivineItemTier.RUPEE, 5, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "rupee_rapier"));
+        registry.register(new SwordItem(DivineItemTier.SLIME, 0, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords))
+                .setRegistryName(DivineRPG.MODID, "slime_sword"));
+        registry.register(new SwordItem(DivineItemTier.BEDROCK, 4, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords)
+                .maxDamage(4000)).setRegistryName(DivineRPG.MODID, "fury_maul"));
+        registry.register(new SwordItem(DivineItemTier.BEDROCK, 0, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords)
+                .maxDamage(-1)).setRegistryName(DivineRPG.MODID, "bedrock_maul"));
+        registry.register(new SwordItem(DivineItemTier.REALMIT, 3, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords))
+                .setRegistryName(DivineRPG.MODID, "realmite_sword"));
+        registry.register(new SwordItem(DivineItemTier.BEDROCK, 0, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords))
+                .setRegistryName(DivineRPG.MODID, "bedrock_sword"));
+        registry.register(new SpecialSwordItem(DivineItemTier.UNREPAIRABLE, 0, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onRightClick((world, player, hand) -> ArmorEvents.tryHeal(player, 0.5F))
+                        .disableSword(true).group(DivineRPGTabs.DivineSwords).maxDamage(60)
+        ).setRegistryName(DivineRPG.MODID, "palavence"));
+        registry.register(new SpecialSwordItem(DivineItemTier.JUNGLE, 4, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onHit((stack, player, entity) -> ArmorEvents.tryPoison(entity, 5))
+                        .group(DivineRPGTabs.DivineSwords).maxDamage(5000)
+        ).setRegistryName(DivineRPG.MODID, "poison_saber"));
+        registerColors(registry, color -> new SwordItem(DivineItemTier.DIVINE, 9, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords))
+                .setRegistryName(DivineRPG.MODID, color + "divine_sword"));
+        registry.register(new SwordItem(DivineItemTier.CORRUPTED, 8, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords))
                 .setRegistryName(DivineRPG.MODID, "corrupted_maul"));
-        // TODO add corrupted hoe?
+        registry.register(new SwordItem(DivineItemTier.CORRUPTED, 7, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords))
+                .setRegistryName(DivineRPG.MODID, "death_bringer"));
+        registry.register(new SwordItem(DivineItemTier.FROST, 0, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords))
+                .setRegistryName(DivineRPG.MODID, "frost_sword"));
+        registry.register(new SwordItem(DivineItemTier.OCEAN, 6, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords)
+                .maxDamage(5000)).setRegistryName(DivineRPG.MODID, "aquaton"));
+        registry.register(new SwordItem(DivineItemTier.OCEAN, 4, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords)
+                .maxDamage(7000)).setRegistryName(DivineRPG.MODID, "aquatic_trident"));
+        registry.register(new SwordItem(DivineItemTier.OCEAN, 4, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords))
+                .setRegistryName(DivineRPG.MODID, "aquatic_dagger"));
+        registry.register(new SwordItem(DivineItemTier.OCEAN, 0, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords)
+                .maxDamage(4000)).setRegistryName(DivineRPG.MODID, "aqua_maul"));
+        registry.register(new SwordItem(DivineItemTier.OCEAN, 4, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords)
+                .maxDamage(4000)).setRegistryName(DivineRPG.MODID, "shark_sword"));
+        registry.register(new SwordItem(DivineItemTier.OCEAN, 4, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords))
+                .setRegistryName(DivineRPG.MODID, "ocean_knife"));
+        registry.register(new SwordItem(DivineItemTier.CRAB_CLAW, 1, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords))
+                .setRegistryName(DivineRPG.MODID, "dual_claw"));
+        registry.register(new SwordItem(DivineItemTier.CRAB_CLAW, 0, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords))
+                .setRegistryName(DivineRPG.MODID, "crabclaw_maul"));
+        registry.register(new SwordItem(DivineItemTier.AQUATOOTH, 3, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords))
+                .setRegistryName(DivineRPG.MODID, "aquatooth_sword"));
+        registry.register(new SwordItem(DivineItemTier.AQUATOOTH, 3, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords))
+                .setRegistryName(DivineRPG.MODID, "aquatooth_maul"));
+        registry.register(new SpecialSwordItem(DivineItemTier.UNREPAIRABLE, 12, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onHit((stack, player, entity) -> entity.setFire(12))
+                        .group(DivineRPGTabs.DivineSwords).maxDamage(-1)
+        ).setRegistryName(DivineRPG.MODID, "inferno_sword"));
+        registry.register(new SwordItem(DivineItemTier.UNREPAIRABLE, 9, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords)
+                .maxDamage(-1)).setRegistryName(DivineRPG.MODID, "bloodgem_sword"));
+        registry.register(new SwordItem(DivineItemTier.SHADOWBAR, 0, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords))
+                .setRegistryName(DivineRPG.MODID, "bluefire_sword"));
+        registry.register(new SwordItem(DivineItemTier.SCORCHING, 0, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords))
+                .setRegistryName(DivineRPG.MODID, "scorching_sword"));
+        registry.register(new SpecialSwordItem(DivineItemTier.MOLTEN, 16, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onHit((stack, player, entity) -> entity.setFire(15))
+                        .group(DivineRPGTabs.DivineSwords).maxDamage(6000)
+        ).setRegistryName(DivineRPG.MODID, "flaming_fury"));
+        registry.register(new SpecialSwordItem(DivineItemTier.MOLTEN, 0, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onHit((stack, player, entity) -> entity.setFire(5))
+                        .group(DivineRPGTabs.DivineSwords)
+        ).setRegistryName(DivineRPG.MODID, "molten_sword"));
+        registry.register(new SpecialSwordItem(DivineItemTier.UNREPAIRABLE, 0, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onRightClick((world, player, hand) -> ArmorEvents.tryHeal(player, 1))
+                        .disableSword(true).group(DivineRPGTabs.DivineSwords).maxDamage(60)
+        ).setRegistryName(DivineRPG.MODID, "massivence"));
+        registerColors(registry, color -> new SwordItem(DivineItemTier.ENDER, 0, -2.4F,
+                new Item.Properties().group(DivineRPGTabs.DivineSwords)).setRegistryName(DivineRPG.MODID, color + "ender_sword"), colors);
 
-        // REALMIT
-        registry.register(new PickaxeItem(DivineItemTier.REALMIT, -2, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
-                .setRegistryName(DivineRPG.MODID, "realmite_pickaxe"));
+
+        // Axes
+        registry.register(new AxeItem(DivineItemTier.CORRUPTED, 1, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "corrupted_axe"));
         registry.register(new AxeItem(DivineItemTier.REALMIT, 2, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
                 .setRegistryName(DivineRPG.MODID, "realmite_axe"));
-        registry.register(new ShovelItem(DivineItemTier.REALMIT, -2, -3F, new Item.Properties().group(DivineRPGTabs.DivineTools))
-                .setRegistryName(DivineRPG.MODID, "realmite_shovel"));
+
+        // Hoes
+        // TODO add corrupted hoe?
         registry.register(new HoeItem(DivineItemTier.REALMIT, 0, new Item.Properties().group(DivineRPGTabs.DivineTools))
                 .setRegistryName(DivineRPG.MODID, "realmite_hoe"));
-        registry.register(new SwordItem(DivineItemTier.REALMIT, 3, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineTools))
-                .setRegistryName(DivineRPG.MODID, "realmite_sword"));
+
+        // Shovels
+        registry.register(new ShovelItem(DivineItemTier.CORRUPTED, 0, -3F, new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "corrupted_shovel"));
+        registry.register(new ShovelItem(DivineItemTier.REALMIT, -2, -3F, new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "realmite_shovel"));
+
+        // Pickaxes
+        registry.register(new PickaxeItem(DivineItemTier.CORRUPTED, 1, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "corrupted_pickaxe"));
+        registry.register(new PickaxeItem(DivineItemTier.REALMIT, -2, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "realmite_pickaxe"));
+
 
         // RUPEE
         registry.register(new PickaxeItem(DivineItemTier.RUPEE, -2, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
@@ -417,8 +512,7 @@ public class ItemRegistry {
                 .setRegistryName(DivineRPG.MODID, "rupee_shovel"));
         registry.register(new HoeItem(DivineItemTier.RUPEE, 0, new Item.Properties().group(DivineRPGTabs.DivineTools))
                 .setRegistryName(DivineRPG.MODID, "rupee_hoe"));
-        registry.register(new SwordItem(DivineItemTier.RUPEE, 3, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineTools))
-                .setRegistryName(DivineRPG.MODID, "rupee_rapier"));
+
         registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.RUPEE, EquipmentSlotType.HEAD, armorGroup)
                 .setRegistryName(DivineRPG.MODID, color + "rupee_helmet"), colors);
         registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.RUPEE, EquipmentSlotType.CHEST, armorGroup)
@@ -491,11 +585,10 @@ public class ItemRegistry {
                 .withShooter((world, thrower, percentagePower) -> SpawnHelper.singleSpawn(world, thrower, new BulletEntity(world, thrower, 12, "bowhead_anchor")))
                 .group(DivineRPGTabs.DivineRanged)
                 .maxDamage(1000)).setRegistryName(DivineRPG.MODID, "bowhead_cannon"));
-
-        // Swords
-//        registry.register(new SpecialSwordItem(DivineItemTier.PALAVENCE, 0, -2.4F,
-//                (ExtendedItemProperties) new ExtendedItemProperties().onRightClick((world, player, hand) -> ArmorEvents.tryHeal(player, 0.5F))
-//                        .disableSword(true).group(DivineRPGTabs.DivineItems)
+        registry.register(new RangeWeaponItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withAmmo(() -> corruptedBullet, 1).withDelay(15)
+                .withShooter((world, player, power) -> SpawnHelper.spawnRange(world, player, power, 4, (w, p1, p2) -> new ItemBulletEntity(world, player, ItemRegistry.corruptedBullet, 10)))
+                .group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "corrupted_cannon"));
 
 
         // Shards
@@ -509,6 +602,11 @@ public class ItemRegistry {
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "terran_shards"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "snow_flake"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "aquatic_pellets"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "cyclops_eye_shards"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "bedrock_chunk"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "liopleurodon_skull"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "crab_claw"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "purple_blaze"));
 
         // STONES
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "corrupted_stone"));
@@ -519,6 +617,7 @@ public class ItemRegistry {
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "molten_stone"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "terran_stone"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "shadow_stone"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "bluefire_stone"));
 
         // INGOTS
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "realmite_ingot"));
@@ -529,6 +628,7 @@ public class ItemRegistry {
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "hellstone_ingot"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "aquatic_ingot"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "shadow_bar"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "cyclops_eye"));
 
         // SHICKAXES
         registry.register(new Shickaxe(-2.8F, DivineItemTier.RUPEE.forShickaxe(), new Item.Properties().group(DivineRPGTabs.DivineTools).maxDamage(-1)).setRegistryName(DivineRPG.MODID, "rupee_shickaxe"));
@@ -537,15 +637,6 @@ public class ItemRegistry {
 
         registry.register(new TwilightClock(itemTabProperty).setRegistryName(DivineRPG.MODID, "twilight_clock"));
 
-        // HEALING SWORDS
-        registry.register(new SpecialSwordItem(DivineItemTier.PALAVENCE, 0, -2.4F,
-                (ExtendedItemProperties) new ExtendedItemProperties().onRightClick((world, player, hand) -> ArmorEvents.tryHeal(player, 0.5F))
-                        .disableSword(true).group(DivineRPGTabs.DivineItems)
-        ).setRegistryName(DivineRPG.MODID, "palavence"));
-        registry.register(new SpecialSwordItem(DivineItemTier.PALAVENCE, 0, -2.4F,
-                (ExtendedItemProperties) new ExtendedItemProperties().onRightClick((world, player, hand) -> ArmorEvents.tryHeal(player, 1))
-                        .disableSword(true).group(DivineRPGTabs.DivineItems)
-        ).setRegistryName(DivineRPG.MODID, "massivence"));
 
         // SOULS
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "eden_soul"));

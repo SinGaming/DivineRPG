@@ -294,6 +294,18 @@ public class ArmorEvents {
     }
 
     /**
+     * Tries to poison entity
+     *
+     * @param entity  - victim
+     * @param seconds - seconds of poison effect
+     */
+    public static void tryPoison(Entity entity, int seconds) {
+        if (entity instanceof LivingEntity) {
+            ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.POISON, seconds * 20, 1));
+        }
+    }
+
+    /**
      * Trying to check wherever player motion is more than passed maxSpeed
      *
      * @param motion - player motion (can be negative)
