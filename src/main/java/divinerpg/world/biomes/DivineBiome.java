@@ -36,9 +36,16 @@ public class DivineBiome extends Biome {
      */
     public DivineBiome(Block grass, Block dirt, Color biomeColor, CustomFillerBlockType dirtFiller, DivineTreeFeature tree,
                        Block rarestFlower, Block commonFlower, Block regularFlower, Block ore) {
-        super(new Builder()
-                .surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(grass.getDefaultState(),
-                        dirt.getDefaultState(), BlockRegistry.twilightStone.getDefaultState()))
+        this(new Builder()
+                        .surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(grass.getDefaultState(),
+                                dirt.getDefaultState(), BlockRegistry.twilightStone.getDefaultState())),
+                biomeColor, dirtFiller, tree, rarestFlower, commonFlower, regularFlower, ore);
+
+    }
+
+    public DivineBiome(Builder builder, Color biomeColor, CustomFillerBlockType dirtFiller, DivineTreeFeature tree,
+                       Block rarestFlower, Block commonFlower, Block regularFlower, Block ore) {
+        super(builder
                 .precipitation(RainType.RAIN)
                 .category(Category.NONE)
                 .waterColor(biomeColor.getRGB())

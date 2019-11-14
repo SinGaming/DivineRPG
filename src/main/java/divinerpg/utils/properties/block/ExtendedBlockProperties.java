@@ -16,6 +16,7 @@ import net.minecraftforge.common.PlantType;
 import net.minecraftforge.common.ToolType;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -61,10 +62,6 @@ public class ExtendedBlockProperties {
         type = DivinePlantType.fromPlantType(PlantType.Plains);
     }
 
-    public ExtendedBlockProperties withGround(Block block) {
-        return withGround((state, worldIn, pos) -> state.getBlock() == block);
-    }
-
     public ExtendedBlockProperties withGround(IPlacementCheck validGround) {
         this.validGround = validGround;
         return this;
@@ -79,25 +76,26 @@ public class ExtendedBlockProperties {
      */
     public ExtendedBlockProperties withNonVanillaType(DivinePlantType type) {
         this.type = type;
+        Function<Supplier<Block>, IPlacementCheck> getPlacement = block -> (state, worldIn, pos) -> state.getBlock() == block.get();
 
         if (type == DivinePlantType.EDEN) {
-            withGround(BlockRegistry.edenGrass);
+            withGround(getPlacement.apply(() -> BlockRegistry.edenGrass));
         }
 
         if (type == DivinePlantType.WILDWOOD) {
-            withGround(BlockRegistry.wildwoodGrass);
+            withGround(getPlacement.apply(() -> BlockRegistry.wildwoodGrass));
         }
 
         if (type == DivinePlantType.APALACHIA) {
-            withGround(BlockRegistry.apalachiaGrass);
+            withGround(getPlacement.apply(() -> BlockRegistry.apalachiaGrass));
         }
 
         if (type == DivinePlantType.SKYTHERN) {
-            withGround(BlockRegistry.skythernGrass);
+            withGround(getPlacement.apply(() -> BlockRegistry.skythernGrass));
         }
 
         if (type == DivinePlantType.MORTUM) {
-            withGround(BlockRegistry.mortumGrass);
+            withGround(getPlacement.apply(() -> BlockRegistry.mortumGrass));
         }
 
         return this;

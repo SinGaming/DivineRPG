@@ -1,8 +1,8 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
-import divinerpg.utils.RGBHelper;
 import divinerpg.world.DivineDimension;
+import divinerpg.world.twilight.CavesDimension;
 import divinerpg.world.twilight.FloatingDimension;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.ModDimension;
@@ -36,28 +36,28 @@ public class DimensionRegistry {
 
         registry.register(new DivineDimension((world, dimensionType) ->
                 new FloatingDimension(world, DimensionType.byName(DimensionTypeRegistry.EDEN), BlockRegistry.edenDirt.getDefaultState(), BiomeRegisty.EDEN,
-                        RGBHelper.vecFromColor(Color.YELLOW)))
+                        Color.YELLOW))
                 .setRegistryName(DivineRPG.MODID, "eden_dim"));
 
         registry.register(new DivineDimension((world, dimensionType) ->
                 new FloatingDimension(world, DimensionType.byName(DimensionTypeRegistry.WILDWOOD), BlockRegistry.wildwoodDirt.getDefaultState(), BiomeRegisty.WILDWOOD,
-                        RGBHelper.vecFromColor(Color.BLUE)))
+                        Color.BLUE))
                 .setRegistryName(DivineRPG.MODID, "wildwood_dim"));
 
         registry.register(new DivineDimension((world, dimensionType) ->
                 new FloatingDimension(world, DimensionType.byName(DimensionTypeRegistry.APALACHIA), BlockRegistry.apalachiaDirt.getDefaultState(), BiomeRegisty.APALACHIA,
-                        RGBHelper.vecFromColor(Color.PINK)))
+                        Color.PINK))
                 .setRegistryName(DivineRPG.MODID, "apalachia_dim"));
 
         registry.register(new DivineDimension((world, dimensionType) ->
                 new FloatingDimension(world, DimensionType.byName(DimensionTypeRegistry.SKYTHERN), BlockRegistry.skythernDirt.getDefaultState(), BiomeRegisty.SKYTHERN,
-                        RGBHelper.vecFromColor(Color.GRAY)))
+                        Color.GRAY))
                 .setRegistryName(DivineRPG.MODID, "skythern_dim"));
 
         // TODO hell based dimension
         registry.register(new DivineDimension((world, dimensionType) ->
-                new FloatingDimension(world, DimensionType.byName(DimensionTypeRegistry.MORTUM), BlockRegistry.mortumDirt.getDefaultState(), BiomeRegisty.MORTUM,
-                        RGBHelper.vecFromColor(Color.BLACK)))
+                new CavesDimension(world, DimensionType.byName(DimensionTypeRegistry.MORTUM), BlockRegistry.mortumDirt.getDefaultState(), BiomeRegisty.MORTUM,
+                        Color.BLACK))
                 .setRegistryName(DivineRPG.MODID, "mortum_dim"));
     }
 }

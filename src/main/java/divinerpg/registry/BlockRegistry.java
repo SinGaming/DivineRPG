@@ -421,7 +421,7 @@ public class BlockRegistry {
         registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.BLACK))
                         .withNonVanillaType(DivinePlantType.MORTUM).withSize(8, 8))
                 , "eye_plant", blockTabProperty);
-        registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.BLACK))
+        registerBlock(new DivineDoublePlantBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.BLACK))
                         .withNonVanillaType(DivinePlantType.MORTUM)
                         .onCollision(e -> e.attackEntityFrom(DamageSource.CACTUS, 6))
                         .onHarvest(e -> e.attackEntityFrom(DamageSource.CACTUS, 1)))

@@ -12,6 +12,7 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 import java.util.Random;
 import java.util.function.Supplier;
 
+@Deprecated
 public class IslandFeature extends Feature<NoFeatureConfig> {
     private Supplier<BlockState> stateFunc;
 

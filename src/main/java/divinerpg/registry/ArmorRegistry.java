@@ -43,12 +43,8 @@ public class ArmorRegistry {
 
         registry.register(rupeeSet.setRegistryName(new ResourceLocation(DivineRPG.MODID, "rupee_set")));
 
-        armorSet = new ArmorSet().withVariant(
-                itemRegistry.getValue(new ResourceLocation(DivineRPG.MODID, "jack_o_man_helmet")),
-                itemRegistry.getValue(new ResourceLocation(DivineRPG.MODID, "jack_o_man_chestplate")),
-                itemRegistry.getValue(new ResourceLocation(DivineRPG.MODID, "jack_o_man_leggings")),
-                itemRegistry.getValue(new ResourceLocation(DivineRPG.MODID, "jack_o_man_boots")),
-                null);
+        armorSet = new ArmorSet().withVariant(ItemRegistry.jack_o_man_helmet, ItemRegistry.jack_o_man_chestplate,
+                ItemRegistry.jack_o_man_leggings, ItemRegistry.jack_o_man_boots, null);
 
         registry.register(new PoweredArmorSet(armorSet, null).setRegistryName(JACKOMAN));
     }

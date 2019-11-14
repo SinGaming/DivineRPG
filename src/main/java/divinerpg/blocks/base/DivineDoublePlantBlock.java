@@ -7,20 +7,29 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.block.SoundType;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 import net.minecraftforge.common.PlantType;
+
+import java.util.function.Consumer;
 
 public class DivineDoublePlantBlock extends DoublePlantBlock implements IDivinePlant {
     private final IPlacementCheck validGround;
     private final DivinePlantType specialType;
+    private final Consumer<Entity> onCollision;
+    private final Consumer<Entity> onHarvest;
 
     public DivineDoublePlantBlock(ExtendedBlockProperties props) {
         super(props.props.doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT));
         validGround = props.validGround;
         specialType = props.type;
+        onCollision = props.onCollision;
+        onHarvest = props.onHarvest;
     }
 
     @Override
@@ -42,5 +51,23 @@ public class DivineDoublePlantBlock extends DoublePlantBlock implements IDivineP
         }
 
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    }
+
+    @Override
+    public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+        super.onEntityCollision(state, worldIn, pos, entityIn);
+
+        if (onCollision != null) {
+            onCollision.accept(entityIn);
+        }
+    }
+
+    @Override
+    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+        super.onBlockHarvested(worldIn, pos, state, player);
+
+        if (onHarvest != null) {
+            onHarvest.accept(player);
+        }
     }
 }

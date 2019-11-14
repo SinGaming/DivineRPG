@@ -4,7 +4,9 @@ import divinerpg.DivineRPG;
 import divinerpg.world.biomes.DivineBiome;
 import divinerpg.world.feature.DivineTreeFeature;
 import divinerpg.world.feature.config.CustomFillerBlockType;
+import divinerpg.world.surface.DivineCaveSurfaceBuilder;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -80,9 +82,12 @@ public class BiomeRegisty {
                 BlockRegistry.skythern_brush,
                 BlockRegistry.skythernOre).setRegistryName(DivineRPG.MODID, "biome_skythern"));
 
+        // TODO dirt is spawning there
         registry.register(new DivineBiome(
-                BlockRegistry.mortumGrass,
-                BlockRegistry.mortumDirt,
+                new Biome.Builder()
+                        .surfaceBuilder(new DivineCaveSurfaceBuilder(SurfaceBuilderConfig::deserialize),
+                                new SurfaceBuilderConfig(BlockRegistry.mortumGrass.getDefaultState(), BlockRegistry.mortumDirt.getDefaultState(),
+                                        BlockRegistry.twilightStone.getDefaultState())),
                 Color.BLACK,
                 CustomFillerBlockType.MORTUM_DIRT,
                 new DivineTreeFeature(false, 7, () -> BlockRegistry.mortumSapling, () -> BlockRegistry.mortumLog, () -> BlockRegistry.mortumLeaves),

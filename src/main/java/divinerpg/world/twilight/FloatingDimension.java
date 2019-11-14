@@ -1,5 +1,6 @@
 package divinerpg.world.twilight;
 
+import divinerpg.utils.RGBHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -15,6 +16,7 @@ import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraft.world.gen.EndGenerationSettings;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.util.Random;
 
 public class FloatingDimension extends Dimension {
@@ -22,13 +24,12 @@ public class FloatingDimension extends Dimension {
     private final Vec3d fog;
     private final EndGenerationSettings settings;
 
-    public FloatingDimension(World worldIn, DimensionType typeIn, BlockState defaultBlock, Biome singleBiome, Vec3d fog) {
+    public FloatingDimension(World worldIn, DimensionType typeIn, BlockState defaultBlock, Biome singleBiome, Color color) {
         super(worldIn, typeIn);
 
         biomeProvider = new SingleBiomeProvider(new SingleBiomeProviderSettings().setBiome(singleBiome));
-        this.fog = fog;
+        this.fog = RGBHelper.vecFromColor(color);
         settings = ChunkGeneratorType.FLOATING_ISLANDS.createSettings();
-
         settings.setDefaultBlock(defaultBlock);
     }
 

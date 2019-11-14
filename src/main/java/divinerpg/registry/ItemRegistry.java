@@ -291,13 +291,13 @@ public class ItemRegistry {
     public static Item purpleBlaze;
 
     @ObjectHolder("jack_o_man_helmet")
-    public static ArrowItem jack_o_man_helmet;
+    public static ArmorItem jack_o_man_helmet;
     @ObjectHolder("jack_o_man_chestplate")
-    public static ArrowItem jack_o_man_chestplate;
+    public static ArmorItem jack_o_man_chestplate;
     @ObjectHolder("jack_o_man_leggings")
-    public static ArrowItem jack_o_man_leggings;
+    public static ArmorItem jack_o_man_leggings;
     @ObjectHolder("jack_o_man_boots")
-    public static ArrowItem jack_o_man_boots;
+    public static ArmorItem jack_o_man_boots;
 
 
     @SubscribeEvent

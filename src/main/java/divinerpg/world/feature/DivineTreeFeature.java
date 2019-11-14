@@ -6,6 +6,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.IWorldWriter;
 import net.minecraft.world.gen.IWorldGenerationBaseReader;
@@ -215,10 +216,20 @@ public class DivineTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
         // TODO work with tags, json currently not working
         return world.hasBlockState(pos, state -> (!(world instanceof IWorldReader) || sapling.isValidPosition(state, (IWorldReader) world, pos))
                 || state.isIn(BlockTags.LEAVES)
-                || state.getBlock() == Blocks.AIR
+                || state.isAir()
                 || state.isIn(BlockTags.LOGS)
                 || state.isIn(BlockTags.SAPLINGS)
+                // TODO think about instanceof
                 || state.getBlock() == Blocks.VINE);
+    }
+
+    @Override
+    protected void setDirtAt(IWorldGenerationReader reader, BlockPos pos, BlockPos origin) {
+        if (!(reader instanceof IWorld)) {
+            func_214584_a(reader, pos);
+            return;
+        }
+        ((IWorld) reader).getBlockState(pos).onPlantGrow((IWorld) reader, pos, origin);
     }
 
     @Override
