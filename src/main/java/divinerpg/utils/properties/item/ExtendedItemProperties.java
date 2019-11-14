@@ -18,6 +18,7 @@ public class ExtendedItemProperties extends Item.Properties {
     public int arcana = 0;
     public IRightClick rightClick;
     public IHitEntity onHit;
+    public IBlockHit onBlockHit;
     public boolean disableSword = false;
     public final List<ArrowItem> possibleArrows = new ArrayList<>();
     public boolean infiniteArrows = false;
@@ -114,6 +115,14 @@ public class ExtendedItemProperties extends Item.Properties {
      */
     public ExtendedItemProperties infiiniteArrows(boolean isInfinite) {
         infiniteArrows = isInfinite;
+        return this;
+    }
+
+    /**
+     * Callback on block hit by right click
+     */
+    public ExtendedItemProperties onBlockHit(IBlockHit onHit) {
+        this.onBlockHit = onHit;
         return this;
     }
 }

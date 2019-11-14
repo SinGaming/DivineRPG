@@ -6,6 +6,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.IWorldWriter;
@@ -87,7 +88,7 @@ public class DivineTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
             }
 
 
-            if (isSoil(worldIn, position.down(), getSapling()) && position.getY() < worldIn.getMaxHeight() - i - 1) {
+            if (canPlace(worldIn, position.down(), getSapling()) && position.getY() < worldIn.getMaxHeight() - i - 1) {
                 this.setDirtAt(worldIn, position.down(), position);
                 BlockState cachedLeaf = leaf.get().getDefaultState();
                 BlockState cachedTrunk = trunk.get().getDefaultState();
@@ -223,13 +224,19 @@ public class DivineTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
                 || state.getBlock() == Blocks.VINE);
     }
 
+    protected boolean canPlace(IWorldGenerationBaseReader reader, BlockPos pos, IPlantable sapling) {
+        if (!(reader instanceof IBlockReader) || sapling == null)
+            return false;
+
+        return reader.hasBlockState(pos, state -> state.canSustainPlant(((IBlockReader) reader), pos, Direction.UP, sapling));
+    }
+
+
     @Override
     protected void setDirtAt(IWorldGenerationReader reader, BlockPos pos, BlockPos origin) {
-        if (!(reader instanceof IWorld)) {
-            func_214584_a(reader, pos);
-            return;
+        if (reader instanceof IWorld) {
+            ((IWorld) reader).getBlockState(pos).onPlantGrow((IWorld) reader, pos, origin);
         }
-        ((IWorld) reader).getBlockState(pos).onPlantGrow((IWorld) reader, pos, origin);
     }
 
     @Override
