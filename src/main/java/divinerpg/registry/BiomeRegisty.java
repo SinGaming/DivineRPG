@@ -82,7 +82,7 @@ public class BiomeRegisty {
                 BlockRegistry.skythern_brush,
                 BlockRegistry.skythernOre).setRegistryName(DivineRPG.MODID, "biome_skythern"));
 
-        // TODO dirt is spawning there
+        // TODO spawn trees
         registry.register(new DivineBiome(
                 new Biome.Builder()
                         .surfaceBuilder(new DivineCaveSurfaceBuilder(SurfaceBuilderConfig::deserialize),

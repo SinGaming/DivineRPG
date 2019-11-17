@@ -1,13 +1,12 @@
 package divinerpg.world.feature;
 
+import divinerpg.registry.BlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.IWorldWriter;
 import net.minecraft.world.gen.IWorldGenerationBaseReader;
@@ -58,6 +57,8 @@ public class DivineTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
         int i = this.getHeight(rand);
         boolean canPlace = true;
         if (position.getY() >= 1 && position.getY() + i + 1 <= worldIn.getMaxHeight()) {
+
+            // TODO not works in caves
             for (int j = position.getY(); j <= position.getY() + 1 + i; ++j) {
                 int k = 1;
                 if (j == position.getY()) {
@@ -83,12 +84,13 @@ public class DivineTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
                 }
             }
 
+
             if (!canPlace) {
                 return false;
             }
 
 
-            if (canPlace(worldIn, position.down(), getSapling()) && position.getY() < worldIn.getMaxHeight() - i - 1) {
+            if (isSoilOverrided(worldIn, position.down(), getSapling()) && position.getY() < worldIn.getMaxHeight() - i - 1) {
                 this.setDirtAt(worldIn, position.down(), position);
                 BlockState cachedLeaf = leaf.get().getDefaultState();
                 BlockState cachedTrunk = trunk.get().getDefaultState();
@@ -224,19 +226,22 @@ public class DivineTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
                 || state.getBlock() == Blocks.VINE);
     }
 
-    protected boolean canPlace(IWorldGenerationBaseReader reader, BlockPos pos, IPlantable sapling) {
-        if (!(reader instanceof IBlockReader) || sapling == null)
-            return false;
-
-        return reader.hasBlockState(pos, state -> state.canSustainPlant(((IBlockReader) reader), pos, Direction.UP, sapling));
+    @Override
+    protected void func_214584_a(IWorldGenerationReader p_214584_1_, BlockPos p_214584_2_) {
+        // ignore dirt replacing
     }
 
+    protected boolean isSoilOverrided(IWorldGenerationBaseReader reader, BlockPos pos, net.minecraftforge.common.IPlantable sapling) {
+        if (!(reader instanceof net.minecraft.world.IBlockReader) || sapling == null)
+            return isDirtOrGrassBlockOverrided(reader, pos);
+        return reader.hasBlockState(pos, state -> state.canSustainPlant((net.minecraft.world.IBlockReader) reader, pos, Direction.UP, sapling));
+    }
 
-    @Override
-    protected void setDirtAt(IWorldGenerationReader reader, BlockPos pos, BlockPos origin) {
-        if (reader instanceof IWorld) {
-            ((IWorld) reader).getBlockState(pos).onPlantGrow((IWorld) reader, pos, origin);
-        }
+    protected boolean isDirtOrGrassBlockOverrided(IWorldGenerationBaseReader worldIn, BlockPos pos) {
+        return worldIn.hasBlockState(pos, (p_214582_0_) -> {
+            Block block = p_214582_0_.getBlock();
+            return Block.isDirt(block) || BlockRegistry.DIVINE_GRASS.contains(block);
+        });
     }
 
     @Override

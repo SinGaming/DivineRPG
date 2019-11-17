@@ -123,6 +123,7 @@ public class DivinePortalBlock extends Block {
                 destination = DimensionType.OVERWORLD;
             }
 
+            entityIn.timeUntilPortal = entityIn.getPortalCooldown();
             entityIn.changeDimension(destination);
 
             // TODO currently not working

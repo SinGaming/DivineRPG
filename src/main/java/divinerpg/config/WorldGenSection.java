@@ -36,7 +36,7 @@ public class WorldGenSection {
         arlemit = new OreGen(builder, "arlemit", 4, 2, 1, 16);
         rupee = new OreGen(builder, "rupee", 2, 2, 1, 16);
         nethers = new OreGen(builder, "nethers", 20, 4, 1, 256);
-        twilights = new OreGen(builder, "twilights", 20, 4, 15, 100);
+        twilights = new OreGen(builder, "twilights", 50, 4, 15, 150);
 
 
         builder.pop();

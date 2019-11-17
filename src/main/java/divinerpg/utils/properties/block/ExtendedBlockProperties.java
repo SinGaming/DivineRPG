@@ -15,9 +15,10 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraftforge.common.PlantType;
 import net.minecraftforge.common.ToolType;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class ExtendedBlockProperties {
@@ -25,7 +26,8 @@ public class ExtendedBlockProperties {
     public IPlacementCheck validGround;
     public DivinePlantType type;
     public VoxelShape shape = VoxelShapes.fullCube();
-    public Predicate<Block> canSpreadGrass = block -> block == Blocks.DIRT;
+    public List<Supplier<Block>> dirts = new ArrayList<>();
+    public Block dirt = Blocks.DIRT;
     public IExpDrop drop;
     public Consumer<Entity> onCollision;
     public Consumer<Entity> onHarvest;
@@ -140,11 +142,12 @@ public class ExtendedBlockProperties {
     /**
      * Adds spreading function predicate (for grass)
      */
-    public ExtendedBlockProperties withSpreading(Predicate<Block> canSpreadGrass) {
+    public ExtendedBlockProperties mapDirt(Supplier<Block> canSpreadGrass) {
         if (props != null) {
             props.tickRandomly();
         }
-        this.canSpreadGrass = canSpreadGrass;
+
+        this.dirts.add(canSpreadGrass);
         return this;
     }
 

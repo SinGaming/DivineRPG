@@ -1,5 +1,6 @@
 package divinerpg.blocks.base;
 
+import divinerpg.registry.BlockRegistry;
 import divinerpg.utils.DivinePlantType;
 import divinerpg.utils.properties.block.ExtendedBlockProperties;
 import divinerpg.utils.properties.block.IPlacementCheck;
@@ -34,9 +35,17 @@ public class DivineSaplingBlock extends SaplingBlock implements IDivinePlant {
 
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return validGround == null
-                ? super.isValidGround(state, worldIn, pos)
-                : validGround.canPlace(state, worldIn, pos);
+        if (validGround == null) {
+            return super.isValidGround(state, worldIn, pos);
+        }
+
+        boolean canPlace = validGround.canPlace(state, worldIn, pos);
+
+        if (state.getBlock() == BlockRegistry.mortumGrass) {
+            canPlace = canPlace;
+        }
+
+        return canPlace;
     }
 
     @Override

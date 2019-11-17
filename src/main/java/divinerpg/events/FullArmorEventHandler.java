@@ -74,6 +74,8 @@ public class FullArmorEventHandler {
         if (event.getArmorSet().getArmorSetDescriber().isEquipped(event.getPlayer())) {
             event.confirmEquipment();
         }
+
+        // TODO add ring support
     }
 
 

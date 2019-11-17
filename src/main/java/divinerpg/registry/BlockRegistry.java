@@ -14,7 +14,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.Tuple;
 import net.minecraft.util.math.MathHelper;
@@ -35,6 +38,8 @@ import java.util.List;
 // Event bus for receiving Registry Events)
 @ObjectHolder(DivineRPG.MODID)
 public class BlockRegistry {
+
+    public static Tag<Block> DIVINE_GRASS = new BlockTags.Wrapper(new ResourceLocation(DivineRPG.MODID, "grass"));
 
     @ObjectHolder("realmite_ore")
     public static Block realmiteOre;
@@ -263,7 +268,7 @@ public class BlockRegistry {
         // EDEN
         ////////////////////
         registerBlock(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.LIGHT_BLUE)
-                        .harvestTool(ToolType.SHOVEL).hardnessAndResistance(3)).withSpreading(block -> block == edenDirt))
+                        .harvestTool(ToolType.SHOVEL).hardnessAndResistance(3)).mapDirt(() -> edenDirt))
                 , "eden_grass", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.YELLOW).hardnessAndResistance(3).sound(SoundType.GROUND)
                 .harvestTool(ToolType.SHOVEL)), "eden_dirt", blockTabProperty);
@@ -300,7 +305,7 @@ public class BlockRegistry {
         // WILDWOOD
         ///////////////////////
         registerBlock(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.LIGHT_BLUE)
-                        .hardnessAndResistance(5).harvestTool(ToolType.SHOVEL)).withSpreading(block -> block == wildwoodDirt))
+                        .hardnessAndResistance(5).harvestTool(ToolType.SHOVEL)).mapDirt(() -> wildwoodDirt))
                 , "wildwood_grass", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.LIGHT_BLUE).hardnessAndResistance(5).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL))
                 , "wildwood_dirt", blockTabProperty);
@@ -337,7 +342,7 @@ public class BlockRegistry {
         // APALACHIA
         /////////////////////////
         registerBlock(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.PURPLE)
-                        .hardnessAndResistance(7).harvestTool(ToolType.SHOVEL)).withSpreading(block -> block == apalachiaDirt))
+                        .hardnessAndResistance(7).harvestTool(ToolType.SHOVEL)).mapDirt(() -> apalachiaDirt))
                 , "apalachia_grass", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.PURPLE).hardnessAndResistance(7).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL))
                 , "apalachia_dirt", blockTabProperty);
@@ -373,7 +378,7 @@ public class BlockRegistry {
         // Skythern
         //////////////////////
         registerBlock(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.GRAY)
-                        .hardnessAndResistance(9).harvestTool(ToolType.SHOVEL)).withSpreading(block -> block == skythernDirt))
+                        .hardnessAndResistance(9).harvestTool(ToolType.SHOVEL)).mapDirt(() -> skythernDirt))
                 , "skythern_grass", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.GRAY).hardnessAndResistance(9).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL))
                 , "skythern_dirt", blockTabProperty);
@@ -383,7 +388,7 @@ public class BlockRegistry {
         registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.GRAY))
                         .withNonVanillaType(DivinePlantType.SKYTHERN))
                 , "dust_lily", blockTabProperty);
-        registerBlock(new DivineBushBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.GRAY))
+        registerBlock(new DivineDoublePlantBlock(new ExtendedBlockProperties(Block.Properties.create(Material.TALL_PLANTS, MaterialColor.GRAY))
                         .withNonVanillaType(DivinePlantType.SKYTHERN)
                         .onCollision(e -> e.attackEntityFrom(DamageSource.CACTUS, 6))
                         .onHarvest(e -> e.attackEntityFrom(DamageSource.CACTUS, 1)))
@@ -411,7 +416,7 @@ public class BlockRegistry {
         // Mortum
         //////////////////////
         registerBlock(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.BLACK)
-                        .hardnessAndResistance(12).harvestTool(ToolType.SHOVEL)).withSpreading(block -> block == mortumDirt))
+                        .hardnessAndResistance(12).harvestTool(ToolType.SHOVEL)).mapDirt(() -> mortumDirt))
                 , "mortum_grass", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.BLACK).hardnessAndResistance(12).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL))
                 , "mortum_dirt", blockTabProperty);

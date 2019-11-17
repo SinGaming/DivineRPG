@@ -9,18 +9,19 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.lighting.LightEngine;
 
+import java.util.List;
 import java.util.Random;
-import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 /**
  * Basic grass block. Overrided for custom block spreading
  */
 public class DivineGrassBlock extends GrassBlock {
-    private final Predicate<Block> canSpreadGrass;
+    private final List<Supplier<Block>> dirts;
 
     public DivineGrassBlock(ExtendedBlockProperties properties) {
         super(properties.props.sound(SoundType.PLANT));
-        canSpreadGrass = properties.canSpreadGrass;
+        dirts = properties.dirts;
     }
 
     private static boolean checkLightLevel(BlockState state, IWorldReader world, BlockPos pos) {
@@ -43,15 +44,15 @@ public class DivineGrassBlock extends GrassBlock {
         if (!worldIn.isRemote) {
             if (!worldIn.isAreaLoaded(pos, 3))
                 return; // Forge: prevent loading unloaded chunks when checking neighbor's light and spreading
-            if (!checkLightLevel(state, worldIn, pos)) {
-                worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
+            if (!dirts.isEmpty() && !checkLightLevel(state, worldIn, pos)) {
+                worldIn.setBlockState(pos, dirts.get(0).get().getDefaultState());
             } else {
                 if (worldIn.getLight(pos.up()) >= 9) {
                     BlockState blockstate = this.getDefaultState();
 
                     for (int i = 0; i < 4; ++i) {
                         BlockPos blockpos = pos.add(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
-                        if (canSpreadGrass.test(worldIn.getBlockState(blockpos).getBlock()) && checkUpperBlock(blockstate, worldIn, blockpos)) {
+                        if (dirts.stream().anyMatch(x -> worldIn.getBlockState(blockpos).getBlock().equals(x.get())) && checkUpperBlock(blockstate, worldIn, blockpos)) {
                             worldIn.setBlockState(blockpos, blockstate.with(SNOWY, worldIn.getBlockState(blockpos.up()).getBlock() == Blocks.SNOW));
                         }
                     }
