@@ -12,12 +12,16 @@ import divinerpg.utils.DivineItemTier;
 import divinerpg.utils.DivineParticleTypes;
 import divinerpg.utils.properties.item.ExtendedItemProperties;
 import divinerpg.utils.properties.item.SpawnHelper;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -806,6 +810,46 @@ public class ItemRegistry {
                 .withShooter((world, player, power) -> SpawnHelper.singleSpawn(world, player,
                         new BulletEntity(world, player, 29, "halite_phaser", DivineParticleTypes.HALITE)))
                 .group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "halite_phaser"));
+
+
+        // Serenades
+        registry.register(new ScepterItem(DivineItemTier.UNREPAIRABLE, (ExtendedItemProperties) new ExtendedItemProperties()
+                .onBlockHit((world, entity, weapon, hit) -> {
+                    if (entity instanceof PlayerEntity) {
+                        for (int i = 0; i < 3; i++) {
+                            ArmorEvents.spawnLightning(((PlayerEntity) entity), hit.getPos());
+                        }
+                    }
+                }).maxDamage(100).group(DivineRPGTabs.DivineTools), 64, null).setRegistryName(DivineRPG.MODID, "serenade_striker"));
+
+        registry.register(new ScepterItem(DivineItemTier.UNREPAIRABLE, (ExtendedItemProperties) new ExtendedItemProperties()
+                .onHit((stack, player, entity) -> {
+
+                    entity.attackEntityFrom(DamageSource.causeThrownDamage(player, player), 14);
+
+                    if (entity instanceof LivingEntity) {
+                        ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.POISON, 45 * 20, 3));
+                    }
+
+                    Vec3d pos = entity.getPositionVec();
+                    player.getEntityWorld().addParticle(DivineParticleTypes.MORTUM, pos.x, pos.y, pos.z, 0, 0, 0);
+                }).maxDamage(500).group(DivineRPGTabs.DivineTools), 64, DivineParticleTypes.MORTUM).setRegistryName(DivineRPG.MODID, "serenade_of_death"));
+
+        registry.register(new SpecialSwordItem(DivineItemTier.UNREPAIRABLE, 0, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onRightClick((world, player, hand) ->
+                        player.addPotionEffect(new EffectInstance(Effects.REGENERATION, 80 * 20, 2)))
+                        .disableSword(true).group(DivineRPGTabs.DivineTools).maxDamage(15)).setRegistryName(DivineRPG.MODID, "serenade_of_infusion"));
+
+        registry.register(new SpecialSwordItem(DivineItemTier.UNREPAIRABLE, 0, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onRightClick((world, player, hand) -> {
+                            if (player.getHealth() < player.getMaxHealth()) {
+                                player.setHealth(player.getMaxHealth());
+                                return true;
+                            }
+
+                            return false;
+                        }
+                ).disableSword(true).group(DivineRPGTabs.DivineTools).maxDamage(15)).setRegistryName(DivineRPG.MODID, "serenade_of_health"));
 
     }
 

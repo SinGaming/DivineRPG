@@ -7,12 +7,16 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
@@ -24,8 +28,6 @@ import java.util.function.Function;
  * Class contains helper methods for power armor
  */
 public class ArmorEvents {
-
-    // REMEMBER - HERE NO DIVINERPG REFERENCES!!!
 
     private static final UUID ARMOR_SPEED_UUID = UUID.fromString("2ae05d96-4b26-420b-8406-156e8febb45f");
 
@@ -304,6 +306,23 @@ public class ArmorEvents {
             ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.POISON, seconds * 20, 1));
         }
     }
+
+    /**
+     * Summon lightning
+     *
+     * @param playerEntity - player
+     * @param pos          - on current position
+     */
+    public static void spawnLightning(PlayerEntity playerEntity, BlockPos pos) {
+        if (!playerEntity.getEntityWorld().isRemote()
+                && playerEntity instanceof ServerPlayerEntity) {
+            LightningBoltEntity boltEntity = new LightningBoltEntity(playerEntity.getEntityWorld(), pos.getX(), pos.getY(), pos.getZ(), false);
+            boltEntity.setCaster(((ServerPlayerEntity) playerEntity));
+
+            ((ServerWorld) playerEntity.getEntityWorld()).addLightningBolt(boltEntity);
+        }
+    }
+
 
     /**
      * Trying to check wherever player motion is more than passed maxSpeed
