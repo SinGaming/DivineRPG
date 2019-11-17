@@ -4,6 +4,7 @@ import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 
@@ -14,7 +15,7 @@ import java.util.Map;
 /**
  * Basic implementation if stored powersets
  */
-public interface IArmorRing {
+public interface IArmorRing extends IItemProvider {
 
     /**
      * NBT tag key containing all loaded power sets

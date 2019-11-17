@@ -216,7 +216,6 @@ public class DivineTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     }
 
     protected boolean canPlaceSapling(IWorldGenerationBaseReader world, BlockPos pos, SaplingBlock sapling) {
-        // TODO work with tags, json currently not working
         return world.hasBlockState(pos, state -> (!(world instanceof IWorldReader) || sapling.isValidPosition(state, (IWorldReader) world, pos))
                 || state.isIn(BlockTags.LEAVES)
                 || state.isAir()
