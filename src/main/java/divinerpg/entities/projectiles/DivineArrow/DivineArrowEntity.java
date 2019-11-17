@@ -1,4 +1,4 @@
-package divinerpg.entities.projectiles;
+package divinerpg.entities.projectiles.DivineArrow;
 
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.utils.CachedTexture;

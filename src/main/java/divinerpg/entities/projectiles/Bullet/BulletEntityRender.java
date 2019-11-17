@@ -1,7 +1,6 @@
-package divinerpg.entities.render;
+package divinerpg.entities.projectiles.Bullet;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import divinerpg.entities.projectiles.BulletEntity;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.EntityRenderer;

@@ -4,7 +4,7 @@ import com.google.common.base.Function;
 import divinerpg.DivineRPG;
 import divinerpg.api.DivineAPI;
 import divinerpg.api.armor.ArmorEvents;
-import divinerpg.entities.projectiles.BulletEntity;
+import divinerpg.entities.projectiles.Bullet.BulletEntity;
 import divinerpg.entities.projectiles.ItemBulletEntity;
 import divinerpg.items.*;
 import divinerpg.utils.DivineArmorMaterial;
@@ -821,7 +821,6 @@ public class ItemRegistry {
                         }
                     }
                 }).maxDamage(100).group(DivineRPGTabs.DivineTools), 64, null).setRegistryName(DivineRPG.MODID, "serenade_striker"));
-
         registry.register(new ScepterItem(DivineItemTier.UNREPAIRABLE, (ExtendedItemProperties) new ExtendedItemProperties()
                 .onHit((stack, player, entity) -> {
 
@@ -834,12 +833,10 @@ public class ItemRegistry {
                     Vec3d pos = entity.getPositionVec();
                     player.getEntityWorld().addParticle(DivineParticleTypes.MORTUM, pos.x, pos.y, pos.z, 0, 0, 0);
                 }).maxDamage(500).group(DivineRPGTabs.DivineTools), 64, DivineParticleTypes.MORTUM).setRegistryName(DivineRPG.MODID, "serenade_of_death"));
-
         registry.register(new SpecialSwordItem(DivineItemTier.UNREPAIRABLE, 0, -2.4F,
                 (ExtendedItemProperties) new ExtendedItemProperties().onRightClick((world, player, hand) ->
                         player.addPotionEffect(new EffectInstance(Effects.REGENERATION, 80 * 20, 2)))
                         .disableSword(true).group(DivineRPGTabs.DivineTools).maxDamage(15)).setRegistryName(DivineRPG.MODID, "serenade_of_infusion"));
-
         registry.register(new SpecialSwordItem(DivineItemTier.UNREPAIRABLE, 0, -2.4F,
                 (ExtendedItemProperties) new ExtendedItemProperties().onRightClick((world, player, hand) -> {
                             if (player.getHealth() < player.getMaxHealth()) {

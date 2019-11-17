@@ -1,6 +1,5 @@
-package divinerpg.entities.render;
+package divinerpg.entities.projectiles.DivineArrow;
 
-import divinerpg.entities.projectiles.DivineArrowEntity;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;

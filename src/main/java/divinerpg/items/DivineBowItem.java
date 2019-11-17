@@ -1,6 +1,6 @@
 package divinerpg.items;
 
-import divinerpg.entities.projectiles.DivineArrowEntity;
+import divinerpg.entities.projectiles.DivineArrow.DivineArrowEntity;
 import divinerpg.utils.properties.item.ExtendedItemProperties;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
