@@ -1,4 +1,4 @@
-package divinerpg.entities.vanilla.EnthralledDramcryx;
+package divinerpg.entities.vanilla.dramcryx.enthralled;
 
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 public class EnthralledDramcryx extends MonsterEntity {
 
     public EnthralledDramcryx(World world) {
-        this(EntitiesRegistry.entrhralled_dramcryx_entity, world);
+        this(EntitiesRegistry.entrhralled_dramcryx, world);
     }
 
     public EnthralledDramcryx(EntityType<? extends MonsterEntity> type, World world) {
@@ -34,9 +34,8 @@ public class EnthralledDramcryx extends MonsterEntity {
         int i = 0;
         this.targetSelector.addGoal(i++, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
 
-        // TODO not attacking
         i = 0;
-        goalSelector.addGoal(i++, new MeleeAttackGoal(this, 0.27D, false));
+        goalSelector.addGoal(i++, new MeleeAttackGoal(this, 1, false));
         goalSelector.addGoal(i++, new WaterAvoidingRandomWalkingGoal(this, 1));
         goalSelector.addGoal(i++, new LookAtGoal(this, PlayerEntity.class, 20.0F));
         goalSelector.addGoal(i++, new RandomWalkingGoal(this, 1.0D));
@@ -48,8 +47,7 @@ public class EnthralledDramcryx extends MonsterEntity {
 
         this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80);
         this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7);
-        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(20);
-        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(0.27);
+        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3);
     }
 
     @Override

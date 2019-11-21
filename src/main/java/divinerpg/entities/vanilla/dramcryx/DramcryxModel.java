@@ -1,10 +1,12 @@
-package divinerpg.entities.vanilla.EnthralledDramcryx;
+package divinerpg.entities.vanilla.dramcryx;
 
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
-public class EnthralledDramcryxModel extends EntityModel<EnthralledDramcryx> {
+public class DramcryxModel<T extends Entity> extends EntityModel<T> {
     RendererModel WolfHead;
     RendererModel Body;
     RendererModel Mane;
@@ -20,7 +22,7 @@ public class EnthralledDramcryxModel extends EntityModel<EnthralledDramcryx> {
     RendererModel Shape2;
     RendererModel Shape3;
 
-    public EnthralledDramcryxModel() {
+    public DramcryxModel() {
         textureWidth = 64;
         textureHeight = 32;
         WolfHead = new RendererModel(this, 0, 0);
@@ -110,7 +112,7 @@ public class EnthralledDramcryxModel extends EntityModel<EnthralledDramcryx> {
     }
 
     @Override
-    public void render(EnthralledDramcryx entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+    public void render(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 
         setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
@@ -130,6 +132,15 @@ public class EnthralledDramcryxModel extends EntityModel<EnthralledDramcryx> {
         Shape1.render(scale);
         Shape2.render(scale);
         Shape3.render(scale);
+    }
+
+    @Override
+    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
+        Body.rotateAngleX = ((float) Math.PI / 2F);
+        Leg1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        Leg2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+        Leg3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+        Leg4.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
     }
 
     private void setRotation(RendererModel model, float x, float y, float z) {

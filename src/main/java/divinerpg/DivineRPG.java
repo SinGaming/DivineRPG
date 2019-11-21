@@ -8,6 +8,7 @@ import divinerpg.config.DivineConfig;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.FeatureRegistry;
 import divinerpg.registry.MessageRegistry;
+import divinerpg.registry.SpawnRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -79,6 +80,8 @@ public class DivineRPG
 
         CapabilityManager.INSTANCE.register(IArcana.class, new ArcanaStorage(), Arcana::new);
         FeatureRegistry.registerWorldGen();
+
+        SpawnRegistry.registerSpawn();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

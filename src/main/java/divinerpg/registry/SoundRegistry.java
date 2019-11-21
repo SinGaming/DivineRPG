@@ -52,7 +52,7 @@ public final class SoundRegistry {
     public static final SoundEvent DENSOS = createEvent("densos");
     public static final SoundEvent DENSOS_HURT = createEvent("densos_hurt");
     public static final SoundEvent DIVINE_ACCUMULATOR = createEvent("divine_accumulator");
-    public static final SoundEvent DRAMCRYX = createEvent("dramcryx");
+    public static final SoundEvent DRAMCRYX = createEvent("jungle_dramcryx");
     public static final SoundEvent DRAMCRYX_HURT = createEvent("dramcryx_hurt");
     public static final SoundEvent DRAMIX = createEvent("dramix");
     public static final SoundEvent DRAMIX_HURT = createEvent("dramix_hurt");
@@ -152,7 +152,7 @@ public final class SoundRegistry {
 
     private static SoundEvent createEvent(String sound) {
         ResourceLocation soundLocation = new ResourceLocation("divinerpg", sound);
-        return (SoundEvent)(new SoundEvent(soundLocation)).setRegistryName(soundLocation);
+        return (new SoundEvent(soundLocation)).setRegistryName(soundLocation);
     }
 
     @SubscribeEvent

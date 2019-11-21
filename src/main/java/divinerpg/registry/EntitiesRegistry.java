@@ -6,18 +6,19 @@ import divinerpg.entities.projectiles.Bullet.BulletEntityRender;
 import divinerpg.entities.projectiles.DivineArrow.DivineArrowEntity;
 import divinerpg.entities.projectiles.DivineArrow.DivineEntityRender;
 import divinerpg.entities.projectiles.ItemBulletEntity;
-import divinerpg.entities.vanilla.EnthralledDramcryx.EnthralledDramcryx;
-import divinerpg.entities.vanilla.EnthralledDramcryx.EnthralledDramcryxRender;
+import divinerpg.entities.vanilla.crab.Crab;
+import divinerpg.entities.vanilla.crab.CrabRender;
+import divinerpg.entities.vanilla.dramcryx.enthralled.EnthralledDramcryx;
+import divinerpg.entities.vanilla.dramcryx.enthralled.EnthralledDramcryxRender;
+import divinerpg.entities.vanilla.dramcryx.jungle.JungleDramcryx;
+import divinerpg.entities.vanilla.dramcryx.jungle.JungleDramcryxRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.RegistryEvent;
@@ -39,8 +40,12 @@ public class EntitiesRegistry {
     public static final EntityType<BulletEntity> bullet_entity = null;
     @ObjectHolder("arrow_entity")
     public static final EntityType<DivineArrowEntity> arrow_entity = null;
-    @ObjectHolder("entrhralled_dramcryx_entity")
-    public static EntityType<EnthralledDramcryx> entrhralled_dramcryx_entity = null;
+    @ObjectHolder("entrhralled_dramcryx")
+    public static EntityType<EnthralledDramcryx> entrhralled_dramcryx = null;
+    @ObjectHolder("crab")
+    public static EntityType<Crab> crab = null;
+    @ObjectHolder("jungle_dramcryx")
+    public static EntityType<JungleDramcryx> jungle_dramcryx = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -53,10 +58,15 @@ public class EntitiesRegistry {
         registry.register(EntityType.Builder.<EnthralledDramcryx>create(EnthralledDramcryx::new, EntityClassification.MONSTER)
                 .size(1.35F, 1.75F)
                 .setCustomClientFactory((spawnEntity, world) -> new EnthralledDramcryx(world))
-                .build("entrhralled_dramcryx_entity").setRegistryName(DivineRPG.MODID, "entrhralled_dramcryx_entity"));
-
-        // TODO add to world spawn
-        EntitySpawnPlacementRegistry.register(entrhralled_dramcryx_entity, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223324_d);
+                .build("entrhralled_dramcryx").setRegistryName(DivineRPG.MODID, "entrhralled_dramcryx"));
+        registry.register(EntityType.Builder.<Crab>create(Crab::new, EntityClassification.MONSTER)
+                .size(1.1F, 0.8F)
+                .setCustomClientFactory((spawnEntity, world) -> new Crab(world))
+                .build("crab").setRegistryName(DivineRPG.MODID, "crab"));
+        registry.register(EntityType.Builder.<JungleDramcryx>create(JungleDramcryx::new, EntityClassification.MONSTER)
+                .size(1, 1.3F)
+                .setCustomClientFactory((spawnEntity, world) -> new JungleDramcryx(jungle_dramcryx, world))
+                .build("jungle_dramcryx").setRegistryName(DivineRPG.MODID, "jungle_dramcryx"));
     }
 
 
@@ -69,6 +79,8 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(DivineArrowEntity.class, DivineEntityRender::new);
         RenderingRegistry.registerEntityRenderingHandler(ItemBulletEntity.class, factory -> new SpriteRenderer<>(factory, itemRenderer));
         RenderingRegistry.registerEntityRenderingHandler(EnthralledDramcryx.class, EnthralledDramcryxRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(JungleDramcryx.class, JungleDramcryxRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Crab.class, CrabRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,

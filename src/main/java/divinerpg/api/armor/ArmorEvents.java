@@ -301,10 +301,13 @@ public class ArmorEvents {
      * @param entity  - victim
      * @param seconds - seconds of poison effect
      */
-    public static void tryPoison(Entity entity, int seconds) {
+    public static boolean tryPoison(Entity entity, int seconds) {
         if (entity instanceof LivingEntity) {
             ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.POISON, seconds * 20, 1));
+            return true;
         }
+
+        return false;
     }
 
     /**
