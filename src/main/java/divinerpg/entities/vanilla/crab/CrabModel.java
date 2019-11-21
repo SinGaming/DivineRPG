@@ -67,8 +67,21 @@ public class CrabModel extends EntityModel<Crab> {
     }
 
     @Override
-    public void setRotationAngles(Crab entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
+    public void render(Crab entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+        super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        this.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 
+        this.RearEnd.render(scale);
+        this.Leg8.render(scale);
+        this.Leg6.render(scale);
+        this.Leg4.render(scale);
+        this.Leg7.render(scale);
+        this.Leg5.render(scale);
+        this.Leg3.render(scale);
+    }
+
+    @Override
+    public void setRotationAngles(Crab entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
         float var7 = ((float) Math.PI / 4F);
         this.Leg3.rotateAngleZ = -var7 * 0.74F;
         this.Leg4.rotateAngleZ = var7 * 0.74F;

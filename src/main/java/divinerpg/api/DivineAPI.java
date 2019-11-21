@@ -9,8 +9,8 @@ import divinerpg.utils.ArmorObserver;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegistryManager;
 
 public class DivineAPI {
 
@@ -18,7 +18,7 @@ public class DivineAPI {
      * Contains all possible power sets data
      */
     public static IForgeRegistry<IPoweredArmorSet> getPowerRegistry() {
-        return GameRegistry.findRegistry(IPoweredArmorSet.class);
+        return RegistryManager.ACTIVE.getRegistry(IPoweredArmorSet.class);
     }
 
     /**

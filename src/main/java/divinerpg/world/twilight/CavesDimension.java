@@ -43,8 +43,8 @@ public class CavesDimension extends NetherDimension {
         return ChunkGeneratorType.CAVES.create(this.world, this.biomeProvider, settings);
     }
 
-    @Override
-    public int getSeaLevel() {
-        return 0;
-    }
+//    @Override
+//    public int getSeaLevel() {
+//        return 0;
+//    }
 }
