@@ -56,10 +56,11 @@ public abstract class PeacefullDivineMonster extends MonsterEntity {
     protected void registerGoals() {
         super.registerGoals();
 
-        this.goalSelector.addGoal(1, new SwimGoal(this));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.addGoal(2, new RandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1, true));
+        this.goalSelector.addGoal(2, new SwimGoal(this));
+        this.goalSelector.addGoal(3, new RandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
     }

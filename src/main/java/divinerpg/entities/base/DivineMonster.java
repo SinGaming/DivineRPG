@@ -1,7 +1,6 @@
 package divinerpg.entities.base;
 
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,6 +30,5 @@ public abstract class DivineMonster extends PeacefullDivineMonster {
         super.registerGoals();
 
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal(this, PlayerEntity.class, true));
-        goalSelector.addGoal(1, new MeleeAttackGoal(this, 1, true));
     }
 }

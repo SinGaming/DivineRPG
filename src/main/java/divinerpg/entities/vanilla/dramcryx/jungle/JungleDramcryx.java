@@ -16,7 +16,7 @@ public class JungleDramcryx extends DivineMonster {
         this(world);
     }
 
-    protected JungleDramcryx(World world) {
+    public JungleDramcryx(World world) {
         super(EntitiesRegistry.jungle_dramcryx, world, SoundRegistry.DRAMCRYX_HURT, SoundRegistry.DRAMCRYX, 1.25F);
     }
 
@@ -32,7 +32,7 @@ public class JungleDramcryx extends DivineMonster {
     protected void registerGoals() {
         super.registerGoals();
 
-        goalSelector.addGoal(0, new WaterAvoidingRandomWalkingGoal(this, 1));
+        goalSelector.addGoal(4, new WaterAvoidingRandomWalkingGoal(this, 1));
     }
 
     @Override

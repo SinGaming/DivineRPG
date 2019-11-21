@@ -17,6 +17,8 @@ public class SpawnRegistry {
         addGroundplacedMonster(EntitiesRegistry.crab, BiomeDictionary.Type.BEACH, 100, 4, 4);
         addGroundplacedMonster(EntitiesRegistry.entrhralled_dramcryx, 70, 3, 4);
         addGroundplacedMonster(EntitiesRegistry.jungle_dramcryx, BiomeDictionary.Type.JUNGLE, 80, 1, 4);
+        addGroundplacedMonster(EntitiesRegistry.frost, BiomeDictionary.Type.SNOWY, 50, 1, 4);
+        addGroundplacedMonster(EntitiesRegistry.glacon, BiomeDictionary.Type.SNOWY, 60, 1, 4);
     }
 
     private static void addGroundplacedMonster(EntityType type, int weight, int min, int max) {
