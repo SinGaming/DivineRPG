@@ -2,9 +2,10 @@ package divinerpg.entities.vanilla.crab;
 
 import divinerpg.entities.base.DivineModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
-public class CrabModel extends DivineModel<Crab> {
+public class CrabModel<T extends Entity> extends DivineModel<T> {
     private final RendererModel RearEnd;
     private final RendererModel Leg8;
     private final RendererModel Leg6;
@@ -13,7 +14,8 @@ public class CrabModel extends DivineModel<Crab> {
     private final RendererModel Leg5;
     private final RendererModel Leg3;
 
-    public CrabModel() {
+    public CrabModel(int scale) {
+        super(scale);
         this.textureWidth = 64;
         this.textureHeight = 32;
 
@@ -62,7 +64,7 @@ public class CrabModel extends DivineModel<Crab> {
     }
 
     @Override
-    public void setRotationAngles(Crab entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
+    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
         float var7 = ((float) Math.PI / 4F);
         this.Leg3.rotateAngleZ = -var7 * 0.74F;
         this.Leg4.rotateAngleZ = var7 * 0.74F;
@@ -78,11 +80,9 @@ public class CrabModel extends DivineModel<Crab> {
         this.Leg6.rotateAngleY = var9 * 1.0F - var8;
         this.Leg7.rotateAngleY = -var9 * 2.0F + var8;
         this.Leg8.rotateAngleY = var9 * 2.0F - var8;
-        float var10 = -(MathHelper.cos(limbSwing * 0.6662F * 2.0F + 0.0F) * 0.4F) * limbSwingAmount;
         float var11 = -(MathHelper.cos(limbSwing * 0.6662F * 2.0F + (float) Math.PI) * 0.4F) * limbSwingAmount;
         float var12 = -(MathHelper.cos(limbSwing * 0.6662F * 2.0F + ((float) Math.PI / 2F)) * 0.4F) * limbSwingAmount;
         float var13 = -(MathHelper.cos(limbSwing * 0.6662F * 2.0F + ((float) Math.PI * 3F / 2F)) * 0.4F) * limbSwingAmount;
-        float var14 = Math.abs(MathHelper.sin(limbSwing * 0.6662F + 0.0F) * 0.4F) * limbSwingAmount;
         float var15 = Math.abs(MathHelper.sin(limbSwing * 0.6662F + (float) Math.PI) * 0.4F) * limbSwingAmount;
         float var16 = Math.abs(MathHelper.sin(limbSwing * 0.6662F + ((float) Math.PI / 2F)) * 0.4F) * limbSwingAmount;
         float var17 = Math.abs(MathHelper.sin(limbSwing * 0.6662F + ((float) Math.PI * 3F / 2F)) * 0.4F) * limbSwingAmount;

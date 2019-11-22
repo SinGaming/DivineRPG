@@ -1,13 +1,16 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
+import divinerpg.entities.fireball.frost.FrostFireball;
 import divinerpg.entities.projectiles.Bullet.BulletEntity;
 import divinerpg.entities.projectiles.Bullet.BulletEntityRender;
 import divinerpg.entities.projectiles.DivineArrow.DivineArrowEntity;
 import divinerpg.entities.projectiles.DivineArrow.DivineEntityRender;
 import divinerpg.entities.projectiles.ItemBulletEntity;
-import divinerpg.entities.vanilla.crab.Crab;
-import divinerpg.entities.vanilla.crab.CrabRender;
+import divinerpg.entities.vanilla.crab.king.KingCrab;
+import divinerpg.entities.vanilla.crab.king.KingCrabRender;
+import divinerpg.entities.vanilla.crab.regular.Crab;
+import divinerpg.entities.vanilla.crab.regular.CrabRender;
 import divinerpg.entities.vanilla.dramcryx.enthralled.EnthralledDramcryx;
 import divinerpg.entities.vanilla.dramcryx.enthralled.EnthralledDramcryxRender;
 import divinerpg.entities.vanilla.dramcryx.jungle.JungleDramcryx;
@@ -18,6 +21,12 @@ import divinerpg.entities.vanilla.glacon.Glacon;
 import divinerpg.entities.vanilla.glacon.GlaconRender;
 import divinerpg.entities.vanilla.rotatick.Rotatick;
 import divinerpg.entities.vanilla.rotatick.RotatickRender;
+import divinerpg.entities.vanilla.spider.ender.EnderSpider;
+import divinerpg.entities.vanilla.spider.ender.EnderSpiderRender;
+import divinerpg.entities.vanilla.spider.hell.HellSpider;
+import divinerpg.entities.vanilla.spider.hell.HellSpiderRender;
+import divinerpg.entities.vanilla.spider.jungle.JungleSpider;
+import divinerpg.entities.vanilla.spider.jungle.JungleSpiderRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
@@ -47,6 +56,9 @@ public class EntitiesRegistry {
     @ObjectHolder("arrow_entity")
     public static final EntityType<DivineArrowEntity> arrow_entity = null;
 
+    @ObjectHolder("frost_fireball")
+    public static final EntityType<FrostFireball> frost_fireball = null;
+
     @ObjectHolder("entrhralled_dramcryx")
     public static EntityType<EnthralledDramcryx> entrhralled_dramcryx = null;
     @ObjectHolder("crab")
@@ -59,6 +71,14 @@ public class EntitiesRegistry {
     public static EntityType<Glacon> glacon = null;
     @ObjectHolder("rotatick")
     public static EntityType<Rotatick> rotatick = null;
+    @ObjectHolder("king_crab")
+    public static EntityType<KingCrab> king_crab = null;
+    @ObjectHolder("jungle_spider")
+    public static EntityType<JungleSpider> jungle_spider = null;
+    @ObjectHolder("hell_spider")
+    public static EntityType<HellSpider> hell_spider = null;
+    @ObjectHolder("ender_spider")
+    public static EntityType<EnderSpider> ender_spider = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -92,6 +112,24 @@ public class EntitiesRegistry {
                 .size(0.85F, 1)
                 .setCustomClientFactory((spawnEntity, world) -> new Rotatick(world))
                 .build("rotatick").setRegistryName(DivineRPG.MODID, "rotatick"));
+        registry.register(EntityType.Builder.create(KingCrab::new, EntityClassification.MONSTER)
+                .size(1.8F, 1.7F)
+                .setCustomClientFactory((spawnEntity, world) -> new KingCrab(world))
+                .build("king_crab").setRegistryName(DivineRPG.MODID, "king_crab"));
+
+        registry.register(EntityType.Builder.<JungleSpider>create(JungleSpider::new, EntityClassification.MONSTER)
+                .size(1.4F, 0.9F)
+                .setCustomClientFactory((spawnEntity, world) -> new JungleSpider(world))
+                .build("jungle_spider").setRegistryName(DivineRPG.MODID, "jungle_spider"));
+        registry.register(EntityType.Builder.<HellSpider>create(HellSpider::new, EntityClassification.MONSTER)
+                .size(1.4F, 0.9F)
+                .immuneToFire()
+                .setCustomClientFactory((spawnEntity, world) -> new HellSpider(world))
+                .build("hell_spider").setRegistryName(DivineRPG.MODID, "hell_spider"));
+        registry.register(EntityType.Builder.<EnderSpider>create(EnderSpider::new, EntityClassification.MONSTER)
+                .size(0.5F, 0.55F)
+                .setCustomClientFactory((spawnEntity, world) -> new EnderSpider(world))
+                .build("ender_spider").setRegistryName(DivineRPG.MODID, "ender_spider"));
     }
 
 
@@ -110,6 +148,10 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Frost.class, FrostRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Glacon.class, GlaconRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Rotatick.class, RotatickRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(KingCrab.class, KingCrabRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(JungleSpider.class, JungleSpiderRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(HellSpider.class, HellSpiderRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(EnderSpider.class, EnderSpiderRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,

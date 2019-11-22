@@ -1,11 +1,14 @@
 package divinerpg.entities.projectiles.Bullet;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import divinerpg.utils.CachedTexture;
+import divinerpg.utils.ITextured;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -16,7 +19,7 @@ import javax.annotation.Nullable;
  * Renders entity bullet
  */
 @OnlyIn(Dist.CLIENT)
-public class BulletEntityRender extends EntityRenderer<BulletEntity> {
+public class BulletEntityRender<T extends Entity> extends EntityRenderer<Entity> {
 
     public BulletEntityRender(EntityRendererManager renderManager) {
         super(renderManager);
@@ -26,7 +29,7 @@ public class BulletEntityRender extends EntityRenderer<BulletEntity> {
      * Copied from dragon fireball
      */
     @Override
-    public void doRender(BulletEntity entity, double x, double y, double z, float entityYaw, float partialTicks) {
+    public void doRender(Entity entity, double x, double y, double z, float entityYaw, float partialTicks) {
         float scale = 0.5F;
 
         GlStateManager.pushMatrix();
@@ -61,7 +64,13 @@ public class BulletEntityRender extends EntityRenderer<BulletEntity> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(BulletEntity entity) {
-        return entity.getTexture();
+    protected ResourceLocation getEntityTexture(Entity entity) {
+        if (entity instanceof ITextured) {
+            return ((ITextured) entity).getTexture();
+        }
+
+        // using this as default
+        return CachedTexture.PROJECTILES.getTexture("halite_blitz");
     }
+
 }

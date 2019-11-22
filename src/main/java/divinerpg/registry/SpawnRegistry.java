@@ -14,13 +14,22 @@ import java.util.stream.Stream;
 public class SpawnRegistry {
 
     public static void registerSpawn() {
-        addGroundplacedMonster(EntitiesRegistry.crab, BiomeDictionary.Type.BEACH, 100, 4, 4);
         addGroundplacedMonster(EntitiesRegistry.entrhralled_dramcryx, 70, 3, 4);
+        addGroundplacedMonster(EntitiesRegistry.rotatick, 70, 3, 4);
+
+        addGroundplacedMonster(EntitiesRegistry.crab, BiomeDictionary.Type.BEACH, 100, 4, 4);
+        addGroundplacedMonster(EntitiesRegistry.king_crab, BiomeDictionary.Type.BEACH, 10, 4, 4);
+
         addGroundplacedMonster(EntitiesRegistry.jungle_dramcryx, BiomeDictionary.Type.JUNGLE, 80, 1, 4);
+        addGroundplacedMonster(EntitiesRegistry.jungle_spider, BiomeDictionary.Type.JUNGLE, 80, 1, 4);
+
         addGroundplacedMonster(EntitiesRegistry.frost, BiomeDictionary.Type.SNOWY, 50, 1, 4);
         addGroundplacedMonster(EntitiesRegistry.glacon, BiomeDictionary.Type.SNOWY, 30, 1, 4);
         addAsType(EntitiesRegistry.glacon, EntityClassification.CREATURE, BiomeDictionary.Type.SNOWY, 30, 1, 4);
-        addGroundplacedMonster(EntitiesRegistry.rotatick, 70, 3, 4);
+
+        addGroundplacedMonster(EntitiesRegistry.hell_spider, BiomeDictionary.Type.NETHER, 50, 1, 1);
+
+        addGroundplacedMonster(EntitiesRegistry.ender_spider, BiomeDictionary.Type.END, 2, 1, 4);
     }
 
     private static void addGroundplacedMonster(EntityType type, int weight, int min, int max) {

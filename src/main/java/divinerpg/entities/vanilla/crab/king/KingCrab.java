@@ -1,4 +1,4 @@
-package divinerpg.entities.vanilla.crab;
+package divinerpg.entities.vanilla.crab.king;
 
 import divinerpg.entities.base.PeacefullDivineMonster;
 import divinerpg.registry.EntitiesRegistry;
@@ -8,14 +8,13 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.world.World;
 
-public class Crab extends PeacefullDivineMonster {
-
-    public Crab(EntityType<? extends Entity> type, World world) {
+public class KingCrab extends PeacefullDivineMonster {
+    public KingCrab(EntityType<? extends Entity> type, World world) {
         this(world);
     }
 
-    public Crab(World world) {
-        super(EntitiesRegistry.crab, world, SoundRegistry.CRAB_HURT, SoundRegistry.CRAB, 1);
+    public KingCrab(World world) {
+        super(EntitiesRegistry.king_crab, world, SoundRegistry.CRAB_HURT, SoundRegistry.CRAB, 1);
         experienceValue = 40;
     }
 
