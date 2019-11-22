@@ -1,10 +1,10 @@
 package divinerpg.entities.vanilla.crab;
 
-import net.minecraft.client.renderer.entity.model.EntityModel;
+import divinerpg.entities.base.DivineModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.util.math.MathHelper;
 
-public class CrabModel extends EntityModel<Crab> {
+public class CrabModel extends DivineModel<Crab> {
     private final RendererModel RearEnd;
     private final RendererModel Leg8;
     private final RendererModel Leg6;
@@ -16,6 +16,7 @@ public class CrabModel extends EntityModel<Crab> {
     public CrabModel() {
         this.textureWidth = 64;
         this.textureHeight = 32;
+
         this.RearEnd = new RendererModel(this, 0, 12);
         this.RearEnd.addBox(-5.0F, -4.0F, -6.0F, 12, 8, 12);
         this.RearEnd.setRotationPoint(-1.0F, 16.0F, 0.0F);
@@ -58,12 +59,6 @@ public class CrabModel extends EntityModel<Crab> {
         this.Leg3.setTextureSize(64, 32);
         this.Leg3.mirror = true;
         this.setRotation(this.Leg3, 0.0F, 0.2792527F, -0.1919862F);
-    }
-
-    private void setRotation(RendererModel var1, float var2, float var3, float var4) {
-        var1.rotateAngleX = var2;
-        var1.rotateAngleY = var3;
-        var1.rotateAngleZ = var4;
     }
 
     @Override

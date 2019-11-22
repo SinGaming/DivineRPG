@@ -16,6 +16,8 @@ import divinerpg.entities.vanilla.frost.Frost;
 import divinerpg.entities.vanilla.frost.FrostRender;
 import divinerpg.entities.vanilla.glacon.Glacon;
 import divinerpg.entities.vanilla.glacon.GlaconRender;
+import divinerpg.entities.vanilla.rotatick.Rotatick;
+import divinerpg.entities.vanilla.rotatick.RotatickRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
@@ -55,6 +57,8 @@ public class EntitiesRegistry {
     public static EntityType<Frost> frost = null;
     @ObjectHolder("glacon")
     public static EntityType<Glacon> glacon = null;
+    @ObjectHolder("rotatick")
+    public static EntityType<Rotatick> rotatick = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -84,6 +88,10 @@ public class EntitiesRegistry {
                 .size(0.8F, 1.4f)
                 .setCustomClientFactory((spawnEntity, world) -> new Glacon(world))
                 .build("glacon").setRegistryName(DivineRPG.MODID, "glacon"));
+        registry.register(EntityType.Builder.create(Rotatick::new, EntityClassification.MONSTER)
+                .size(0.85F, 1)
+                .setCustomClientFactory((spawnEntity, world) -> new Rotatick(world))
+                .build("rotatick").setRegistryName(DivineRPG.MODID, "rotatick"));
     }
 
 
@@ -101,6 +109,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Crab.class, CrabRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Frost.class, FrostRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Glacon.class, GlaconRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Rotatick.class, RotatickRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,

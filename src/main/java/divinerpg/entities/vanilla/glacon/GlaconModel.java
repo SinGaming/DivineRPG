@@ -1,10 +1,10 @@
 package divinerpg.entities.vanilla.glacon;
 
-import net.minecraft.client.renderer.entity.model.EntityModel;
+import divinerpg.entities.base.DivineModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.util.math.MathHelper;
 
-public class GlaconModel extends EntityModel<Glacon> {
+public class GlaconModel extends DivineModel<Glacon> {
     RendererModel head;
     RendererModel body;
     RendererModel legRBT;
@@ -297,60 +297,6 @@ public class GlaconModel extends EntityModel<Glacon> {
         this.body26.setTextureSize(64, 32);
         this.body26.mirror = true;
         setRotation(this.body26, -2.356194F, 0.0F, 0.0F);
-    }
-
-    private void setRotation(RendererModel model, float x, float y, float z) {
-        model.rotateAngleX = x;
-        model.rotateAngleY = y;
-        model.rotateAngleZ = z;
-    }
-
-    @Override
-    public void render(Glacon entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        this.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-
-        this.head.render(scale);
-        this.body.render(scale);
-        this.legRBT.render(scale);
-        this.legLBT.render(scale);
-        this.legRFT.render(scale);
-        this.legLFT.render(scale);
-        this.udders.render(scale);
-        this.legRMT.render(scale);
-        this.legLMT.render(scale);
-        this.legLF.render(scale);
-        this.legRF.render(scale);
-        this.legLM.render(scale);
-        this.legLB.render(scale);
-        this.legRM.render(scale);
-        this.legRB.render(scale);
-        this.body1.render(scale);
-        this.body2.render(scale);
-        this.body3.render(scale);
-        this.body4.render(scale);
-        this.body5.render(scale);
-        this.body7.render(scale);
-        this.body6.render(scale);
-        this.body8.render(scale);
-        this.body9.render(scale);
-        this.body10.render(scale);
-        this.body11.render(scale);
-        this.body12.render(scale);
-        this.body13.render(scale);
-        this.body14.render(scale);
-        this.body15.render(scale);
-        this.body16.render(scale);
-        this.body17.render(scale);
-        this.body18.render(scale);
-        this.body19.render(scale);
-        this.body20.render(scale);
-        this.body21.render(scale);
-        this.body22.render(scale);
-        this.body23.render(scale);
-        this.body24.render(scale);
-        this.body25.render(scale);
-        this.body26.render(scale);
     }
 
     @Override

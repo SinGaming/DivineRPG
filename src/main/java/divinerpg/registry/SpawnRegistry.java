@@ -18,7 +18,9 @@ public class SpawnRegistry {
         addGroundplacedMonster(EntitiesRegistry.entrhralled_dramcryx, 70, 3, 4);
         addGroundplacedMonster(EntitiesRegistry.jungle_dramcryx, BiomeDictionary.Type.JUNGLE, 80, 1, 4);
         addGroundplacedMonster(EntitiesRegistry.frost, BiomeDictionary.Type.SNOWY, 50, 1, 4);
-        addGroundplacedMonster(EntitiesRegistry.glacon, BiomeDictionary.Type.SNOWY, 60, 1, 4);
+        addGroundplacedMonster(EntitiesRegistry.glacon, BiomeDictionary.Type.SNOWY, 30, 1, 4);
+        addAsType(EntitiesRegistry.glacon, EntityClassification.CREATURE, BiomeDictionary.Type.SNOWY, 30, 1, 4);
+        addGroundplacedMonster(EntitiesRegistry.rotatick, 70, 3, 4);
     }
 
     private static void addGroundplacedMonster(EntityType type, int weight, int min, int max) {
@@ -28,13 +30,17 @@ public class SpawnRegistry {
     private static void addGroundplacedMonster(EntityType type, BiomeDictionary.Type biomeType, int weight, int min, int max) {
         EntitySpawnPlacementRegistry.register(type, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223324_d);
 
+        addAsType(type, EntityClassification.MONSTER, biomeType, weight, min, max);
+    }
+
+    private static void addAsType(EntityType type, EntityClassification clazz, BiomeDictionary.Type biomeType, int weight, int min, int max) {
         Stream<Biome> biomes = ForgeRegistries.BIOMES.getValues().stream();
 
         if (biomeType != null) {
             biomes = biomes.filter(x -> BiomeDictionary.hasType(x, biomeType));
         }
 
-        biomes.forEach(x -> x.getSpawns(EntityClassification.MONSTER)
+        biomes.forEach(x -> x.getSpawns(clazz)
                 .add(new Biome.SpawnListEntry(type, weight, min, max)));
     }
 }

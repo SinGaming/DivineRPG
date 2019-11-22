@@ -1,9 +1,9 @@
 package divinerpg.entities.vanilla.frost;
 
-import net.minecraft.client.renderer.entity.model.EntityModel;
+import divinerpg.entities.base.DivineModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 
-public class FrostModel extends EntityModel<Frost> {
+public class FrostModel extends DivineModel<Frost> {
     RendererModel frostBody;
     RendererModel horn1;
     RendererModel horn2;
@@ -71,27 +71,5 @@ public class FrostModel extends EntityModel<Frost> {
         this.shard4.setTextureSize(64, 32);
         this.shard4.mirror = true;
         this.setRotation(this.shard4, 0.0F, 0.0F, ((float) Math.PI / 2F));
-    }
-
-    @Override
-    public void render(Frost entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        this.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-
-        this.frostBody.render(scale);
-        this.horn1.render(scale);
-        this.horn2.render(scale);
-        this.horn3.render(scale);
-        this.horn4.render(scale);
-        this.shard1.render(scale);
-        this.shard2.render(scale);
-        this.shard3.render(scale);
-        this.shard4.render(scale);
-    }
-
-    private void setRotation(RendererModel var1, float x, float y, float z) {
-        var1.rotateAngleX = x;
-        var1.rotateAngleY = y;
-        var1.rotateAngleZ = z;
     }
 }

@@ -1,12 +1,12 @@
 package divinerpg.entities.vanilla.dramcryx;
 
-import net.minecraft.client.renderer.entity.model.EntityModel;
+import divinerpg.entities.base.DivineModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
-public class DramcryxModel<T extends Entity> extends EntityModel<T> {
+public class DramcryxModel<T extends Entity> extends DivineModel<T> {
     RendererModel WolfHead;
     RendererModel Body;
     RendererModel Mane;
@@ -113,25 +113,12 @@ public class DramcryxModel<T extends Entity> extends EntityModel<T> {
 
     @Override
     public void render(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-
         setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+
         GL11.glScaled(1.5, 1.5, 1.5);
         GL11.glTranslatef(0f, -0.5f, 0f);
-        WolfHead.render(scale);
-        Body.render(scale);
-        Mane.render(scale);
-        Leg1.render(scale);
-        Leg2.render(scale);
-        Leg3.render(scale);
-        Leg4.render(scale);
-        Tail.render(scale);
-        Ear1.render(scale);
-        Ear2.render(scale);
-        Nose.render(scale);
-        Shape1.render(scale);
-        Shape2.render(scale);
-        Shape3.render(scale);
+
+        parts.getValue().forEach(x -> x.render(scale));
     }
 
     @Override
@@ -141,11 +128,5 @@ public class DramcryxModel<T extends Entity> extends EntityModel<T> {
         Leg2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
         Leg3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
         Leg4.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-    }
-
-    private void setRotation(RendererModel model, float x, float y, float z) {
-        model.rotateAngleX = x;
-        model.rotateAngleY = y;
-        model.rotateAngleZ = z;
     }
 }
