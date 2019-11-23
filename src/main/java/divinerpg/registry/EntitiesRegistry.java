@@ -1,7 +1,8 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
-import divinerpg.entities.fireball.frost.FrostFireball;
+import divinerpg.entities.base.DivineFireball;
+import divinerpg.entities.fireball.FrostFireball;
 import divinerpg.entities.projectiles.Bullet.BulletEntity;
 import divinerpg.entities.projectiles.Bullet.BulletEntityRender;
 import divinerpg.entities.projectiles.DivineArrow.DivineArrowEntity;
@@ -27,6 +28,10 @@ import divinerpg.entities.vanilla.spider.hell.HellSpider;
 import divinerpg.entities.vanilla.spider.hell.HellSpiderRender;
 import divinerpg.entities.vanilla.spider.jungle.JungleSpider;
 import divinerpg.entities.vanilla.spider.jungle.JungleSpiderRender;
+import divinerpg.entities.vanilla.triplets.EnderTriplets;
+import divinerpg.entities.vanilla.triplets.EnderTripletsRender;
+import divinerpg.entities.vanilla.watcher.ender.EnderWatcher;
+import divinerpg.entities.vanilla.watcher.ender.EnderWatcherRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
@@ -56,8 +61,8 @@ public class EntitiesRegistry {
     @ObjectHolder("arrow_entity")
     public static final EntityType<DivineArrowEntity> arrow_entity = null;
 
-    @ObjectHolder("frost_fireball")
-    public static final EntityType<FrostFireball> frost_fireball = null;
+    @ObjectHolder("divine_fireball")
+    public static final EntityType<DivineFireball> divine_fireball = null;
 
     @ObjectHolder("entrhralled_dramcryx")
     public static EntityType<EnthralledDramcryx> entrhralled_dramcryx = null;
@@ -79,6 +84,10 @@ public class EntitiesRegistry {
     public static EntityType<HellSpider> hell_spider = null;
     @ObjectHolder("ender_spider")
     public static EntityType<EnderSpider> ender_spider = null;
+    @ObjectHolder("ender_watcher")
+    public static EntityType<EnderWatcher> ender_watcher = null;
+    @ObjectHolder("ender_triplets")
+    public static EntityType<EnderTriplets> ender_triplets = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -87,6 +96,7 @@ public class EntitiesRegistry {
         registerBulletEntity(registry, ItemBulletEntity::new, w -> bullet_item_entity.create(w), "bullet_item_entity");
         registerBulletEntity(registry, BulletEntity::new, w -> bullet_entity.create(w), "bullet_entity");
         registerBulletEntity(registry, DivineArrowEntity::new, w -> arrow_entity.create(w), "arrow_entity");
+//        registerBulletEntity(registry, FrostFireball::new, w -> frost_fireball.create(w), "frost_fireball");
 
         registry.register(EntityType.Builder.create(EnthralledDramcryx::new, EntityClassification.MONSTER)
                 .size(1.35F, 1.75F)
@@ -130,6 +140,15 @@ public class EntitiesRegistry {
                 .size(0.5F, 0.55F)
                 .setCustomClientFactory((spawnEntity, world) -> new EnderSpider(world))
                 .build("ender_spider").setRegistryName(DivineRPG.MODID, "ender_spider"));
+        registry.register(EntityType.Builder.<EnderWatcher>create(EnderWatcher::new, EntityClassification.MONSTER)
+                .size(0.7F, 0.9F)
+                .setCustomClientFactory((spawnEntity, world) -> new EnderWatcher(world))
+                .build("ender_watcher").setRegistryName(DivineRPG.MODID, "ender_watcher"));
+        registry.register(EntityType.Builder.<EnderTriplets>create(EnderTriplets::new, EntityClassification.MONSTER)
+                .size(0.7F, 0.9F)
+                .setCustomClientFactory((spawnEntity, world) -> new EnderTriplets(world))
+                .build("ender_triplets").setRegistryName(DivineRPG.MODID, "ender_triplets"));
+
     }
 
 
@@ -139,6 +158,7 @@ public class EntitiesRegistry {
 
         // projectiles
         RenderingRegistry.registerEntityRenderingHandler(BulletEntity.class, BulletEntityRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(FrostFireball.class, BulletEntityRender::new);
         RenderingRegistry.registerEntityRenderingHandler(DivineArrowEntity.class, DivineEntityRender::new);
         RenderingRegistry.registerEntityRenderingHandler(ItemBulletEntity.class, factory -> new SpriteRenderer<>(factory, itemRenderer));
 
@@ -152,6 +172,8 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(JungleSpider.class, JungleSpiderRender::new);
         RenderingRegistry.registerEntityRenderingHandler(HellSpider.class, HellSpiderRender::new);
         RenderingRegistry.registerEntityRenderingHandler(EnderSpider.class, EnderSpiderRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(EnderWatcher.class, EnderWatcherRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(EnderTriplets.class, EnderTripletsRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,

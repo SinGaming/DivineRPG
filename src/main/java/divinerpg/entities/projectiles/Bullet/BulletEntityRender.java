@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
  * Renders entity bullet
  */
 @OnlyIn(Dist.CLIENT)
-public class BulletEntityRender<T extends Entity> extends EntityRenderer<Entity> {
+public class BulletEntityRender extends EntityRenderer<Entity> {
 
     public BulletEntityRender(EntityRendererManager renderManager) {
         super(renderManager);

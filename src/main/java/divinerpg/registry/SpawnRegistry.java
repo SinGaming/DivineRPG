@@ -30,6 +30,8 @@ public class SpawnRegistry {
         addGroundplacedMonster(EntitiesRegistry.hell_spider, BiomeDictionary.Type.NETHER, 50, 1, 1);
 
         addGroundplacedMonster(EntitiesRegistry.ender_spider, BiomeDictionary.Type.END, 2, 1, 4);
+        addGroundplacedMonster(EntitiesRegistry.ender_watcher, BiomeDictionary.Type.END, 10, 4, 4);
+        addGroundplacedMonster(EntitiesRegistry.ender_triplets, BiomeDictionary.Type.END, 1, 1, 4);
     }
 
     private static void addGroundplacedMonster(EntityType type, int weight, int min, int max) {

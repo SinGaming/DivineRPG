@@ -639,6 +639,7 @@ public class ItemRegistry {
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "liopleurodon_skull"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "crab_claw"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "purple_blaze"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "watching_eye"));
 
         // STONES
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "corrupted_stone"));
@@ -772,17 +773,17 @@ public class ItemRegistry {
                 .group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "halite_blitz"));
 
         // BLADES
-        registry.register(new SwordItem(DivineItemTier.EDEN, 10, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineItems).maxDamage(2000))
+        registry.register(new SwordItem(DivineItemTier.EDEN, 10, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords).maxDamage(2000))
                 .setRegistryName(DivineRPG.MODID, "eden_blade"));
-        registry.register(new SwordItem(DivineItemTier.WILDWOOD, 10, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineItems).maxDamage(2100))
+        registry.register(new SwordItem(DivineItemTier.WILDWOOD, 10, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords).maxDamage(2100))
                 .setRegistryName(DivineRPG.MODID, "wildwood_blade"));
-        registry.register(new SwordItem(DivineItemTier.APALACHIA, 10, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineItems).maxDamage(2200))
+        registry.register(new SwordItem(DivineItemTier.APALACHIA, 10, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords).maxDamage(2200))
                 .setRegistryName(DivineRPG.MODID, "apalachia_blade"));
-        registry.register(new SwordItem(DivineItemTier.SKYTHERN, 10, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineItems).maxDamage(2300))
+        registry.register(new SwordItem(DivineItemTier.SKYTHERN, 10, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords).maxDamage(2300))
                 .setRegistryName(DivineRPG.MODID, "skythern_blade"));
-        registry.register(new SwordItem(DivineItemTier.MORTUM, 10, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineItems).maxDamage(2400))
+        registry.register(new SwordItem(DivineItemTier.MORTUM, 10, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords).maxDamage(2400))
                 .setRegistryName(DivineRPG.MODID, "mortum_blade"));
-        registry.register(new SwordItem(DivineItemTier.HALITE, 10, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineItems).maxDamage(2500))
+        registry.register(new SwordItem(DivineItemTier.HALITE, 10, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords).maxDamage(2500))
                 .setRegistryName(DivineRPG.MODID, "halite_blade"));
 
         // PHASERS
