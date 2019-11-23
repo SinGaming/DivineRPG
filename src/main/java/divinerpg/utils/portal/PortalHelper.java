@@ -59,6 +59,16 @@ public class PortalHelper {
             portal = Blocks.AIR;
         }
 
+        BlockState state = portal.getDefaultState();
+
+        if (state.has(BlockStateProperties.AXIS)) {
+            state.with(BlockStateProperties.AXIS, right.getAxis());
+        }
+        // nether portal has that prop
+        if (state.has(BlockStateProperties.HORIZONTAL_AXIS)) {
+            state.with(BlockStateProperties.HORIZONTAL_AXIS, right.getAxis());
+        }
+
         // width
         for (int i = 0; i < 2; i++) {
             // height
@@ -68,7 +78,8 @@ public class PortalHelper {
                         .offset(right, i + 1)
                         .offset(down, z + 1);
 
-                world.setBlockState(portalPlace, portal.getDefaultState().with(BlockStateProperties.AXIS, right.getAxis()));
+
+                world.setBlockState(portalPlace, state);
             }
         }
     }

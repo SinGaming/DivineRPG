@@ -1,7 +1,8 @@
 package divinerpg.entities.vanilla.frost;
 
 import divinerpg.entities.base.DivineMonster;
-import divinerpg.entities.goal.FrostAttackGoal;
+import divinerpg.entities.fireball.FrostFireball;
+import divinerpg.entities.goal.BlazeAttackGoal;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
 import net.minecraft.entity.Entity;
@@ -43,10 +44,10 @@ public class Frost extends DivineMonster {
     @Override
     protected void registerGoals() {
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setCallsForHelp());
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
 
 
-        this.goalSelector.addGoal(1, new FrostAttackGoal(this));
+        this.goalSelector.addGoal(1, new BlazeAttackGoal(this, FrostFireball::new));
         this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, 1.0D, 0.0F));
         this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0F));

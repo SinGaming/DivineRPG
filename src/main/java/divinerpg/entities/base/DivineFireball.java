@@ -18,8 +18,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class DivineFireball extends FireballEntity implements ITextured {
-    protected static final DataParameter<String> NAME = EntityDataManager.createKey(BulletEntity.class, DataSerializers.STRING);
-    protected static final DataParameter<IParticleData> PARTICLE = EntityDataManager.createKey(BulletEntity.class, DataSerializers.PARTICLE_DATA);
+    protected static final DataParameter<String> NAME = EntityDataManager.createKey(DivineFireball.class, DataSerializers.STRING);
+    protected static final DataParameter<IParticleData> PARTICLE = EntityDataManager.createKey(DivineFireball.class, DataSerializers.PARTICLE_DATA);
     private EntityType<?> type;
 
     public DivineFireball(World worldIn) {
@@ -63,7 +63,9 @@ public class DivineFireball extends FireballEntity implements ITextured {
     protected void registerData() {
         super.registerData();
 
-        getDataManager().register(NAME, "halite_blitz");
-        getDataManager().register(PARTICLE, ParticleTypes.SMOKE);
+        EntityDataManager manager = getDataManager();
+
+        manager.register(NAME, "halite_blitz");
+        manager.register(PARTICLE, ParticleTypes.SMOKE);
     }
 }

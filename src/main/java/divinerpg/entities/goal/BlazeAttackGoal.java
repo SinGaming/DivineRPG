@@ -1,5 +1,6 @@
 package divinerpg.entities.goal;
 
+import divinerpg.utils.properties.item.ICreateFireball;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -12,14 +13,16 @@ import net.minecraft.util.math.MathHelper;
 
 import java.util.EnumSet;
 
-public class FrostAttackGoal extends Goal {
+public class BlazeAttackGoal extends Goal {
     private final MobEntity blaze;
+    private ICreateFireball func;
     private int attackStep;
     private int attackTime;
     private int ticks;
 
-    public FrostAttackGoal(MobEntity blazeIn) {
+    public BlazeAttackGoal(MobEntity blazeIn, ICreateFireball func) {
         this.blaze = blazeIn;
+        this.func = func;
         this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
 
@@ -116,6 +119,6 @@ public class FrostAttackGoal extends Goal {
         double z = target.posZ - entity.posZ;
 
         // TODO create own fireball
-        return new SmallFireballEntity(entity.world, entity, x + entity.getRNG().nextGaussian() * (double) f, y, z + entity.getRNG().nextGaussian() * (double) f);
+        return func.create(entity.world, entity, x + entity.getRNG().nextGaussian() * (double) f, y, z + entity.getRNG().nextGaussian() * (double) f);
     }
 }

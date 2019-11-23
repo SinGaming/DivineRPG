@@ -20,10 +20,15 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import javax.annotation.Nullable;
+import java.util.Optional;
+import java.util.UUID;
+
 /**
  * Textured bullet
  */
 public class BulletEntity extends ThrowableEntity implements ITextured {
+    protected static final DataParameter<Optional<UUID>> OWNER = EntityDataManager.createKey(BulletEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
     protected static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(BulletEntity.class, DataSerializers.FLOAT);
     protected static final DataParameter<String> NAME = EntityDataManager.createKey(BulletEntity.class, DataSerializers.STRING);
     protected static final DataParameter<IParticleData> PARTICLE = EntityDataManager.createKey(BulletEntity.class, DataSerializers.PARTICLE_DATA);
@@ -47,7 +52,7 @@ public class BulletEntity extends ThrowableEntity implements ITextured {
 
         manager.set(DAMAGE, damage);
         manager.set(NAME, name);
-
+        manager.set(OWNER, Optional.of(thrower.getUniqueID()));
         if (particleData != null) {
             manager.set(PARTICLE, particleData);
         }
@@ -69,8 +74,24 @@ public class BulletEntity extends ThrowableEntity implements ITextured {
         EntityDataManager manager = getDataManager();
 
         manager.register(DAMAGE, 0F);
+        manager.register(OWNER, Optional.empty());
         manager.register(NAME, "halite_blitz");
         manager.register(PARTICLE, new BasicParticleType(true));
+    }
+
+    @Nullable
+    @Override
+    public LivingEntity getThrower() {
+        LivingEntity thrower = super.getThrower();
+
+        if (thrower == null) {
+            Optional<UUID> uuid = getDataManager().get(OWNER);
+            if (uuid.isPresent()) {
+                return this.world.getPlayerByUuid(uuid.get());
+            }
+        }
+
+        return thrower;
     }
 
     @OnlyIn(Dist.CLIENT)

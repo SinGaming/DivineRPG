@@ -63,6 +63,8 @@ public class EntitiesRegistry {
 
     @ObjectHolder("divine_fireball")
     public static final EntityType<DivineFireball> divine_fireball = null;
+    @ObjectHolder("frost_shot")
+    public static final EntityType<FrostFireball> frost_shot = null;
 
     @ObjectHolder("entrhralled_dramcryx")
     public static EntityType<EnthralledDramcryx> entrhralled_dramcryx = null;
@@ -148,7 +150,10 @@ public class EntitiesRegistry {
                 .size(0.7F, 0.9F)
                 .setCustomClientFactory((spawnEntity, world) -> new EnderTriplets(world))
                 .build("ender_triplets").setRegistryName(DivineRPG.MODID, "ender_triplets"));
-
+        registry.register(EntityType.Builder.<FrostFireball>create(FrostFireball::new, EntityClassification.MONSTER)
+                .size(0.7F, 0.9F)
+                .setCustomClientFactory((spawnEntity, world) -> new FrostFireball(world))
+                .build("frost_shot").setRegistryName(DivineRPG.MODID, "frost_shot"));
     }
 
 
