@@ -6,7 +6,6 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.projectile.AbstractFireballEntity;
-import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
@@ -118,7 +117,6 @@ public class BlazeAttackGoal extends Goal {
         double y = target.getBoundingBox().minY + (double) (target.getHeight() / 2.0F) - (entity.posY + (double) (entity.getHeight() / 2.0F));
         double z = target.posZ - entity.posZ;
 
-        // TODO create own fireball
         return func.create(entity.world, entity, x + entity.getRNG().nextGaussian() * (double) f, y, z + entity.getRNG().nextGaussian() * (double) f);
     }
 }

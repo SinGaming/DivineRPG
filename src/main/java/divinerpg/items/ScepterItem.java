@@ -80,10 +80,7 @@ public class ScepterItem extends TieredItem {
         if (victim != null) {
             onHit.onLeftClickEntity(weapon, entity, victim);
 
-            Vec3d start = entity.getPositionVec();
-            Vec3d end = start.add(entity.getLookVec().scale(range));
-
-            spawnParticle(entity.getEntityWorld(), start, end);
+            spawnParticle(entity.getEntityWorld(), entity.getPositionVec(), victim.getPositionVector());
 
             damageStack(weapon, entity);
         }
@@ -97,7 +94,11 @@ public class ScepterItem extends TieredItem {
         if (particle == null)
             return;
 
-        end = end.subtract(start);
-        world.addParticle(particle, start.x, start.y, start.z, end.x, end.y, end.z);
+        Vec3d step = end.subtract(start).normalize();
+
+        while (start.distanceTo(end) > 1) {
+            world.addParticle(particle, start.x, start.y, start.z, step.x, step.y, step.z);
+            start = start.add(step);
+        }
     }
 }

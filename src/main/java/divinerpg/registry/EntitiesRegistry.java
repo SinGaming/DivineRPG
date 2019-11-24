@@ -3,6 +3,7 @@ package divinerpg.registry;
 import divinerpg.DivineRPG;
 import divinerpg.entities.base.DivineFireball;
 import divinerpg.entities.fireball.FrostFireball;
+import divinerpg.entities.fireball.ScorcherFireball;
 import divinerpg.entities.projectiles.Bullet.BulletEntity;
 import divinerpg.entities.projectiles.Bullet.BulletEntityRender;
 import divinerpg.entities.projectiles.DivineArrow.DivineArrowEntity;
@@ -22,6 +23,8 @@ import divinerpg.entities.vanilla.glacon.Glacon;
 import divinerpg.entities.vanilla.glacon.GlaconRender;
 import divinerpg.entities.vanilla.rotatick.Rotatick;
 import divinerpg.entities.vanilla.rotatick.RotatickRender;
+import divinerpg.entities.vanilla.scorcher.Scorcher;
+import divinerpg.entities.vanilla.scorcher.ScorcherRender;
 import divinerpg.entities.vanilla.spider.ender.EnderSpider;
 import divinerpg.entities.vanilla.spider.ender.EnderSpiderRender;
 import divinerpg.entities.vanilla.spider.hell.HellSpider;
@@ -32,6 +35,8 @@ import divinerpg.entities.vanilla.triplets.EnderTriplets;
 import divinerpg.entities.vanilla.triplets.EnderTripletsRender;
 import divinerpg.entities.vanilla.watcher.ender.EnderWatcher;
 import divinerpg.entities.vanilla.watcher.ender.EnderWatcherRender;
+import divinerpg.entities.vanilla.wildfire.Wildfire;
+import divinerpg.entities.vanilla.wildfire.WildfireRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
@@ -90,6 +95,12 @@ public class EntitiesRegistry {
     public static EntityType<EnderWatcher> ender_watcher = null;
     @ObjectHolder("ender_triplets")
     public static EntityType<EnderTriplets> ender_triplets = null;
+    @ObjectHolder("scorcher")
+    public static EntityType<Scorcher> scorcher = null;
+    @ObjectHolder("scorcher_fireball")
+    public static EntityType<ScorcherFireball> scorcher_fireball = null;
+    @ObjectHolder("wildfire")
+    public static EntityType<Wildfire> wildfire = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -98,7 +109,8 @@ public class EntitiesRegistry {
         registerBulletEntity(registry, ItemBulletEntity::new, w -> bullet_item_entity.create(w), "bullet_item_entity");
         registerBulletEntity(registry, BulletEntity::new, w -> bullet_entity.create(w), "bullet_entity");
         registerBulletEntity(registry, DivineArrowEntity::new, w -> arrow_entity.create(w), "arrow_entity");
-//        registerBulletEntity(registry, FrostFireball::new, w -> frost_fireball.create(w), "frost_fireball");
+        registerBulletEntity(registry, FrostFireball::new, w -> frost_shot.create(w), "frost_fireball");
+        registerBulletEntity(registry, ScorcherFireball::new, w -> scorcher_fireball.create(w), "scorcher_fireball");
 
         registry.register(EntityType.Builder.create(EnthralledDramcryx::new, EntityClassification.MONSTER)
                 .size(1.35F, 1.75F)
@@ -150,10 +162,16 @@ public class EntitiesRegistry {
                 .size(0.7F, 0.9F)
                 .setCustomClientFactory((spawnEntity, world) -> new EnderTriplets(world))
                 .build("ender_triplets").setRegistryName(DivineRPG.MODID, "ender_triplets"));
-        registry.register(EntityType.Builder.<FrostFireball>create(FrostFireball::new, EntityClassification.MONSTER)
-                .size(0.7F, 0.9F)
-                .setCustomClientFactory((spawnEntity, world) -> new FrostFireball(world))
-                .build("frost_shot").setRegistryName(DivineRPG.MODID, "frost_shot"));
+        registry.register(EntityType.Builder.<Scorcher>create(Scorcher::new, EntityClassification.MONSTER)
+                .size(1.2F, 2F)
+                .immuneToFire()
+                .setCustomClientFactory((spawnEntity, world) -> new Scorcher(world))
+                .build("scorcher").setRegistryName(DivineRPG.MODID, "scorcher"));
+        registry.register(EntityType.Builder.<Wildfire>create(Wildfire::new, EntityClassification.MONSTER)
+                .size(0.8F, 2.2F)
+                .immuneToFire()
+                .setCustomClientFactory((spawnEntity, world) -> new Wildfire(world))
+                .build("wildfire").setRegistryName(DivineRPG.MODID, "wildfire"));
     }
 
 
@@ -164,6 +182,8 @@ public class EntitiesRegistry {
         // projectiles
         RenderingRegistry.registerEntityRenderingHandler(BulletEntity.class, BulletEntityRender::new);
         RenderingRegistry.registerEntityRenderingHandler(FrostFireball.class, BulletEntityRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(ScorcherFireball.class, BulletEntityRender::new);
+
         RenderingRegistry.registerEntityRenderingHandler(DivineArrowEntity.class, DivineEntityRender::new);
         RenderingRegistry.registerEntityRenderingHandler(ItemBulletEntity.class, factory -> new SpriteRenderer<>(factory, itemRenderer));
 
@@ -179,6 +199,8 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(EnderSpider.class, EnderSpiderRender::new);
         RenderingRegistry.registerEntityRenderingHandler(EnderWatcher.class, EnderWatcherRender::new);
         RenderingRegistry.registerEntityRenderingHandler(EnderTriplets.class, EnderTripletsRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Scorcher.class, ScorcherRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Wildfire.class, WildfireRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,

@@ -17,6 +17,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
@@ -833,7 +834,7 @@ public class ItemRegistry {
 
                     Vec3d pos = entity.getPositionVec();
                     player.getEntityWorld().addParticle(DivineParticleTypes.MORTUM, pos.x, pos.y, pos.z, 0, 0, 0);
-                }).maxDamage(500).group(DivineRPGTabs.DivineTools), 64, DivineParticleTypes.MORTUM).setRegistryName(DivineRPG.MODID, "serenade_of_death"));
+                }).maxDamage(500).group(DivineRPGTabs.DivineTools), 64, ParticleTypes.SMOKE).setRegistryName(DivineRPG.MODID, "serenade_of_death"));
         registry.register(new SpecialSwordItem(DivineItemTier.UNREPAIRABLE, 0, -2.4F,
                 (ExtendedItemProperties) new ExtendedItemProperties().onRightClick((world, player, hand) ->
                         player.addPotionEffect(new EffectInstance(Effects.REGENERATION, 80 * 20, 2)))

@@ -2,7 +2,6 @@ package divinerpg.api.armor;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
@@ -195,12 +194,11 @@ public class ArmorEvents {
             return;
         }
 
-        // TODO EntityMob?..
-        List<Entity> entities = player.world.getEntitiesWithinAABB(MobEntity.class,
+        List<Entity> entities = player.world.getEntitiesWithinAABB(LivingEntity.class,
                 player.getBoundingBox().grow(radius));
 
         for (Entity mob : entities) {
-            ((MobEntity) mob).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 40, 1, true, true));
+            ((LivingEntity) mob).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 40, 1, true, true));
         }
     }
 

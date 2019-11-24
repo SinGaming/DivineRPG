@@ -28,6 +28,8 @@ public class SpawnRegistry {
         addAsType(EntitiesRegistry.glacon, EntityClassification.CREATURE, BiomeDictionary.Type.SNOWY, 30, 1, 4);
 
         addGroundplacedMonster(EntitiesRegistry.hell_spider, BiomeDictionary.Type.NETHER, 50, 1, 1);
+        addGroundplacedMonster(EntitiesRegistry.scorcher, BiomeDictionary.Type.NETHER, 7, 4, 4);
+        addGroundplacedMonster(EntitiesRegistry.wildfire, BiomeDictionary.Type.NETHER, 50, 1, 1);
 
         addGroundplacedMonster(EntitiesRegistry.ender_spider, BiomeDictionary.Type.END, 2, 1, 4);
         addGroundplacedMonster(EntitiesRegistry.ender_watcher, BiomeDictionary.Type.END, 10, 4, 4);

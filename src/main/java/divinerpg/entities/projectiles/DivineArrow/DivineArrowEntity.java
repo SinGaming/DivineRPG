@@ -40,7 +40,7 @@ public class DivineArrowEntity extends ArrowEntity implements ITextured {
      * @param damage  - damage amount
      * @param powers  - name of possible powers, separated by ';'. Currently only 'explosion', use potion Effects for others
      */
-    public DivineArrowEntity(World worldIn, LivingEntity shooter, String name, int damage, String powers) {
+    public DivineArrowEntity(World worldIn, LivingEntity shooter, String name, double damage, String powers) {
         super(EntitiesRegistry.arrow_entity, worldIn);
 
         setDamage(damage);

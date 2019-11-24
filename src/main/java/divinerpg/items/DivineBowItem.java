@@ -29,11 +29,11 @@ public class DivineBowItem extends BowItem {
     private final List<ArrowItem> arrows = new ArrayList<>();
     private final List<EffectInstance> effects = new ArrayList<>();
     private final boolean isInfinite;
-    private final int damage;
-    private final String power;
+    public final int damage;
+    public final String power;
     private final int duration;
     private final SoundEvent sound;
-    private final String arrowName;
+    public final String arrowName;
 
     public DivineBowItem(ExtendedItemProperties builder, int arrowDamage, String power, SoundEvent sound, String arrowName) {
         super(builder);

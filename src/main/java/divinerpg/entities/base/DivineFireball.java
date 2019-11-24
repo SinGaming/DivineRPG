@@ -1,9 +1,9 @@
 package divinerpg.entities.base;
 
-import divinerpg.entities.projectiles.Bullet.BulletEntity;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.utils.CachedTexture;
 import divinerpg.utils.ITextured;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.FireballEntity;
@@ -14,8 +14,14 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
+
+import javax.annotation.Nonnull;
 
 public class DivineFireball extends FireballEntity implements ITextured {
     protected static final DataParameter<String> NAME = EntityDataManager.createKey(DivineFireball.class, DataSerializers.STRING);
@@ -67,5 +73,38 @@ public class DivineFireball extends FireballEntity implements ITextured {
 
         manager.register(NAME, "halite_blitz");
         manager.register(PARTICLE, ParticleTypes.SMOKE);
+    }
+
+    @Override
+    protected void onImpact(RayTraceResult result) {
+        if (result instanceof EntityRayTraceResult && onEntityHit(((EntityRayTraceResult) result).getEntity())) {
+            return;
+        }
+
+        if (result instanceof BlockRayTraceResult && onBlockHit(((BlockRayTraceResult) result).getPos())) {
+            return;
+        }
+
+        super.onImpact(result);
+    }
+
+    /**
+     * Called when fireball hits entity
+     *
+     * @param entity
+     * @return Should handle execution onImpact
+     */
+    protected boolean onEntityHit(@Nonnull Entity entity) {
+        return false;
+    }
+
+    /**
+     * Called when fireball hits block
+     *
+     * @param pos
+     * @return Should handle execution onImpact
+     */
+    protected boolean onBlockHit(@Nonnull BlockPos pos) {
+        return false;
     }
 }
