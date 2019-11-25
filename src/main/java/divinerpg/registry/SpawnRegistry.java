@@ -16,6 +16,7 @@ public class SpawnRegistry {
     public static void registerSpawn() {
         addGroundplacedMonster(EntitiesRegistry.entrhralled_dramcryx, 70, 3, 4);
         addGroundplacedMonster(EntitiesRegistry.rotatick, 70, 3, 4);
+        addGroundplacedMonster(EntitiesRegistry.grue, 30, 1, 4);
 
         addGroundplacedMonster(EntitiesRegistry.crab, BiomeDictionary.Type.BEACH, 100, 4, 4);
         addGroundplacedMonster(EntitiesRegistry.king_crab, BiomeDictionary.Type.BEACH, 10, 4, 4);

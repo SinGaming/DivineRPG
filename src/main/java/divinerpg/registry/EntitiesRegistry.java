@@ -21,6 +21,8 @@ import divinerpg.entities.vanilla.frost.Frost;
 import divinerpg.entities.vanilla.frost.FrostRender;
 import divinerpg.entities.vanilla.glacon.Glacon;
 import divinerpg.entities.vanilla.glacon.GlaconRender;
+import divinerpg.entities.vanilla.grue.Grue;
+import divinerpg.entities.vanilla.grue.GrueRender;
 import divinerpg.entities.vanilla.rotatick.Rotatick;
 import divinerpg.entities.vanilla.rotatick.RotatickRender;
 import divinerpg.entities.vanilla.scorcher.Scorcher;
@@ -101,6 +103,8 @@ public class EntitiesRegistry {
     public static EntityType<ScorcherFireball> scorcher_fireball = null;
     @ObjectHolder("wildfire")
     public static EntityType<Wildfire> wildfire = null;
+    @ObjectHolder("grue")
+    public static EntityType<Grue> grue = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -172,6 +176,10 @@ public class EntitiesRegistry {
                 .immuneToFire()
                 .setCustomClientFactory((spawnEntity, world) -> new Wildfire(world))
                 .build("wildfire").setRegistryName(DivineRPG.MODID, "wildfire"));
+        registry.register(EntityType.Builder.create(Grue::new, EntityClassification.MONSTER)
+                .size(0.8F, 1.9F)
+                .setCustomClientFactory((spawnEntity, world) -> new Grue(world))
+                .build("grue").setRegistryName(DivineRPG.MODID, "grue"));
     }
 
 
@@ -201,6 +209,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(EnderTriplets.class, EnderTripletsRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Scorcher.class, ScorcherRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Wildfire.class, WildfireRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Grue.class, GrueRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,
