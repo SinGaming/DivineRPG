@@ -17,9 +17,12 @@ public class SpawnRegistry {
         addGroundplacedMonster(EntitiesRegistry.entrhralled_dramcryx, 70, 3, 4);
         addGroundplacedMonster(EntitiesRegistry.rotatick, 70, 3, 4);
         addGroundplacedMonster(EntitiesRegistry.grue, 30, 1, 4);
+        addGroundplacedMonster(EntitiesRegistry.cave_crawler, 70, 2, 3);
 
         addGroundplacedMonster(EntitiesRegistry.crab, BiomeDictionary.Type.BEACH, 100, 4, 4);
         addGroundplacedMonster(EntitiesRegistry.king_crab, BiomeDictionary.Type.BEACH, 10, 4, 4);
+
+        addGroundplacedMonster(EntitiesRegistry.desert_crawler, BiomeDictionary.Type.SANDY, 50, 1, 4);
 
         addGroundplacedMonster(EntitiesRegistry.jungle_dramcryx, BiomeDictionary.Type.JUNGLE, 80, 1, 4);
         addGroundplacedMonster(EntitiesRegistry.jungle_spider, BiomeDictionary.Type.JUNGLE, 80, 1, 4);
@@ -35,6 +38,7 @@ public class SpawnRegistry {
         addGroundplacedMonster(EntitiesRegistry.ender_spider, BiomeDictionary.Type.END, 2, 1, 4);
         addGroundplacedMonster(EntitiesRegistry.ender_watcher, BiomeDictionary.Type.END, 10, 4, 4);
         addGroundplacedMonster(EntitiesRegistry.ender_triplets, BiomeDictionary.Type.END, 1, 1, 4);
+
     }
 
     private static void addGroundplacedMonster(EntityType type, int weight, int min, int max) {

@@ -13,6 +13,9 @@ import divinerpg.entities.vanilla.crab.king.KingCrab;
 import divinerpg.entities.vanilla.crab.king.KingCrabRender;
 import divinerpg.entities.vanilla.crab.regular.Crab;
 import divinerpg.entities.vanilla.crab.regular.CrabRender;
+import divinerpg.entities.vanilla.crawler.CrawlerRender;
+import divinerpg.entities.vanilla.crawler.cave.CaveCrawler;
+import divinerpg.entities.vanilla.crawler.desert.DesertCrawler;
 import divinerpg.entities.vanilla.dramcryx.enthralled.EnthralledDramcryx;
 import divinerpg.entities.vanilla.dramcryx.enthralled.EnthralledDramcryxRender;
 import divinerpg.entities.vanilla.dramcryx.jungle.JungleDramcryx;
@@ -105,6 +108,10 @@ public class EntitiesRegistry {
     public static EntityType<Wildfire> wildfire = null;
     @ObjectHolder("grue")
     public static EntityType<Grue> grue = null;
+    @ObjectHolder("cave_crawler")
+    public static EntityType<CaveCrawler> cave_crawler = null;
+    @ObjectHolder("desert_crawler")
+    public static EntityType<DesertCrawler> desert_crawler = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -180,6 +187,14 @@ public class EntitiesRegistry {
                 .size(0.8F, 1.9F)
                 .setCustomClientFactory((spawnEntity, world) -> new Grue(world))
                 .build("grue").setRegistryName(DivineRPG.MODID, "grue"));
+        registry.register(EntityType.Builder.create(CaveCrawler::new, EntityClassification.MONSTER)
+                .size(1.0F, 1.5f)
+                .setCustomClientFactory((spawnEntity, world) -> new CaveCrawler(world))
+                .build("cave_crawler").setRegistryName(DivineRPG.MODID, "cave_crawler"));
+        registry.register(EntityType.Builder.<DesertCrawler>create(DesertCrawler::new, EntityClassification.MONSTER)
+                .size(1.0F, 1.5f)
+                .setCustomClientFactory((spawnEntity, world) -> new DesertCrawler(world))
+                .build("desert_crawler").setRegistryName(DivineRPG.MODID, "desert_crawler"));
     }
 
 
@@ -210,6 +225,8 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Scorcher.class, ScorcherRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Wildfire.class, WildfireRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Grue.class, GrueRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(CaveCrawler.class, f -> new CrawlerRender<>(f, "cave_crawler"));
+        RenderingRegistry.registerEntityRenderingHandler(DesertCrawler.class, f -> new CrawlerRender<>(f, "desert_crawler"));
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,
