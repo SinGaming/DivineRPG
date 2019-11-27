@@ -35,7 +35,6 @@ public class EnderTriplets extends DivineFlying {
 
         this.goalSelector.addGoal(7, new GhastAttackGoal(this,
                 (worldIn, shooter, accelX, accelY, accelZ)
-                        // TODO add particle
                         -> new DivineFireball(EntitiesRegistry.divine_fireball, worldIn, shooter, accelX, accelY, accelZ,
                         ParticleTypes.PORTAL, "ender_triplets_fireball"),
                 SoundEvents.ENTITY_GHAST_SHOOT));
