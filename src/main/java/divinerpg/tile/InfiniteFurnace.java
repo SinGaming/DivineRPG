@@ -12,6 +12,7 @@ import net.minecraft.item.crafting.AbstractCookingRecipe;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeItemHelper;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -25,20 +26,35 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public abstract class InfiniteFurnace extends LockableTileEntity implements ISidedInventory, IRecipeHolder, IRecipeHelperPopulator, ITickableTileEntity {
 
     private final IRecipeType<? extends AbstractCookingRecipe> recipeTypeIn;
-    protected int[] inputs = new int[]{0};
-    protected int[] outputs = new int[]{1};
+    protected int[] inputs;
+    protected int[] outputs;
     protected NonNullList<ItemStack> items;
     private FurnaceArbiter arbiter;
 
     public InfiniteFurnace(TileEntityType<?> typeIn, IRecipeType<? extends AbstractCookingRecipe> recipeTypeIn) {
         super(typeIn);
         this.recipeTypeIn = recipeTypeIn;
+        arbiter = new FurnaceArbiter();
+        setSize(2, 1);
+    }
 
-        items = NonNullList.withSize(2, ItemStack.EMPTY);
+    /**
+     * Set size of furnace
+     *
+     * @param totalSlots   - total furnace slots
+     * @param outputsCount - input slots count. Others will be for outputs
+     */
+    protected void setSize(int totalSlots, int outputsCount) {
+        items = NonNullList.withSize(totalSlots, ItemStack.EMPTY);
+
+        inputs = IntStream.range(0, outputsCount).toArray();
+        outputs = IntStream.range(outputsCount, items.size()).toArray();
     }
 
     @Override
@@ -160,23 +176,22 @@ public abstract class InfiniteFurnace extends LockableTileEntity implements ISid
         markDirty();
     }
 
-
     public float getBurnTime(ItemStack stack) {
         int burnTime = stack.isEmpty()
                 ? 0
                 : ForgeHooks.getBurnTime(stack);
 
-        return burnTime / getMultiplier();
+        return burnTime * getMultiplier();
     }
 
     protected float getMultiplier() {
         Material material = world.getBlockState(pos.down()).getMaterial();
 
         if (material == Material.LAVA)
-            return 2;
+            return 0.5F;
 
         if (material == Material.FIRE)
-            return 1.5F;
+            return 0.7F;
 
         return 1;
     }
@@ -243,12 +258,30 @@ public abstract class InfiniteFurnace extends LockableTileEntity implements ISid
     }
 
     @Override
+    public void read(CompoundNBT compound) {
+        super.read(compound);
+
+        ItemStackHelper.loadAllItems(compound, items);
+        arbiter.read(compound);
+    }
+
+    @Override
+    public CompoundNBT write(CompoundNBT compound) {
+        ItemStackHelper.saveAllItems(compound, items);
+        arbiter.write(compound);
+        return super.write(compound);
+    }
+
+    @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         if (ArrayUtils.contains(outputs, index)) {
             return false;
         }
 
-        // all items are equal
-        return !Arrays.stream(inputs).mapToObj(this::getStackInSlot).anyMatch(x -> !x.isEmpty() && !ItemStack.areItemsEqual(x, stack));
+        return Arrays.stream(this.inputs).mapToObj(this::getStackInSlot)
+                // all slots are empty
+                .allMatch(x -> x.isEmpty()
+                        // or contains same item and not full
+                        || ItemStack.areItemsEqual(x, stack) && x.getCount() < getMaxStackSize(x));
     }
 }

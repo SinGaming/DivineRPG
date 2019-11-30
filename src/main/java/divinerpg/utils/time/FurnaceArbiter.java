@@ -1,5 +1,7 @@
 package divinerpg.utils.time;
 
+import net.minecraft.nbt.CompoundNBT;
+
 public class FurnaceArbiter {
     private int ticks;
     private int totalTicks;
@@ -34,5 +36,15 @@ public class FurnaceArbiter {
 
         ticks = newVal;
         return true;
+    }
+
+    public void read(CompoundNBT compound) {
+        ticks = compound.getInt("ticks");
+        totalTicks = compound.getInt("totalTicks");
+    }
+
+    public void write(CompoundNBT compound){
+        compound.putInt("ticks", ticks);
+        compound.putInt("totalTicks", totalTicks);
     }
 }
