@@ -30,6 +30,8 @@ import divinerpg.entities.vanilla.glacon.Glacon;
 import divinerpg.entities.vanilla.glacon.GlaconRender;
 import divinerpg.entities.vanilla.grue.Grue;
 import divinerpg.entities.vanilla.grue.GrueRender;
+import divinerpg.entities.vanilla.miner.Miner;
+import divinerpg.entities.vanilla.miner.MinerRender;
 import divinerpg.entities.vanilla.rotatick.Rotatick;
 import divinerpg.entities.vanilla.rotatick.RotatickRender;
 import divinerpg.entities.vanilla.scorcher.Scorcher;
@@ -120,6 +122,8 @@ public class EntitiesRegistry {
     public static EntityType<Cavelops> cavelops = null;
     @ObjectHolder("cyclops")
     public static EntityType<Cyclops> cyclops = null;
+    @ObjectHolder("miner")
+    public static EntityType<Miner> miner = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -211,6 +215,12 @@ public class EntitiesRegistry {
                 .size(1.2F, 4)
                 .setCustomClientFactory((spawnEntity, world) -> new Cyclops(world))
                 .build("cyclops").setRegistryName(DivineRPG.MODID, "cyclops"));
+        registry.register(EntityType.Builder.create(Miner::new, EntityClassification.MONSTER)
+                .size(0.6F, 2)
+                .setCustomClientFactory((spawnEntity, world) -> new Miner(world))
+                .build("miner").setRegistryName(DivineRPG.MODID, "miner"));
+
+
     }
 
 
@@ -245,6 +255,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(DesertCrawler.class, f -> new CrawlerRender<>(f, "desert_crawler"));
         RenderingRegistry.registerEntityRenderingHandler(Cavelops.class, CavelopsRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Cyclops.class, CyclopsRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Miner.class, MinerRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,
