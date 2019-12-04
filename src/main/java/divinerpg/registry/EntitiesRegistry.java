@@ -13,6 +13,9 @@ import divinerpg.entities.vanilla.crab.king.KingCrab;
 import divinerpg.entities.vanilla.crab.king.KingCrabRender;
 import divinerpg.entities.vanilla.crab.regular.Crab;
 import divinerpg.entities.vanilla.crab.regular.CrabRender;
+import divinerpg.entities.vanilla.crawler.CrawlerRender;
+import divinerpg.entities.vanilla.crawler.cave.CaveCrawler;
+import divinerpg.entities.vanilla.crawler.desert.DesertCrawler;
 import divinerpg.entities.vanilla.cyclop.cave.Cavelops;
 import divinerpg.entities.vanilla.cyclop.cave.CavelopsRender;
 import divinerpg.entities.vanilla.cyclop.regular.Cyclops;
@@ -109,6 +112,10 @@ public class EntitiesRegistry {
     public static EntityType<Wildfire> wildfire = null;
     @ObjectHolder("grue")
     public static EntityType<Grue> grue = null;
+    @ObjectHolder("cave_crawler")
+    public static EntityType<CaveCrawler> cave_crawler = null;
+    @ObjectHolder("desert_crawler")
+    public static EntityType<DesertCrawler> desert_crawler = null;
     @ObjectHolder("cavelops")
     public static EntityType<Cavelops> cavelops = null;
     @ObjectHolder("cyclops")
@@ -188,6 +195,14 @@ public class EntitiesRegistry {
                 .size(0.8F, 1.9F)
                 .setCustomClientFactory((spawnEntity, world) -> new Grue(world))
                 .build("grue").setRegistryName(DivineRPG.MODID, "grue"));
+        registry.register(EntityType.Builder.create(CaveCrawler::new, EntityClassification.MONSTER)
+                .size(1.0F, 1.5f)
+                .setCustomClientFactory((spawnEntity, world) -> new CaveCrawler(world))
+                .build("cave_crawler").setRegistryName(DivineRPG.MODID, "cave_crawler"));
+        registry.register(EntityType.Builder.<DesertCrawler>create(DesertCrawler::new, EntityClassification.MONSTER)
+                .size(1.0F, 1.5f)
+                .setCustomClientFactory((spawnEntity, world) -> new DesertCrawler(world))
+                .build("desert_crawler").setRegistryName(DivineRPG.MODID, "desert_crawler"));
         registry.register(EntityType.Builder.create(Cavelops::new, EntityClassification.MONSTER)
                 .size(1.2F, 4)
                 .setCustomClientFactory((spawnEntity, world) -> new Cavelops(world))
@@ -226,6 +241,8 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Scorcher.class, ScorcherRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Wildfire.class, WildfireRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Grue.class, GrueRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(CaveCrawler.class, f -> new CrawlerRender<>(f, "cave_crawler"));
+        RenderingRegistry.registerEntityRenderingHandler(DesertCrawler.class, f -> new CrawlerRender<>(f, "desert_crawler"));
         RenderingRegistry.registerEntityRenderingHandler(Cavelops.class, CavelopsRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Cyclops.class, CyclopsRender::new);
     }

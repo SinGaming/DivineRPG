@@ -24,11 +24,11 @@ public class DivineArrowEntity extends ArrowEntity implements ITextured {
     private static final DataParameter<String> POWER = EntityDataManager.createKey(DivineArrowEntity.class, DataSerializers.STRING);
 
     protected DivineArrowEntity(World world) {
-        this(EntitiesRegistry.arrow_entity, world);
+        super(EntitiesRegistry.arrow_entity, world);
     }
 
     public DivineArrowEntity(EntityType<? extends ArrowEntity> type, World world) {
-        super(type, world);
+        this(world);
     }
 
     /**
@@ -41,7 +41,7 @@ public class DivineArrowEntity extends ArrowEntity implements ITextured {
      * @param powers  - name of possible powers, separated by ';'. Currently only 'explosion', use potion Effects for others
      */
     public DivineArrowEntity(World worldIn, LivingEntity shooter, String name, double damage, String powers) {
-        super(EntitiesRegistry.arrow_entity, worldIn);
+        this(worldIn);
 
         setDamage(damage);
         getDataManager().set(NAME, name);
@@ -96,7 +96,6 @@ public class DivineArrowEntity extends ArrowEntity implements ITextured {
 
     }
 
-    @OnlyIn(Dist.CLIENT)
     public ResourceLocation getTexture() {
         return CachedTexture.PROJECTILES.getTexture(getDataManager().get(NAME));
     }
