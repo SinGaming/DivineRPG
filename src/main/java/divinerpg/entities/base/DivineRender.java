@@ -4,7 +4,9 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import divinerpg.DivineRPG;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.HeldItemLayer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
+import net.minecraft.client.renderer.entity.model.IHasArm;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.util.ResourceLocation;
 
@@ -16,6 +18,9 @@ public class DivineRender<T extends MobEntity, M extends EntityModel<T>> extends
 
     public DivineRender(EntityRendererManager manager, M model, float shadow, String name) {
         this(manager, model, shadow, name, null);
+
+        if (model instanceof IHasArm)
+            this.addLayer(new HeldItemLayer(this));
     }
 
     public DivineRender(EntityRendererManager manager, M model, float shadow, String name, Float scale) {
