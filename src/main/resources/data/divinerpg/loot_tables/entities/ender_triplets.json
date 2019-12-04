@@ -11,7 +11,7 @@
               "function": "minecraft:set_count",
               "count": {
                 "min": 1.0,
-                "max": 1.0,
+                "max": 6.0,
                 "type": "minecraft:uniform"
               }
             },
@@ -19,11 +19,30 @@
               "function": "minecraft:looting_enchant",
               "count": {
                 "min": 0.0,
-                "max": 1.0
+                "max": 3.0
               }
             }
           ],
           "name": "divinerpg:ender_shards"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:end_portal_frame"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:random_chance_with_looting",
+          "chance": 0.05,
+          "looting_multiplier": 0.01
         }
       ]
     }

@@ -14,9 +14,7 @@ public class WatcherModel<T extends Entity> extends DivineModel<T> {
     RendererModel Tentacle31;
     RendererModel Tentacle32;
 
-    public WatcherModel(float scale) {
-        super(scale);
-
+    public WatcherModel() {
         this.textureWidth = 64;
         this.textureHeight = 32;
         this.Head = new RendererModel(this, 0, 0);

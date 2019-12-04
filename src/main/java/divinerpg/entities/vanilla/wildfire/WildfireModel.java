@@ -1,27 +1,17 @@
 package divinerpg.entities.vanilla.wildfire;
 
-import divinerpg.entities.base.DivineModel;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
 
-public class WildfireModel extends DivineModel<Wildfire> {
-
-    public boolean isHolding;
-    public ItemStack itemStack;
-    // fields
+public class WildfireModel extends BipedModel<Wildfire> {
     public RendererModel P1;
     public RendererModel P2;
     public RendererModel P3;
-    public RendererModel leftarm;
-    public RendererModel rightleg;
-    public RendererModel leftleg;
     public RendererModel P4;
     public RendererModel P5;
     public RendererModel P6;
     public RendererModel P7;
     public RendererModel P8;
-    public RendererModel rightarm;
     public RendererModel P9;
     public RendererModel P10;
     public RendererModel P11;
@@ -33,8 +23,37 @@ public class WildfireModel extends DivineModel<Wildfire> {
     public RendererModel P17;
 
     public WildfireModel() {
-        textureWidth = 64;
-        textureHeight = 32;
+        bipedLeftArm = new RendererModel(this, 40, 16);
+        bipedLeftArm.addBox(-1F, -2F, -2F, 4, 12, 4);
+        bipedLeftArm.setRotationPoint(7F, 2F, 0F);
+        bipedLeftArm.setTextureSize(64, 32);
+        bipedLeftArm.mirror = true;
+        setRotation(bipedLeftArm, 0F, 0F, 0F);
+        bipedRightLeg = new RendererModel(this, 0, 16);
+        bipedRightLeg.addBox(-2F, 0F, -2F, 4, 12, 4);
+        bipedRightLeg.setRotationPoint(-3F, 12F, 0F);
+        bipedRightLeg.setTextureSize(64, 32);
+        bipedRightLeg.mirror = true;
+        setRotation(bipedRightLeg, 0F, 0F, 0F);
+        bipedLeftLeg = new RendererModel(this, 0, 16);
+        bipedLeftLeg.addBox(-2F, 0F, -2F, 4, 12, 4);
+        bipedLeftLeg.setRotationPoint(3F, 12F, 0F);
+        bipedLeftLeg.setTextureSize(64, 32);
+        bipedLeftLeg.mirror = true;
+        setRotation(bipedLeftLeg, 0, 0, 0);
+        bipedRightArm = new RendererModel(this, 40, 16);
+        bipedRightArm.addBox(-3F, -2F, -2F, 4, 12, 4);
+        bipedRightArm.setRotationPoint(-7F, 2F, 0F);
+        bipedRightArm.setTextureSize(64, 32);
+        bipedRightArm.mirror = true;
+        setRotation(bipedRightArm, 0F, 0F, 0F);
+
+
+        // do not need them
+        bipedHead = new RendererModel(this, 0, 0);
+        bipedBody = new RendererModel(this, 0, 0);
+        bipedHeadwear = new RendererModel(this, 0, 0);
+
 
         P1 = new RendererModel(this, 32, 17);
         P1.addBox(-4F, -13F, -1F, 2, 8, 2);
@@ -54,24 +73,6 @@ public class WildfireModel extends DivineModel<Wildfire> {
         P3.setTextureSize(64, 32);
         P3.mirror = true;
         setRotation(P3, 0F, 0F, 0F);
-        leftarm = new RendererModel(this, 40, 16);
-        leftarm.addBox(-1F, -2F, -2F, 4, 12, 4);
-        leftarm.setRotationPoint(7F, 2F, 0F);
-        leftarm.setTextureSize(64, 32);
-        leftarm.mirror = true;
-        setRotation(leftarm, 0F, 0F, 0F);
-        rightleg = new RendererModel(this, 0, 16);
-        rightleg.addBox(-2F, 0F, -2F, 4, 12, 4);
-        rightleg.setRotationPoint(-3F, 12F, 0F);
-        rightleg.setTextureSize(64, 32);
-        rightleg.mirror = true;
-        setRotation(rightleg, 0F, 0F, 0F);
-        leftleg = new RendererModel(this, 0, 16);
-        leftleg.addBox(-2F, 0F, -2F, 4, 12, 4);
-        leftleg.setRotationPoint(3F, 12F, 0F);
-        leftleg.setTextureSize(64, 32);
-        leftleg.mirror = true;
-        setRotation(leftleg, 0F, 0F, 0F);
         P4 = new RendererModel(this, 43, 18);
         P4.addBox(1F, -2F, -2F, 1, 2, 4);
         P4.setRotationPoint(4F, 2F, 0F);
@@ -102,12 +103,6 @@ public class WildfireModel extends DivineModel<Wildfire> {
         P8.setTextureSize(64, 32);
         P8.mirror = true;
         setRotation(P8, 0F, 0F, 0F);
-        rightarm = new RendererModel(this, 40, 16);
-        rightarm.addBox(-3F, -2F, -2F, 4, 12, 4);
-        rightarm.setRotationPoint(-7F, 2F, 0F);
-        rightarm.setTextureSize(64, 32);
-        rightarm.mirror = true;
-        setRotation(rightarm, 0F, 0F, 0F);
         P9 = new RendererModel(this, 23, 19);
         P9.addBox(-3F, -2F, -2F, 3, 9, 2);
         P9.setRotationPoint(-10F, -1F, 1F);
@@ -164,28 +159,32 @@ public class WildfireModel extends DivineModel<Wildfire> {
         setRotation(P17, 0F, 0F, 0F);
     }
 
-    @Override
-    public void setLivingAnimations(Wildfire entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
-        super.setLivingAnimations(entityIn, limbSwing, limbSwingAmount, partialTick);
+    protected void setRotation(RendererModel model, float x, float y, float z) {
+        model.rotateAngleX = x;
+        model.rotateAngleY = y;
+        model.rotateAngleZ = z;
     }
 
     @Override
-    public void setRotationAngles(Wildfire entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
-        super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
+    public void render(Wildfire entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+        super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 
-        this.rightarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 2.0F * limbSwingAmount * 0.5F;
-        this.leftarm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F;
-        this.rightarm.rotateAngleZ = 0.0F;
-        this.leftarm.rotateAngleZ = 0.0F;
-        this.rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-        this.rightleg.rotateAngleY = 0.0F;
-        this.leftleg.rotateAngleY = 0.0F;
-        this.rightarm.rotateAngleY = 0.0F;
-        this.leftarm.rotateAngleY = 0.0F;
-        this.rightarm.rotateAngleZ += MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-        this.leftarm.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-        this.rightarm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
-        this.leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+        P1.render(scale);
+        P2.render(scale);
+        P3.render(scale);
+        P4.render(scale);
+        P5.render(scale);
+        P6.render(scale);
+        P7.render(scale);
+        P8.render(scale);
+        P9.render(scale);
+        P10.render(scale);
+        P11.render(scale);
+        P12.render(scale);
+        P13.render(scale);
+        P14.render(scale);
+        P15.render(scale);
+        P16.render(scale);
+        P17.render(scale);
     }
 }

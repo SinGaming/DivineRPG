@@ -9,52 +9,65 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 public class SpawnRegistry {
 
     public static void registerSpawn() {
-        addGroundplacedMonster(EntitiesRegistry.entrhralled_dramcryx, 70, 3, 4);
-        addGroundplacedMonster(EntitiesRegistry.rotatick, 70, 3, 4);
-        addGroundplacedMonster(EntitiesRegistry.grue, 30, 1, 4);
+        addOverworldMonster(EntitiesRegistry.entrhralled_dramcryx, 70, 3, 4);
+        addOverworldMonster(EntitiesRegistry.rotatick, 70, 3, 4);
+        addOverworldMonster(EntitiesRegistry.grue, 30, 1, 4);
+        addOverworldMonster(EntitiesRegistry.cavelops, 70, 1, 4);
+        addOverworldMonster(EntitiesRegistry.ender_spider, 4, 1, 4);
 
-        addGroundplacedMonster(EntitiesRegistry.crab, BiomeDictionary.Type.BEACH, 100, 4, 4);
-        addGroundplacedMonster(EntitiesRegistry.king_crab, BiomeDictionary.Type.BEACH, 10, 4, 4);
+        addMonterInBiomes(EntitiesRegistry.crab, 100, 4, 4, BiomeDictionary.Type.BEACH);
+        addMonterInBiomes(EntitiesRegistry.king_crab, 10, 4, 4, BiomeDictionary.Type.BEACH);
 
-        addGroundplacedMonster(EntitiesRegistry.jungle_dramcryx, BiomeDictionary.Type.JUNGLE, 80, 1, 4);
-        addGroundplacedMonster(EntitiesRegistry.jungle_spider, BiomeDictionary.Type.JUNGLE, 80, 1, 4);
+        addMonterInBiomes(EntitiesRegistry.jungle_dramcryx, 80, 1, 4, BiomeDictionary.Type.JUNGLE);
+        addMonterInBiomes(EntitiesRegistry.jungle_spider, 80, 1, 4, BiomeDictionary.Type.JUNGLE);
 
-        addGroundplacedMonster(EntitiesRegistry.frost, BiomeDictionary.Type.SNOWY, 50, 1, 4);
-        addGroundplacedMonster(EntitiesRegistry.glacon, BiomeDictionary.Type.SNOWY, 30, 1, 4);
-        addAsType(EntitiesRegistry.glacon, EntityClassification.CREATURE, BiomeDictionary.Type.SNOWY, 30, 1, 4);
+        addMonterInBiomes(EntitiesRegistry.cyclops, 10, 2, 4, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.MOUNTAIN);
 
-        addGroundplacedMonster(EntitiesRegistry.hell_spider, BiomeDictionary.Type.NETHER, 50, 1, 1);
-        addGroundplacedMonster(EntitiesRegistry.scorcher, BiomeDictionary.Type.NETHER, 7, 4, 4);
-        addGroundplacedMonster(EntitiesRegistry.wildfire, BiomeDictionary.Type.NETHER, 50, 1, 1);
+        addMonterInBiomes(EntitiesRegistry.frost, 50, 1, 4, BiomeDictionary.Type.SNOWY);
+        addMonterInBiomes(EntitiesRegistry.glacon, 30, 1, 4, BiomeDictionary.Type.SNOWY);
+        addToSpawn(EntitiesRegistry.glacon, EntityClassification.CREATURE, filter(true, BiomeDictionary.Type.SNOWY),
+                30, 1, 4);
 
-        addGroundplacedMonster(EntitiesRegistry.ender_spider, BiomeDictionary.Type.END, 2, 1, 4);
-        addGroundplacedMonster(EntitiesRegistry.ender_watcher, BiomeDictionary.Type.END, 10, 4, 4);
-        addGroundplacedMonster(EntitiesRegistry.ender_triplets, BiomeDictionary.Type.END, 1, 1, 4);
+        addMonterInBiomes(EntitiesRegistry.hell_spider, 50, 1, 1, BiomeDictionary.Type.NETHER);
+        addMonterInBiomes(EntitiesRegistry.scorcher, 7, 4, 4, BiomeDictionary.Type.NETHER);
+        addMonterInBiomes(EntitiesRegistry.wildfire, 50, 1, 1, BiomeDictionary.Type.NETHER);
+
+        addToSpawn(EntitiesRegistry.ender_spider, EntityClassification.MONSTER, filter(true, BiomeDictionary.Type.END),
+                2, 1, 4);
+        addMonterInBiomes(EntitiesRegistry.ender_watcher, 10, 4, 4, BiomeDictionary.Type.END);
+        addMonterInBiomes(EntitiesRegistry.ender_triplets, 1, 1, 4, BiomeDictionary.Type.END);
     }
 
-    private static void addGroundplacedMonster(EntityType type, int weight, int min, int max) {
-        addGroundplacedMonster(type, null, weight, min, max);
-    }
-
-    private static void addGroundplacedMonster(EntityType type, BiomeDictionary.Type biomeType, int weight, int min, int max) {
+    private static void addOverworldMonster(EntityType type, int weight, int min, int max) {
         EntitySpawnPlacementRegistry.register(type, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223324_d);
 
-        addAsType(type, EntityClassification.MONSTER, biomeType, weight, min, max);
+        addToSpawn(type, EntityClassification.MONSTER, filter(true, BiomeDictionary.Type.OVERWORLD), weight, min, max);
     }
 
-    private static void addAsType(EntityType type, EntityClassification clazz, BiomeDictionary.Type biomeType, int weight, int min, int max) {
-        Stream<Biome> biomes = ForgeRegistries.BIOMES.getValues().stream();
+    private static void addMonterInBiomes(EntityType type, int weight, int min, int max, BiomeDictionary.Type... types) {
+        EntitySpawnPlacementRegistry.register(type, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223324_d);
 
-        if (biomeType != null) {
-            biomes = biomes.filter(x -> BiomeDictionary.hasType(x, biomeType));
+        addToSpawn(type, EntityClassification.MONSTER, filter(true, types), weight, min, max);
+    }
+
+    private static Stream<Biome> filter(boolean isInclude, BiomeDictionary.Type... types) {
+        Stream<Biome> result = ForgeRegistries.BIOMES.getValues().stream();
+
+        if (types != null) {
+            result = result.filter(b -> isInclude == Arrays.stream(types).anyMatch(x -> BiomeDictionary.hasType(b, x)));
         }
 
-        biomes.forEach(x -> x.getSpawns(clazz)
-                .add(new Biome.SpawnListEntry(type, weight, min, max)));
+        return result;
+    }
+
+
+    private static void addToSpawn(EntityType type, EntityClassification clazz, Stream<Biome> biomes, int weight, int min, int max) {
+        biomes.forEach(x -> x.getSpawns(clazz).add(new Biome.SpawnListEntry(type, weight, min, max)));
     }
 }

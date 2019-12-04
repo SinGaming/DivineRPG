@@ -14,8 +14,7 @@ public class CrabModel<T extends Entity> extends DivineModel<T> {
     private final RendererModel Leg5;
     private final RendererModel Leg3;
 
-    public CrabModel(int scale) {
-        super(scale);
+    public CrabModel() {
         this.textureWidth = 64;
         this.textureHeight = 32;
 

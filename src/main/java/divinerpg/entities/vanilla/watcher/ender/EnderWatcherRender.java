@@ -6,6 +6,6 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 
 public class EnderWatcherRender extends DivineRender<EnderWatcher, WatcherModel<EnderWatcher>> {
     public EnderWatcherRender(EntityRendererManager manager) {
-        super(manager, new WatcherModel<>(1), 0, "ender_watcher");
+        super(manager, new WatcherModel<>(), 0, "ender_watcher");
     }
 }

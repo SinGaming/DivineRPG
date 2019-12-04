@@ -2,9 +2,7 @@ package divinerpg.entities.base;
 
 import divinerpg.entities.projectiles.DivineArrow.DivineArrowEntity;
 import divinerpg.items.DivineBowItem;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IRangedAttackMob;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
@@ -61,20 +59,28 @@ public class DivineArcher extends PeacefullDivineMonster implements IRangedAttac
     @Override
     public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
         ItemStack itemstack = this.findAmmo(this.getHeldItem(ProjectileHelper.getHandWith(this, Items.BOW)));
-        AbstractArrowEntity abstractarrowentity = this.createArrow(itemstack, distanceFactor);
-        if (this.getHeldItemMainhand().getItem() instanceof net.minecraft.item.BowItem)
-            abstractarrowentity = ((net.minecraft.item.BowItem) this.getHeldItemMainhand().getItem()).customeArrow(abstractarrowentity);
+        IProjectile bullet = this.createArrow(itemstack, distanceFactor);
+
         double d0 = target.posX - this.posX;
-        double d1 = target.getBoundingBox().minY + (double) (target.getHeight() / 3.0F) - abstractarrowentity.posY;
+        double d1 = target.getBoundingBox().minY + (double) (target.getHeight() / 3.0F) - ((Entity) bullet).posY;
         double d2 = target.posZ - this.posZ;
         double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
-        abstractarrowentity.shoot(d0, d1 + d3 * (double) 0.2F, d2, 1.6F, (float) (14 - this.world.getDifficulty().getId() * 4));
+        lunch(bullet, d0, d1, d2, d3);
         this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-        this.world.addEntity(abstractarrowentity);
+        this.world.addEntity(((Entity) bullet));
     }
 
-    protected AbstractArrowEntity createArrow(ItemStack arrow, float distance) {
+    protected void lunch(IProjectile bullet, double x, double y, double z, double xzVec) {
+        bullet.shoot(x, y + xzVec * (double) 0.2F, z, 1.6F, (float) (14 - this.world.getDifficulty().getId() * 4));
+    }
+
+    protected <T extends Entity & IProjectile> T createArrow(ItemStack arrow, float distance) {
         EntityDataManager manager = getDataManager();
-        return new DivineArrowEntity(this.world, this, manager.get(NAME), manager.get(DAMAGE), manager.get(POWER));
+        AbstractArrowEntity bullet = new DivineArrowEntity(this.world, this, manager.get(NAME), manager.get(DAMAGE), manager.get(POWER));
+
+        if (this.getHeldItemMainhand().getItem() instanceof net.minecraft.item.BowItem)
+            bullet = ((net.minecraft.item.BowItem) this.getHeldItemMainhand().getItem()).customeArrow(bullet);
+
+        return (T) bullet;
     }
 }

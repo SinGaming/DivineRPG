@@ -4,7 +4,6 @@ import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.LazyLoadBase;
-import org.lwjgl.opengl.GL11;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -15,28 +14,19 @@ import java.util.stream.Stream;
 
 public class DivineModel<T extends Entity> extends EntityModel<T> {
     protected LazyLoadBase<List<RendererModel>> parts;
-    private final float scale;
 
     protected DivineModel() {
-        this(1);
-    }
-
-    protected DivineModel(float scale) {
-        this.scale = scale;
         parts = new LazyLoadBase<>(this::getRenderers);
     }
 
     @Override
     public void render(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if (this.scale != 1) {
-            GL11.glScaled(this.scale, this.scale, this.scale);
-            GL11.glTranslatef(0f, -(this.scale / 1.8F), 0f);
-        }
 
         super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         this.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         for (RendererModel model : parts.getValue()) {
-            model.render(scale);
+            if (model != null)
+                model.render(scale);
         }
     }
 

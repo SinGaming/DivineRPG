@@ -6,6 +6,6 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 
 public class CrabRender extends DivineRender<Crab, CrabModel<Crab>> {
     public CrabRender(EntityRendererManager manager) {
-        super(manager, new CrabModel<>(1), 0, "crab");
+        super(manager, new CrabModel<>(), 0, "crab");
     }
 }

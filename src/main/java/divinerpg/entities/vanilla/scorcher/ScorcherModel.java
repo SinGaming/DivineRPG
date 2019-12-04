@@ -16,8 +16,6 @@ public class ScorcherModel extends DivineModel<Scorcher> {
     RendererModel rightHorn2;
 
     public ScorcherModel() {
-        super(1.8F);
-
         this.textureWidth = 64;
         this.textureHeight = 64;
         this.mainBody = new RendererModel(this, 0, 0);

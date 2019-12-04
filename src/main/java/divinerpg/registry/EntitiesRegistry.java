@@ -13,6 +13,10 @@ import divinerpg.entities.vanilla.crab.king.KingCrab;
 import divinerpg.entities.vanilla.crab.king.KingCrabRender;
 import divinerpg.entities.vanilla.crab.regular.Crab;
 import divinerpg.entities.vanilla.crab.regular.CrabRender;
+import divinerpg.entities.vanilla.cyclop.cave.Cavelops;
+import divinerpg.entities.vanilla.cyclop.cave.CavelopsRender;
+import divinerpg.entities.vanilla.cyclop.regular.Cyclops;
+import divinerpg.entities.vanilla.cyclop.regular.CyclopsRender;
 import divinerpg.entities.vanilla.dramcryx.enthralled.EnthralledDramcryx;
 import divinerpg.entities.vanilla.dramcryx.enthralled.EnthralledDramcryxRender;
 import divinerpg.entities.vanilla.dramcryx.jungle.JungleDramcryx;
@@ -105,6 +109,10 @@ public class EntitiesRegistry {
     public static EntityType<Wildfire> wildfire = null;
     @ObjectHolder("grue")
     public static EntityType<Grue> grue = null;
+    @ObjectHolder("cavelops")
+    public static EntityType<Cavelops> cavelops = null;
+    @ObjectHolder("cyclops")
+    public static EntityType<Cyclops> cyclops = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -180,6 +188,14 @@ public class EntitiesRegistry {
                 .size(0.8F, 1.9F)
                 .setCustomClientFactory((spawnEntity, world) -> new Grue(world))
                 .build("grue").setRegistryName(DivineRPG.MODID, "grue"));
+        registry.register(EntityType.Builder.create(Cavelops::new, EntityClassification.MONSTER)
+                .size(1.2F, 4)
+                .setCustomClientFactory((spawnEntity, world) -> new Cavelops(world))
+                .build("cavelops").setRegistryName(DivineRPG.MODID, "cavelops"));
+        registry.register(EntityType.Builder.create(Cyclops::new, EntityClassification.MONSTER)
+                .size(1.2F, 4)
+                .setCustomClientFactory((spawnEntity, world) -> new Cyclops(world))
+                .build("cyclops").setRegistryName(DivineRPG.MODID, "cyclops"));
     }
 
 
@@ -210,6 +226,8 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Scorcher.class, ScorcherRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Wildfire.class, WildfireRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Grue.class, GrueRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Cavelops.class, CavelopsRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Cyclops.class, CyclopsRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,
