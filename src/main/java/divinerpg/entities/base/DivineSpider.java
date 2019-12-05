@@ -52,7 +52,7 @@ public class DivineSpider extends SpiderEntity {
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return getDeathSound();
+        return hurt;
     }
 
     @Override

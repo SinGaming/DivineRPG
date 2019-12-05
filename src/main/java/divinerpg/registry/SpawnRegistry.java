@@ -30,6 +30,7 @@ public class SpawnRegistry {
 
         addMonterInBiomes(EntitiesRegistry.jungle_dramcryx, 80, 1, 4, BiomeDictionary.Type.JUNGLE);
         addMonterInBiomes(EntitiesRegistry.jungle_spider, 80, 1, 4, BiomeDictionary.Type.JUNGLE);
+        addMonterInBiomes(EntitiesRegistry.jungle_bat, 50, 1, 4, BiomeDictionary.Type.JUNGLE);
 
         addMonterInBiomes(EntitiesRegistry.cyclops, 10, 2, 4, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.MOUNTAIN);
 
@@ -51,7 +52,7 @@ public class SpawnRegistry {
     private static void addOverworldMonster(EntityType type, int weight, int min, int max) {
         EntitySpawnPlacementRegistry.register(type, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223324_d);
 
-        addToSpawn(type, EntityClassification.MONSTER, filter(true, BiomeDictionary.Type.OVERWORLD), weight, min, max);
+        addToSpawn(type, EntityClassification.MONSTER, filter(false, BiomeDictionary.Type.END, BiomeDictionary.Type.NETHER), weight, min, max);
     }
 
     private static void addMonterInBiomes(EntityType type, int weight, int min, int max, BiomeDictionary.Type... types) {

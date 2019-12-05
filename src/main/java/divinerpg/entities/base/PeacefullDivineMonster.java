@@ -67,7 +67,7 @@ public abstract class PeacefullDivineMonster extends MonsterEntity {
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return getDeathSound();
+        return hurt;
     }
 
     @Override

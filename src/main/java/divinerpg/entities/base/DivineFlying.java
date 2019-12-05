@@ -52,7 +52,7 @@ public class DivineFlying extends GhastEntity {
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return getDeathSound();
+        return hurt;
     }
 
     @Override

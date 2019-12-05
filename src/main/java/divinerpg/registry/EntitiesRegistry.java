@@ -9,6 +9,8 @@ import divinerpg.entities.projectiles.Bullet.BulletEntityRender;
 import divinerpg.entities.projectiles.DivineArrow.DivineArrowEntity;
 import divinerpg.entities.projectiles.DivineArrow.DivineEntityRender;
 import divinerpg.entities.projectiles.ItemBulletEntity;
+import divinerpg.entities.vanilla.bat.DivineBatRender;
+import divinerpg.entities.vanilla.bat.JungleBat;
 import divinerpg.entities.vanilla.crab.king.KingCrab;
 import divinerpg.entities.vanilla.crab.king.KingCrabRender;
 import divinerpg.entities.vanilla.crab.regular.Crab;
@@ -124,6 +126,8 @@ public class EntitiesRegistry {
     public static EntityType<Cyclops> cyclops = null;
     @ObjectHolder("miner")
     public static EntityType<Miner> miner = null;
+    @ObjectHolder("jungle_bat")
+    public static EntityType<JungleBat> jungle_bat = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -219,7 +223,10 @@ public class EntitiesRegistry {
                 .size(0.6F, 2)
                 .setCustomClientFactory((spawnEntity, world) -> new Miner(world))
                 .build("miner").setRegistryName(DivineRPG.MODID, "miner"));
-
+        registry.register(EntityType.Builder.create(JungleBat::new, EntityClassification.MONSTER)
+                .size(0.7F, 1)
+                .setCustomClientFactory((spawnEntity, world) -> new JungleBat(world))
+                .build("jungle_bat").setRegistryName(DivineRPG.MODID, "jungle_bat"));
 
     }
 
@@ -256,14 +263,16 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Cavelops.class, CavelopsRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Cyclops.class, CyclopsRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Miner.class, MinerRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(JungleBat.class, DivineBatRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,
                                                                 Function<World, T> createFunc, String name) {
         registry.register(EntityType.Builder.create(factoryIn, EntityClassification.MISC)
                 .size(0.2F, 0.2F)
-                .setUpdateInterval(1)
-                .setTrackingRange(64)
+                .setUpdateInterval(5)
+                .setTrackingRange(256)
+                .setShouldReceiveVelocityUpdates(true)
                 // Need to be set for client to see the entity
                 .setCustomClientFactory((type, world) -> createFunc.apply(world))
                 .build(name)

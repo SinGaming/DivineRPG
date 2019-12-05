@@ -16,8 +16,6 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class DivineArrowEntity extends ArrowEntity implements ITextured {
     private static final DataParameter<String> NAME = EntityDataManager.createKey(DivineArrowEntity.class, DataSerializers.STRING);
@@ -27,7 +25,7 @@ public class DivineArrowEntity extends ArrowEntity implements ITextured {
         super(EntitiesRegistry.arrow_entity, world);
     }
 
-    public DivineArrowEntity(EntityType<? extends ArrowEntity> type, World world) {
+    public DivineArrowEntity(EntityType<? extends Entity> type, World world) {
         this(world);
     }
 
