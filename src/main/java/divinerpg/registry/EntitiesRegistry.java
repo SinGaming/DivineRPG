@@ -34,6 +34,8 @@ import divinerpg.entities.vanilla.glacon.Glacon;
 import divinerpg.entities.vanilla.glacon.GlaconRender;
 import divinerpg.entities.vanilla.grue.Grue;
 import divinerpg.entities.vanilla.grue.GrueRender;
+import divinerpg.entities.vanilla.koblin.Kobblin;
+import divinerpg.entities.vanilla.koblin.KobblinRender;
 import divinerpg.entities.vanilla.miner.Miner;
 import divinerpg.entities.vanilla.miner.MinerRender;
 import divinerpg.entities.vanilla.rotatick.Rotatick;
@@ -132,6 +134,8 @@ public class EntitiesRegistry {
     public static EntityType<JungleBat> jungle_bat = null;
     @ObjectHolder("eye")
     public static EntityType<Eye> eye = null;
+    @ObjectHolder("koblin")
+    public static EntityType<Kobblin> koblin = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -235,6 +239,10 @@ public class EntitiesRegistry {
                 .size(1.3F, 2)
                 .setCustomClientFactory((spawnEntity, world) -> new Eye(world))
                 .build("eye").setRegistryName(DivineRPG.MODID, "eye"));
+        registry.register(EntityType.Builder.create(Kobblin::new, EntityClassification.MONSTER)
+                .size(0.75F, 1)
+                .setCustomClientFactory((spawnEntity, world) -> new Kobblin(world))
+                .build("kobblin").setRegistryName(DivineRPG.MODID, "kobblin"));
 
     }
 
@@ -273,6 +281,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Miner.class, MinerRender::new);
         RenderingRegistry.registerEntityRenderingHandler(JungleBat.class, DivineBatRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Eye.class, EyeRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Kobblin.class, KobblinRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,

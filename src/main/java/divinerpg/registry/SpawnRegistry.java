@@ -29,6 +29,8 @@ public class SpawnRegistry {
         addMonterInBiomes(EntitiesRegistry.crab, 100, 4, 4, BiomeDictionary.Type.BEACH);
         addMonterInBiomes(EntitiesRegistry.king_crab, 10, 4, 4, BiomeDictionary.Type.BEACH);
 
+        addMonterInBiomes(EntitiesRegistry.koblin, 5, 1, 1, BiomeDictionary.Type.PLAINS);
+
         addMonterInBiomes(EntitiesRegistry.jungle_dramcryx, 80, 1, 4, BiomeDictionary.Type.JUNGLE);
         addMonterInBiomes(EntitiesRegistry.jungle_spider, 80, 1, 4, BiomeDictionary.Type.JUNGLE);
         addMonterInBiomes(EntitiesRegistry.jungle_bat, 50, 1, 4, BiomeDictionary.Type.JUNGLE);
