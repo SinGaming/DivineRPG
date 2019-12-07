@@ -6,6 +6,7 @@ import divinerpg.registry.SoundRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
@@ -14,6 +15,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class Kobblin extends PeacefullDivineMonster {
     public Kobblin(World world) {
@@ -51,12 +54,20 @@ public class Kobblin extends PeacefullDivineMonster {
     }
 
     @Override
-    protected void updateAITasks() {
-        super.updateAITasks();
+    public void setAttackTarget(@Nullable LivingEntity entitylivingbaseIn) {
+        super.setAttackTarget(entitylivingbaseIn);
 
-        // Jump when we see an enemy
-        if (getAttackTarget() != null || getRevengeTarget() != null) {
-            this.addVelocity(0, 0.6, 0);
+        if (entitylivingbaseIn != null) {
+            jump();
+        }
+    }
+
+    @Override
+    public void setRevengeTarget(@Nullable LivingEntity livingBase) {
+        super.setRevengeTarget(livingBase);
+
+        if (livingBase != null) {
+            jump();
         }
     }
 }
