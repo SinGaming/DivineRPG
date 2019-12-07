@@ -26,6 +26,8 @@ import divinerpg.entities.vanilla.dramcryx.enthralled.EnthralledDramcryx;
 import divinerpg.entities.vanilla.dramcryx.enthralled.EnthralledDramcryxRender;
 import divinerpg.entities.vanilla.dramcryx.jungle.JungleDramcryx;
 import divinerpg.entities.vanilla.dramcryx.jungle.JungleDramcryxRender;
+import divinerpg.entities.vanilla.eye.Eye;
+import divinerpg.entities.vanilla.eye.EyeRender;
 import divinerpg.entities.vanilla.frost.Frost;
 import divinerpg.entities.vanilla.frost.FrostRender;
 import divinerpg.entities.vanilla.glacon.Glacon;
@@ -128,6 +130,8 @@ public class EntitiesRegistry {
     public static EntityType<Miner> miner = null;
     @ObjectHolder("jungle_bat")
     public static EntityType<JungleBat> jungle_bat = null;
+    @ObjectHolder("eye")
+    public static EntityType<Eye> eye = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -227,6 +231,10 @@ public class EntitiesRegistry {
                 .size(0.7F, 1)
                 .setCustomClientFactory((spawnEntity, world) -> new JungleBat(world))
                 .build("jungle_bat").setRegistryName(DivineRPG.MODID, "jungle_bat"));
+        registry.register(EntityType.Builder.create(Eye::new, EntityClassification.MONSTER)
+                .size(1.3F, 2)
+                .setCustomClientFactory((spawnEntity, world) -> new Eye(world))
+                .build("eye").setRegistryName(DivineRPG.MODID, "eye"));
 
     }
 
@@ -264,6 +272,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Cyclops.class, CyclopsRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Miner.class, MinerRender::new);
         RenderingRegistry.registerEntityRenderingHandler(JungleBat.class, DivineBatRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Eye.class, EyeRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,

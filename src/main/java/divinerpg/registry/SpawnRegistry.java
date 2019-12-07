@@ -22,6 +22,7 @@ public class SpawnRegistry {
         addOverworldMonster(EntitiesRegistry.ender_spider, 4, 1, 4);
         addOverworldMonster(EntitiesRegistry.cave_crawler, 70, 2, 3);
         addOverworldMonster(EntitiesRegistry.miner, 5, 1, 1);
+        addOverworldMonster(EntitiesRegistry.eye, 30, 1, 4);
 
         addMonterInBiomes(EntitiesRegistry.desert_crawler, 50, 1, 4, BiomeDictionary.Type.SANDY);
 
