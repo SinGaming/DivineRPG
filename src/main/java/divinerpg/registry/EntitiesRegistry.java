@@ -56,6 +56,8 @@ import divinerpg.entities.vanilla.watcher.ender.EnderWatcher;
 import divinerpg.entities.vanilla.watcher.ender.EnderWatcherRender;
 import divinerpg.entities.vanilla.wildfire.Wildfire;
 import divinerpg.entities.vanilla.wildfire.WildfireRender;
+import divinerpg.entities.vanilla.worm.SaguaroWorm;
+import divinerpg.entities.vanilla.worm.SaguaroWormRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
@@ -140,6 +142,8 @@ public class EntitiesRegistry {
     public static EntityType<Kobblin> koblin = null;
     @ObjectHolder("rainbour")
     public static EntityType<Rainbour> rainbour = null;
+    @ObjectHolder("saguaro_worm")
+    public static EntityType<SaguaroWorm> saguaro_worm = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -251,6 +255,10 @@ public class EntitiesRegistry {
                 .size(1, 1)
                 .setCustomClientFactory((spawnEntity, world) -> new Rainbour(world))
                 .build("rainbour").setRegistryName(DivineRPG.MODID, "rainbour"));
+        registry.register(EntityType.Builder.create(SaguaroWorm::new, EntityClassification.MONSTER)
+                .size(1, 3)
+                .setCustomClientFactory((spawnEntity, world) -> new SaguaroWorm(world))
+                .build("saguaro_worm").setRegistryName(DivineRPG.MODID, "saguaro_worm"));
 
     }
 
@@ -291,6 +299,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Eye.class, EyeRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Kobblin.class, KobblinRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Rainbour.class, RainbourRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(SaguaroWorm.class, SaguaroWormRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,

@@ -26,6 +26,7 @@ public class SpawnRegistry {
         addOverworldMonster(EntitiesRegistry.rainbour, 1, 1, 1);
 
         addMonterInBiomes(EntitiesRegistry.desert_crawler, 50, 1, 4, BiomeDictionary.Type.SANDY);
+        addMonterInBiomes(EntitiesRegistry.saguaro_worm, 20, 1, 4, BiomeDictionary.Type.SANDY);
 
         addMonterInBiomes(EntitiesRegistry.crab, 100, 4, 4, BiomeDictionary.Type.BEACH);
         addMonterInBiomes(EntitiesRegistry.king_crab, 10, 4, 4, BiomeDictionary.Type.BEACH);
