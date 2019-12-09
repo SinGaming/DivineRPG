@@ -22,11 +22,15 @@ public class SpawnRegistry {
         addOverworldMonster(EntitiesRegistry.ender_spider, 4, 1, 4);
         addOverworldMonster(EntitiesRegistry.cave_crawler, 70, 2, 3);
         addOverworldMonster(EntitiesRegistry.miner, 5, 1, 1);
+        addOverworldMonster(EntitiesRegistry.eye, 30, 1, 4);
+        addOverworldMonster(EntitiesRegistry.rainbour, 1, 1, 1);
 
         addMonterInBiomes(EntitiesRegistry.desert_crawler, 50, 1, 4, BiomeDictionary.Type.SANDY);
 
         addMonterInBiomes(EntitiesRegistry.crab, 100, 4, 4, BiomeDictionary.Type.BEACH);
         addMonterInBiomes(EntitiesRegistry.king_crab, 10, 4, 4, BiomeDictionary.Type.BEACH);
+
+        addMonterInBiomes(EntitiesRegistry.koblin, 5, 1, 1, BiomeDictionary.Type.PLAINS);
 
         addMonterInBiomes(EntitiesRegistry.jungle_dramcryx, 80, 1, 4, BiomeDictionary.Type.JUNGLE);
         addMonterInBiomes(EntitiesRegistry.jungle_spider, 80, 1, 4, BiomeDictionary.Type.JUNGLE);

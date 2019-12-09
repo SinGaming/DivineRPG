@@ -304,6 +304,9 @@ public class ItemRegistry {
     @ObjectHolder("jack_o_man_boots")
     public static ArmorItem jack_o_man_boots;
 
+    @ObjectHolder("healing_stone")
+    public static Item healing_stone;
+
 
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {
@@ -849,6 +852,8 @@ public class ItemRegistry {
                             return false;
                         }
                 ).disableSword(true).group(DivineRPGTabs.DivineTools).maxDamage(15)).setRegistryName(DivineRPG.MODID, "serenade_of_health"));
+
+        registry.register(new HealingStone(itemTabProperty).setRegistryName(DivineRPG.MODID, "healing_stone"));
 
     }
 

@@ -16,7 +16,6 @@
               }
             },
             {
-              caveclops
               "function": "minecraft:looting_enchant",
               "count": {
                 "min": 0.0,

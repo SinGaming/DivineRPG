@@ -1,4 +1,4 @@
-package divinerpg.entities.vanilla.bat;
+package divinerpg.entities.vanilla.bat.jungle;
 
 import divinerpg.entities.base.DivineBat;
 import divinerpg.registry.EntitiesRegistry;
@@ -6,6 +6,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.SoundEvents;
@@ -27,6 +29,13 @@ public class JungleBat extends DivineBat {
 
         this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20);
         this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5);
+    }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+
+        targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
 
     @Override

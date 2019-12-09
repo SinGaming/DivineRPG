@@ -10,7 +10,9 @@ import divinerpg.entities.projectiles.DivineArrow.DivineArrowEntity;
 import divinerpg.entities.projectiles.DivineArrow.DivineEntityRender;
 import divinerpg.entities.projectiles.ItemBulletEntity;
 import divinerpg.entities.vanilla.bat.DivineBatRender;
-import divinerpg.entities.vanilla.bat.JungleBat;
+import divinerpg.entities.vanilla.bat.jungle.JungleBat;
+import divinerpg.entities.vanilla.bat.rainbour.Rainbour;
+import divinerpg.entities.vanilla.bat.rainbour.RainbourRender;
 import divinerpg.entities.vanilla.crab.king.KingCrab;
 import divinerpg.entities.vanilla.crab.king.KingCrabRender;
 import divinerpg.entities.vanilla.crab.regular.Crab;
@@ -26,12 +28,16 @@ import divinerpg.entities.vanilla.dramcryx.enthralled.EnthralledDramcryx;
 import divinerpg.entities.vanilla.dramcryx.enthralled.EnthralledDramcryxRender;
 import divinerpg.entities.vanilla.dramcryx.jungle.JungleDramcryx;
 import divinerpg.entities.vanilla.dramcryx.jungle.JungleDramcryxRender;
+import divinerpg.entities.vanilla.eye.Eye;
+import divinerpg.entities.vanilla.eye.EyeRender;
 import divinerpg.entities.vanilla.frost.Frost;
 import divinerpg.entities.vanilla.frost.FrostRender;
 import divinerpg.entities.vanilla.glacon.Glacon;
 import divinerpg.entities.vanilla.glacon.GlaconRender;
 import divinerpg.entities.vanilla.grue.Grue;
 import divinerpg.entities.vanilla.grue.GrueRender;
+import divinerpg.entities.vanilla.koblin.Kobblin;
+import divinerpg.entities.vanilla.koblin.KobblinRender;
 import divinerpg.entities.vanilla.miner.Miner;
 import divinerpg.entities.vanilla.miner.MinerRender;
 import divinerpg.entities.vanilla.rotatick.Rotatick;
@@ -128,6 +134,12 @@ public class EntitiesRegistry {
     public static EntityType<Miner> miner = null;
     @ObjectHolder("jungle_bat")
     public static EntityType<JungleBat> jungle_bat = null;
+    @ObjectHolder("eye")
+    public static EntityType<Eye> eye = null;
+    @ObjectHolder("kobblin")
+    public static EntityType<Kobblin> koblin = null;
+    @ObjectHolder("rainbour")
+    public static EntityType<Rainbour> rainbour = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -227,6 +239,18 @@ public class EntitiesRegistry {
                 .size(0.7F, 1)
                 .setCustomClientFactory((spawnEntity, world) -> new JungleBat(world))
                 .build("jungle_bat").setRegistryName(DivineRPG.MODID, "jungle_bat"));
+        registry.register(EntityType.Builder.create(Eye::new, EntityClassification.MONSTER)
+                .size(1.3F, 2)
+                .setCustomClientFactory((spawnEntity, world) -> new Eye(world))
+                .build("eye").setRegistryName(DivineRPG.MODID, "eye"));
+        registry.register(EntityType.Builder.create(Kobblin::new, EntityClassification.MONSTER)
+                .size(0.75F, 1)
+                .setCustomClientFactory((spawnEntity, world) -> new Kobblin(world))
+                .build("kobblin").setRegistryName(DivineRPG.MODID, "kobblin"));
+        registry.register(EntityType.Builder.create(Rainbour::new, EntityClassification.MONSTER)
+                .size(1, 1)
+                .setCustomClientFactory((spawnEntity, world) -> new Rainbour(world))
+                .build("rainbour").setRegistryName(DivineRPG.MODID, "rainbour"));
 
     }
 
@@ -264,6 +288,9 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Cyclops.class, CyclopsRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Miner.class, MinerRender::new);
         RenderingRegistry.registerEntityRenderingHandler(JungleBat.class, DivineBatRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Eye.class, EyeRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Kobblin.class, KobblinRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Rainbour.class, RainbourRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,
