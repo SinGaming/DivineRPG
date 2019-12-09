@@ -10,6 +10,7 @@ import divinerpg.entities.projectiles.DivineArrow.DivineArrowEntity;
 import divinerpg.entities.projectiles.DivineArrow.DivineEntityRender;
 import divinerpg.entities.projectiles.ItemBulletEntity;
 import divinerpg.entities.vanilla.bat.DivineBatRender;
+import divinerpg.entities.vanilla.bat.HellBat;
 import divinerpg.entities.vanilla.bat.jungle.JungleBat;
 import divinerpg.entities.vanilla.bat.rainbour.Rainbour;
 import divinerpg.entities.vanilla.bat.rainbour.RainbourRender;
@@ -134,6 +135,8 @@ public class EntitiesRegistry {
     public static EntityType<Miner> miner = null;
     @ObjectHolder("jungle_bat")
     public static EntityType<JungleBat> jungle_bat = null;
+    @ObjectHolder("hell_bat")
+    public static EntityType<HellBat> hell_bat = null;
     @ObjectHolder("eye")
     public static EntityType<Eye> eye = null;
     @ObjectHolder("kobblin")
@@ -235,7 +238,7 @@ public class EntitiesRegistry {
                 .size(0.6F, 2)
                 .setCustomClientFactory((spawnEntity, world) -> new Miner(world))
                 .build("miner").setRegistryName(DivineRPG.MODID, "miner"));
-        registry.register(EntityType.Builder.create(JungleBat::new, EntityClassification.MONSTER)
+        registry.register(EntityType.Builder.<JungleBat>create(JungleBat::new, EntityClassification.MONSTER)
                 .size(0.7F, 1)
                 .setCustomClientFactory((spawnEntity, world) -> new JungleBat(world))
                 .build("jungle_bat").setRegistryName(DivineRPG.MODID, "jungle_bat"));
@@ -251,6 +254,10 @@ public class EntitiesRegistry {
                 .size(1, 1)
                 .setCustomClientFactory((spawnEntity, world) -> new Rainbour(world))
                 .build("rainbour").setRegistryName(DivineRPG.MODID, "rainbour"));
+        registry.register(EntityType.Builder.create(HellBat::new, EntityClassification.MONSTER)
+                .size(0.7F, 1)
+                .setCustomClientFactory((spawnEntity, world) -> new HellBat(world))
+                .build("hell_bat").setRegistryName(DivineRPG.MODID, "hell_bat"));
 
     }
 
@@ -288,6 +295,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Cyclops.class, CyclopsRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Miner.class, MinerRender::new);
         RenderingRegistry.registerEntityRenderingHandler(JungleBat.class, DivineBatRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(HellBat.class, DivineBatRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Eye.class, EyeRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Kobblin.class, KobblinRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Rainbour.class, RainbourRender::new);
