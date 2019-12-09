@@ -17,9 +17,9 @@ public class SpawnHelper {
         if (world.isRemote())
             return;
 
-        float playerVelocity = (float) player.getDistanceSq(player.prevPosX, player.prevPosY, player.prevPosZ);
+        float playerVelocity = (float) player.getDistanceSq(player.posX, player.posY, player.posZ);
 
-        bullet.shoot(player, player.prevRotationPitch, player.prevRotationYaw, 0, 1.5F + playerVelocity, 1F);
+        bullet.shoot(player, player.rotationPitch, player.rotationYaw, 0, 1.5F + playerVelocity, 1F);
         world.addEntity(bullet);
     }
 
@@ -31,9 +31,9 @@ public class SpawnHelper {
         if (world.isRemote())
             return;
 
-        float playerVelocity = (float) player.getDistanceSq(player.prevPosX, player.prevPosY, player.prevPosZ);
+        float playerVelocity = (float) player.getDistanceSq(player.posX, player.posY, player.posZ);
 
-        bullet.shoot(player, player.prevRotationPitch, player.prevRotationYaw, 0, 1.5F + playerVelocity, 1F);
+        bullet.shoot(player, player.rotationPitch, player.rotationYaw, 0, 1.5F + playerVelocity, 1F);
         world.addEntity(bullet);
     }
 

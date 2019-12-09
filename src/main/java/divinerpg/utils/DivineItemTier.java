@@ -86,7 +86,7 @@ public class DivineItemTier implements IItemTier {
     }
 
     public DivineItemTier forShickaxe() {
-        return new DivineItemTier(harvestLevel, maxUses * 4, efficiency, attackDamage, (int) (enchantability * 1.5), repairMaterial::getValue);
+        return new DivineItemTier(harvestLevel, maxUses * 3, efficiency, attackDamage, (int) (enchantability * 1.5), repairMaterial::getValue);
     }
 
     @Override

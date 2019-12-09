@@ -671,6 +671,16 @@ public class ItemRegistry {
         registry.register(new Shickaxe(-2.8F, DivineItemTier.RUPEE.forShickaxe(), new Item.Properties().group(DivineRPGTabs.DivineTools).maxDamage(-1)).setRegistryName(DivineRPG.MODID, "rupee_shickaxe"));
         registry.register(new Shickaxe(-2.8F, DivineItemTier.ARLEMIT.forShickaxe(), new Item.Properties().group(DivineRPGTabs.DivineTools))
                 .setRegistryName(DivineRPG.MODID, "arlemite_shickaxe"));
+        registry.register(new Shickaxe(-2.8F, DivineItemTier.EDEN.forShickaxe(), new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "eden_shickaxe"));
+        registry.register(new Shickaxe(-2.8F, DivineItemTier.WILDWOOD.forShickaxe(), new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "wildwood_shickaxe"));
+        registry.register(new Shickaxe(-2.8F, DivineItemTier.APALACHIA.forShickaxe(), new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "apalachia_shickaxe"));
+        registry.register(new Shickaxe(-2.8F, DivineItemTier.SKYTHERN.forShickaxe(), new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "skythern_shickaxe"));
+        registry.register(new Shickaxe(-2.8F, DivineItemTier.MORTUM.forShickaxe(), new Item.Properties().group(DivineRPGTabs.DivineTools))
+                .setRegistryName(DivineRPG.MODID, "mortum_shickaxe"));
 
         registry.register(new TwilightClock(itemTabProperty).setRegistryName(DivineRPG.MODID, "twilight_clock"));
 
