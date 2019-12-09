@@ -2,7 +2,9 @@ package divinerpg.entities.base;
 
 import divinerpg.entities.goal.MeleeGoal;
 import divinerpg.entities.goal.RevengeGoal;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.network.IPacket;
@@ -12,6 +14,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public abstract class DivineBat extends BatEntity {
@@ -62,5 +65,20 @@ public abstract class DivineBat extends BatEntity {
     @Override
     public IPacket<?> createSpawnPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
+    }
+
+    @Override
+    public boolean attackEntityAsMob(Entity entityIn) {
+        boolean result = super.attackEntityAsMob(entityIn);
+
+        if (result && entityIn instanceof LivingEntity) {
+            onHit(((LivingEntity) entityIn));
+        }
+
+        return result;
+    }
+
+    protected void onHit(@Nonnull LivingEntity victim) {
+
     }
 }

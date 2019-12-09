@@ -10,6 +10,7 @@ import divinerpg.entities.projectiles.DivineArrow.DivineArrowEntity;
 import divinerpg.entities.projectiles.DivineArrow.DivineEntityRender;
 import divinerpg.entities.projectiles.ItemBulletEntity;
 import divinerpg.entities.vanilla.bat.DivineBatRender;
+import divinerpg.entities.vanilla.bat.HellBat;
 import divinerpg.entities.vanilla.bat.jungle.JungleBat;
 import divinerpg.entities.vanilla.bat.rainbour.Rainbour;
 import divinerpg.entities.vanilla.bat.rainbour.RainbourRender;
@@ -56,8 +57,6 @@ import divinerpg.entities.vanilla.watcher.ender.EnderWatcher;
 import divinerpg.entities.vanilla.watcher.ender.EnderWatcherRender;
 import divinerpg.entities.vanilla.wildfire.Wildfire;
 import divinerpg.entities.vanilla.wildfire.WildfireRender;
-import divinerpg.entities.vanilla.worm.SaguaroWorm;
-import divinerpg.entities.vanilla.worm.SaguaroWormRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
@@ -136,14 +135,14 @@ public class EntitiesRegistry {
     public static EntityType<Miner> miner = null;
     @ObjectHolder("jungle_bat")
     public static EntityType<JungleBat> jungle_bat = null;
+    @ObjectHolder("hell_bat")
+    public static EntityType<HellBat> hell_bat = null;
     @ObjectHolder("eye")
     public static EntityType<Eye> eye = null;
     @ObjectHolder("kobblin")
     public static EntityType<Kobblin> koblin = null;
     @ObjectHolder("rainbour")
     public static EntityType<Rainbour> rainbour = null;
-    @ObjectHolder("saguaro_worm")
-    public static EntityType<SaguaroWorm> saguaro_worm = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -239,7 +238,7 @@ public class EntitiesRegistry {
                 .size(0.6F, 2)
                 .setCustomClientFactory((spawnEntity, world) -> new Miner(world))
                 .build("miner").setRegistryName(DivineRPG.MODID, "miner"));
-        registry.register(EntityType.Builder.create(JungleBat::new, EntityClassification.MONSTER)
+        registry.register(EntityType.Builder.<JungleBat>create(JungleBat::new, EntityClassification.MONSTER)
                 .size(0.7F, 1)
                 .setCustomClientFactory((spawnEntity, world) -> new JungleBat(world))
                 .build("jungle_bat").setRegistryName(DivineRPG.MODID, "jungle_bat"));
@@ -255,10 +254,10 @@ public class EntitiesRegistry {
                 .size(1, 1)
                 .setCustomClientFactory((spawnEntity, world) -> new Rainbour(world))
                 .build("rainbour").setRegistryName(DivineRPG.MODID, "rainbour"));
-        registry.register(EntityType.Builder.create(SaguaroWorm::new, EntityClassification.MONSTER)
-                .size(1, 3)
-                .setCustomClientFactory((spawnEntity, world) -> new SaguaroWorm(world))
-                .build("saguaro_worm").setRegistryName(DivineRPG.MODID, "saguaro_worm"));
+        registry.register(EntityType.Builder.create(HellBat::new, EntityClassification.MONSTER)
+                .size(0.7F, 1)
+                .setCustomClientFactory((spawnEntity, world) -> new HellBat(world))
+                .build("hell_bat").setRegistryName(DivineRPG.MODID, "hell_bat"));
 
     }
 
@@ -296,10 +295,10 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Cyclops.class, CyclopsRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Miner.class, MinerRender::new);
         RenderingRegistry.registerEntityRenderingHandler(JungleBat.class, DivineBatRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(HellBat.class, DivineBatRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Eye.class, EyeRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Kobblin.class, KobblinRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Rainbour.class, RainbourRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(SaguaroWorm.class, SaguaroWormRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,

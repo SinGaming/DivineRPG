@@ -47,6 +47,7 @@ public class SpawnRegistry {
         addMonterInBiomes(EntitiesRegistry.hell_spider, 50, 1, 1, BiomeDictionary.Type.NETHER);
         addMonterInBiomes(EntitiesRegistry.scorcher, 7, 4, 4, BiomeDictionary.Type.NETHER);
         addMonterInBiomes(EntitiesRegistry.wildfire, 50, 1, 1, BiomeDictionary.Type.NETHER);
+        addMonterInBiomes(EntitiesRegistry.hell_bat, 50, 1, 1, BiomeDictionary.Type.NETHER);
 
         addToSpawn(EntitiesRegistry.ender_spider, EntityClassification.MONSTER, filter(true, BiomeDictionary.Type.END),
                 2, 1, 4);

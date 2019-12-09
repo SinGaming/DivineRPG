@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -19,8 +20,8 @@ public class JungleBat extends DivineBat {
         super(EntitiesRegistry.jungle_bat, world, SoundEvents.ENTITY_BAT_HURT, SoundEvents.ENTITY_BAT_AMBIENT);
     }
 
-    public JungleBat(EntityType<? extends Entity> type, World world) {
-        this(world);
+    public JungleBat(EntityType<? extends BatEntity> type, World world) {
+        super(type, world, SoundEvents.ENTITY_BAT_HURT, SoundEvents.ENTITY_BAT_AMBIENT);
     }
 
     @Override
