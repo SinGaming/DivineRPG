@@ -9,6 +9,8 @@ import divinerpg.entities.projectiles.Bullet.BulletEntityRender;
 import divinerpg.entities.projectiles.DivineArrow.DivineArrowEntity;
 import divinerpg.entities.projectiles.DivineArrow.DivineEntityRender;
 import divinerpg.entities.projectiles.ItemBulletEntity;
+import divinerpg.entities.vanilla.arid.AridWarrior;
+import divinerpg.entities.vanilla.arid.AridWarriorRender;
 import divinerpg.entities.vanilla.bat.DivineBatRender;
 import divinerpg.entities.vanilla.bat.HellBat;
 import divinerpg.entities.vanilla.bat.jungle.JungleBat;
@@ -147,6 +149,8 @@ public class EntitiesRegistry {
     public static EntityType<Rainbour> rainbour = null;
     @ObjectHolder("saguaro_worm")
     public static EntityType<SaguaroWorm> saguaro_worm = null;
+    @ObjectHolder("arid_warrior")
+    public static EntityType<AridWarrior> arid_warrior = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -266,6 +270,10 @@ public class EntitiesRegistry {
                 .size(1F, 3F)
                 .setCustomClientFactory((spawnEntity, world) -> new SaguaroWorm(world))
                 .build("saguaro_worm").setRegistryName(DivineRPG.MODID, "saguaro_worm"));
+        registry.register(EntityType.Builder.create(AridWarrior::new, EntityClassification.MONSTER)
+                .size(1.4F, 2.8f)
+                .setCustomClientFactory((spawnEntity, world) -> new AridWarrior(world))
+                .build("arid_warrior").setRegistryName(DivineRPG.MODID, "arid_warrior"));
 
     }
 
@@ -308,6 +316,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Kobblin.class, KobblinRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Rainbour.class, RainbourRender::new);
         RenderingRegistry.registerEntityRenderingHandler(SaguaroWorm.class, SaguaroWormRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(AridWarrior.class, AridWarriorRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,
