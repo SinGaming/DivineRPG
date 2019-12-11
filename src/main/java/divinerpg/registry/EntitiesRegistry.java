@@ -9,6 +9,10 @@ import divinerpg.entities.projectiles.Bullet.BulletEntityRender;
 import divinerpg.entities.projectiles.DivineArrow.DivineArrowEntity;
 import divinerpg.entities.projectiles.DivineArrow.DivineEntityRender;
 import divinerpg.entities.projectiles.ItemBulletEntity;
+import divinerpg.entities.twilight.tomo.ApalachiaTomo;
+import divinerpg.entities.twilight.tomo.EdenTomo;
+import divinerpg.entities.twilight.tomo.TomoRender;
+import divinerpg.entities.twilight.tomo.WildwoodTomo;
 import divinerpg.entities.vanilla.arid.AridWarrior;
 import divinerpg.entities.vanilla.arid.AridWarriorRender;
 import divinerpg.entities.vanilla.bat.DivineBatRender;
@@ -155,6 +159,12 @@ public class EntitiesRegistry {
     public static EntityType<AridWarrior> arid_warrior = null;
     @ObjectHolder("pumpkin_spider")
     public static EntityType<PumpkinSpider> pumpkin_spider = null;
+    @ObjectHolder("eden_tomo")
+    public static EntityType<EdenTomo> eden_tomo = null;
+    @ObjectHolder("wildwood_tomo")
+    public static EntityType<WildwoodTomo> wildwood_tomo = null;
+    @ObjectHolder("apalachia_tomo")
+    public static EntityType<ApalachiaTomo> apalachia_tomo = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -283,6 +293,20 @@ public class EntitiesRegistry {
                 .setCustomClientFactory((spawnEntity, world) -> new PumpkinSpider(world))
                 .build("pumpkin_spider").setRegistryName(DivineRPG.MODID, "pumpkin_spider"));
 
+        // Twilight
+        registry.register(EntityType.Builder.<EdenTomo>create(EdenTomo::new, EntityClassification.MONSTER)
+                .size(1, 1)
+                .setCustomClientFactory((spawnEntity, world) -> new EdenTomo(world))
+                .build("eden_tomo").setRegistryName(DivineRPG.MODID, "eden_tomo"));
+        registry.register(EntityType.Builder.<WildwoodTomo>create(WildwoodTomo::new, EntityClassification.MONSTER)
+                .size(1, 1)
+                .setCustomClientFactory((spawnEntity, world) -> new WildwoodTomo(world))
+                .build("wildwood_tomo").setRegistryName(DivineRPG.MODID, "wildwood_tomo"));
+        registry.register(EntityType.Builder.<ApalachiaTomo>create(ApalachiaTomo::new, EntityClassification.MONSTER)
+                .size(1, 1)
+                .setCustomClientFactory((spawnEntity, world) -> new ApalachiaTomo(world))
+                .build("apalachia_tomo").setRegistryName(DivineRPG.MODID, "apalachia_tomo"));
+
     }
 
 
@@ -326,6 +350,10 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(SaguaroWorm.class, SaguaroWormRender::new);
         RenderingRegistry.registerEntityRenderingHandler(AridWarrior.class, AridWarriorRender::new);
         RenderingRegistry.registerEntityRenderingHandler(PumpkinSpider.class, PumpkinSpiderRender::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(EdenTomo.class, TomoRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(WildwoodTomo.class, TomoRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(ApalachiaTomo.class, TomoRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,

@@ -10,6 +10,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class SpawnRegistry {
@@ -56,12 +57,31 @@ public class SpawnRegistry {
         addMonterInBiomes(EntitiesRegistry.ender_triplets, 1, 1, 4, BiomeDictionary.Type.END);
 
         addMonterInBiomes(EntitiesRegistry.pumpkin_spider, 20, 1, 1, BiomeDictionary.Type.FOREST);
+
+        // Eden
+        List<Biome.SpawnListEntry> edenMonsters = BiomeRegisty.EDEN.getSpawns(EntityClassification.MONSTER);
+        List<Biome.SpawnListEntry> edenCreatures = BiomeRegisty.EDEN.getSpawns(EntityClassification.CREATURE);
+
+        edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_tomo, 20, 4, 4));
+        edenCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_tomo, 20, 4, 4));
+
+        // Wildwood
+        List<Biome.SpawnListEntry> wildwoodMonsters = BiomeRegisty.WILDWOOD.getSpawns(EntityClassification.MONSTER);
+        List<Biome.SpawnListEntry> wildwoodCreatures = BiomeRegisty.WILDWOOD.getSpawns(EntityClassification.CREATURE);
+        wildwoodMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_tomo, 4, 4, 4));
+        wildwoodCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_tomo, 4, 4, 4));
+
+        // Apalachia
+        List<Biome.SpawnListEntry> apalachiaMonsters = BiomeRegisty.APALACHIA.getSpawns(EntityClassification.MONSTER);
+        apalachiaMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.apalachia_tomo, 2, 4, 4));
     }
 
     private static void addOverworldMonster(EntityType type, int weight, int min, int max) {
         EntitySpawnPlacementRegistry.register(type, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223324_d);
 
-        addToSpawn(type, EntityClassification.MONSTER, filter(false, BiomeDictionary.Type.END, BiomeDictionary.Type.NETHER), weight, min, max);
+        Stream<Biome> vanillaBiomes = filter(false, BiomeDictionary.Type.END, BiomeDictionary.Type.NETHER).filter(x -> x.getRegistryName().getNamespace().equals("minecraft"));
+
+        addToSpawn(type, EntityClassification.MONSTER, vanillaBiomes, weight, min, max);
     }
 
     private static void addMonterInBiomes(EntityType type, int weight, int min, int max, BiomeDictionary.Type... types) {

@@ -47,7 +47,10 @@ public class BiomeRegisty {
                 BlockRegistry.sunbloom,
                 BlockRegistry.sunBlossom,
                 BlockRegistry.edenBrush,
-                BlockRegistry.edenOre).setRegistryName(DivineRPG.MODID, "biome_eden"));
+                BlockRegistry.edenOre)
+//                .addSpawns(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntitiesRegistry.eden_tomo, 20, 4, 4))
+//                .addSpawns(EntityClassification.CREATURE, new Biome.SpawnListEntry(EntitiesRegistry.eden_tomo, 20, 4, 4))
+                .setRegistryName(DivineRPG.MODID, "biome_eden"));
 
         registry.register(new DivineBiome(
                 BlockRegistry.wildwoodGrass,
