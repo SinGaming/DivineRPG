@@ -54,6 +54,8 @@ public class SpawnRegistry {
                 2, 1, 4);
         addMonterInBiomes(EntitiesRegistry.ender_watcher, 10, 4, 4, BiomeDictionary.Type.END);
         addMonterInBiomes(EntitiesRegistry.ender_triplets, 1, 1, 4, BiomeDictionary.Type.END);
+
+        addMonterInBiomes(EntitiesRegistry.pumpkin_spider, 20, 1, 1, BiomeDictionary.Type.FOREST);
     }
 
     private static void addOverworldMonster(EntityType type, int weight, int min, int max) {

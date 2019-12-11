@@ -1,4 +1,4 @@
-package divinerpg.entities.vanilla.bat.jungle;
+package divinerpg.entities.vanilla.bat;
 
 import divinerpg.entities.base.DivineBat;
 import divinerpg.registry.EntitiesRegistry;

@@ -1,11 +1,15 @@
 package divinerpg.entities.base;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.IPacket;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -15,6 +19,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import javax.annotation.Nullable;
 
 public class DivineSpider extends SpiderEntity {
+    protected static final DataParameter<Boolean> AGGRESSIVE = EntityDataManager.createKey(DivineSpider.class, DataSerializers.BOOLEAN);
     private EntityType<? extends SpiderEntity> type;
     private SoundEvent hurt;
     private SoundEvent ambient;
@@ -41,6 +46,13 @@ public class DivineSpider extends SpiderEntity {
     }
 
     @Override
+    protected void registerData() {
+        super.registerData();
+
+        getDataManager().register(AGGRESSIVE, false);
+    }
+
+    @Override
     public IPacket<?> createSpawnPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
@@ -64,6 +76,18 @@ public class DivineSpider extends SpiderEntity {
     @Override
     protected SoundEvent getAmbientSound() {
         return ambient;
+    }
+
+    @Override
+    public void setAttackTarget(@Nullable LivingEntity entitylivingbaseIn) {
+        super.setAttackTarget(entitylivingbaseIn);
+
+        getDataManager().set(AGGRESSIVE, entitylivingbaseIn != null);
+    }
+
+    @Override
+    public boolean isAggressive() {
+        return super.isAggressive() || getDataManager().get(AGGRESSIVE);
     }
 
     @Override

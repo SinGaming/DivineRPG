@@ -13,7 +13,7 @@ import divinerpg.entities.vanilla.arid.AridWarrior;
 import divinerpg.entities.vanilla.arid.AridWarriorRender;
 import divinerpg.entities.vanilla.bat.DivineBatRender;
 import divinerpg.entities.vanilla.bat.HellBat;
-import divinerpg.entities.vanilla.bat.jungle.JungleBat;
+import divinerpg.entities.vanilla.bat.JungleBat;
 import divinerpg.entities.vanilla.bat.rainbour.Rainbour;
 import divinerpg.entities.vanilla.bat.rainbour.RainbourRender;
 import divinerpg.entities.vanilla.crab.king.KingCrab;
@@ -53,6 +53,8 @@ import divinerpg.entities.vanilla.spider.hell.HellSpider;
 import divinerpg.entities.vanilla.spider.hell.HellSpiderRender;
 import divinerpg.entities.vanilla.spider.jungle.JungleSpider;
 import divinerpg.entities.vanilla.spider.jungle.JungleSpiderRender;
+import divinerpg.entities.vanilla.spider.pumpkin.PumpkinSpider;
+import divinerpg.entities.vanilla.spider.pumpkin.PumpkinSpiderRender;
 import divinerpg.entities.vanilla.triplets.EnderTriplets;
 import divinerpg.entities.vanilla.triplets.EnderTripletsRender;
 import divinerpg.entities.vanilla.watcher.ender.EnderWatcher;
@@ -151,6 +153,8 @@ public class EntitiesRegistry {
     public static EntityType<SaguaroWorm> saguaro_worm = null;
     @ObjectHolder("arid_warrior")
     public static EntityType<AridWarrior> arid_warrior = null;
+    @ObjectHolder("pumpkin_spider")
+    public static EntityType<PumpkinSpider> pumpkin_spider = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -274,6 +278,10 @@ public class EntitiesRegistry {
                 .size(1.4F, 2.8f)
                 .setCustomClientFactory((spawnEntity, world) -> new AridWarrior(world))
                 .build("arid_warrior").setRegistryName(DivineRPG.MODID, "arid_warrior"));
+        registry.register(EntityType.Builder.create(PumpkinSpider::new, EntityClassification.MONSTER)
+                .size(1.25F, 1F)
+                .setCustomClientFactory((spawnEntity, world) -> new PumpkinSpider(world))
+                .build("pumpkin_spider").setRegistryName(DivineRPG.MODID, "pumpkin_spider"));
 
     }
 
@@ -317,6 +325,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Rainbour.class, RainbourRender::new);
         RenderingRegistry.registerEntityRenderingHandler(SaguaroWorm.class, SaguaroWormRender::new);
         RenderingRegistry.registerEntityRenderingHandler(AridWarrior.class, AridWarriorRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(PumpkinSpider.class, PumpkinSpiderRender::new);
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,

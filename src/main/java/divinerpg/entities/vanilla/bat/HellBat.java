@@ -1,6 +1,5 @@
 package divinerpg.entities.vanilla.bat;
 
-import divinerpg.entities.vanilla.bat.jungle.JungleBat;
 import divinerpg.registry.EntitiesRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -10,7 +9,6 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-// TODO add mob drops
 public class HellBat extends JungleBat {
     public HellBat(World world) {
         super(EntitiesRegistry.hell_bat, world);
