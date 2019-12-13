@@ -1,4 +1,4 @@
-package divinerpg.entities.twilight.tomo;
+package divinerpg.entities.twilight.tomo.entities;
 
 import divinerpg.registry.EntitiesRegistry;
 import net.minecraft.entity.EntityType;

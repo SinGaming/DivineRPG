@@ -1,4 +1,4 @@
-package divinerpg.entities.twilight.tomo;
+package divinerpg.entities.twilight.tomo.entities;
 
 import divinerpg.entities.base.PeacefullDivineMonster;
 import divinerpg.registry.EntitiesRegistry;

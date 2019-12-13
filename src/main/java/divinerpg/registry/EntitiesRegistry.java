@@ -9,10 +9,15 @@ import divinerpg.entities.projectiles.Bullet.BulletEntityRender;
 import divinerpg.entities.projectiles.DivineArrow.DivineArrowEntity;
 import divinerpg.entities.projectiles.DivineArrow.DivineEntityRender;
 import divinerpg.entities.projectiles.ItemBulletEntity;
-import divinerpg.entities.twilight.tomo.ApalachiaTomo;
-import divinerpg.entities.twilight.tomo.EdenTomo;
+import divinerpg.entities.twilight.cadilion.CadilionRender;
+import divinerpg.entities.twilight.cadilion.enitities.ApalachiaCadilion;
+import divinerpg.entities.twilight.cadilion.enitities.EdenCadilion;
+import divinerpg.entities.twilight.cadilion.enitities.MortumCadilion;
+import divinerpg.entities.twilight.cadilion.enitities.WildwoodCadilion;
 import divinerpg.entities.twilight.tomo.TomoRender;
-import divinerpg.entities.twilight.tomo.WildwoodTomo;
+import divinerpg.entities.twilight.tomo.entities.ApalachiaTomo;
+import divinerpg.entities.twilight.tomo.entities.EdenTomo;
+import divinerpg.entities.twilight.tomo.entities.WildwoodTomo;
 import divinerpg.entities.vanilla.arid.AridWarrior;
 import divinerpg.entities.vanilla.arid.AridWarriorRender;
 import divinerpg.entities.vanilla.bat.DivineBatRender;
@@ -78,11 +83,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 
+import java.util.HashMap;
 import java.util.function.Function;
 
 @Mod.EventBusSubscriber(modid = DivineRPG.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -165,6 +172,14 @@ public class EntitiesRegistry {
     public static EntityType<WildwoodTomo> wildwood_tomo = null;
     @ObjectHolder("apalachia_tomo")
     public static EntityType<ApalachiaTomo> apalachia_tomo = null;
+    @ObjectHolder("eden_cadillion")
+    public static EntityType<EdenCadilion> eden_cadillion = null;
+    @ObjectHolder("wildwood_cadillion")
+    public static EntityType<WildwoodCadilion> wildwood_cadillion = null;
+    @ObjectHolder("apalachia_cadillion")
+    public static EntityType<ApalachiaCadilion> apalachia_cadillion = null;
+    @ObjectHolder("mortum_cadillion")
+    public static EntityType<MortumCadilion> mortum_cadillion = null;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -294,21 +309,20 @@ public class EntitiesRegistry {
                 .build("pumpkin_spider").setRegistryName(DivineRPG.MODID, "pumpkin_spider"));
 
         // Twilight
-        registry.register(EntityType.Builder.<EdenTomo>create(EdenTomo::new, EntityClassification.MONSTER)
-                .size(1, 1)
-                .setCustomClientFactory((spawnEntity, world) -> new EdenTomo(world))
-                .build("eden_tomo").setRegistryName(DivineRPG.MODID, "eden_tomo"));
-        registry.register(EntityType.Builder.<WildwoodTomo>create(WildwoodTomo::new, EntityClassification.MONSTER)
-                .size(1, 1)
-                .setCustomClientFactory((spawnEntity, world) -> new WildwoodTomo(world))
-                .build("wildwood_tomo").setRegistryName(DivineRPG.MODID, "wildwood_tomo"));
-        registry.register(EntityType.Builder.<ApalachiaTomo>create(ApalachiaTomo::new, EntityClassification.MONSTER)
-                .size(1, 1)
-                .setCustomClientFactory((spawnEntity, world) -> new ApalachiaTomo(world))
-                .build("apalachia_tomo").setRegistryName(DivineRPG.MODID, "apalachia_tomo"));
+        registerSimilarEntities(registry, new HashMap<String, Function<World, ? extends EdenTomo>>() {{
+            put("eden_tomo", EdenTomo::new);
+            put("wildwood_tomo", WildwoodTomo::new);
+            put("apalachia_tomo", ApalachiaTomo::new);
+        }}, 1, 1);
+
+        registerSimilarEntities(registry, new HashMap<String, Function<World, ? extends EdenCadilion>>() {{
+            put("eden_cadillion", EdenCadilion::new);
+            put("wildwood_cadillion", WildwoodCadilion::new);
+            put("apalachia_cadillion", ApalachiaCadilion::new);
+            put("mortum_cadillion", MortumCadilion::new);
+        }}, 1, 1.5F);
 
     }
-
 
     @OnlyIn(Dist.CLIENT)
     public static void registerRender() {
@@ -351,9 +365,27 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(AridWarrior.class, AridWarriorRender::new);
         RenderingRegistry.registerEntityRenderingHandler(PumpkinSpider.class, PumpkinSpiderRender::new);
 
-        RenderingRegistry.registerEntityRenderingHandler(EdenTomo.class, TomoRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(WildwoodTomo.class, TomoRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(ApalachiaTomo.class, TomoRender::new);
+        registerForOneRender(TomoRender::new, EdenTomo.class, WildwoodTomo.class, ApalachiaTomo.class);
+        registerForOneRender(CadilionRender::new, EdenCadilion.class, WildwoodCadilion.class, ApalachiaCadilion.class,
+                MortumCadilion.class);
+    }
+
+
+    private static <T extends Entity> void registerForOneRender(IRenderFactory<T> render, Class<? extends T>... classes) {
+        for (Class clazz : classes) {
+            RenderingRegistry.registerEntityRenderingHandler(clazz, render);
+        }
+    }
+
+
+    private static <T extends Entity> void registerSimilarEntities(IForgeRegistry<EntityType<?>> registry, HashMap<String, Function<World, ? extends T>> createFunctions,
+                                                                   float width, float height) {
+        createFunctions.forEach((key, value) -> registry.register(
+                EntityType.Builder.create((type, world) -> value.apply(world), EntityClassification.MONSTER)
+                        .setCustomClientFactory((spawnEntity, world) -> value.apply(world))
+                        .size(width, height)
+                        .build(key)
+                        .setRegistryName(DivineRPG.MODID, key)));
     }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,

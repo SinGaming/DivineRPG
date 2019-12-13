@@ -58,22 +58,44 @@ public class SpawnRegistry {
 
         addMonterInBiomes(EntitiesRegistry.pumpkin_spider, 20, 1, 1, BiomeDictionary.Type.FOREST);
 
+        /////////
         // Eden
+        ////////
         List<Biome.SpawnListEntry> edenMonsters = BiomeRegisty.EDEN.getSpawns(EntityClassification.MONSTER);
         List<Biome.SpawnListEntry> edenCreatures = BiomeRegisty.EDEN.getSpawns(EntityClassification.CREATURE);
 
         edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_tomo, 20, 4, 4));
-        edenCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_tomo, 20, 4, 4));
+        edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_cadillion, 20, 4, 4));
 
+        edenCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_tomo, 20, 4, 4));
+        edenCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_cadillion, 20, 4, 4));
+
+        ////////////
         // Wildwood
+        ////////////
         List<Biome.SpawnListEntry> wildwoodMonsters = BiomeRegisty.WILDWOOD.getSpawns(EntityClassification.MONSTER);
         List<Biome.SpawnListEntry> wildwoodCreatures = BiomeRegisty.WILDWOOD.getSpawns(EntityClassification.CREATURE);
-        wildwoodMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_tomo, 4, 4, 4));
-        wildwoodCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_tomo, 4, 4, 4));
 
+        wildwoodMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_tomo, 4, 4, 4));
+        wildwoodMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_cadillion, 4, 4, 4));
+
+        wildwoodCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_tomo, 4, 4, 4));
+        wildwoodCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_cadillion, 4, 4, 4));
+
+        /////////////
         // Apalachia
+        /////////////
         List<Biome.SpawnListEntry> apalachiaMonsters = BiomeRegisty.APALACHIA.getSpawns(EntityClassification.MONSTER);
+
         apalachiaMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.apalachia_tomo, 2, 4, 4));
+        apalachiaMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.apalachia_cadillion, 2, 4, 4));
+
+        ///////////////
+        // Mortum
+        //////////////
+        List<Biome.SpawnListEntry> mortumMonsters = BiomeRegisty.MORTUM.getSpawns(EntityClassification.MONSTER);
+
+        mortumMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.mortum_cadillion, 2, 4, 4));
     }
 
     private static void addOverworldMonster(EntityType type, int weight, int min, int max) {
