@@ -66,9 +66,11 @@ public class SpawnRegistry {
 
         edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_tomo, 20, 4, 4));
         edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_cadillion, 20, 4, 4));
+        edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.weak_cori, 1, 4, 4));
 
         edenCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_tomo, 20, 4, 4));
         edenCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_cadillion, 20, 4, 4));
+        edenCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.weak_cori, 1, 4, 4));
 
         ////////////
         // Wildwood
@@ -89,6 +91,13 @@ public class SpawnRegistry {
 
         apalachiaMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.apalachia_tomo, 2, 4, 4));
         apalachiaMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.apalachia_cadillion, 2, 4, 4));
+
+        ///////////////
+        // Skythern
+        ///////////////
+        List<Biome.SpawnListEntry> skythernMonsters = BiomeRegisty.SKYTHERN.getSpawns(EntityClassification.MONSTER);
+
+        skythernMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.advanced_cori, 1, 4, 4));
 
         ///////////////
         // Mortum

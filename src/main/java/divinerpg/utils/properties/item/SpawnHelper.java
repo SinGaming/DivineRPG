@@ -17,7 +17,7 @@ public class SpawnHelper {
         if (world.isRemote())
             return;
 
-        float playerVelocity = (float) player.getDistanceSq(player.posX, player.posY, player.posZ);
+        float playerVelocity = (float) player.getDistanceSq(player.prevPosX, player.prevPosY, player.prevPosZ);
 
         bullet.shoot(player, player.rotationPitch, player.rotationYaw, 0, 1.5F + playerVelocity, 1F);
         world.addEntity(bullet);
@@ -31,7 +31,7 @@ public class SpawnHelper {
         if (world.isRemote())
             return;
 
-        float playerVelocity = (float) player.getDistanceSq(player.posX, player.posY, player.posZ);
+        float playerVelocity = (float) player.getDistanceSq(player.prevPosX, player.prevPosY, player.prevPosZ);
 
         bullet.shoot(player, player.rotationPitch, player.rotationYaw, 0, 1.5F + playerVelocity, 1F);
         world.addEntity(bullet);
@@ -45,14 +45,14 @@ public class SpawnHelper {
      * @param power      - power in percentage 1 ~ 100
      * @param createFunc - createFunc func
      */
-    public static void spawnRange(World world, LivingEntity player, int power, int count, ICreateEntity createFunc) {
+    public static void spawnRange(World world, LivingEntity player, int power, int count, ICreateBullet createFunc) {
         if (world.isRemote())
             return;
 
         Random rand = world.rand;
 
         for (int i = 0; i < count; i++) {
-            ThrowableEntity bullet = createFunc.create(world, player, power);
+            ThrowableEntity bullet = createFunc.createBullet(world, player, power);
 
             bullet.posX += (rand.nextDouble() - rand.nextDouble()) * 1.5;
             bullet.posY += (rand.nextDouble() - rand.nextDouble()) * 1.5;

@@ -1,17 +1,18 @@
 package divinerpg.entities.vanilla.triplets;
 
 import divinerpg.entities.base.DivineFireball;
-import divinerpg.entities.base.DivineFlying;
-import divinerpg.entities.goal.GhastAttackGoal;
+import divinerpg.entities.base.DivineGhast;
 import divinerpg.registry.EntitiesRegistry;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.GhastEntity;
+import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
-public class EnderTriplets extends DivineFlying {
+public class EnderTriplets extends DivineGhast {
 
     public EnderTriplets(EntityType<? extends GhastEntity> type, World world) {
         this(world);
@@ -30,13 +31,8 @@ public class EnderTriplets extends DivineFlying {
     }
 
     @Override
-    protected void registerGoals() {
-        super.registerGoals();
-
-        this.goalSelector.addGoal(7, new GhastAttackGoal(this,
-                (worldIn, shooter, accelX, accelY, accelZ)
-                        -> new DivineFireball(EntitiesRegistry.divine_fireball, worldIn, shooter, accelX, accelY, accelZ,
-                        ParticleTypes.PORTAL, "ender_triplets_fireball"),
-                SoundEvents.ENTITY_GHAST_SHOOT));
+    public AbstractFireballEntity createFireball(World worldIn, LivingEntity shooter, double x, double y, double z) {
+        return new DivineFireball(EntitiesRegistry.divine_fireball, worldIn, shooter, x, y, z, ParticleTypes.PORTAL,
+                "ender_triplets_fireball");
     }
 }

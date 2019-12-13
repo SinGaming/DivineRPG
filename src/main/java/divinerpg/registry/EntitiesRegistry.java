@@ -14,6 +14,9 @@ import divinerpg.entities.twilight.cadilion.enitities.ApalachiaCadilion;
 import divinerpg.entities.twilight.cadilion.enitities.EdenCadilion;
 import divinerpg.entities.twilight.cadilion.enitities.MortumCadilion;
 import divinerpg.entities.twilight.cadilion.enitities.WildwoodCadilion;
+import divinerpg.entities.twilight.cori.CoriRender;
+import divinerpg.entities.twilight.cori.entities.AdvancedCori;
+import divinerpg.entities.twilight.cori.entities.WeakCori;
 import divinerpg.entities.twilight.tomo.TomoRender;
 import divinerpg.entities.twilight.tomo.entities.ApalachiaTomo;
 import divinerpg.entities.twilight.tomo.entities.EdenTomo;
@@ -180,6 +183,10 @@ public class EntitiesRegistry {
     public static EntityType<ApalachiaCadilion> apalachia_cadillion = null;
     @ObjectHolder("mortum_cadillion")
     public static EntityType<MortumCadilion> mortum_cadillion = null;
+    @ObjectHolder("weak_cori")
+    public static EntityType<WeakCori> weak_cori;
+    @ObjectHolder("advanced_cori")
+    public static EntityType<AdvancedCori> advanced_cori;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -322,6 +329,11 @@ public class EntitiesRegistry {
             put("mortum_cadillion", MortumCadilion::new);
         }}, 1, 1.5F);
 
+        registerSimilarEntities(registry, new HashMap<String, Function<World, ? extends WeakCori>>() {{
+            put("weak_cori", WeakCori::new);
+            put("advanced_cori", AdvancedCori::new);
+        }}, 0.6F, 1.5F);
+
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -368,6 +380,8 @@ public class EntitiesRegistry {
         registerForOneRender(TomoRender::new, EdenTomo.class, WildwoodTomo.class, ApalachiaTomo.class);
         registerForOneRender(CadilionRender::new, EdenCadilion.class, WildwoodCadilion.class, ApalachiaCadilion.class,
                 MortumCadilion.class);
+
+        registerForOneRender(CoriRender::new, WeakCori.class, AdvancedCori.class);
     }
 
 

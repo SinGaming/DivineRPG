@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 public interface IShootEntity {
 
     /**
-     * Perform shot. Should create bullet, shot it and spawn in the world,
+     * Perform shot. Should createFireball bullet, shot it and spawn in the world,
      * {@link SpawnHelper}
      *
      * @param world           - Current world

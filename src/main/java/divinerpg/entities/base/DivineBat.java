@@ -11,6 +11,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -80,5 +81,14 @@ public abstract class DivineBat extends BatEntity {
 
     protected void onHit(@Nonnull LivingEntity victim) {
 
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if (world.getDifficulty() == Difficulty.PEACEFUL && isAggressive()) {
+            this.remove();
+        }
     }
 }

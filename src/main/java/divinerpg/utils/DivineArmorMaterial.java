@@ -21,7 +21,7 @@ public class DivineArmorMaterial implements IArmorMaterial {
 
     /**
      * @param name                   - name of armor material
-     * @param chestplateDamage       - amount of chestplate damage. Others parts will be calculated by resources, needed to create armor piece
+     * @param chestplateDamage       - amount of chestplate damage. Others parts will be calculated by resources, needed to createFireball armor piece
      * @param totalDefense           - amount of armor points. Diamond have 20 points that gives 80% defence
      * @param enchantabilityIn       - enchantability. 25 for gold, 10 by default
      * @param onEquip                - sound on equip

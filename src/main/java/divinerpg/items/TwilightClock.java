@@ -78,7 +78,7 @@ public class TwilightClock extends Item {
     }
 
     /**
-     * Trying to create nether like portal.
+     * Trying to createFireball nether like portal.
      *
      * @param pos    - pos of clicked block
      * @param frame  - clicked block. Already checked above if it one of well-known portal frames

@@ -1,10 +1,10 @@
 package divinerpg.entities.goal;
 
 import divinerpg.utils.properties.item.ICreateFireball;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.monster.GhastEntity;
-import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
@@ -67,7 +67,7 @@ public class GhastAttackGoal extends Goal {
                 double d4 = livingentity.posZ - (this.parentEntity.posZ + vec3d.z * 4.0D);
                 world.playSound(null, parentEntity.getPosition(), shootSound, SoundCategory.HOSTILE, 10.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
 
-                AbstractFireballEntity fireballentity = func.create(world, this.parentEntity, d2, d3, d4);
+                Entity fireballentity = func.createFireball(world, this.parentEntity, d2, d3, d4);
 
                 if (fireballentity instanceof FireballEntity) {
                     ((FireballEntity) fireballentity).explosionPower = this.parentEntity.getFireballStrength();

@@ -41,7 +41,7 @@ public class MessageRegistry {
     }
 
     /**
-     * Static method to create instance of message from buffer.
+     * Static method to createFireball instance of message from buffer.
      * Currently message class must have empty ctor.
      * After creating message is reading from buffer
      */

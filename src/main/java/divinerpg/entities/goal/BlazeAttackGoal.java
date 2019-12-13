@@ -1,11 +1,11 @@
 package divinerpg.entities.goal;
 
 import divinerpg.utils.properties.item.ICreateFireball;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
@@ -89,7 +89,7 @@ public class BlazeAttackGoal extends Goal {
                         this.blaze.world.playSound(null, this.blaze.getPosition(), SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.PLAYERS, 1, 1);
 
                         for (int i = 0; i < 1; ++i) {
-                            AbstractFireballEntity fireballEntity = createFireball(this.blaze, livingentity);
+                            Entity fireballEntity = createFireball(this.blaze, livingentity);
                             fireballEntity.posY = this.blaze.posY + (double) (this.blaze.getHeight() / 2.0F) + 0.5D;
                             this.blaze.world.addEntity(fireballEntity);
                         }
@@ -109,7 +109,7 @@ public class BlazeAttackGoal extends Goal {
         return this.blaze.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).getValue();
     }
 
-    private AbstractFireballEntity createFireball(MobEntity entity, LivingEntity target) {
+    private Entity createFireball(MobEntity entity, LivingEntity target) {
         double distance = entity.getDistanceSq(target);
         float f = MathHelper.sqrt(MathHelper.sqrt(distance)) * 0.5F;
 
@@ -117,6 +117,6 @@ public class BlazeAttackGoal extends Goal {
         double y = target.getBoundingBox().minY + (double) (target.getHeight() / 2.0F) - (entity.posY + (double) (entity.getHeight() / 2.0F));
         double z = target.posZ - entity.posZ;
 
-        return func.create(entity.world, entity, x + entity.getRNG().nextGaussian() * (double) f, y, z + entity.getRNG().nextGaussian() * (double) f);
+        return func.createFireball(entity.world, entity, x + entity.getRNG().nextGaussian() * (double) f, y, z + entity.getRNG().nextGaussian() * (double) f);
     }
 }
