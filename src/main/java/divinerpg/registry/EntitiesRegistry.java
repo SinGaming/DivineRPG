@@ -75,6 +75,8 @@ import divinerpg.entities.vanilla.wildfire.Wildfire;
 import divinerpg.entities.vanilla.wildfire.WildfireRender;
 import divinerpg.entities.vanilla.worm.SaguaroWorm;
 import divinerpg.entities.vanilla.worm.SaguaroWormRender;
+import divinerpg.entities.wildwood.wolf.MoonWolf;
+import divinerpg.entities.wildwood.wolf.MoonWolfRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
@@ -187,6 +189,8 @@ public class EntitiesRegistry {
     public static EntityType<WeakCori> weak_cori;
     @ObjectHolder("advanced_cori")
     public static EntityType<AdvancedCori> advanced_cori;
+    @ObjectHolder("moon_wolf")
+    public static EntityType<MoonWolf> moon_wolf;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -311,7 +315,7 @@ public class EntitiesRegistry {
                 .setCustomClientFactory((spawnEntity, world) -> new AridWarrior(world))
                 .build("arid_warrior").setRegistryName(DivineRPG.MODID, "arid_warrior"));
         registry.register(EntityType.Builder.create(PumpkinSpider::new, EntityClassification.MONSTER)
-                .size(1.25F, 1F)
+                .size(0.6F, 0.85F)
                 .setCustomClientFactory((spawnEntity, world) -> new PumpkinSpider(world))
                 .build("pumpkin_spider").setRegistryName(DivineRPG.MODID, "pumpkin_spider"));
 
@@ -333,6 +337,11 @@ public class EntitiesRegistry {
             put("weak_cori", WeakCori::new);
             put("advanced_cori", AdvancedCori::new);
         }}, 0.6F, 1.5F);
+
+        registry.register(EntityType.Builder.create(MoonWolf::new, EntityClassification.CREATURE)
+                .size(1.25F, 1F)
+                .setCustomClientFactory((spawnEntity, world) -> new MoonWolf(world))
+                .build("moon_wolf").setRegistryName(DivineRPG.MODID, "moon_wolf"));
 
     }
 
@@ -377,11 +386,14 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(AridWarrior.class, AridWarriorRender::new);
         RenderingRegistry.registerEntityRenderingHandler(PumpkinSpider.class, PumpkinSpiderRender::new);
 
+
         registerForOneRender(TomoRender::new, EdenTomo.class, WildwoodTomo.class, ApalachiaTomo.class);
         registerForOneRender(CadilionRender::new, EdenCadilion.class, WildwoodCadilion.class, ApalachiaCadilion.class,
                 MortumCadilion.class);
 
         registerForOneRender(CoriRender::new, WeakCori.class, AdvancedCori.class);
+
+        RenderingRegistry.registerEntityRenderingHandler(MoonWolf.class, MoonWolfRender::new);
     }
 
 

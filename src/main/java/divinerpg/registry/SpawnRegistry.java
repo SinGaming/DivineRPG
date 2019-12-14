@@ -83,6 +83,7 @@ public class SpawnRegistry {
 
         wildwoodCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_tomo, 4, 4, 4));
         wildwoodCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_cadillion, 4, 4, 4));
+        wildwoodCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.moon_wolf, 4, 4, 4));
 
         /////////////
         // Apalachia

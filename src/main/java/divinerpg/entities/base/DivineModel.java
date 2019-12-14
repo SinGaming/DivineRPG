@@ -1,5 +1,6 @@
 package divinerpg.entities.base;
 
+import divinerpg.utils.ReflectionHelper;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.entity.Entity;
@@ -36,10 +37,7 @@ public class DivineModel<T extends Entity> extends EntityModel<T> {
      * @return
      */
     private List<RendererModel> getRenderers() {
-        List<RendererModel> result = getDistinct(this.getClass().getFields());
-        result.addAll(getDistinct(this.getClass().getDeclaredFields()));
-
-        return result.stream().distinct().collect(Collectors.toList());
+        return ReflectionHelper.getDeclaredFieldsValues(this, RendererModel.class);
     }
 
     private List<RendererModel> getDistinct(Field[] fields) {
