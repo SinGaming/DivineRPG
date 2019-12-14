@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
+import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -16,16 +17,17 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
-public class DivineArrowEntity extends ArrowEntity implements ITextured {
-    private static final DataParameter<String> NAME = EntityDataManager.createKey(DivineArrowEntity.class, DataSerializers.STRING);
-    private static final DataParameter<String> POWER = EntityDataManager.createKey(DivineArrowEntity.class, DataSerializers.STRING);
+public class DivineArrow extends ArrowEntity implements ITextured {
+    private static final DataParameter<String> NAME = EntityDataManager.createKey(DivineArrow.class, DataSerializers.STRING);
+    private static final DataParameter<String> POWER = EntityDataManager.createKey(DivineArrow.class, DataSerializers.STRING);
 
-    protected DivineArrowEntity(World world) {
+    protected DivineArrow(World world) {
         super(EntitiesRegistry.arrow_entity, world);
     }
 
-    public DivineArrowEntity(EntityType<? extends Entity> type, World world) {
+    public DivineArrow(EntityType<? extends Entity> type, World world) {
         this(world);
     }
 
@@ -38,7 +40,7 @@ public class DivineArrowEntity extends ArrowEntity implements ITextured {
      * @param damage  - damage amount
      * @param powers  - name of possible powers, separated by ';'. Currently only 'explosion', use potion Effects for others
      */
-    public DivineArrowEntity(World worldIn, LivingEntity shooter, String name, double damage, String powers) {
+    public DivineArrow(World worldIn, LivingEntity shooter, String name, double damage, String powers) {
         this(worldIn);
 
         setDamage(damage);
@@ -96,5 +98,10 @@ public class DivineArrowEntity extends ArrowEntity implements ITextured {
 
     public ResourceLocation getTexture() {
         return CachedTexture.PROJECTILES.getTexture(getDataManager().get(NAME));
+    }
+
+    @Override
+    public IPacket<?> createSpawnPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

@@ -1,6 +1,6 @@
 package divinerpg.items;
 
-import divinerpg.entities.projectiles.DivineArrow.DivineArrowEntity;
+import divinerpg.entities.projectiles.DivineArrow.DivineArrow;
 import divinerpg.utils.properties.item.ExtendedItemProperties;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -143,7 +143,7 @@ public class DivineBowItem extends BowItem {
     }
 
     protected AbstractArrowEntity createNew(World world, ItemStack ammo, PlayerEntity player, String arrowName) {
-        DivineArrowEntity arrowEntity = new DivineArrowEntity(world, player, arrowName, this.damage, this.power);
+        DivineArrow arrowEntity = new DivineArrow(world, player, arrowName, this.damage, this.power);
         arrowEntity.setPotionEffect(ammo);
         effects.forEach(arrowEntity::addEffect);
         return arrowEntity;

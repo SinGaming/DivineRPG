@@ -16,8 +16,8 @@ import divinerpg.entities.fireball.FrostFireball;
 import divinerpg.entities.fireball.ScorcherFireball;
 import divinerpg.entities.projectiles.Bullet.BulletEntity;
 import divinerpg.entities.projectiles.Bullet.BulletEntityRender;
-import divinerpg.entities.projectiles.DivineArrow.DivineArrowEntity;
-import divinerpg.entities.projectiles.DivineArrow.DivineEntityRender;
+import divinerpg.entities.projectiles.DivineArrow.DivineArrow;
+import divinerpg.entities.projectiles.DivineArrow.DivineArrowRender;
 import divinerpg.entities.projectiles.ItemBulletEntity;
 import divinerpg.entities.twilight.cadilion.CadilionRender;
 import divinerpg.entities.twilight.cadilion.enitities.ApalachiaCadilion;
@@ -118,7 +118,7 @@ public class EntitiesRegistry {
     @ObjectHolder("bullet_entity")
     public static final EntityType<BulletEntity> bullet_entity = null;
     @ObjectHolder("arrow_entity")
-    public static final EntityType<DivineArrowEntity> arrow_entity = null;
+    public static final EntityType<DivineArrow> arrow_entity = null;
 
     @ObjectHolder("divine_fireball")
     public static final EntityType<DivineFireball> divine_fireball = null;
@@ -222,7 +222,7 @@ public class EntitiesRegistry {
 
         registerBulletEntity(registry, ItemBulletEntity::new, w -> bullet_item_entity.create(w), "bullet_item_entity");
         registerBulletEntity(registry, BulletEntity::new, w -> bullet_entity.create(w), "bullet_entity");
-        registerBulletEntity(registry, DivineArrowEntity::new, w -> arrow_entity.create(w), "arrow_entity");
+        registerBulletEntity(registry, DivineArrow::new, w -> arrow_entity.create(w), "arrow_entity");
         registerBulletEntity(registry, FrostFireball::new, w -> frost_shot.create(w), "frost_fireball");
         registerBulletEntity(registry, ScorcherFireball::new, w -> scorcher_fireball.create(w), "scorcher_fireball");
 
@@ -404,7 +404,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(FrostFireball.class, BulletEntityRender::new);
         RenderingRegistry.registerEntityRenderingHandler(ScorcherFireball.class, BulletEntityRender::new);
 
-        RenderingRegistry.registerEntityRenderingHandler(DivineArrowEntity.class, DivineEntityRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(DivineArrow.class, DivineArrowRender::new);
         RenderingRegistry.registerEntityRenderingHandler(ItemBulletEntity.class, factory -> new SpriteRenderer<>(factory, itemRenderer));
 
         RenderingRegistry.registerEntityRenderingHandler(EnthralledDramcryx.class, EnthralledDramcryxRender::new);

@@ -1,6 +1,6 @@
 package divinerpg.entities.base;
 
-import divinerpg.entities.projectiles.DivineArrow.DivineArrowEntity;
+import divinerpg.entities.projectiles.DivineArrow.DivineArrow;
 import divinerpg.items.DivineBowItem;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -79,7 +79,7 @@ public class DivineArcher extends PeacefullDivineMonster implements IRangedAttac
 
     protected <T extends Entity & IProjectile> T createArrow(ItemStack arrow, float distance) {
         EntityDataManager manager = getDataManager();
-        AbstractArrowEntity bullet = new DivineArrowEntity(this.world, this, manager.get(NAME), manager.get(DAMAGE), manager.get(POWER));
+        AbstractArrowEntity bullet = new DivineArrow(this.world, this, manager.get(NAME), manager.get(DAMAGE), manager.get(POWER));
 
         if (this.getHeldItemMainhand().getItem() instanceof net.minecraft.item.BowItem)
             bullet = ((net.minecraft.item.BowItem) this.getHeldItemMainhand().getItem()).customeArrow(bullet);

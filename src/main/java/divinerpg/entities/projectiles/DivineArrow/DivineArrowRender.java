@@ -6,16 +6,15 @@ import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
 
-// TODO not working
-public class DivineEntityRender extends ArrowRenderer<DivineArrowEntity> {
+public class DivineArrowRender extends ArrowRenderer<DivineArrow> {
 
-    public DivineEntityRender(EntityRendererManager manager) {
+    public DivineArrowRender(EntityRendererManager manager) {
         super(manager);
     }
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(DivineArrowEntity entity) {
+    protected ResourceLocation getEntityTexture(DivineArrow entity) {
         return entity.getTexture();
     }
 }
