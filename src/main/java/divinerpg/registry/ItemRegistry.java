@@ -308,6 +308,10 @@ public class ItemRegistry {
     public static Item healing_stone;
     @ObjectHolder("eden_sparkles")
     public static Item eden_sparkles;
+    @ObjectHolder("eden_bow")
+    public static DivineBowItem eden_bow;
+    @ObjectHolder("eden_arrow")
+    public static Item eden_arrow;
 
 
     @SubscribeEvent
@@ -867,6 +871,13 @@ public class ItemRegistry {
 
         registry.register(new HealingStone(itemTabProperty).setRegistryName(DivineRPG.MODID, "healing_stone"));
         registry.register(new HealingStone(itemTabProperty).setRegistryName(DivineRPG.MODID, "eden_sparkles"));
+
+        registry.register(new Item(new Item.Properties().group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "eden_arrow"));
+        registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withUseDuration(72000)
+                .withAmmo(() -> eden_arrow, 1)
+                .group(DivineRPGTabs.DivineRanged), 9, "", SoundEvents.ENTITY_ARROW_SHOOT, "eden_arrow")
+                .setRegistryName(DivineRPG.MODID, "eden_bow"));
     }
 
     private static void registerColors(IForgeRegistry<Item> registry, Function<String, Item> createFunc, String... colors) {

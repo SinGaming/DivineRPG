@@ -8,9 +8,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.RangedAttackGoal;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
@@ -37,9 +34,7 @@ public class Cavelops extends DivineArcher {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
-        this.goalSelector.addGoal(1, new RangedAttackGoal(this, 0.27F, 30, 10.0F));
+        registerAttackAI(0.27F, 30, 10.0F);
     }
 
     @Override

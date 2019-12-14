@@ -65,17 +65,19 @@ public class SpawnRegistry {
         List<Biome.SpawnListEntry> edenMonsters = BiomeRegisty.EDEN.getSpawns(EntityClassification.MONSTER);
         List<Biome.SpawnListEntry> edenCreatures = BiomeRegisty.EDEN.getSpawns(EntityClassification.CREATURE);
 
-        edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_tomo, 20, 4, 4));
-        edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_cadillion, 20, 4, 4));
-        edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.weak_cori, 1, 4, 4));
-        edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.bunny, 20, 4, 4));
+        Arrays.asList(new Biome.SpawnListEntry(EntitiesRegistry.eden_tomo, 20, 4, 4),
+                new Biome.SpawnListEntry(EntitiesRegistry.eden_cadillion, 20, 4, 4),
+                new Biome.SpawnListEntry(EntitiesRegistry.weak_cori, 1, 4, 4),
+                new Biome.SpawnListEntry(EntitiesRegistry.bunny, 20, 4, 4),
+                new Biome.SpawnListEntry(EntitiesRegistry.sun_archer, 6, 4, 4)
+        ).forEach(x -> {
+            edenCreatures.add(x);
+            edenMonsters.add(x);
+        });
+
         edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.greenfeet, 20, 4, 4));
         edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.madivel, 20, 4, 4));
 
-        edenCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_tomo, 20, 4, 4));
-        edenCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_cadillion, 20, 4, 4));
-        edenCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.weak_cori, 1, 4, 4));
-        edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.bunny, 20, 4, 4));
 
         ////////////
         // Wildwood

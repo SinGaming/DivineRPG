@@ -3,7 +3,10 @@ package divinerpg.entities.base;
 import divinerpg.entities.projectiles.DivineArrow.DivineArrowEntity;
 import divinerpg.items.DivineBowItem;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -23,18 +26,18 @@ public class DivineArcher extends PeacefullDivineMonster implements IRangedAttac
     private static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(DivineArcher.class, DataSerializers.FLOAT);
 
     @Deprecated
-    protected DivineArcher(World world) {
+    public DivineArcher(World world) {
         super(world);
     }
 
-    protected DivineArcher(EntityType<? extends MonsterEntity> type, World world, SoundEvent hurt,
-                           SoundEvent ambient, float eyeHight, DivineBowItem bow) {
+    public DivineArcher(EntityType<? extends MonsterEntity> type, World world, SoundEvent hurt,
+                        SoundEvent ambient, float eyeHight, DivineBowItem bow) {
         this(type, world, hurt, ambient, eyeHight, bow.damage, bow.arrowName, bow.power, new ItemStack(bow));
     }
 
-    protected DivineArcher(EntityType<? extends MonsterEntity> type, World world, SoundEvent hurt,
-                           SoundEvent ambient, float eyeHight, float damage, String arrowName, String powers,
-                           ItemStack mainHand) {
+    public DivineArcher(EntityType<? extends MonsterEntity> type, World world, SoundEvent hurt,
+                        SoundEvent ambient, float eyeHight, float damage, String arrowName, String powers,
+                        ItemStack mainHand) {
         super(type, world, hurt, ambient, eyeHight);
 
         EntityDataManager manager = getDataManager();
@@ -87,5 +90,17 @@ public class DivineArcher extends PeacefullDivineMonster implements IRangedAttac
     @Override
     public boolean isAggressive() {
         return super.isAggressive() || getAttackTarget() != null;
+    }
+
+    /**
+     * Adding bow attack AI
+     *
+     * @param movespeed           - base value 1
+     * @param maxAttackTime       - base value 20
+     * @param maxAttackDistanceIn - base value - 15
+     */
+    protected void registerAttackAI(double movespeed, int maxAttackTime, float maxAttackDistanceIn) {
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.goalSelector.addGoal(1, new RangedAttackGoal(this, movespeed, maxAttackTime, maxAttackDistanceIn));
     }
 }

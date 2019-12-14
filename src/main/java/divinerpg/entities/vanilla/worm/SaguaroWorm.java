@@ -7,9 +7,6 @@ import divinerpg.registry.SoundRegistry;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.RangedAttackGoal;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.math.BlockPos;
@@ -36,10 +33,9 @@ public class SaguaroWorm extends DivineArcher {
 
     @Override
     protected void registerGoals() {
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+        registerAttackAI(1, 50, 10);
 
-        this.goalSelector.addGoal(1, new RangedAttackGoal(this, 1, 60, 10.0F));
+        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1, true));
     }
 
