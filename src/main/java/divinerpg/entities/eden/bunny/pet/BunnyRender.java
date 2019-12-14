@@ -1,10 +1,10 @@
 package divinerpg.entities.eden.bunny.pet;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import divinerpg.entities.base.DivineRender;
 import divinerpg.utils.CachedTexture;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nullable;
 
@@ -32,7 +32,7 @@ public class BunnyRender extends DivineRender<Bunny, BunnyModel> {
         super.preRenderCallback(bunny, partialTickTime);
 
         if (bunny.isTamed() && bunny.isAggressive()) {
-            GL11.glScaled(1.2, 1.2, 1.2);
+            GlStateManager.scalef(1.2F, 1.2F, 1.2F);
         }
     }
 }

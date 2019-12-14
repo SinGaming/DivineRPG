@@ -6,6 +6,8 @@ import divinerpg.entities.eden.bunny.angry.AngryBunny;
 import divinerpg.entities.eden.bunny.angry.AngryBunnyRender;
 import divinerpg.entities.eden.bunny.pet.Bunny;
 import divinerpg.entities.eden.bunny.pet.BunnyRender;
+import divinerpg.entities.eden.feet.Greenfeet;
+import divinerpg.entities.eden.feet.GreenfeetRender;
 import divinerpg.entities.fireball.FrostFireball;
 import divinerpg.entities.fireball.ScorcherFireball;
 import divinerpg.entities.projectiles.Bullet.BulletEntity;
@@ -203,6 +205,8 @@ public class EntitiesRegistry {
     public static EntityType<Bunny> bunny;
     @ObjectHolder("angry_bunny")
     public static EntityType<AngryBunny> angry_bunny;
+    @ObjectHolder("greenfeet")
+    public static EntityType<Greenfeet> greenfeet;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -368,6 +372,10 @@ public class EntitiesRegistry {
                 .size(1.1F, 1.8F)
                 .setCustomClientFactory((spawnEntity, world) -> new AngryBunny(world))
                 .build("angry_bunny").setRegistryName(DivineRPG.MODID, "angry_bunny"));
+        registry.register(EntityType.Builder.create(Greenfeet::new, EntityClassification.MONSTER)
+                .size(1, 2)
+                .setCustomClientFactory((spawnEntity, world) -> new Greenfeet(world))
+                .build("greenfeet").setRegistryName(DivineRPG.MODID, "greenfeet"));
 
     }
 
@@ -422,6 +430,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(HellPig.class, HellPigRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Bunny.class, BunnyRender::new);
         RenderingRegistry.registerEntityRenderingHandler(AngryBunny.class, AngryBunnyRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Greenfeet.class, GreenfeetRender::new);
     }
 
 
