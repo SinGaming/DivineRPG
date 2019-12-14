@@ -8,6 +8,8 @@ import divinerpg.entities.eden.bunny.pet.Bunny;
 import divinerpg.entities.eden.bunny.pet.BunnyRender;
 import divinerpg.entities.eden.feet.Greenfeet;
 import divinerpg.entities.eden.feet.GreenfeetRender;
+import divinerpg.entities.eden.madivel.Madivel;
+import divinerpg.entities.eden.madivel.MadivelRender;
 import divinerpg.entities.fireball.FrostFireball;
 import divinerpg.entities.fireball.ScorcherFireball;
 import divinerpg.entities.projectiles.Bullet.BulletEntity;
@@ -207,6 +209,8 @@ public class EntitiesRegistry {
     public static EntityType<AngryBunny> angry_bunny;
     @ObjectHolder("greenfeet")
     public static EntityType<Greenfeet> greenfeet;
+    @ObjectHolder("madivel")
+    public static EntityType<Madivel> madivel;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -376,6 +380,12 @@ public class EntitiesRegistry {
                 .size(1, 2)
                 .setCustomClientFactory((spawnEntity, world) -> new Greenfeet(world))
                 .build("greenfeet").setRegistryName(DivineRPG.MODID, "greenfeet"));
+        registry.register(EntityType.Builder.create(Madivel::new, EntityClassification.MONSTER)
+                .size(0.6F, 2.9F)
+                .setCustomClientFactory((spawnEntity, world) -> new Madivel(world))
+                .build("madivel").setRegistryName(DivineRPG.MODID, "madivel"));
+
+
 
     }
 
@@ -431,6 +441,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Bunny.class, BunnyRender::new);
         RenderingRegistry.registerEntityRenderingHandler(AngryBunny.class, AngryBunnyRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Greenfeet.class, GreenfeetRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Madivel.class, MadivelRender::new);
     }
 
 
