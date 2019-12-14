@@ -11,11 +11,11 @@ import net.minecraft.world.World;
 
 public abstract class DivineMonster extends PeacefullDivineMonster {
 
-    protected DivineMonster(World world) {
+    public DivineMonster(World world) {
         super(world);
     }
 
-    protected DivineMonster(EntityType<? extends MonsterEntity> type, World world, SoundEvent hurt, SoundEvent ambient, float eyeHight) {
+    public DivineMonster(EntityType<? extends MonsterEntity> type, World world, SoundEvent hurt, SoundEvent ambient, float eyeHight) {
         super(type, world, hurt, ambient, eyeHight);
     }
 

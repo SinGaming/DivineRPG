@@ -68,10 +68,12 @@ public class SpawnRegistry {
         edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_tomo, 20, 4, 4));
         edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_cadillion, 20, 4, 4));
         edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.weak_cori, 1, 4, 4));
+        edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.bunny, 20, 4, 4));
 
         edenCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_tomo, 20, 4, 4));
         edenCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.eden_cadillion, 20, 4, 4));
         edenCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.weak_cori, 1, 4, 4));
+        edenMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.bunny, 20, 4, 4));
 
         ////////////
         // Wildwood

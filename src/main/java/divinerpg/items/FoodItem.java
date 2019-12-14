@@ -18,6 +18,7 @@ public class FoodItem extends Item {
     @Override
     public int getUseDuration(ItemStack stack) {
         if (isInstant)
+            // should be greater than zero
             return 1;
 
         return super.getUseDuration(stack);

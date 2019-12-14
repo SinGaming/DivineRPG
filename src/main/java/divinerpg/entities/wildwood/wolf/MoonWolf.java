@@ -18,18 +18,12 @@ public class MoonWolf extends DivineWolf {
     @Override
     protected float getWolfHealth() {
         return isTamed()
-                ? 20
+                ? 250
                 : 200;
-    }
-
-    @Override
-    protected int getTamingChance() {
-        return 20;
     }
 
     @Override
     protected float getAttack() {
         return 10;
     }
-
 }

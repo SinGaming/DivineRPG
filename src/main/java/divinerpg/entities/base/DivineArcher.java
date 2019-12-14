@@ -17,13 +17,10 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class DivineArcher extends PeacefullDivineMonster implements IRangedAttackMob {
     private static final DataParameter<String> NAME = EntityDataManager.createKey(DivineArcher.class, DataSerializers.STRING);
     private static final DataParameter<String> POWER = EntityDataManager.createKey(DivineArcher.class, DataSerializers.STRING);
     private static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(DivineArcher.class, DataSerializers.FLOAT);
-    private static final DataParameter<Boolean> AGGRESSIVE = EntityDataManager.createKey(DivineArcher.class, DataSerializers.BOOLEAN);
 
     @Deprecated
     protected DivineArcher(World world) {
@@ -57,7 +54,6 @@ public class DivineArcher extends PeacefullDivineMonster implements IRangedAttac
         manager.register(DAMAGE, 0F);
         manager.register(NAME, "");
         manager.register(POWER, "");
-        manager.register(AGGRESSIVE, false);
     }
 
     @Override
@@ -89,14 +85,7 @@ public class DivineArcher extends PeacefullDivineMonster implements IRangedAttac
     }
 
     @Override
-    public void setAttackTarget(@Nullable LivingEntity e) {
-        super.setAttackTarget(e);
-
-        getDataManager().set(AGGRESSIVE, e != null);
-    }
-
-    @Override
     public boolean isAggressive() {
-        return super.isAggressive() || getDataManager().get(AGGRESSIVE);
+        return super.isAggressive() || getAttackTarget() != null;
     }
 }

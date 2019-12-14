@@ -38,7 +38,7 @@ public class HellPig extends DivineWolf {
     @Override
     protected float getWolfHealth() {
         return isTamed()
-                ? 20
+                ? 80
                 : 50;
     }
 

@@ -20,7 +20,6 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import java.util.UUID;
 
 public abstract class DivineWolf extends WolfEntity {
-
     @Deprecated
     protected DivineWolf(World w) {
         this(EntityType.WOLF, w);
@@ -163,6 +162,11 @@ public abstract class DivineWolf extends WolfEntity {
     @Override
     public boolean canDespawn(double distanceToClosestPlayer) {
         return !isTamed() && super.canDespawn(distanceToClosestPlayer);
+    }
+
+    @Override
+    public boolean isAggressive() {
+        return super.isAggressive() || getAttackTarget() != null || getRevengeTarget() != null;
     }
 
     ///////////////////////

@@ -306,6 +306,8 @@ public class ItemRegistry {
 
     @ObjectHolder("healing_stone")
     public static Item healing_stone;
+    @ObjectHolder("eden_sparkles")
+    public static Item eden_sparkles;
 
 
     @SubscribeEvent
@@ -864,7 +866,7 @@ public class ItemRegistry {
                 ).disableSword(true).group(DivineRPGTabs.DivineTools).maxDamage(15)).setRegistryName(DivineRPG.MODID, "serenade_of_health"));
 
         registry.register(new HealingStone(itemTabProperty).setRegistryName(DivineRPG.MODID, "healing_stone"));
-
+        registry.register(new HealingStone(itemTabProperty).setRegistryName(DivineRPG.MODID, "eden_sparkles"));
     }
 
     private static void registerColors(IForgeRegistry<Item> registry, Function<String, Item> createFunc, String... colors) {

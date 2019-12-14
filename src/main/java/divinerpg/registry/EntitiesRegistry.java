@@ -2,6 +2,10 @@ package divinerpg.registry;
 
 import divinerpg.DivineRPG;
 import divinerpg.entities.base.DivineFireball;
+import divinerpg.entities.eden.bunny.angry.AngryBunny;
+import divinerpg.entities.eden.bunny.angry.AngryBunnyRender;
+import divinerpg.entities.eden.bunny.pet.Bunny;
+import divinerpg.entities.eden.bunny.pet.BunnyRender;
 import divinerpg.entities.fireball.FrostFireball;
 import divinerpg.entities.fireball.ScorcherFireball;
 import divinerpg.entities.projectiles.Bullet.BulletEntity;
@@ -195,6 +199,10 @@ public class EntitiesRegistry {
     public static EntityType<MoonWolf> moon_wolf;
     @ObjectHolder("hell_pig")
     public static EntityType<HellPig> hell_pig;
+    @ObjectHolder("bunny")
+    public static EntityType<Bunny> bunny;
+    @ObjectHolder("angry_bunny")
+    public static EntityType<AngryBunny> angry_bunny;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -351,6 +359,15 @@ public class EntitiesRegistry {
                 .size(1, 0.9F)
                 .setCustomClientFactory((spawnEntity, world) -> new HellPig(world))
                 .build("hell_pig").setRegistryName(DivineRPG.MODID, "hell_pig"));
+        registry.register(EntityType.Builder.create(Bunny::new, EntityClassification.CREATURE)
+                .size(0.5F, 0.7F)
+                .setCustomClientFactory((spawnEntity, world) -> new Bunny(world))
+                .build("bunny").setRegistryName(DivineRPG.MODID, "bunny"));
+
+        registry.register(EntityType.Builder.create(AngryBunny::new, EntityClassification.MONSTER)
+                .size(1.1F, 1.8F)
+                .setCustomClientFactory((spawnEntity, world) -> new AngryBunny(world))
+                .build("angry_bunny").setRegistryName(DivineRPG.MODID, "angry_bunny"));
 
     }
 
@@ -403,6 +420,8 @@ public class EntitiesRegistry {
 
         RenderingRegistry.registerEntityRenderingHandler(MoonWolf.class, MoonWolfRender::new);
         RenderingRegistry.registerEntityRenderingHandler(HellPig.class, HellPigRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Bunny.class, BunnyRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(AngryBunny.class, AngryBunnyRender::new);
     }
 
 

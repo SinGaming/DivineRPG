@@ -19,10 +19,6 @@ public class CachedTexture {
     }
 
     public ResourceLocation getTexture(String name) {
-        if (!values.containsKey(name)) {
-            values.put(name, new ResourceLocation(DivineRPG.MODID, String.format(pattern, name)));
-        }
-
-        return values.get(name);
+        return values.computeIfAbsent(name, key -> new ResourceLocation(DivineRPG.MODID, String.format(pattern, name)));
     }
 }
