@@ -55,6 +55,8 @@ import divinerpg.entities.vanilla.koblin.Kobblin;
 import divinerpg.entities.vanilla.koblin.KobblinRender;
 import divinerpg.entities.vanilla.miner.Miner;
 import divinerpg.entities.vanilla.miner.MinerRender;
+import divinerpg.entities.vanilla.pig.HellPig;
+import divinerpg.entities.vanilla.pig.HellPigRender;
 import divinerpg.entities.vanilla.rotatick.Rotatick;
 import divinerpg.entities.vanilla.rotatick.RotatickRender;
 import divinerpg.entities.vanilla.scorcher.Scorcher;
@@ -191,6 +193,8 @@ public class EntitiesRegistry {
     public static EntityType<AdvancedCori> advanced_cori;
     @ObjectHolder("moon_wolf")
     public static EntityType<MoonWolf> moon_wolf;
+    @ObjectHolder("hell_pig")
+    public static EntityType<HellPig> hell_pig;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -339,9 +343,14 @@ public class EntitiesRegistry {
         }}, 0.6F, 1.5F);
 
         registry.register(EntityType.Builder.create(MoonWolf::new, EntityClassification.CREATURE)
-                .size(1.25F, 1F)
+                .size(1.25F, 1)
                 .setCustomClientFactory((spawnEntity, world) -> new MoonWolf(world))
                 .build("moon_wolf").setRegistryName(DivineRPG.MODID, "moon_wolf"));
+
+        registry.register(EntityType.Builder.create(HellPig::new, EntityClassification.CREATURE)
+                .size(1, 0.9F)
+                .setCustomClientFactory((spawnEntity, world) -> new HellPig(world))
+                .build("hell_pig").setRegistryName(DivineRPG.MODID, "hell_pig"));
 
     }
 
@@ -386,7 +395,6 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(AridWarrior.class, AridWarriorRender::new);
         RenderingRegistry.registerEntityRenderingHandler(PumpkinSpider.class, PumpkinSpiderRender::new);
 
-
         registerForOneRender(TomoRender::new, EdenTomo.class, WildwoodTomo.class, ApalachiaTomo.class);
         registerForOneRender(CadilionRender::new, EdenCadilion.class, WildwoodCadilion.class, ApalachiaCadilion.class,
                 MortumCadilion.class);
@@ -394,6 +402,7 @@ public class EntitiesRegistry {
         registerForOneRender(CoriRender::new, WeakCori.class, AdvancedCori.class);
 
         RenderingRegistry.registerEntityRenderingHandler(MoonWolf.class, MoonWolfRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(HellPig.class, HellPigRender::new);
     }
 
 

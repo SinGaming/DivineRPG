@@ -50,6 +50,7 @@ public class SpawnRegistry {
         addMonterInBiomes(EntitiesRegistry.scorcher, 7, 4, 4, BiomeDictionary.Type.NETHER);
         addMonterInBiomes(EntitiesRegistry.wildfire, 50, 1, 1, BiomeDictionary.Type.NETHER);
         addMonterInBiomes(EntitiesRegistry.hell_bat, 50, 1, 1, BiomeDictionary.Type.NETHER);
+        addInBiomes(EntitiesRegistry.hell_pig, EntityClassification.CREATURE, 25, 5, 50, BiomeDictionary.Type.NETHER);
 
         addToSpawn(EntitiesRegistry.ender_spider, EntityClassification.MONSTER, filter(true, BiomeDictionary.Type.END),
                 2, 1, 4);
@@ -117,9 +118,13 @@ public class SpawnRegistry {
     }
 
     private static void addMonterInBiomes(EntityType type, int weight, int min, int max, BiomeDictionary.Type... types) {
+        addInBiomes(type, EntityClassification.MONSTER, weight, min, max, types);
+    }
+
+    private static void addInBiomes(EntityType type, EntityClassification classification, int weight, int min, int max, BiomeDictionary.Type... types) {
         EntitySpawnPlacementRegistry.register(type, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223324_d);
 
-        addToSpawn(type, EntityClassification.MONSTER, filter(true, types), weight, min, max);
+        addToSpawn(type, classification, filter(true, types), weight, min, max);
     }
 
     private static Stream<Biome> filter(boolean isInclude, BiomeDictionary.Type... types) {

@@ -16,11 +16,6 @@ public class MoonWolf extends DivineWolf {
     }
 
     @Override
-    protected boolean isDyeable() {
-        return false;
-    }
-
-    @Override
     protected float getWolfHealth() {
         return isTamed()
                 ? 20

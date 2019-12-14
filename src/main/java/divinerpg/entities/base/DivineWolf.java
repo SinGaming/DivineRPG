@@ -33,7 +33,10 @@ public abstract class DivineWolf extends WolfEntity {
     @Override
     protected void registerGoals() {
         this.sitGoal = new SitGoal(this);
-        this.goalSelector.addGoal(2, this.sitGoal);
+
+        if (canSeat())
+            this.goalSelector.addGoal(2, this.sitGoal);
+
         this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4F));
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F));
@@ -68,7 +71,7 @@ public abstract class DivineWolf extends WolfEntity {
                         this.heal((float) item.getFood().getHealing());
                         return true;
                     }
-                } else if (isDyeable() && item instanceof DyeItem) {
+                } else if (canBeTamable() && item instanceof DyeItem) {
                     DyeColor dyecolor = ((DyeItem) item).getDyeColor();
                     if (dyecolor != this.getCollarColor()) {
                         this.setCollarColor(dyecolor);
@@ -157,6 +160,11 @@ public abstract class DivineWolf extends WolfEntity {
         return target != owner;
     }
 
+    @Override
+    public boolean canDespawn(double distanceToClosestPlayer) {
+        return !isTamed() && super.canDespawn(distanceToClosestPlayer);
+    }
+
     ///////////////////////
     // Helping methods
     /////////////////////
@@ -210,10 +218,6 @@ public abstract class DivineWolf extends WolfEntity {
         return stack.getItem() == Items.BONE;
     }
 
-    protected boolean isDyeable() {
-        return true;
-    }
-
     protected boolean canBeTamable() {
         return true;
     }
@@ -232,6 +236,10 @@ public abstract class DivineWolf extends WolfEntity {
 
     protected boolean canAcceptFood(Food food) {
         return food.isMeat();
+    }
+
+    protected boolean canSeat() {
+        return true;
     }
 }
 
