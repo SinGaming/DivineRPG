@@ -105,6 +105,7 @@ public class SpawnRegistry {
         apalachiaMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.apalachia_tomo, 2, 4, 4));
         apalachiaMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.apalachia_cadillion, 2, 4, 4));
         apalachiaMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.apalachia_golem, 2, 4, 4));
+        apalachiaMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.enchanted_archer, 2, 4, 4));
 
         ///////////////
         // Skythern

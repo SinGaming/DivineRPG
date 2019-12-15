@@ -1,6 +1,8 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
+import divinerpg.entities.apalachia.archer.EnchantedArcher;
+import divinerpg.entities.apalachia.archer.EnchantedArcherRender;
 import divinerpg.entities.base.DivineFireball;
 import divinerpg.entities.eden.archer.SunArcher;
 import divinerpg.entities.eden.archer.SunArcherRender;
@@ -229,6 +231,8 @@ public class EntitiesRegistry {
     public static EntityType<ApalachiaGolem> apalachia_golem;
     @ObjectHolder("skythern_golem")
     public static EntityType<SkythernGolem> skythern_golem;
+    @ObjectHolder("enchanted_archer")
+    public static EntityType<EnchantedArcher> enchanted_archer;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -417,6 +421,11 @@ public class EntitiesRegistry {
                 .immuneToFire()
                 .setCustomClientFactory((spawnEntity, world) -> new Epiphite(world))
                 .build("epiphite").setRegistryName(DivineRPG.MODID, "epiphite"));
+        registry.register(EntityType.Builder.create(EnchantedArcher::new, EntityClassification.MONSTER)
+                .size(1.8F, 3.0F)
+                .immuneToFire()
+                .setCustomClientFactory((spawnEntity, world) -> new EnchantedArcher(world))
+                .build("enchanted_archer").setRegistryName(DivineRPG.MODID, "enchanted_archer"));
 
     }
 
@@ -476,6 +485,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Madivel.class, MadivelRender::new);
         RenderingRegistry.registerEntityRenderingHandler(SunArcher.class, SunArcherRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Epiphite.class, EpiphiteRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(EnchantedArcher.class, EnchantedArcherRender::new);
     }
 
 

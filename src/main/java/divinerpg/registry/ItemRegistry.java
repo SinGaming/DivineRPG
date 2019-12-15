@@ -115,7 +115,7 @@ public class ItemRegistry {
     @ObjectHolder("hunter_bow")
     public static BowItem hunter_bow;
     @ObjectHolder("shadow_bow")
-    public static BowItem shadow_bow;
+    public static DivineBowItem shadow_bow;
     @ObjectHolder("bluefire_bow")
     public static BowItem bluefire_bow;
     @ObjectHolder("inferno_bow")
@@ -312,6 +312,10 @@ public class ItemRegistry {
     public static DivineBowItem eden_bow;
     @ObjectHolder("eden_arrow")
     public static Item eden_arrow;
+    @ObjectHolder("apalachia_bow")
+    public static DivineBowItem apalachia_bow;
+    @ObjectHolder("apalachia_arrow")
+    public static Item apalachia_arrow;
 
 
     @SubscribeEvent
@@ -878,6 +882,13 @@ public class ItemRegistry {
                 .withAmmo(() -> eden_arrow, 1)
                 .group(DivineRPGTabs.DivineRanged), 9, "", SoundEvents.ENTITY_ARROW_SHOOT, "eden_arrow")
                 .setRegistryName(DivineRPG.MODID, "eden_bow"));
+
+        registry.register(new Item(new Item.Properties().group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "apalachia_arrow"));
+        registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withUseDuration(72000)
+                .withAmmo(() -> apalachia_arrow, 1)
+                .group(DivineRPGTabs.DivineRanged), 12, "", SoundEvents.ENTITY_ARROW_SHOOT, "apalachia_arrow")
+                .setRegistryName(DivineRPG.MODID, "apalachia_bow"));
     }
 
     private static void registerColors(IForgeRegistry<Item> registry, Function<String, Item> createFunc, String... colors) {
