@@ -27,6 +27,10 @@ import divinerpg.entities.twilight.cadilion.enitities.WildwoodCadilion;
 import divinerpg.entities.twilight.cori.CoriRender;
 import divinerpg.entities.twilight.cori.entities.AdvancedCori;
 import divinerpg.entities.twilight.cori.entities.WeakCori;
+import divinerpg.entities.twilight.golem.GolemRender;
+import divinerpg.entities.twilight.golem.entities.ApalachiaGolem;
+import divinerpg.entities.twilight.golem.entities.SkythernGolem;
+import divinerpg.entities.twilight.golem.entities.WildwoodGolem;
 import divinerpg.entities.twilight.tomo.TomoRender;
 import divinerpg.entities.twilight.tomo.entities.ApalachiaTomo;
 import divinerpg.entities.twilight.tomo.entities.EdenTomo;
@@ -87,6 +91,8 @@ import divinerpg.entities.vanilla.wildfire.Wildfire;
 import divinerpg.entities.vanilla.wildfire.WildfireRender;
 import divinerpg.entities.vanilla.worm.SaguaroWorm;
 import divinerpg.entities.vanilla.worm.SaguaroWormRender;
+import divinerpg.entities.wildwood.epiphite.Epiphite;
+import divinerpg.entities.wildwood.epiphite.EpiphiteRender;
 import divinerpg.entities.wildwood.wolf.MoonWolf;
 import divinerpg.entities.wildwood.wolf.MoonWolfRender;
 import net.minecraft.client.Minecraft;
@@ -215,6 +221,14 @@ public class EntitiesRegistry {
     public static EntityType<Madivel> madivel;
     @ObjectHolder("sun_archer")
     public static EntityType<SunArcher> sun_archer;
+    @ObjectHolder("epiphite")
+    public static EntityType<Epiphite> epiphite;
+    @ObjectHolder("wildwood_golem")
+    public static EntityType<WildwoodGolem> wildwood_golem;
+    @ObjectHolder("apalachia_golem")
+    public static EntityType<ApalachiaGolem> apalachia_golem;
+    @ObjectHolder("skythern_golem")
+    public static EntityType<SkythernGolem> skythern_golem;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -362,6 +376,12 @@ public class EntitiesRegistry {
             put("advanced_cori", AdvancedCori::new);
         }}, 0.6F, 1.5F);
 
+        registerSimilarEntities(registry, new HashMap<String, Function<World, ? extends WildwoodGolem>>() {{
+            put("wildwood_golem", WildwoodGolem::new);
+            put("apalachia_golem", ApalachiaGolem::new);
+            put("skythern_golem", SkythernGolem::new);
+        }}, 1.3F, 2.9F);
+
         registry.register(EntityType.Builder.create(MoonWolf::new, EntityClassification.CREATURE)
                 .size(1.25F, 1)
                 .setCustomClientFactory((spawnEntity, world) -> new MoonWolf(world))
@@ -392,6 +412,11 @@ public class EntitiesRegistry {
                 .size(0.8F, 2.2F)
                 .setCustomClientFactory((spawnEntity, world) -> new SunArcher(world))
                 .build("sun_archer").setRegistryName(DivineRPG.MODID, "sun_archer"));
+        registry.register(EntityType.Builder.create(Epiphite::new, EntityClassification.MONSTER)
+                .size(0.9F, 1.3F)
+                .immuneToFire()
+                .setCustomClientFactory((spawnEntity, world) -> new Epiphite(world))
+                .build("epiphite").setRegistryName(DivineRPG.MODID, "epiphite"));
 
     }
 
@@ -441,6 +466,7 @@ public class EntitiesRegistry {
                 MortumCadilion.class);
 
         registerForOneRender(CoriRender::new, WeakCori.class, AdvancedCori.class);
+        registerForOneRender(GolemRender::new, WildwoodGolem.class, ApalachiaGolem.class, SkythernGolem.class);
 
         RenderingRegistry.registerEntityRenderingHandler(MoonWolf.class, MoonWolfRender::new);
         RenderingRegistry.registerEntityRenderingHandler(HellPig.class, HellPigRender::new);
@@ -449,6 +475,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Greenfeet.class, GreenfeetRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Madivel.class, MadivelRender::new);
         RenderingRegistry.registerEntityRenderingHandler(SunArcher.class, SunArcherRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Epiphite.class, EpiphiteRender::new);
     }
 
 

@@ -85,12 +85,17 @@ public class SpawnRegistry {
         List<Biome.SpawnListEntry> wildwoodMonsters = BiomeRegisty.WILDWOOD.getSpawns(EntityClassification.MONSTER);
         List<Biome.SpawnListEntry> wildwoodCreatures = BiomeRegisty.WILDWOOD.getSpawns(EntityClassification.CREATURE);
 
-        wildwoodMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_tomo, 4, 4, 4));
-        wildwoodMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_cadillion, 4, 4, 4));
+        Arrays.asList(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_tomo, 4, 4, 4),
+                new Biome.SpawnListEntry(EntitiesRegistry.wildwood_cadillion, 4, 4, 4),
+                new Biome.SpawnListEntry(EntitiesRegistry.epiphite, 1, 2, 2)
+        ).forEach(x -> {
+            wildwoodMonsters.add(x);
+            wildwoodCreatures.add(x);
+        });
 
-        wildwoodCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_tomo, 4, 4, 4));
-        wildwoodCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_cadillion, 4, 4, 4));
         wildwoodCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.moon_wolf, 4, 4, 4));
+
+        wildwoodMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_golem, 3, 4, 4));
 
         /////////////
         // Apalachia
@@ -99,6 +104,7 @@ public class SpawnRegistry {
 
         apalachiaMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.apalachia_tomo, 2, 4, 4));
         apalachiaMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.apalachia_cadillion, 2, 4, 4));
+        apalachiaMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.apalachia_golem, 2, 4, 4));
 
         ///////////////
         // Skythern
@@ -106,6 +112,7 @@ public class SpawnRegistry {
         List<Biome.SpawnListEntry> skythernMonsters = BiomeRegisty.SKYTHERN.getSpawns(EntityClassification.MONSTER);
 
         skythernMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.advanced_cori, 1, 4, 4));
+        skythernMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.skythern_golem, 4, 4, 4));
 
         ///////////////
         // Mortum
