@@ -95,4 +95,9 @@ public abstract class PeacefullDivineMonster extends MonsterEntity {
         this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(health);
         this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(attack);
     }
+
+    protected void initAttr(float health, float attack, float armor) {
+        this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(armor);
+        initAttr(health, attack);
+    }
 }

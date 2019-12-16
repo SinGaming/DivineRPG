@@ -27,7 +27,7 @@ public class EnchantedWarrior extends DivineMonster {
     protected void registerAttributes() {
         super.registerAttributes();
 
-        initAttr(200, 1);
+        initAttr(200, 1, 10);
     }
 
     @Override
@@ -41,10 +41,5 @@ public class EnchantedWarrior extends DivineMonster {
     @Override
     public void livingTick() {
         super.livingTick();
-    }
-
-    @Override
-    public int getTotalArmorValue() {
-        return 10;
     }
 }

@@ -124,10 +124,10 @@ public class DivinePortalBlock extends Block {
             }
 
             entityIn.timeUntilPortal = entityIn.getPortalCooldown();
-            // entityIn.changeDimension(destination);
+            entityIn.changeDimension(destination);
 
             // TODO currently not working
-            PortalHelper.tryChangeDimention(entityIn, destination, this, frame.get());
+            //PortalHelper.tryChangeDimention(entityIn, destination, this, frame.get());
         }
     }
 
