@@ -5,7 +5,6 @@ import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -25,8 +24,7 @@ public class Epiphite extends PeacefullDivineMonster {
     protected void registerAttributes() {
         super.registerAttributes();
 
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100);
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(14);
+        initAttr(100, 14);
     }
 
     @Override

@@ -22,7 +22,7 @@ public class Glacon extends DivineMonster {
         super.registerAttributes();
 
         this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.27D * 1.6D);
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(60.0D);
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7.0D);
+
+        initAttr(60, 7);
     }
 }

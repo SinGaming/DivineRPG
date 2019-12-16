@@ -7,7 +7,6 @@ import divinerpg.registry.SoundRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IProjectile;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
@@ -27,8 +26,7 @@ public class Cavelops extends DivineArcher {
     protected void registerAttributes() {
         super.registerAttributes();
 
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(60);
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6);
+        initAttr(60, 6);
     }
 
     @Override

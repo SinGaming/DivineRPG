@@ -4,7 +4,6 @@ import divinerpg.entities.base.PeacefullDivineMonster;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.world.World;
 
@@ -27,7 +26,6 @@ public class EdenTomo extends PeacefullDivineMonster {
     }
 
     protected void registerInner(float health, float attack) {
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(health);
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(attack);
+        initAttr(health, attack);
     }
 }

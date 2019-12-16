@@ -24,11 +24,6 @@ public class EnchantedWarrior extends DivineMonster {
     }
 
     @Override
-    public boolean attackEntityAsMob(Entity entityIn) {
-        return super.attackEntityAsMob(entityIn);
-    }
-
-    @Override
     protected void registerAttributes() {
         super.registerAttributes();
 

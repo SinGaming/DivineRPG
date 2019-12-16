@@ -5,7 +5,6 @@ import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
@@ -23,8 +22,7 @@ public class Rotatick extends DivineMonster {
     protected void registerAttributes() {
         super.registerAttributes();
 
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40);
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6);
+        initAttr(40, 6);
     }
 
     @Override

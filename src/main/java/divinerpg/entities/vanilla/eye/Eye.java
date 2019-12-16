@@ -5,7 +5,6 @@ import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -27,8 +26,7 @@ public class Eye extends DivineMonster {
     protected void registerAttributes() {
         super.registerAttributes();
 
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40);
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(10);
+        initAttr(40, 10);
     }
 
     @Override

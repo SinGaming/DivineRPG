@@ -5,7 +5,6 @@ import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.goal.FleeSunGoal;
 import net.minecraft.entity.ai.goal.RestrictSunGoal;
 import net.minecraft.world.World;
@@ -23,8 +22,7 @@ public class Greenfeet extends DivineMonster {
     protected void registerAttributes() {
         super.registerAttributes();
 
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200);
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(14);
+        initAttr(200, 14);
     }
 
     @Override

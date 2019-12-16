@@ -25,8 +25,8 @@ public class Grue extends DivineMonster {
         super.registerAttributes();
 
         this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.27D * 1.3D);
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30);
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(10);
+
+        initAttr(30, 10);
     }
 
     @Override

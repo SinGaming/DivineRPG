@@ -5,7 +5,6 @@ import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.world.World;
 
 public class AngryBunny extends DivineMonster {
@@ -22,8 +21,7 @@ public class AngryBunny extends DivineMonster {
     protected void registerAttributes() {
         super.registerAttributes();
 
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(60);
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(12);
+        initAttr(60, 12);
     }
 
 

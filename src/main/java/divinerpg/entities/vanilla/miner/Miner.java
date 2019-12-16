@@ -40,8 +40,7 @@ public class Miner extends DivineMonster {
     protected void registerAttributes() {
         super.registerAttributes();
 
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40);
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5);
+        initAttr(40, 5);
         this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(10);
     }
 

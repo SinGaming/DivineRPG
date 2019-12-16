@@ -6,7 +6,6 @@ import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.world.World;
 
@@ -24,8 +23,7 @@ public class JungleDramcryx extends DivineMonster {
     protected void registerAttributes() {
         super.registerAttributes();
 
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40);
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7);
+        initAttr(40, 7);
     }
 
     @Override

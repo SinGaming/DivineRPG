@@ -31,9 +31,8 @@ public class Kobblin extends PeacefullDivineMonster {
     protected void registerAttributes() {
         super.registerAttributes();
 
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(35);
         this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(4);
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7);
+        initAttr(35, 7);
     }
 
     @Override
