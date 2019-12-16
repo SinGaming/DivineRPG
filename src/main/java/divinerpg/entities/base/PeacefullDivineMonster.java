@@ -90,4 +90,9 @@ public abstract class PeacefullDivineMonster extends MonsterEntity {
     public float getBlockPathWeight(BlockPos pos, IWorldReader worldIn) {
         return 0;
     }
+
+    protected void initAttr(float health, float attack) {
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(health);
+        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(attack);
+    }
 }

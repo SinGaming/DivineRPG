@@ -1,6 +1,7 @@
 package divinerpg.entities.vanilla.miner;
 
 import divinerpg.entities.base.DivineMonster;
+import divinerpg.entities.goal.SunBurnGoal;
 import divinerpg.registry.EntitiesRegistry;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.BreakDoorGoal;
@@ -49,6 +50,7 @@ public class Miner extends DivineMonster {
         super.registerGoals();
 
         goalSelector.addGoal(1, new BreakDoorGoal(this, a -> true));
+        goalSelector.addGoal(2, new SunBurnGoal(this));
     }
 
     @Nullable
@@ -72,34 +74,6 @@ public class Miner extends DivineMonster {
                 : Items.WOODEN_PICKAXE;
         this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(pickaxe));
         this.setEnchantmentBasedOnDifficulty(difficulty);
-    }
-
-    @Override
-    public void livingTick() {
-        // TAKEN FROM ZOMBIE
-        if (this.isAlive()) {
-            boolean canBurn = this.isInDaylight();
-            if (canBurn) {
-                ItemStack itemstack = this.getItemStackFromSlot(EquipmentSlotType.HEAD);
-                if (!itemstack.isEmpty()) {
-                    if (itemstack.isDamageable()) {
-                        itemstack.setDamage(itemstack.getDamage() + this.rand.nextInt(2));
-                        if (itemstack.getDamage() >= itemstack.getMaxDamage()) {
-                            this.sendBreakAnimation(EquipmentSlotType.HEAD);
-                            this.setItemStackToSlot(EquipmentSlotType.HEAD, ItemStack.EMPTY);
-                        }
-                    }
-
-                    canBurn = false;
-                }
-
-                if (canBurn) {
-                    this.setFire(8);
-                }
-            }
-        }
-
-        super.livingTick();
     }
 
     @Override
