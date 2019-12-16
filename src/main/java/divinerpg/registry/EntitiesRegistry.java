@@ -35,6 +35,9 @@ import divinerpg.entities.twilight.golem.GolemRender;
 import divinerpg.entities.twilight.golem.entities.ApalachiaGolem;
 import divinerpg.entities.twilight.golem.entities.SkythernGolem;
 import divinerpg.entities.twilight.golem.entities.WildwoodGolem;
+import divinerpg.entities.twilight.mystic.Mystic;
+import divinerpg.entities.twilight.mystic.MysticRender;
+import divinerpg.entities.twilight.mystic.Spellbinder;
 import divinerpg.entities.twilight.tomo.TomoRender;
 import divinerpg.entities.twilight.tomo.entities.ApalachiaTomo;
 import divinerpg.entities.twilight.tomo.entities.EdenTomo;
@@ -237,6 +240,10 @@ public class EntitiesRegistry {
     public static EntityType<EnchantedArcher> enchanted_archer;
     @ObjectHolder("enchanted_warrior")
     public static EntityType<EnchantedWarrior> enchanted_warrior;
+    @ObjectHolder("spellbinder")
+    public static EntityType<Spellbinder> spellbinder;
+    @ObjectHolder("mystic")
+    public static EntityType<Mystic> mystic;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -390,6 +397,11 @@ public class EntitiesRegistry {
             put("skythern_golem", SkythernGolem::new);
         }}, 1.3F, 2.9F);
 
+        registerSimilarEntities(registry, new HashMap<String, Function<World, ? extends Spellbinder>>() {{
+            put("spellbinder", Spellbinder::new);
+            put("mystic", Mystic::new);
+        }}, 0.5F, 2.2F);
+
         registry.register(EntityType.Builder.create(MoonWolf::new, EntityClassification.CREATURE)
                 .size(1.25F, 1)
                 .setCustomClientFactory((spawnEntity, world) -> new MoonWolf(world))
@@ -434,8 +446,6 @@ public class EntitiesRegistry {
                 .size(0.6F, 2)
                 .setCustomClientFactory((spawnEntity, world) -> new EnchantedWarrior(world))
                 .build("enchanted_warrior").setRegistryName(DivineRPG.MODID, "enchanted_warrior"));
-
-
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -485,6 +495,7 @@ public class EntitiesRegistry {
 
         registerForOneRender(CoriRender::new, WeakCori.class, AdvancedCori.class);
         registerForOneRender(GolemRender::new, WildwoodGolem.class, ApalachiaGolem.class, SkythernGolem.class);
+        registerForOneRender(MysticRender::new, Spellbinder.class, Mystic.class);
 
         RenderingRegistry.registerEntityRenderingHandler(MoonWolf.class, MoonWolfRender::new);
         RenderingRegistry.registerEntityRenderingHandler(HellPig.class, HellPigRender::new);

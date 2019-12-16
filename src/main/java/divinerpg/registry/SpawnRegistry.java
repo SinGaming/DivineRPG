@@ -107,6 +107,7 @@ public class SpawnRegistry {
         apalachiaMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.apalachia_golem, 2, 4, 4));
         apalachiaMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.enchanted_archer, 2, 4, 4));
         apalachiaMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.enchanted_warrior, 2, 4, 4));
+        apalachiaMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.spellbinder, 1, 4, 4));
 
         ///////////////
         // Skythern
@@ -115,6 +116,7 @@ public class SpawnRegistry {
 
         skythernMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.advanced_cori, 1, 4, 4));
         skythernMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.skythern_golem, 4, 4, 4));
+        skythernMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.mystic, 2, 4, 4));
 
         ///////////////
         // Mortum

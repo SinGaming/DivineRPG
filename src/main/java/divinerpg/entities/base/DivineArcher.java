@@ -69,7 +69,7 @@ public class DivineArcher extends PeacefullDivineMonster implements IRangedAttac
         double d2 = target.posZ - this.posZ;
         double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
         lunch(bullet, d0, d1, d2, d3);
-        this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
+        this.playSound(getShootSound(), 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
         this.world.addEntity(((Entity) bullet));
     }
 
@@ -102,5 +102,9 @@ public class DivineArcher extends PeacefullDivineMonster implements IRangedAttac
     protected void registerAttackAI(double movespeed, int maxAttackTime, float maxAttackDistanceIn) {
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.goalSelector.addGoal(1, new RangedAttackGoal(this, movespeed, maxAttackTime, maxAttackDistanceIn));
+    }
+
+    protected SoundEvent getShootSound() {
+        return SoundEvents.ENTITY_SKELETON_SHOOT;
     }
 }

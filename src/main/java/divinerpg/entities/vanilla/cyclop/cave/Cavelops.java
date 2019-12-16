@@ -41,11 +41,6 @@ public class Cavelops extends DivineArcher {
     }
 
     @Override
-    protected void lunch(IProjectile bullet, double x, double y, double z, double xzVec) {
-        bullet.shoot(x, y + xzVec * 0.20000000298023224D, z, 1.6F, 12.0F);
-    }
-
-    @Override
     public float getBlockPathWeight(BlockPos pos, IWorldReader worldIn) {
         if (pos.getY() > 20) {
             return -1;
