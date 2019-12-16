@@ -117,6 +117,7 @@ public class SpawnRegistry {
         skythernMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.advanced_cori, 1, 4, 4));
         skythernMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.skythern_golem, 4, 4, 4));
         skythernMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.mystic, 2, 4, 4));
+        skythernMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.samek, 4, 4, 4));
 
         ///////////////
         // Mortum

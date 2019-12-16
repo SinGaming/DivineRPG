@@ -23,6 +23,8 @@ import divinerpg.entities.projectiles.Bullet.BulletEntityRender;
 import divinerpg.entities.projectiles.DivineArrow.DivineArrow;
 import divinerpg.entities.projectiles.DivineArrow.DivineArrowRender;
 import divinerpg.entities.projectiles.ItemBulletEntity;
+import divinerpg.entities.skythern.samek.Samek;
+import divinerpg.entities.skythern.samek.SamekRender;
 import divinerpg.entities.twilight.cadilion.CadilionRender;
 import divinerpg.entities.twilight.cadilion.enitities.ApalachiaCadilion;
 import divinerpg.entities.twilight.cadilion.enitities.EdenCadilion;
@@ -244,6 +246,8 @@ public class EntitiesRegistry {
     public static EntityType<Spellbinder> spellbinder;
     @ObjectHolder("mystic")
     public static EntityType<Mystic> mystic;
+    @ObjectHolder("samek")
+    public static EntityType<Samek> samek;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -446,6 +450,10 @@ public class EntitiesRegistry {
                 .size(0.6F, 2)
                 .setCustomClientFactory((spawnEntity, world) -> new EnchantedWarrior(world))
                 .build("enchanted_warrior").setRegistryName(DivineRPG.MODID, "enchanted_warrior"));
+        registry.register(EntityType.Builder.create(Samek::new, EntityClassification.MONSTER)
+                .size(0.6F, 2)
+                .setCustomClientFactory((spawnEntity, world) -> new Samek(world))
+                .build("samek").setRegistryName(DivineRPG.MODID, "samek"));
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -507,6 +515,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Epiphite.class, EpiphiteRender::new);
         RenderingRegistry.registerEntityRenderingHandler(EnchantedArcher.class, EnchantedArcherRender::new);
         RenderingRegistry.registerEntityRenderingHandler(EnchantedWarrior.class, EnchantedWarriorRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Samek.class, SamekRender::new);
     }
 
 
