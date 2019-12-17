@@ -1,9 +1,10 @@
-package divinerpg.entities.skythern.samek;
+package divinerpg.entities.twilight.samek;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.entity.MobEntity;
 
-public class SamekModel extends BipedModel<Samek> {
+public class SamekModel extends BipedModel<MobEntity> {
     RendererModel secondHead;
 
     public SamekModel() {
@@ -21,14 +22,14 @@ public class SamekModel extends BipedModel<Samek> {
     }
 
     @Override
-    public void render(Samek entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+    public void render(MobEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 
         secondHead.render(scale);
     }
 
     @Override
-    public void setRotationAngles(Samek entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
+    public void setRotationAngles(MobEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
         super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
 
         this.secondHead.rotateAngleX = bipedHead.rotateAngleX;

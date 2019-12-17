@@ -1,8 +1,6 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
-import divinerpg.entities.apalachia.archer.EnchantedArcher;
-import divinerpg.entities.apalachia.archer.EnchantedArcherRender;
 import divinerpg.entities.apalachia.warrior.EnchantedWarrior;
 import divinerpg.entities.apalachia.warrior.EnchantedWarriorRender;
 import divinerpg.entities.base.DivineFireball;
@@ -25,8 +23,11 @@ import divinerpg.entities.projectiles.DivineArrow.DivineArrowRender;
 import divinerpg.entities.projectiles.ItemBulletEntity;
 import divinerpg.entities.skythern.fiend.SkythernFiend;
 import divinerpg.entities.skythern.fiend.SkythernFiendRender;
-import divinerpg.entities.skythern.samek.Samek;
-import divinerpg.entities.skythern.samek.SamekRender;
+import divinerpg.entities.twilight.archer.ArcherRender;
+import divinerpg.entities.twilight.archer.entiites.EnchantedArcher;
+import divinerpg.entities.twilight.archer.entiites.SkythernArcher;
+import divinerpg.entities.twilight.archer.twilight.TwilightArcher;
+import divinerpg.entities.twilight.archer.twilight.TwilightArcherRender;
 import divinerpg.entities.twilight.cadilion.CadilionRender;
 import divinerpg.entities.twilight.cadilion.enitities.ApalachiaCadilion;
 import divinerpg.entities.twilight.cadilion.enitities.EdenCadilion;
@@ -39,9 +40,12 @@ import divinerpg.entities.twilight.golem.GolemRender;
 import divinerpg.entities.twilight.golem.entities.ApalachiaGolem;
 import divinerpg.entities.twilight.golem.entities.SkythernGolem;
 import divinerpg.entities.twilight.golem.entities.WildwoodGolem;
-import divinerpg.entities.twilight.mystic.Mystic;
 import divinerpg.entities.twilight.mystic.MysticRender;
-import divinerpg.entities.twilight.mystic.Spellbinder;
+import divinerpg.entities.twilight.mystic.entities.Mystic;
+import divinerpg.entities.twilight.mystic.entities.Spellbinder;
+import divinerpg.entities.twilight.samek.SamekRender;
+import divinerpg.entities.twilight.samek.entities.Samek;
+import divinerpg.entities.twilight.samek.entities.Verek;
 import divinerpg.entities.twilight.tomo.TomoRender;
 import divinerpg.entities.twilight.tomo.entities.ApalachiaTomo;
 import divinerpg.entities.twilight.tomo.entities.EdenTomo;
@@ -104,6 +108,8 @@ import divinerpg.entities.vanilla.worm.SaguaroWorm;
 import divinerpg.entities.vanilla.worm.SaguaroWormRender;
 import divinerpg.entities.wildwood.epiphite.Epiphite;
 import divinerpg.entities.wildwood.epiphite.EpiphiteRender;
+import divinerpg.entities.wildwood.mage.Mage;
+import divinerpg.entities.wildwood.mage.MageRender;
 import divinerpg.entities.wildwood.wolf.MoonWolf;
 import divinerpg.entities.wildwood.wolf.MoonWolfRender;
 import net.minecraft.client.Minecraft;
@@ -112,6 +118,7 @@ import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -252,6 +259,14 @@ public class EntitiesRegistry {
     public static EntityType<Samek> samek;
     @ObjectHolder("skythern_fiend")
     public static EntityType<SkythernFiend> skythern_fiend;
+    @ObjectHolder("verek")
+    public static EntityType<Verek> verek;
+    @ObjectHolder("mage")
+    public static EntityType<Mage> mage;
+    @ObjectHolder("skythern_archer")
+    public static EntityType<SkythernArcher> skythern_archer;
+    @ObjectHolder("twilight_archer")
+    public static EntityType<TwilightArcher> twilight_archer;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -410,6 +425,20 @@ public class EntitiesRegistry {
             put("mystic", Mystic::new);
         }}, 0.5F, 2.2F);
 
+        registerSimilarEntities(registry, new HashMap<String, Function<World, ? extends MobEntity>>() {{
+            put("enchanted_warrior", EnchantedWarrior::new);
+            put("samek", Samek::new);
+            put("skythern_fiend", SkythernFiend::new);
+            put("verek", Verek::new);
+        }}, 0.6F, 2);
+
+        registerSimilarEntities(registry, new HashMap<String, Function<World, ? extends EnchantedArcher>>() {{
+            put("enchanted_archer", EnchantedArcher::new);
+            put("skythern_archer", SkythernArcher::new);
+            put("twilight_archer", TwilightArcher::new);
+        }}, 1.8F, 3.0F);
+
+
         registry.register(EntityType.Builder.create(MoonWolf::new, EntityClassification.CREATURE)
                 .size(1.25F, 1)
                 .setCustomClientFactory((spawnEntity, world) -> new MoonWolf(world))
@@ -445,23 +474,11 @@ public class EntitiesRegistry {
                 .immuneToFire()
                 .setCustomClientFactory((spawnEntity, world) -> new Epiphite(world))
                 .build("epiphite").setRegistryName(DivineRPG.MODID, "epiphite"));
-        registry.register(EntityType.Builder.create(EnchantedArcher::new, EntityClassification.MONSTER)
-                .size(1.8F, 3.0F)
-                .immuneToFire()
-                .setCustomClientFactory((spawnEntity, world) -> new EnchantedArcher(world))
-                .build("enchanted_archer").setRegistryName(DivineRPG.MODID, "enchanted_archer"));
-        registry.register(EntityType.Builder.create(EnchantedWarrior::new, EntityClassification.MONSTER)
-                .size(0.6F, 2)
-                .setCustomClientFactory((spawnEntity, world) -> new EnchantedWarrior(world))
-                .build("enchanted_warrior").setRegistryName(DivineRPG.MODID, "enchanted_warrior"));
-        registry.register(EntityType.Builder.create(Samek::new, EntityClassification.MONSTER)
-                .size(0.6F, 2)
-                .setCustomClientFactory((spawnEntity, world) -> new Samek(world))
-                .build("samek").setRegistryName(DivineRPG.MODID, "samek"));
-        registry.register(EntityType.Builder.create(SkythernFiend::new, EntityClassification.MONSTER)
-                .size(0.6F, 2)
-                .setCustomClientFactory((spawnEntity, world) -> new SkythernFiend(world))
-                .build("skythern_fiend").setRegistryName(DivineRPG.MODID, "skythern_fiend"));
+        registry.register(EntityType.Builder.create(Mage::new, EntityClassification.MONSTER)
+                .size(0.5F, 2.2F)
+                .setCustomClientFactory((spawnEntity, world) -> new Mage(world))
+                .build("mage").setRegistryName(DivineRPG.MODID, "mage"));
+
 
     }
 
@@ -513,6 +530,8 @@ public class EntitiesRegistry {
         registerForOneRender(CoriRender::new, WeakCori.class, AdvancedCori.class);
         registerForOneRender(GolemRender::new, WildwoodGolem.class, ApalachiaGolem.class, SkythernGolem.class);
         registerForOneRender(MysticRender::new, Spellbinder.class, Mystic.class);
+        registerForOneRender(SamekRender::new, Samek.class, Verek.class);
+        registerForOneRender(ArcherRender::new, EnchantedArcher.class, SkythernArcher.class);
 
         RenderingRegistry.registerEntityRenderingHandler(MoonWolf.class, MoonWolfRender::new);
         RenderingRegistry.registerEntityRenderingHandler(HellPig.class, HellPigRender::new);
@@ -522,10 +541,11 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Madivel.class, MadivelRender::new);
         RenderingRegistry.registerEntityRenderingHandler(SunArcher.class, SunArcherRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Epiphite.class, EpiphiteRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(EnchantedArcher.class, EnchantedArcherRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(EnchantedArcher.class, ArcherRender::new);
         RenderingRegistry.registerEntityRenderingHandler(EnchantedWarrior.class, EnchantedWarriorRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Samek.class, SamekRender::new);
         RenderingRegistry.registerEntityRenderingHandler(SkythernFiend.class, SkythernFiendRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Mage.class, MageRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(TwilightArcher.class, TwilightArcherRender::new);
     }
 
 

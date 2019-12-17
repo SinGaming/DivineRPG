@@ -1,4 +1,4 @@
-package divinerpg.entities.skythern.samek;
+package divinerpg.entities.twilight.samek.entities;
 
 import divinerpg.entities.base.DivineMonster;
 import divinerpg.registry.EntitiesRegistry;
@@ -7,14 +7,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.World;
 
-public class Samek extends DivineMonster {
-    public Samek(World world) {
-        super(EntitiesRegistry.samek, world, SoundRegistry.VEREK_HURT, SoundRegistry.VEREK, 1.7F);
-
+public class Verek extends DivineMonster {
+    public Verek(World world) {
+        super(EntitiesRegistry.verek, world, SoundRegistry.VEREK_HURT, SoundRegistry.VEREK, 1.8F);
         experienceValue = 40;
     }
 
-    public Samek(EntityType<? extends Entity> type, World world) {
+    public Verek(EntityType<? extends Entity> type, World world) {
         this(world);
     }
 
@@ -22,6 +21,6 @@ public class Samek extends DivineMonster {
     protected void registerAttributes() {
         super.registerAttributes();
 
-        initAttr(160, 20);
+        initAttr(50, 12, 6);
     }
 }

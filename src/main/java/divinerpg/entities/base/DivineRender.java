@@ -2,11 +2,13 @@ package divinerpg.entities.base;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import divinerpg.DivineRPG;
+import divinerpg.utils.CachedTexture;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.HeldItemLayer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.IHasArm;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.util.ResourceLocation;
 
@@ -45,6 +47,23 @@ public class DivineRender<T extends MobEntity, M extends EntityModel<T>> extends
     @Nullable
     @Override
     protected ResourceLocation getEntityTexture(T entity) {
+        return location;
+    }
+
+    /**
+     * Uses registry name to search entity texture
+     *
+     * @param e - entity
+     * @return finded texture or default (from ctor)
+     */
+    protected ResourceLocation textureBasedOnType(Entity e) {
+        if (e != null) {
+            ResourceLocation registryName = e.getType().getRegistryName();
+            if (registryName != null) {
+                return CachedTexture.ENTITIES.getTexture(registryName.getPath());
+            }
+        }
+
         return location;
     }
 }

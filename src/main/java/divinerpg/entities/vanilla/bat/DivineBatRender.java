@@ -11,8 +11,6 @@ import net.minecraft.util.math.MathHelper;
 import javax.annotation.Nullable;
 
 public class DivineBatRender extends DivineRender<BatEntity, BatModel> {
-    private ResourceLocation location;
-
     public DivineBatRender(EntityRendererManager manager) {
         super(manager, new BatModel(), 0, "", 0.7F);
     }
@@ -20,11 +18,7 @@ public class DivineBatRender extends DivineRender<BatEntity, BatModel> {
     @Nullable
     @Override
     protected ResourceLocation getEntityTexture(BatEntity entity) {
-        if (location == null) {
-            location = createFromName(entity.getType().getRegistryName().getPath());
-        }
-
-        return location;
+        return textureBasedOnType(entity);
     }
 
     protected void applyRotations(BatEntity entityLiving, float ageInTicks, float rotationYaw, float partialTicks) {

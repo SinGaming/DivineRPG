@@ -1,13 +1,14 @@
-package divinerpg.entities.apalachia.archer;
+package divinerpg.entities.twilight.archer;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import divinerpg.entities.base.DivineModel;
 import net.minecraft.client.renderer.entity.model.IHasArm;
 import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 
-public class EnchantedArcherModel extends DivineModel<EnchantedArcher> implements IHasArm {
+public class ArcherModel extends DivineModel<MobEntity> implements IHasArm {
     RendererModel head;
     RendererModel body1;
     RendererModel rightarmext;
@@ -49,7 +50,7 @@ public class EnchantedArcherModel extends DivineModel<EnchantedArcher> implement
     RendererModel Shape19;
     RendererModel Shape20;
 
-    public EnchantedArcherModel() {
+    public ArcherModel() {
         textureWidth = 64;
         textureHeight = 32;
 
@@ -304,7 +305,7 @@ public class EnchantedArcherModel extends DivineModel<EnchantedArcher> implement
     }
 
     @Override
-    public void setRotationAngles(EnchantedArcher entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
+    public void setRotationAngles(MobEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
         super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
 
         this.head.rotateAngleY = netHeadYaw / (180F / (float) Math.PI);

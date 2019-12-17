@@ -1,7 +1,6 @@
 package divinerpg.entities.twilight.mystic;
 
 import divinerpg.entities.base.DivineRender;
-import divinerpg.utils.CachedTexture;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.util.ResourceLocation;
@@ -17,6 +16,6 @@ public class MysticRender extends DivineRender<MobEntity, MysticModel> {
     @Nullable
     @Override
     protected ResourceLocation getEntityTexture(MobEntity entity) {
-        return CachedTexture.ENTITIES.getTexture(entity.getType().getRegistryName().getPath());
+        return textureBasedOnType(entity);
     }
 }

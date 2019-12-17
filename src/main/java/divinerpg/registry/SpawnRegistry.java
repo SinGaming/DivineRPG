@@ -96,6 +96,8 @@ public class SpawnRegistry {
         wildwoodCreatures.add(new Biome.SpawnListEntry(EntitiesRegistry.moon_wolf, 4, 4, 4));
 
         wildwoodMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_golem, 3, 4, 4));
+        wildwoodMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.verek, 4, 4, 4));
+        wildwoodMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.mage, 2, 4, 4));
 
         /////////////
         // Apalachia
@@ -119,6 +121,7 @@ public class SpawnRegistry {
         skythernMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.mystic, 2, 4, 4));
         skythernMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.samek, 4, 4, 4));
         skythernMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.skythern_fiend, 4, 4, 4));
+        skythernMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.skythern_archer, 4, 4, 4));
 
         ///////////////
         // Mortum
@@ -126,6 +129,7 @@ public class SpawnRegistry {
         List<Biome.SpawnListEntry> mortumMonsters = BiomeRegisty.MORTUM.getSpawns(EntityClassification.MONSTER);
 
         mortumMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.mortum_cadillion, 2, 4, 4));
+        mortumMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.twilight_archer, 2, 4, 4));
     }
 
     private static void addOverworldMonster(EntityType type, int weight, int min, int max) {

@@ -2,7 +2,6 @@ package divinerpg.entities.twilight.cadilion;
 
 import divinerpg.entities.base.DivineMonster;
 import divinerpg.entities.base.DivineRender;
-import divinerpg.utils.CachedTexture;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
 
@@ -16,6 +15,6 @@ public class CadilionRender extends DivineRender<DivineMonster, CadilionModel> {
     @Nullable
     @Override
     protected ResourceLocation getEntityTexture(DivineMonster entity) {
-        return CachedTexture.ENTITIES.getTexture(entity.getType().getRegistryName().getPath());
+        return textureBasedOnType(entity);
     }
 }

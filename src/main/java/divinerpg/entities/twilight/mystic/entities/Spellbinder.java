@@ -1,4 +1,4 @@
-package divinerpg.entities.twilight.mystic;
+package divinerpg.entities.twilight.mystic.entities;
 
 import divinerpg.entities.base.DivineArcher;
 import divinerpg.entities.projectiles.Bullet.BulletEntity;
