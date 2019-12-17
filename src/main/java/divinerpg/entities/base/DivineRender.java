@@ -1,7 +1,6 @@
 package divinerpg.entities.base;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import divinerpg.DivineRPG;
 import divinerpg.utils.CachedTexture;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -32,7 +31,7 @@ public class DivineRender<T extends MobEntity, M extends EntityModel<T>> extends
     }
 
     protected ResourceLocation createFromName(String name) {
-        return new ResourceLocation(DivineRPG.MODID, String.format("textures/entity/%s.png", name));
+        return CachedTexture.ENTITIES.getTexture(name);
     }
 
     @Override

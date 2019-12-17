@@ -23,6 +23,8 @@ import divinerpg.entities.projectiles.DivineArrow.DivineArrowRender;
 import divinerpg.entities.projectiles.ItemBulletEntity;
 import divinerpg.entities.skythern.fiend.SkythernFiend;
 import divinerpg.entities.skythern.fiend.SkythernFiendRender;
+import divinerpg.entities.skythern.megalith.Megalith;
+import divinerpg.entities.skythern.megalith.MegalithRender;
 import divinerpg.entities.twilight.archer.ArcherRender;
 import divinerpg.entities.twilight.archer.entiites.EnchantedArcher;
 import divinerpg.entities.twilight.archer.entiites.SkythernArcher;
@@ -267,6 +269,8 @@ public class EntitiesRegistry {
     public static EntityType<SkythernArcher> skythern_archer;
     @ObjectHolder("twilight_archer")
     public static EntityType<TwilightArcher> twilight_archer;
+    @ObjectHolder("megalith")
+    public static EntityType<Megalith> megalith;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -478,7 +482,10 @@ public class EntitiesRegistry {
                 .size(0.5F, 2.2F)
                 .setCustomClientFactory((spawnEntity, world) -> new Mage(world))
                 .build("mage").setRegistryName(DivineRPG.MODID, "mage"));
-
+        registry.register(EntityType.Builder.create(Megalith::new, EntityClassification.MONSTER)
+                .size(1.2F, 4)
+                .setCustomClientFactory((spawnEntity, world) -> new Megalith(world))
+                .build("megalith").setRegistryName(DivineRPG.MODID, "megalith"));
 
     }
 
@@ -546,6 +553,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(SkythernFiend.class, SkythernFiendRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Mage.class, MageRender::new);
         RenderingRegistry.registerEntityRenderingHandler(TwilightArcher.class, TwilightArcherRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Megalith.class, MegalithRender::new);
     }
 
 
