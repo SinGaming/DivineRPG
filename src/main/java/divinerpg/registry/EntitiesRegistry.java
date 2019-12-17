@@ -1,11 +1,9 @@
 package divinerpg.registry;
 
-import com.mojang.datafixers.types.Func;
 import divinerpg.DivineRPG;
 import divinerpg.entities.apalachia.warrior.EnchantedWarrior;
 import divinerpg.entities.apalachia.warrior.EnchantedWarriorRender;
 import divinerpg.entities.base.DivineFireball;
-import divinerpg.entities.base.DivineSpider;
 import divinerpg.entities.eden.archer.SunArcher;
 import divinerpg.entities.eden.archer.SunArcherRender;
 import divinerpg.entities.eden.bunny.angry.AngryBunny;
@@ -19,6 +17,7 @@ import divinerpg.entities.eden.madivel.MadivelRender;
 import divinerpg.entities.fireball.FrostFireball;
 import divinerpg.entities.fireball.ScorcherFireball;
 import divinerpg.entities.mortum.basilisk.Basilisk;
+import divinerpg.entities.mortum.basilisk.BasiliskRender;
 import divinerpg.entities.mortum.deamon.DemonOfDarkness;
 import divinerpg.entities.mortum.deamon.DemonOfDarknessRender;
 import divinerpg.entities.projectiles.Bullet.BulletEntity;
@@ -125,8 +124,6 @@ import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -138,9 +135,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 
-import java.util.HashMap;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = DivineRPG.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(DivineRPG.MODID)
@@ -369,6 +364,7 @@ public class EntitiesRegistry {
         registerSingle(registry, Mage::new, "mage",  0.5F, 2.2F);
         registerSingle(registry, Megalith::new, "megalith",  1.2F, 4);
         registerSingle(registry, DemonOfDarkness::new, "demon_of_darkness",  0.8F, 1.6F);
+        registerSingle(registry, Basilisk::new, "basilisk", 0.7F, 0.8F);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -437,6 +433,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(TwilightArcher.class, TwilightArcherRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Megalith.class, MegalithRender::new);
         RenderingRegistry.registerEntityRenderingHandler(DemonOfDarkness.class, DemonOfDarknessRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Basilisk.class, BasiliskRender::new);
     }
 
 
