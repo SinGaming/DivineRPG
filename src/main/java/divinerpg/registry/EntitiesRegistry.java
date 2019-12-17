@@ -1,9 +1,11 @@
 package divinerpg.registry;
 
+import com.mojang.datafixers.types.Func;
 import divinerpg.DivineRPG;
 import divinerpg.entities.apalachia.warrior.EnchantedWarrior;
 import divinerpg.entities.apalachia.warrior.EnchantedWarriorRender;
 import divinerpg.entities.base.DivineFireball;
+import divinerpg.entities.base.DivineSpider;
 import divinerpg.entities.eden.archer.SunArcher;
 import divinerpg.entities.eden.archer.SunArcherRender;
 import divinerpg.entities.eden.bunny.angry.AngryBunny;
@@ -16,6 +18,9 @@ import divinerpg.entities.eden.madivel.Madivel;
 import divinerpg.entities.eden.madivel.MadivelRender;
 import divinerpg.entities.fireball.FrostFireball;
 import divinerpg.entities.fireball.ScorcherFireball;
+import divinerpg.entities.mortum.basilisk.Basilisk;
+import divinerpg.entities.mortum.deamon.DemonOfDarkness;
+import divinerpg.entities.mortum.deamon.DemonOfDarknessRender;
 import divinerpg.entities.projectiles.Bullet.BulletEntity;
 import divinerpg.entities.projectiles.Bullet.BulletEntityRender;
 import divinerpg.entities.projectiles.DivineArrow.DivineArrow;
@@ -121,6 +126,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -134,6 +140,7 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import java.util.HashMap;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = DivineRPG.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(DivineRPG.MODID)
@@ -271,6 +278,10 @@ public class EntitiesRegistry {
     public static EntityType<TwilightArcher> twilight_archer;
     @ObjectHolder("megalith")
     public static EntityType<Megalith> megalith;
+    @ObjectHolder("demon_of_darkness")
+    public static EntityType<DemonOfDarkness> demon_of_darkness;
+    @ObjectHolder("basilisk")
+    public static EntityType<Basilisk> basilisk;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -282,211 +293,82 @@ public class EntitiesRegistry {
         registerBulletEntity(registry, FrostFireball::new, w -> frost_shot.create(w), "frost_fireball");
         registerBulletEntity(registry, ScorcherFireball::new, w -> scorcher_fireball.create(w), "scorcher_fireball");
 
-        registry.register(EntityType.Builder.create(EnthralledDramcryx::new, EntityClassification.MONSTER)
-                .size(1.35F, 1.75F)
-                .setCustomClientFactory((spawnEntity, world) -> new EnthralledDramcryx(world))
-                .build("entrhralled_dramcryx").setRegistryName(DivineRPG.MODID, "entrhralled_dramcryx"));
-        registry.register(EntityType.Builder.create(Crab::new, EntityClassification.MONSTER)
-                .size(1.1F, 0.8F)
-                .setCustomClientFactory((spawnEntity, world) -> new Crab(world))
-                .build("crab").setRegistryName(DivineRPG.MODID, "crab"));
-        registry.register(EntityType.Builder.create(JungleDramcryx::new, EntityClassification.MONSTER)
-                .size(1, 1.3F)
-                .setCustomClientFactory((spawnEntity, world) -> new JungleDramcryx(world))
-                .build("jungle_dramcryx").setRegistryName(DivineRPG.MODID, "jungle_dramcryx"));
-        registry.register(EntityType.Builder.create(Frost::new, EntityClassification.MONSTER)
-                .size(1, 1)
-                .setCustomClientFactory((spawnEntity, world) -> new Frost(world))
-                .build("frost").setRegistryName(DivineRPG.MODID, "frost"));
-        registry.register(EntityType.Builder.create(Glacon::new, EntityClassification.MONSTER)
-                .size(0.8F, 1.4f)
-                .setCustomClientFactory((spawnEntity, world) -> new Glacon(world))
-                .build("glacon").setRegistryName(DivineRPG.MODID, "glacon"));
-        registry.register(EntityType.Builder.create(Rotatick::new, EntityClassification.MONSTER)
-                .size(0.85F, 1)
-                .setCustomClientFactory((spawnEntity, world) -> new Rotatick(world))
-                .build("rotatick").setRegistryName(DivineRPG.MODID, "rotatick"));
-        registry.register(EntityType.Builder.create(KingCrab::new, EntityClassification.MONSTER)
-                .size(1.8F, 1.7F)
-                .setCustomClientFactory((spawnEntity, world) -> new KingCrab(world))
-                .build("king_crab").setRegistryName(DivineRPG.MODID, "king_crab"));
-
-        registry.register(EntityType.Builder.<JungleSpider>create(JungleSpider::new, EntityClassification.MONSTER)
-                .size(1.4F, 0.9F)
-                .setCustomClientFactory((spawnEntity, world) -> new JungleSpider(world))
-                .build("jungle_spider").setRegistryName(DivineRPG.MODID, "jungle_spider"));
-        registry.register(EntityType.Builder.<HellSpider>create(HellSpider::new, EntityClassification.MONSTER)
-                .size(1.4F, 0.9F)
-                .immuneToFire()
-                .setCustomClientFactory((spawnEntity, world) -> new HellSpider(world))
-                .build("hell_spider").setRegistryName(DivineRPG.MODID, "hell_spider"));
-        registry.register(EntityType.Builder.<EnderSpider>create(EnderSpider::new, EntityClassification.MONSTER)
-                .size(0.5F, 0.55F)
-                .setCustomClientFactory((spawnEntity, world) -> new EnderSpider(world))
-                .build("ender_spider").setRegistryName(DivineRPG.MODID, "ender_spider"));
-        registry.register(EntityType.Builder.<EnderWatcher>create(EnderWatcher::new, EntityClassification.MONSTER)
-                .size(0.7F, 0.9F)
-                .setCustomClientFactory((spawnEntity, world) -> new EnderWatcher(world))
-                .build("ender_watcher").setRegistryName(DivineRPG.MODID, "ender_watcher"));
-        registry.register(EntityType.Builder.<EnderTriplets>create(EnderTriplets::new, EntityClassification.MONSTER)
-                .size(0.7F, 0.9F)
-                .setCustomClientFactory((spawnEntity, world) -> new EnderTriplets(world))
-                .build("ender_triplets").setRegistryName(DivineRPG.MODID, "ender_triplets"));
-        registry.register(EntityType.Builder.<Scorcher>create(Scorcher::new, EntityClassification.MONSTER)
-                .size(1.2F, 2F)
-                .immuneToFire()
-                .setCustomClientFactory((spawnEntity, world) -> new Scorcher(world))
-                .build("scorcher").setRegistryName(DivineRPG.MODID, "scorcher"));
-        registry.register(EntityType.Builder.<Wildfire>create(Wildfire::new, EntityClassification.MONSTER)
-                .size(0.8F, 2.2F)
-                .immuneToFire()
-                .setCustomClientFactory((spawnEntity, world) -> new Wildfire(world))
-                .build("wildfire").setRegistryName(DivineRPG.MODID, "wildfire"));
-        registry.register(EntityType.Builder.create(Grue::new, EntityClassification.MONSTER)
-                .size(0.8F, 1.9F)
-                .setCustomClientFactory((spawnEntity, world) -> new Grue(world))
-                .build("grue").setRegistryName(DivineRPG.MODID, "grue"));
-        registry.register(EntityType.Builder.create(CaveCrawler::new, EntityClassification.MONSTER)
-                .size(1.0F, 1.5f)
-                .setCustomClientFactory((spawnEntity, world) -> new CaveCrawler(world))
-                .build("cave_crawler").setRegistryName(DivineRPG.MODID, "cave_crawler"));
-        registry.register(EntityType.Builder.<DesertCrawler>create(DesertCrawler::new, EntityClassification.MONSTER)
-                .size(1.0F, 1.5f)
-                .setCustomClientFactory((spawnEntity, world) -> new DesertCrawler(world))
-                .build("desert_crawler").setRegistryName(DivineRPG.MODID, "desert_crawler"));
-        registry.register(EntityType.Builder.create(Cavelops::new, EntityClassification.MONSTER)
-                .size(1.2F, 4)
-                .setCustomClientFactory((spawnEntity, world) -> new Cavelops(world))
-                .build("cavelops").setRegistryName(DivineRPG.MODID, "cavelops"));
-        registry.register(EntityType.Builder.create(Cyclops::new, EntityClassification.MONSTER)
-                .size(1.2F, 4)
-                .setCustomClientFactory((spawnEntity, world) -> new Cyclops(world))
-                .build("cyclops").setRegistryName(DivineRPG.MODID, "cyclops"));
-        registry.register(EntityType.Builder.create(Miner::new, EntityClassification.MONSTER)
-                .size(0.6F, 2)
-                .setCustomClientFactory((spawnEntity, world) -> new Miner(world))
-                .build("miner").setRegistryName(DivineRPG.MODID, "miner"));
-        registry.register(EntityType.Builder.<JungleBat>create(JungleBat::new, EntityClassification.MONSTER)
-                .size(0.7F, 1)
-                .setCustomClientFactory((spawnEntity, world) -> new JungleBat(world))
-                .build("jungle_bat").setRegistryName(DivineRPG.MODID, "jungle_bat"));
-        registry.register(EntityType.Builder.create(Eye::new, EntityClassification.MONSTER)
-                .size(1.3F, 2)
-                .setCustomClientFactory((spawnEntity, world) -> new Eye(world))
-                .build("eye").setRegistryName(DivineRPG.MODID, "eye"));
-        registry.register(EntityType.Builder.create(Kobblin::new, EntityClassification.MONSTER)
-                .size(0.75F, 1)
-                .setCustomClientFactory((spawnEntity, world) -> new Kobblin(world))
-                .build("kobblin").setRegistryName(DivineRPG.MODID, "kobblin"));
-        registry.register(EntityType.Builder.create(Rainbour::new, EntityClassification.MONSTER)
-                .size(1, 1)
-                .setCustomClientFactory((spawnEntity, world) -> new Rainbour(world))
-                .build("rainbour").setRegistryName(DivineRPG.MODID, "rainbour"));
-        registry.register(EntityType.Builder.create(HellBat::new, EntityClassification.MONSTER)
-                .size(0.7F, 1)
-                .setCustomClientFactory((spawnEntity, world) -> new HellBat(world))
-                .build("hell_bat").setRegistryName(DivineRPG.MODID, "hell_bat"));
-        registry.register(EntityType.Builder.create(SaguaroWorm::new, EntityClassification.MONSTER)
-                .size(1F, 3F)
-                .setCustomClientFactory((spawnEntity, world) -> new SaguaroWorm(world))
-                .build("saguaro_worm").setRegistryName(DivineRPG.MODID, "saguaro_worm"));
-        registry.register(EntityType.Builder.create(AridWarrior::new, EntityClassification.MONSTER)
-                .size(1.4F, 2.8f)
-                .setCustomClientFactory((spawnEntity, world) -> new AridWarrior(world))
-                .build("arid_warrior").setRegistryName(DivineRPG.MODID, "arid_warrior"));
-        registry.register(EntityType.Builder.create(PumpkinSpider::new, EntityClassification.MONSTER)
-                .size(0.6F, 0.85F)
-                .setCustomClientFactory((spawnEntity, world) -> new PumpkinSpider(world))
-                .build("pumpkin_spider").setRegistryName(DivineRPG.MODID, "pumpkin_spider"));
+        registerSingle(registry, EnthralledDramcryx::new, "entrhralled_dramcryx", 1.35F, 1.75F);
+        registerSingle(registry, Crab::new, "crab", 1.1F, 0.8F);
+        registerSingle(registry, JungleDramcryx::new, "jungle_dramcryx", 1, 1.3F);
+        registerSingle(registry, Frost::new, "frost", 1, 1);
+        registerSingle(registry, Glacon::new, "glacon", 0.8F, 1.4f);
+        registerSingle(registry, Rotatick::new, "rotatick", 0.85F, 1);
+        registerSingle(registry, KingCrab::new, "king_crab", 1.8F, 1.7F);
+        registerSingle(registry, JungleSpider::new, "jungle_spider", 1.4F, 0.9F);
+        registerSingle(registry, HellSpider::new, "hell_spider", 1.4F, 0.9F);
+        registerSingle(registry, EnderSpider::new, "ender_spider", 0.5F, 0.55F);
+        registerSingle(registry, EnderWatcher::new, "ender_watcher", 0.7F, 0.9F);
+        registerSingle(registry, EnderTriplets::new, "ender_triplets", 0.7F, 0.9F);
+        registerSingle(registry, Scorcher::new, "scorcher", 1.2F, 2);
+        registerSingle(registry, Wildfire::new, "wildfire", 0.8F, 2.2F);
+        registerSingle(registry, Grue::new, "grue", 0.8F, 1.9F);
+        registerSingle(registry, CaveCrawler::new, "cave_crawler", 1, 1.5F);
+        registerSingle(registry, DesertCrawler::new, "desert_crawler", 1, 1.5F);
+        registerSingle(registry, Cavelops::new, "cavelops", 1.2F, 4);
+        registerSingle(registry, Cyclops::new, "cyclops", 1.2F, 4);
+        registerSingle(registry, Miner::new, "miner", 0.6F, 2);
+        registerSingle(registry, JungleBat::new, "jungle_bat", 0.7F, 1);
+        registerSingle(registry, HellBat::new, "hell_bat", 0.7F, 1);
+        registerSingle(registry, Eye::new, "eye", 1.3F, 2);
+        registerSingle(registry, Kobblin::new, "kobblin", 0.75F, 1);
+        registerSingle(registry, Rainbour::new, "rainbour", 1, 1);
+        registerSingle(registry, SaguaroWorm::new, "saguaro_worm", 1, 3);
+        registerSingle(registry, AridWarrior::new, "arid_warrior", 1.4F, 2.8f);
+        registerSingle(registry, PumpkinSpider::new, "pumpkin_spider", 0.6F, 0.85F);
 
         // Twilight
-        registerSimilarEntities(registry, new HashMap<String, Function<World, ? extends EdenTomo>>() {{
-            put("eden_tomo", EdenTomo::new);
-            put("wildwood_tomo", WildwoodTomo::new);
-            put("apalachia_tomo", ApalachiaTomo::new);
-        }}, 1, 1);
+        registerSingle(registry, EdenTomo::new, "eden_tomo", 1, 1);
+        registerSingle(registry, WildwoodTomo::new, "wildwood_tomo", 1, 1);
+        registerSingle(registry, ApalachiaTomo::new, "apalachia_tomo", 1, 1);
 
-        registerSimilarEntities(registry, new HashMap<String, Function<World, ? extends EdenCadilion>>() {{
-            put("eden_cadillion", EdenCadilion::new);
-            put("wildwood_cadillion", WildwoodCadilion::new);
-            put("apalachia_cadillion", ApalachiaCadilion::new);
-            put("mortum_cadillion", MortumCadilion::new);
-        }}, 1, 1.5F);
+        registerSingle(registry, EdenCadilion::new, "eden_cadillion", 1, 1.5F);
+        registerSingle(registry, WildwoodCadilion::new, "wildwood_cadillion", 1, 1.5F);
+        registerSingle(registry, ApalachiaCadilion::new, "apalachia_cadillion", 1, 1.5F);
+        registerSingle(registry, MortumCadilion::new, "mortum_cadillion", 1, 1.5F);
 
-        registerSimilarEntities(registry, new HashMap<String, Function<World, ? extends WeakCori>>() {{
-            put("weak_cori", WeakCori::new);
-            put("advanced_cori", AdvancedCori::new);
-        }}, 0.6F, 1.5F);
+        registerSingle(registry, WeakCori::new, "weak_cori", 0.6F, 1.5F);
+        registerSingle(registry, AdvancedCori::new, "advanced_cori", 0.6F, 1.5F);
 
-        registerSimilarEntities(registry, new HashMap<String, Function<World, ? extends WildwoodGolem>>() {{
-            put("wildwood_golem", WildwoodGolem::new);
-            put("apalachia_golem", ApalachiaGolem::new);
-            put("skythern_golem", SkythernGolem::new);
-        }}, 1.3F, 2.9F);
+        registerSingle(registry, WildwoodGolem::new, "wildwood_golem", 1.3F, 2.9F);
+        registerSingle(registry, ApalachiaGolem::new, "apalachia_golem", 1.3F, 2.9F);
+        registerSingle(registry, SkythernGolem::new, "skythern_golem", 1.3F, 2.9F);
 
-        registerSimilarEntities(registry, new HashMap<String, Function<World, ? extends Spellbinder>>() {{
-            put("spellbinder", Spellbinder::new);
-            put("mystic", Mystic::new);
-        }}, 0.5F, 2.2F);
+        registerSingle(registry, Spellbinder::new, "spellbinder", 0.5F, 2.2F);
+        registerSingle(registry, Mystic::new, "mystic", 0.5F, 2.2F);
 
-        registerSimilarEntities(registry, new HashMap<String, Function<World, ? extends MobEntity>>() {{
-            put("enchanted_warrior", EnchantedWarrior::new);
-            put("samek", Samek::new);
-            put("skythern_fiend", SkythernFiend::new);
-            put("verek", Verek::new);
-        }}, 0.6F, 2);
+        registerSingle(registry, EnchantedWarrior::new, "enchanted_warrior", 0.6F, 2);
+        registerSingle(registry, Samek::new, "samek", 0.6F, 2);
+        registerSingle(registry, SkythernFiend::new, "skythern_fiend", 0.6F, 2);
+        registerSingle(registry, Verek::new, "verek", 0.6F, 2);
 
-        registerSimilarEntities(registry, new HashMap<String, Function<World, ? extends EnchantedArcher>>() {{
-            put("enchanted_archer", EnchantedArcher::new);
-            put("skythern_archer", SkythernArcher::new);
-            put("twilight_archer", TwilightArcher::new);
-        }}, 1.8F, 3.0F);
+        registerSingle(registry, EnchantedArcher::new, "enchanted_archer",  1.8F, 3.0F);
+        registerSingle(registry, SkythernArcher::new, "skythern_archer",  1.8F, 3.0F);
+        registerSingle(registry, TwilightArcher::new, "twilight_archer",  1.8F, 3.0F);
 
+        registerSingle(registry, MoonWolf::new, EntityClassification.CREATURE, "moon_wolf",  1.25F, 1);
+        registerSingle(registry, HellPig::new, EntityClassification.CREATURE, "hell_pig",  1, 0.9F);
+        registerSingle(registry, Bunny::new, EntityClassification.CREATURE, "bunny",  0.5F, 0.7F);
 
-        registry.register(EntityType.Builder.create(MoonWolf::new, EntityClassification.CREATURE)
-                .size(1.25F, 1)
-                .setCustomClientFactory((spawnEntity, world) -> new MoonWolf(world))
-                .build("moon_wolf").setRegistryName(DivineRPG.MODID, "moon_wolf"));
+        registerSingle(registry, AngryBunny::new, "angry_bunny",  1.1F, 1.8F);
+        registerSingle(registry, Greenfeet::new, "greenfeet",  1, 2);
+        registerSingle(registry, Madivel::new, "madivel",  0.6F, 2.9F);
+        registerSingle(registry, SunArcher::new, "sun_archer",  0.8F, 2.2F);
 
-        registry.register(EntityType.Builder.create(HellPig::new, EntityClassification.CREATURE)
-                .size(1, 0.9F)
-                .setCustomClientFactory((spawnEntity, world) -> new HellPig(world))
-                .build("hell_pig").setRegistryName(DivineRPG.MODID, "hell_pig"));
-        registry.register(EntityType.Builder.create(Bunny::new, EntityClassification.CREATURE)
-                .size(0.5F, 0.7F)
-                .setCustomClientFactory((spawnEntity, world) -> new Bunny(world))
-                .build("bunny").setRegistryName(DivineRPG.MODID, "bunny"));
-
-        registry.register(EntityType.Builder.create(AngryBunny::new, EntityClassification.MONSTER)
-                .size(1.1F, 1.8F)
-                .setCustomClientFactory((spawnEntity, world) -> new AngryBunny(world))
-                .build("angry_bunny").setRegistryName(DivineRPG.MODID, "angry_bunny"));
-        registry.register(EntityType.Builder.create(Greenfeet::new, EntityClassification.MONSTER)
-                .size(1, 2)
-                .setCustomClientFactory((spawnEntity, world) -> new Greenfeet(world))
-                .build("greenfeet").setRegistryName(DivineRPG.MODID, "greenfeet"));
-        registry.register(EntityType.Builder.create(Madivel::new, EntityClassification.MONSTER)
-                .size(0.6F, 2.9F)
-                .setCustomClientFactory((spawnEntity, world) -> new Madivel(world))
-                .build("madivel").setRegistryName(DivineRPG.MODID, "madivel"));
-        registry.register(EntityType.Builder.create(SunArcher::new, EntityClassification.MONSTER)
-                .size(0.8F, 2.2F)
-                .setCustomClientFactory((spawnEntity, world) -> new SunArcher(world))
-                .build("sun_archer").setRegistryName(DivineRPG.MODID, "sun_archer"));
         registry.register(EntityType.Builder.create(Epiphite::new, EntityClassification.MONSTER)
                 .size(0.9F, 1.3F)
                 .immuneToFire()
                 .setCustomClientFactory((spawnEntity, world) -> new Epiphite(world))
-                .build("epiphite").setRegistryName(DivineRPG.MODID, "epiphite"));
-        registry.register(EntityType.Builder.create(Mage::new, EntityClassification.MONSTER)
-                .size(0.5F, 2.2F)
-                .setCustomClientFactory((spawnEntity, world) -> new Mage(world))
-                .build("mage").setRegistryName(DivineRPG.MODID, "mage"));
-        registry.register(EntityType.Builder.create(Megalith::new, EntityClassification.MONSTER)
-                .size(1.2F, 4)
-                .setCustomClientFactory((spawnEntity, world) -> new Megalith(world))
-                .build("megalith").setRegistryName(DivineRPG.MODID, "megalith"));
+                .build("epiphite").setRegistryName(DivineRPG.MODID, ""));
 
+        registerSingle(registry, Mage::new, "mage",  0.5F, 2.2F);
+        registerSingle(registry, Megalith::new, "megalith",  1.2F, 4);
+        registerSingle(registry, DemonOfDarkness::new, "demon_of_darkness",  0.8F, 1.6F);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -554,8 +436,23 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Mage.class, MageRender::new);
         RenderingRegistry.registerEntityRenderingHandler(TwilightArcher.class, TwilightArcherRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Megalith.class, MegalithRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(DemonOfDarkness.class, DemonOfDarknessRender::new);
     }
 
+
+    private static <T extends Entity> void registerSingle(IForgeRegistry<EntityType<?>> registry, Function<World, T> createFunc, String name, float width, float height) {
+        registerSingle(registry, createFunc, EntityClassification.MONSTER, name, width, height);
+    }
+
+    private static <T extends Entity> void registerSingle(IForgeRegistry<EntityType<?>> registry, Function<World, T> createFunc, EntityClassification classification,
+                                                          String name, float width, float height) {
+        registry.register(
+                EntityType.Builder.<T>create((type, world) -> createFunc.apply(world), classification)
+                        .setCustomClientFactory((spawnEntity, world) -> createFunc.apply(world))
+                        .size(width, height)
+                        .build(name).setRegistryName(DivineRPG.MODID, name)
+        );
+    }
 
     private static <T extends Entity> void registerForOneRender(IRenderFactory<T> render, Class<? extends T>... classes) {
         for (Class clazz : classes) {
@@ -563,16 +460,6 @@ public class EntitiesRegistry {
         }
     }
 
-
-    private static <T extends Entity> void registerSimilarEntities(IForgeRegistry<EntityType<?>> registry, HashMap<String, Function<World, ? extends T>> createFunctions,
-                                                                   float width, float height) {
-        createFunctions.forEach((key, value) -> registry.register(
-                EntityType.Builder.create((type, world) -> value.apply(world), EntityClassification.MONSTER)
-                        .setCustomClientFactory((spawnEntity, world) -> value.apply(world))
-                        .size(width, height)
-                        .build(key)
-                        .setRegistryName(DivineRPG.MODID, key)));
-    }
 
     private static <T extends Entity> void registerBulletEntity(IForgeRegistry<EntityType<?>> registry, EntityType.IFactory<T> factoryIn,
                                                                 Function<World, T> createFunc, String name) {

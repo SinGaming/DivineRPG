@@ -4,7 +4,6 @@ import divinerpg.entities.base.DivineMonster;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.potion.EffectInstance;
@@ -14,10 +13,6 @@ import net.minecraft.world.World;
 public class Megalith extends DivineMonster {
     public Megalith(World world) {
         super(EntitiesRegistry.megalith, world, SoundRegistry.MEGALITH_HURT, SoundRegistry.MEGALITH, 3.6F);
-    }
-
-    public Megalith(EntityType<? extends Entity> type, World world) {
-        this(world);
     }
 
     @Override

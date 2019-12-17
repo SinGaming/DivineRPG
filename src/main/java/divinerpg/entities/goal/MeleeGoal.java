@@ -13,7 +13,6 @@ import java.util.EnumSet;
 
 public class MeleeGoal extends Goal {
     protected final MobEntity attacker;
-    protected final int attackInterval = 20;
     private final double speedTowardsTarget;
     private final boolean longMemory;
     protected int attackTick;

@@ -4,8 +4,6 @@ import divinerpg.entities.base.PeacefullDivineMonster;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
@@ -21,10 +19,6 @@ import javax.annotation.Nullable;
 public class Kobblin extends PeacefullDivineMonster {
     public Kobblin(World world) {
         super(EntitiesRegistry.koblin, world, SoundRegistry.KOBBLIN, SoundRegistry.KOBBLIN, 0.9f);
-    }
-
-    public Kobblin(EntityType<? extends Entity> type, World world) {
-        this(world);
     }
 
     @Override

@@ -27,10 +27,6 @@ public class Miner extends DivineMonster {
                 1.725F);
     }
 
-    public Miner(EntityType<? extends Entity> type, World world) {
-        this(world);
-    }
-
     @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.ENTITY_ZOMBIE_DEATH;

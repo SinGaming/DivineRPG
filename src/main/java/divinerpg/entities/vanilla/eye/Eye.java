@@ -3,8 +3,6 @@ package divinerpg.entities.vanilla.eye;
 import divinerpg.entities.base.DivineMonster;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -16,10 +14,6 @@ import net.minecraft.world.World;
 public class Eye extends DivineMonster {
     public Eye(World world) {
         super(EntitiesRegistry.eye, world, SoundRegistry.THE_EYE_HURT, SoundRegistry.THE_EYE, 1.75F);
-    }
-
-    public Eye(EntityType<? extends Entity> type, World world) {
-        this(world);
     }
 
     @Override

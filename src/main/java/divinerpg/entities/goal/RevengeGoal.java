@@ -44,12 +44,6 @@ public class RevengeGoal extends TargetGoal {
         }
     }
 
-    public RevengeGoal setCallsForHelp(Class<?>... p_220794_1_) {
-        this.entityCallsForHelp = true;
-        this.field_220797_i = p_220794_1_;
-        return this;
-    }
-
     /**
      * Execute a one shot task or start executing a continuous task
      */

@@ -5,7 +5,6 @@ import divinerpg.entities.eden.bunny.angry.AngryBunny;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.ItemRegistry;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Pose;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -15,10 +14,6 @@ public class Bunny extends DivineWolf {
     public Bunny(World w) {
         super(EntitiesRegistry.bunny, w);
         experienceValue = 40;
-    }
-
-    public Bunny(EntityType<? extends Entity> type, World worldIn) {
-        this(worldIn);
     }
 
     @Override

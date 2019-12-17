@@ -12,9 +12,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 
 public class ScorcherFireball extends DivineFireball {
-    public ScorcherFireball(World worldIn) {
-        this(EntitiesRegistry.scorcher_fireball, worldIn);
-    }
 
     public ScorcherFireball(EntityType<? extends FireballEntity> type, World world) {
         super(type, world);

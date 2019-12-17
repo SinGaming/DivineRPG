@@ -18,10 +18,6 @@ public class SaguaroWorm extends DivineArcher {
         super(EntitiesRegistry.saguaro_worm, world, SoundRegistry.SAGUARO_WORM, SoundRegistry.SAGUARO_WORM, 2.5F, 0, "", "", ItemStack.EMPTY);
     }
 
-    public SaguaroWorm(EntityType<? extends Entity> type, World world) {
-        this(world);
-    }
-
     @Override
     protected void registerAttributes() {
         super.registerAttributes();

@@ -2,16 +2,12 @@ package divinerpg.entities.vanilla.spider.ender;
 
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EndermanEntity;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 public class EnderSpider extends EndermanEntity {
-    public EnderSpider(EntityType<? extends EndermanEntity> type, World world) {
-        this(world);
-    }
 
     public EnderSpider(World world) {
         super(EntitiesRegistry.ender_spider, world);

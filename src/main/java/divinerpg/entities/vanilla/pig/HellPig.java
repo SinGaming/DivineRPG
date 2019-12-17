@@ -4,7 +4,6 @@ import divinerpg.entities.base.DivineWolf;
 import divinerpg.registry.EntitiesRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
@@ -14,10 +13,6 @@ import net.minecraft.world.World;
 public class HellPig extends DivineWolf {
     public HellPig(World w) {
         super(EntitiesRegistry.hell_pig, w);
-    }
-
-    public HellPig(EntityType<? extends Entity> type, World worldIn) {
-        this(worldIn);
     }
 
     @Override

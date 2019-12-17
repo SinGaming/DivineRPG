@@ -12,10 +12,6 @@ public class MinerModel<T extends MonsterEntity> extends AbstractZombieModel<T> 
         super(modelSize, 0.0F, 64, isSmall ? 32 : 64);
     }
 
-    protected MinerModel(float size, float shadow, int textureWidthIn, int textureHeightIn) {
-        super(size, shadow, textureWidthIn, textureHeightIn);
-    }
-
     public boolean func_212850_a_(T entity) {
         return entity.isAggressive();
     }

@@ -40,27 +40,6 @@ public class DivineModel<T extends Entity> extends EntityModel<T> {
         return ReflectionHelper.getDeclaredFieldsValues(this, RendererModel.class);
     }
 
-    private List<RendererModel> getDistinct(Field[] fields) {
-        if (fields != null && fields.length > 0) {
-            Class<RendererModel> modelClass = RendererModel.class;
-
-            return Stream.of(fields)
-                    .filter(x -> x.getType().equals(modelClass))
-                    .map(x -> {
-                        try {
-                            x.setAccessible(true);
-                            return (RendererModel) x.get(this);
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        }
-
-                        return null;
-                    }).filter(Objects::nonNull).collect(Collectors.toList());
-        }
-
-        return new ArrayList<>();
-    }
-
     protected void setRotation(RendererModel model, float x, float y, float z) {
         model.rotateAngleX = x;
         model.rotateAngleY = y;

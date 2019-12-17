@@ -5,7 +5,6 @@ import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.ItemRegistry;
 import divinerpg.registry.SoundRegistry;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.projectile.ArrowEntity;
@@ -16,10 +15,6 @@ public class AridWarrior extends DivineArcher {
     public AridWarrior(World world) {
         super(EntitiesRegistry.arid_warrior, world, SoundRegistry.ARID_WARRIOR_HURT, SoundRegistry.ARID_WARRIOR, 2.25F, 0, "", "",
                 new ItemStack(ItemRegistry.shadow_bow));
-    }
-
-    public AridWarrior(EntityType<? extends Entity> type, World world) {
-        this(world);
     }
 
     @Override

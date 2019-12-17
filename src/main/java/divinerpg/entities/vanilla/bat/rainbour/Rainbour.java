@@ -3,18 +3,12 @@ package divinerpg.entities.vanilla.bat.rainbour;
 import divinerpg.entities.base.DivineBat;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.world.World;
 
 public class Rainbour extends DivineBat {
     public Rainbour(World world) {
         super(EntitiesRegistry.rainbour, world, SoundRegistry.RAINBOUR_HURT, SoundRegistry.RAINBOUR);
-    }
-
-    public Rainbour(EntityType<? extends Entity> type, World world) {
-        this(world);
     }
 
     @Override

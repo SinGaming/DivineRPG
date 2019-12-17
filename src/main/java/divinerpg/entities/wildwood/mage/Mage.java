@@ -6,7 +6,6 @@ import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
 import divinerpg.utils.RGBHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundEvent;
@@ -15,10 +14,6 @@ import net.minecraft.world.World;
 public class Mage extends DivineArcher {
     public Mage(World world) {
         super(EntitiesRegistry.mage, world, SoundRegistry.INSECT, SoundRegistry.INSECT, 2, 0, "", "", ItemStack.EMPTY);
-    }
-
-    public Mage(EntityType<? extends Entity> type, World world) {
-        this(world);
     }
 
     @Override

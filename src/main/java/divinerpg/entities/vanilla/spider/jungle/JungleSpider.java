@@ -5,20 +5,14 @@ import divinerpg.entities.base.DivineSpider;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
 public class JungleSpider extends DivineSpider {
     public JungleSpider(World world) {
         super(EntitiesRegistry.jungle_spider, world, SoundEvents.ENTITY_SPIDER_HURT, SoundRegistry.JUNGLE_SPIDER, 0.6F);
-    }
-
-    public JungleSpider(EntityType<? extends SpiderEntity> type, World world) {
-        this(world);
     }
 
     @Override

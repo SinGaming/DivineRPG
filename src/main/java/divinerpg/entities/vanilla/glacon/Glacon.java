@@ -3,15 +3,10 @@ package divinerpg.entities.vanilla.glacon;
 import divinerpg.entities.base.DivineMonster;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.world.World;
 
 public class Glacon extends DivineMonster {
-    public Glacon(EntityType<? extends Entity> type, World world) {
-        this(world);
-    }
 
     public Glacon(World world) {
         super(EntitiesRegistry.glacon, world, SoundRegistry.GLACIDE_HURT, SoundRegistry.GLACIDE, 1.3F);

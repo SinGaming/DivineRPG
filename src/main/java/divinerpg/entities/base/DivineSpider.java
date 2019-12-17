@@ -8,7 +8,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -19,10 +18,6 @@ public class DivineSpider extends SpiderEntity {
     private SoundEvent hurt;
     private SoundEvent ambient;
     private float eyeHight;
-
-    public DivineSpider(World world) {
-        this(EntityType.SPIDER, world, SoundEvents.ENTITY_SPIDER_HURT, SoundEvents.ENTITY_SPIDER_AMBIENT, 0.65F);
-    }
 
     public DivineSpider(EntityType<? extends SpiderEntity> type, World world, SoundEvent hurt, SoundEvent ambient, float eyeHight) {
         super(type, world);

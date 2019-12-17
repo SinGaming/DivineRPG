@@ -5,8 +5,6 @@ import divinerpg.entities.goal.SunBurnGoal;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.ItemRegistry;
 import divinerpg.registry.SoundRegistry;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.RestrictSunGoal;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
@@ -17,10 +15,6 @@ public class EnchantedWarrior extends DivineMonster {
         super(EntitiesRegistry.enchanted_warrior, world, SoundRegistry.GROWL_HURT, SoundRegistry.GROWL, 1.7F);
 
         this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ItemRegistry.apalachiaBlade));
-    }
-
-    public EnchantedWarrior(EntityType<? extends Entity> type, World world) {
-        this(world);
     }
 
     @Override

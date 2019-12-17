@@ -1,17 +1,12 @@
 package divinerpg.entities.vanilla.watcher.ender;
 
 import divinerpg.registry.EntitiesRegistry;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EndermanEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class EnderWatcher extends EndermanEntity {
-
-    public EnderWatcher(EntityType<? extends EndermanEntity> p_i50210_1_, World world) {
-        this(world);
-    }
 
     public EnderWatcher(World world) {
         super(EntitiesRegistry.ender_watcher, world);

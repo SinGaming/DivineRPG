@@ -5,7 +5,6 @@ import divinerpg.entities.projectiles.Bullet.BulletEntity;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -16,10 +15,6 @@ public class Cavelops extends DivineArcher {
     public Cavelops(World world) {
         super(EntitiesRegistry.cavelops, world, SoundRegistry.CYCLOPS_HURT, SoundRegistry.CYCLOPS, 3.5F,
                 1, "", "", ItemStack.EMPTY);
-    }
-
-    public Cavelops(EntityType<? extends Entity> type, World world) {
-        this(world);
     }
 
     @Override

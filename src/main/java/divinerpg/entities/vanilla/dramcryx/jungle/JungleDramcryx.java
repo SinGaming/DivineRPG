@@ -5,15 +5,10 @@ import divinerpg.entities.base.DivineMonster;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.world.World;
 
 public class JungleDramcryx extends DivineMonster {
-
-    public JungleDramcryx(EntityType<? extends Entity> type, World world) {
-        this(world);
-    }
 
     public JungleDramcryx(World world) {
         super(EntitiesRegistry.jungle_dramcryx, world, SoundRegistry.DRAMCRYX_HURT, SoundRegistry.DRAMCRYX, 1.25F);

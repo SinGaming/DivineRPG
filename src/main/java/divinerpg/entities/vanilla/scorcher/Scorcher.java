@@ -5,16 +5,11 @@ import divinerpg.entities.fireball.ScorcherFireball;
 import divinerpg.entities.goal.BlazeAttackGoal;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
 public class Scorcher extends DivineBlaze {
-    public Scorcher(EntityType<? extends MonsterEntity> type, World world) {
-        this(world);
-    }
 
     public Scorcher(World world) {
         super(EntitiesRegistry.scorcher, world, SoundEvents.ENTITY_BLAZE_HURT, SoundRegistry.SCORCHER, 1.6F);
