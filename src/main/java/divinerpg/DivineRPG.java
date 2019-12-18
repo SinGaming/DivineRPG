@@ -5,10 +5,7 @@ import divinerpg.api.armor.IPoweredArmorSet;
 import divinerpg.arcana.Arcana;
 import divinerpg.arcana.ArcanaStorage;
 import divinerpg.config.DivineConfig;
-import divinerpg.registry.EntitiesRegistry;
-import divinerpg.registry.FeatureRegistry;
-import divinerpg.registry.MessageRegistry;
-import divinerpg.registry.SpawnRegistry;
+import divinerpg.registry.*;
 import divinerpg.utils.ReflectionHelper;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -98,6 +95,7 @@ public class DivineRPG {
         LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
 
         EntitiesRegistry.registerRender();
+        TileEntityRegistry.registerRender();
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {

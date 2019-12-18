@@ -3,6 +3,8 @@ package divinerpg.registry;
 import divinerpg.DivineRPG;
 import divinerpg.blocks.base.*;
 import divinerpg.blocks.twilight.DivinePortalBlock;
+import divinerpg.blocks.twilight.StatueBlock;
+import divinerpg.tile.statue.StatueRender;
 import divinerpg.utils.DivineParticleTypes;
 import divinerpg.utils.DivinePlantType;
 import divinerpg.utils.properties.block.ExtendedBlockProperties;
@@ -450,6 +452,11 @@ public class BlockRegistry {
                 DivineParticleTypes.MORTUM), "mortum_portal", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.BLACK).hardnessAndResistance(12).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE))
                 , "mortum_block", blockTabProperty);
+
+        for (String name : StatueRender.getStatueNames()) {
+            registerBlock(new StatueBlock(name), name, blockTabProperty);
+        }
+
 
         ///////////////////////
         // TODO Arcana

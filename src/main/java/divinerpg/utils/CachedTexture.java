@@ -11,6 +11,7 @@ public class CachedTexture {
     private static final Map<String, ResourceLocation> values = new HashMap<>();
     public static final CachedTexture PROJECTILES = new CachedTexture("textures/projectiles/%s.png");
     public static final CachedTexture ENTITIES = new CachedTexture("textures/entity/%s.png");
+    public static final CachedTexture MODEL = new CachedTexture("textures/model/%s.png");
 
     private final String pattern;
 
