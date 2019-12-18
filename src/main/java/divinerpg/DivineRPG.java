@@ -9,7 +9,10 @@ import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.FeatureRegistry;
 import divinerpg.registry.MessageRegistry;
 import divinerpg.registry.SpawnRegistry;
+import divinerpg.utils.ReflectionHelper;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -35,8 +38,7 @@ import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(DivineRPG.MODID)
-public class DivineRPG
-{
+public class DivineRPG {
     public static final String MODID = "divinerpg";
     public static final DivineConfig CONFIG = new DivineConfig();
 
@@ -70,10 +72,17 @@ public class DivineRPG
         MessageRegistry.register();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.getCommonSpec());
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CONFIG.getClientSpec());
+
+        // Fixing max health
+        RangedAttribute maxHealth = (RangedAttribute) SharedMonsterAttributes.MAX_HEALTH;
+        if (ReflectionHelper.setValue(maxHealth, "maximumValue", Double.MAX_VALUE)) {
+            LOGGER.info("Maximum mob health increased to Double.MAX_VALUE (1.7976931348623157e+308)");
+        } else {
+            LOGGER.warn("Can't patch max mob health");
+        }
     }
 
-    private void setup(final FMLCommonSetupEvent event)
-    {
+    private void setup(final FMLCommonSetupEvent event) {
         // some preinit code
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
@@ -91,17 +100,18 @@ public class DivineRPG
         EntitiesRegistry.registerRender();
     }
 
-    private void enqueueIMC(final InterModEnqueueEvent event)
-    {
+    private void enqueueIMC(final InterModEnqueueEvent event) {
         // some example code to dispatch IMC to another mod
-        InterModComms.sendTo("examplemod", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
+        InterModComms.sendTo("examplemod", "helloworld", () -> {
+            LOGGER.info("Hello world from the MDK");
+            return "Hello world";
+        });
     }
 
-    private void processIMC(final InterModProcessEvent event)
-    {
+    private void processIMC(final InterModProcessEvent event) {
         // some example code to receive and process InterModComms from other mods
         LOGGER.info("Got IMC {}", event.getIMCStream().
-                map(m->m.getMessageSupplier().get()).
+                map(m -> m.getMessageSupplier().get()).
                 collect(Collectors.toList()));
     }
 
