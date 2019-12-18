@@ -46,11 +46,6 @@ public class DivineGhast extends GhastEntity implements ICreateFireball {
 
         this.goalSelector.addGoal(7, new GhastAttackGoal(this, this, shootSound()));
     }
-//
-//    @Override
-//    public boolean attackEntityFrom(DamageSource source, float amount) {
-//        return ((LivingEntity)this).attackEntityFrom(source, amount);
-//    }
 
     @Override
     protected SoundEvent getDeathSound() {

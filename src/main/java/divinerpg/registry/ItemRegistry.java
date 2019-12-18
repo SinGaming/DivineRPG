@@ -815,7 +815,11 @@ public class ItemRegistry {
                 .setRegistryName(DivineRPG.MODID, "skythern_blade"));
         registry.register(new SwordItem(DivineItemTier.MORTUM, 10, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords).maxDamage(2400))
                 .setRegistryName(DivineRPG.MODID, "mortum_blade"));
-        registry.register(new SwordItem(DivineItemTier.HALITE, 10, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords).maxDamage(2500))
+
+        registry.register(new SpecialSwordItem(DivineItemTier.HALITE, 10, -2.4F, (ExtendedItemProperties) new ExtendedItemProperties()
+                // TODO REMOVE
+                .onHit((s, p, t) -> t.onKillCommand())
+                .group(DivineRPGTabs.DivineSwords).maxDamage(2500))
                 .setRegistryName(DivineRPG.MODID, "halite_blade"));
 
         // PHASERS

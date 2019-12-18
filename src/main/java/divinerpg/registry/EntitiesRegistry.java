@@ -4,6 +4,8 @@ import divinerpg.DivineRPG;
 import divinerpg.entities.apalachia.warrior.EnchantedWarrior;
 import divinerpg.entities.apalachia.warrior.EnchantedWarriorRender;
 import divinerpg.entities.base.DivineFireball;
+import divinerpg.entities.bosses.vamacheron.Vamacheron;
+import divinerpg.entities.bosses.vamacheron.VamacheronRender;
 import divinerpg.entities.eden.archer.SunArcher;
 import divinerpg.entities.eden.archer.SunArcherRender;
 import divinerpg.entities.eden.bunny.angry.AngryBunny;
@@ -285,6 +287,8 @@ public class EntitiesRegistry {
     public static EntityType<Sorcerer> sorcerer;
     @ObjectHolder("soul_stealer")
     public static EntityType<SoulStealer> soul_stealer;
+    @ObjectHolder("vamacheron")
+    public static EntityType<Vamacheron> vamacheron;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -375,6 +379,7 @@ public class EntitiesRegistry {
         registerSingle(registry, Basilisk::new, "basilisk", 0.7F, 0.8F);
         registerSingle(registry, Sorcerer::new, "sorcerer", 0.5F, 2.2F);
         registerSingle(registry, SoulStealer::new, "soul_stealer", 0.8F, 2);
+        registerSingle(registry, Vamacheron::new, "vamacheron", 1.45F, 2.2F);
 
     }
 
@@ -447,6 +452,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Basilisk.class, BasiliskRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Sorcerer.class, SorcererRender::new);
         RenderingRegistry.registerEntityRenderingHandler(SoulStealer.class, SoulStealerRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Vamacheron.class, VamacheronRender::new);
     }
 
 
