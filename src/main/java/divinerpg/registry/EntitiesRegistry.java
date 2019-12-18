@@ -20,6 +20,10 @@ import divinerpg.entities.mortum.basilisk.Basilisk;
 import divinerpg.entities.mortum.basilisk.BasiliskRender;
 import divinerpg.entities.mortum.deamon.DemonOfDarkness;
 import divinerpg.entities.mortum.deamon.DemonOfDarknessRender;
+import divinerpg.entities.mortum.sorcerer.Sorcerer;
+import divinerpg.entities.mortum.sorcerer.SorcererRender;
+import divinerpg.entities.mortum.stealer.SoulStealer;
+import divinerpg.entities.mortum.stealer.SoulStealerRender;
 import divinerpg.entities.projectiles.Bullet.BulletEntity;
 import divinerpg.entities.projectiles.Bullet.BulletEntityRender;
 import divinerpg.entities.projectiles.DivineArrow.DivineArrow;
@@ -277,6 +281,10 @@ public class EntitiesRegistry {
     public static EntityType<DemonOfDarkness> demon_of_darkness;
     @ObjectHolder("basilisk")
     public static EntityType<Basilisk> basilisk;
+    @ObjectHolder("sorcerer")
+    public static EntityType<Sorcerer> sorcerer;
+    @ObjectHolder("soul_stealer")
+    public static EntityType<SoulStealer> soul_stealer;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -342,18 +350,18 @@ public class EntitiesRegistry {
         registerSingle(registry, SkythernFiend::new, "skythern_fiend", 0.6F, 2);
         registerSingle(registry, Verek::new, "verek", 0.6F, 2);
 
-        registerSingle(registry, EnchantedArcher::new, "enchanted_archer",  1.8F, 3.0F);
-        registerSingle(registry, SkythernArcher::new, "skythern_archer",  1.8F, 3.0F);
-        registerSingle(registry, TwilightArcher::new, "twilight_archer",  1.8F, 3.0F);
+        registerSingle(registry, EnchantedArcher::new, "enchanted_archer", 1.8F, 3.0F);
+        registerSingle(registry, SkythernArcher::new, "skythern_archer", 1.8F, 3.0F);
+        registerSingle(registry, TwilightArcher::new, "twilight_archer", 1.8F, 3.0F);
 
-        registerSingle(registry, MoonWolf::new, EntityClassification.CREATURE, "moon_wolf",  1.25F, 1);
-        registerSingle(registry, HellPig::new, EntityClassification.CREATURE, "hell_pig",  1, 0.9F);
-        registerSingle(registry, Bunny::new, EntityClassification.CREATURE, "bunny",  0.5F, 0.7F);
+        registerSingle(registry, MoonWolf::new, EntityClassification.CREATURE, "moon_wolf", 1.25F, 1);
+        registerSingle(registry, HellPig::new, EntityClassification.CREATURE, "hell_pig", 1, 0.9F);
+        registerSingle(registry, Bunny::new, EntityClassification.CREATURE, "bunny", 0.5F, 0.7F);
 
-        registerSingle(registry, AngryBunny::new, "angry_bunny",  1.1F, 1.8F);
-        registerSingle(registry, Greenfeet::new, "greenfeet",  1, 2);
-        registerSingle(registry, Madivel::new, "madivel",  0.6F, 2.9F);
-        registerSingle(registry, SunArcher::new, "sun_archer",  0.8F, 2.2F);
+        registerSingle(registry, AngryBunny::new, "angry_bunny", 1.1F, 1.8F);
+        registerSingle(registry, Greenfeet::new, "greenfeet", 1, 2);
+        registerSingle(registry, Madivel::new, "madivel", 0.6F, 2.9F);
+        registerSingle(registry, SunArcher::new, "sun_archer", 0.8F, 2.2F);
 
         registry.register(EntityType.Builder.create(Epiphite::new, EntityClassification.MONSTER)
                 .size(0.9F, 1.3F)
@@ -361,10 +369,13 @@ public class EntitiesRegistry {
                 .setCustomClientFactory((spawnEntity, world) -> new Epiphite(world))
                 .build("epiphite").setRegistryName(DivineRPG.MODID, ""));
 
-        registerSingle(registry, Mage::new, "mage",  0.5F, 2.2F);
-        registerSingle(registry, Megalith::new, "megalith",  1.2F, 4);
-        registerSingle(registry, DemonOfDarkness::new, "demon_of_darkness",  0.8F, 1.6F);
+        registerSingle(registry, Mage::new, "mage", 0.5F, 2.2F);
+        registerSingle(registry, Megalith::new, "megalith", 1.2F, 4);
+        registerSingle(registry, DemonOfDarkness::new, "demon_of_darkness", 0.8F, 1.6F);
         registerSingle(registry, Basilisk::new, "basilisk", 0.7F, 0.8F);
+        registerSingle(registry, Sorcerer::new, "sorcerer", 0.5F, 2.2F);
+        registerSingle(registry, SoulStealer::new, "soul_stealer", 0.8F, 2);
+
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -434,6 +445,8 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Megalith.class, MegalithRender::new);
         RenderingRegistry.registerEntityRenderingHandler(DemonOfDarkness.class, DemonOfDarknessRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Basilisk.class, BasiliskRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Sorcerer.class, SorcererRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(SoulStealer.class, SoulStealerRender::new);
     }
 
 

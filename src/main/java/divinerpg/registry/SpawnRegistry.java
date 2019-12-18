@@ -133,6 +133,8 @@ public class SpawnRegistry {
         mortumMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.twilight_archer, 2, 4, 4));
         mortumMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.demon_of_darkness, 2, 4, 4));
         mortumMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.basilisk, 2, 4, 4));
+        mortumMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.sorcerer, 1, 4, 4));
+        mortumMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.soul_stealer, 2, 4, 4));
     }
 
     private static void addOverworldMonster(EntityType type, int weight, int min, int max) {
