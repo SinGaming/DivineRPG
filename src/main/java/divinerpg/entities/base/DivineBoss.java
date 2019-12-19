@@ -11,11 +11,13 @@ import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.ServerBossInfo;
@@ -29,6 +31,8 @@ import java.util.stream.Collectors;
 
 public abstract class DivineBoss extends MonsterEntity implements IRangedAttackMob {
     protected final ServerBossInfo info;
+    private final static String colorKey = "ProgressbarColor";
+    private final static String specialNameKey = "EntityName";
 
     @Deprecated
     private DivineBoss(World world) {
@@ -104,6 +108,27 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
     @Override
     public final boolean isNonBoss() {
         return false;
+    }
+
+    @Override
+    public void read(CompoundNBT compound) {
+        super.read(compound);
+
+        if (compound.contains(colorKey))
+            info.setColor(BossInfo.Color.byName(compound.getString(colorKey)));
+
+        if (compound.contains(specialNameKey))
+            setCustomName(new StringTextComponent(compound.getString(specialNameKey)));
+    }
+
+    @Override
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+
+        compound.putString(colorKey, info.getColor().getName());
+
+        if (hasCustomName() && getCustomName() != null)
+            compound.putString(colorKey, this.getCustomName().getFormattedText());
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////

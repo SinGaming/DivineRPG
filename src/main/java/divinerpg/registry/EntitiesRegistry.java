@@ -4,6 +4,7 @@ import divinerpg.DivineRPG;
 import divinerpg.entities.apalachia.warrior.EnchantedWarrior;
 import divinerpg.entities.apalachia.warrior.EnchantedWarriorRender;
 import divinerpg.entities.base.DivineFireball;
+import divinerpg.entities.bosses.ayeraco.Ayeraco;
 import divinerpg.entities.bosses.vamacheron.Vamacheron;
 import divinerpg.entities.bosses.vamacheron.VamacheronRender;
 import divinerpg.entities.eden.archer.SunArcher;
@@ -289,6 +290,8 @@ public class EntitiesRegistry {
     public static EntityType<SoulStealer> soul_stealer;
     @ObjectHolder("vamacheron")
     public static EntityType<Vamacheron> vamacheron;
+    @ObjectHolder("ayeraco")
+    public static EntityType<Ayeraco> ayeraco;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
