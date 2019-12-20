@@ -1,4 +1,4 @@
-package divinerpg.entities.bosses.ayeraco.model;
+package divinerpg.entities.bosses.ayeraco.manager;
 
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;

@@ -1,6 +1,8 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
+import divinerpg.tile.ayeraco.beam.AyeracoBeam;
+import divinerpg.tile.ayeraco.beam.AyeracoBeamRender;
 import divinerpg.tile.statue.StatueRender;
 import divinerpg.tile.statue.TileEntityStatue;
 import net.minecraft.block.Block;
@@ -23,7 +25,12 @@ import java.util.function.Supplier;
 @Mod.EventBusSubscriber(modid = DivineRPG.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(DivineRPG.MODID)
 public class TileEntityRegistry {
+    @ObjectHolder("statue")
     public static TileEntityType<?> statue;
+    @ObjectHolder("ayeraco_spawn")
+    public static TileEntityType<?> ayeraco_spawn;
+    @ObjectHolder("ayeraco_beam")
+    public static TileEntityType<?> ayeraco_beam;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<TileEntityType<?>> e) {
@@ -35,6 +42,7 @@ public class TileEntityRegistry {
     @OnlyIn(Dist.CLIENT)
     public static void registerRender() {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStatue.class, new StatueRender());
+        ClientRegistry.bindTileEntitySpecialRenderer(AyeracoBeam.class, new AyeracoBeamRender());
     }
 
     private static Block[] byName(List<String> names) {

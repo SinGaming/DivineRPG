@@ -4,7 +4,7 @@ import divinerpg.entities.base.DivineModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.util.math.MathHelper;
 
-// TODO fix model
+// TODO fix manager
 public class SkythernFiendModel extends DivineModel<SkythernFiend> {
     RendererModel head;
     RendererModel body;

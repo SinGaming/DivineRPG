@@ -15,7 +15,7 @@ public class BunnyModel extends DivineModel<Bunny> {
     RendererModel Ear2;
     RendererModel tail;
 
-    // TODO wrong model floating part on the top
+    // TODO wrong manager floating part on the top
     public BunnyModel() {
         textureWidth = 64;
         textureHeight = 32;

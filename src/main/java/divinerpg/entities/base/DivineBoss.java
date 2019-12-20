@@ -24,6 +24,7 @@ import net.minecraft.world.ServerBossInfo;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
@@ -52,10 +53,13 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
      * Gets random color
      */
     protected static BossInfo.Color randomColor() {
-        BossInfo.Color[] values = BossInfo.Color.values();
+        return randomColor(Arrays.asList(BossInfo.Color.values()));
+    }
+
+    protected static BossInfo.Color randomColor(Collection<BossInfo.Color> colors) {
         Random random = new Random();
-        int i = random.nextInt(values.length);
-        return values[i];
+        int i = random.nextInt(colors.size());
+        return colors.stream().skip(i).findFirst().get();
     }
 
     @Override

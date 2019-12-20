@@ -1,4 +1,4 @@
-package divinerpg.entities.bosses.ayeraco.model;
+package divinerpg.entities.bosses.ayeraco.manager;
 
 import divinerpg.entities.bosses.ayeraco.Ayeraco;
 import divinerpg.registry.SoundRegistry;
@@ -11,23 +11,80 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.BossInfo;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 // TODO think about ayeraco goal?..
-public class AyeracoModel {
+public class AyeracoManager {
+    /**
+     * Possible ayeraco colors
+     */
+    public static final Map<BossInfo.Color, Vec3i> beamLocations = new ConcurrentHashMap<BossInfo.Color, Vec3i>() {{
+        put(BossInfo.Color.GREEN, new Vec3i(8, 0, 8));
+        put(BossInfo.Color.BLUE, new Vec3i(15, 0, 0));
+        put(BossInfo.Color.RED, new Vec3i(5, 0, -12));
+        put(BossInfo.Color.YELLOW, new Vec3i(-5, 0, -12));
+        put(BossInfo.Color.PURPLE, new Vec3i(-8, 0, 8));
+    }};
+
+    public AyeracoManager(Ayeraco owner) {
+        this.owner = owner;
+    }
+
+    /**
+     * Gets beam location
+     *
+     * @param world
+     * @param origin
+     * @param color
+     * @return
+     */
+    public static BlockPos getBeamLocation(World world, final BlockPos origin, BossInfo.Color color) {
+        Vec3i vec = beamLocations.getOrDefault(color, new Vec3i(0, 0, 0));
+        final BlockPos seed = origin.add(vec);
+
+        // going down
+        for (BlockPos i = new BlockPos(seed); i.getY() > 0; i = i.down()) {
+            if (!world.getBlockState(i).isAir(world, i))
+                return i;
+        }
+
+        // going down
+        for (BlockPos i = new BlockPos(seed); i.getY() < world.getMaxHeight(); i = i.up()) {
+            if (!world.getBlockState(i).isAir(world, i))
+                return i;
+        }
+
+        // take bottom
+        return seed.down(seed.getY() - 1);
+    }
+
     private static final String key = "AyeracosGang";
     private final Ayeraco owner;
     private final List<EntityFinder<Ayeraco>> gang = new ArrayList<>();
 
-    public AyeracoModel(Ayeraco owner) {
-        this.owner = owner;
+    /**
+     * Summon whole gang
+     *
+     * @param world
+     * @param summon
+     * @return
+     */
+    public static List<Ayeraco> summonGang(World world, BlockPos summon) {
+        List<Ayeraco> ayeracos = beamLocations.keySet().stream().map(x -> new Ayeraco(world, summon, x)).collect(Collectors.toList());
+        ayeracos.forEach(x -> x.initGang(ayeracos));
+        return ayeracos;
     }
 
     public void write(CompoundNBT tag) {
@@ -116,11 +173,24 @@ public class AyeracoModel {
                 .map(EntityFinder::new).collect(Collectors.toList()));
     }
 
+    /**
+     * Gets beam location for entity
+     *
+     * @param seed - summon pos
+     * @return
+     */
+    public BlockPos getBeamLocation(@Nullable BlockPos seed) {
+        if (isAlive(owner) && seed != null && beamLocations.containsKey(owner.getColor())) {
+            return getBeamLocation(owner.world, seed, owner.getColor());
+        }
+
+        return null;
+    }
+
 
     ////////////////////////
     // HELPING METHODS
     ////////////////////////
-
 
     private void teleportEntity() {
         if (!isAlive(owner) || owner.world == null || owner.world.rand == null)
@@ -178,4 +248,6 @@ public class AyeracoModel {
     private boolean isHealty(LivingEntity e) {
         return isAlive(e) && e.getHealth() / e.getMaxHealth() > 0.5F;
     }
+
+
 }
