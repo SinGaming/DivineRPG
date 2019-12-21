@@ -29,6 +29,6 @@ public abstract class DivineMonster extends PeacefullDivineMonster {
     protected void registerGoals() {
         super.registerGoals();
 
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
 }

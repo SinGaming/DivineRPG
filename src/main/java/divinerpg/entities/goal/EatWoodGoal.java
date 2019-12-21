@@ -12,6 +12,7 @@ import net.minecraftforge.common.ForgeHooks;
 import java.util.Comparator;
 import java.util.EnumSet;
 
+
 public class EatWoodGoal extends Goal {
     private BlockPos nearestWoodPos;
     private PathNavigator navigator;
@@ -28,6 +29,7 @@ public class EatWoodGoal extends Goal {
         if (!isAngry())
             return false;
 
+        // FIXME it's not working
         // search in 12 blocks area
         BlockPos nearestWood = BlockPos.getAllInBox(entity.getPosition().add(-12, -12, -12), entity.getPosition().add(12, 12, 12))
                 // ordered by distane of entity

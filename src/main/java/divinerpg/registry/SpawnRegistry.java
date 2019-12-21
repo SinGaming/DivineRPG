@@ -87,7 +87,8 @@ public class SpawnRegistry {
 
         Arrays.asList(new Biome.SpawnListEntry(EntitiesRegistry.wildwood_tomo, 4, 4, 4),
                 new Biome.SpawnListEntry(EntitiesRegistry.wildwood_cadillion, 4, 4, 4),
-                new Biome.SpawnListEntry(EntitiesRegistry.epiphite, 1, 2, 2)
+                new Biome.SpawnListEntry(EntitiesRegistry.epiphite, 1, 2, 2),
+                new Biome.SpawnListEntry(EntitiesRegistry.behemoth, 1, 1, 1)
         ).forEach(x -> {
             wildwoodMonsters.add(x);
             wildwoodCreatures.add(x);

@@ -119,6 +119,8 @@ import divinerpg.entities.vanilla.wildfire.Wildfire;
 import divinerpg.entities.vanilla.wildfire.WildfireRender;
 import divinerpg.entities.vanilla.worm.SaguaroWorm;
 import divinerpg.entities.vanilla.worm.SaguaroWormRender;
+import divinerpg.entities.wildwood.begemoth.Behemoth;
+import divinerpg.entities.wildwood.begemoth.BehemothRender;
 import divinerpg.entities.wildwood.epiphite.Epiphite;
 import divinerpg.entities.wildwood.epiphite.EpiphiteRender;
 import divinerpg.entities.wildwood.mage.Mage;
@@ -292,6 +294,8 @@ public class EntitiesRegistry {
     public static EntityType<Vamacheron> vamacheron;
     @ObjectHolder("ayeraco")
     public static EntityType<Ayeraco> ayeraco;
+    @ObjectHolder("behemoth")
+    public static EntityType<Behemoth> behemoth;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -383,7 +387,7 @@ public class EntitiesRegistry {
         registerSingle(registry, Sorcerer::new, "sorcerer", 0.5F, 2.2F);
         registerSingle(registry, SoulStealer::new, "soul_stealer", 0.8F, 2);
         registerSingle(registry, Vamacheron::new, "vamacheron", 1.45F, 2.2F);
-
+        registerSingle(registry, Behemoth::new, "behemoth", 1, 1.2F);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -456,6 +460,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Sorcerer.class, SorcererRender::new);
         RenderingRegistry.registerEntityRenderingHandler(SoulStealer.class, SoulStealerRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Vamacheron.class, VamacheronRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Behemoth.class, BehemothRender::new);
     }
 
 
