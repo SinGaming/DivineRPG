@@ -6,19 +6,18 @@ import divinerpg.tile.statue.models.VamacheronModel;
 import divinerpg.utils.CachedTexture;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.animation.TileEntityRendererFast;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class StatueRender extends TileEntityRendererFast<TileEntityStatue> {
+public class StatueRender extends TileEntityRenderer<TileEntityStatue> {
     private static final HashMap<String, DivineTileEModel<TileEntityStatue>> models = new HashMap<String, DivineTileEModel<TileEntityStatue>>() {{
         put("ancient_entity_statue", new AncientEntityModel());
         put("vamacheron_statue", new VamacheronModel());
@@ -29,7 +28,9 @@ public class StatueRender extends TileEntityRendererFast<TileEntityStatue> {
     }
 
     @Override
-    public void renderTileEntityFast(TileEntityStatue te, double x, double y, double z, float partialTicks, int destroyStage, BufferBuilder buffer) {
+    public void render(TileEntityStatue te, double x, double y, double z, float partialTicks, int destroyStage) {
+        super.render(te, x, y, z, partialTicks, destroyStage);
+
         World world = te.getWorld();
         if (world == null)
             return;
