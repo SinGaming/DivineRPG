@@ -3,6 +3,7 @@ package divinerpg.registry;
 import divinerpg.DivineRPG;
 import divinerpg.tile.ayeraco.beam.AyeracoBeam;
 import divinerpg.tile.ayeraco.beam.AyeracoBeamRender;
+import divinerpg.tile.statue.StatueConstants;
 import divinerpg.tile.statue.StatueRender;
 import divinerpg.tile.statue.TileEntityStatue;
 import net.minecraft.block.Block;
@@ -36,7 +37,7 @@ public class TileEntityRegistry {
     public static void registerRenders(final RegistryEvent.Register<TileEntityType<?>> e) {
         IForgeRegistry<TileEntityType<?>> registry = e.getRegistry();
 
-        singleRegister(registry, TileEntityStatue::new, "statue", byName(StatueRender.getStatueNames()));
+        singleRegister(registry, TileEntityStatue::new, "statue", byName(StatueConstants.getStatueNames()));
     }
 
     @OnlyIn(Dist.CLIENT)

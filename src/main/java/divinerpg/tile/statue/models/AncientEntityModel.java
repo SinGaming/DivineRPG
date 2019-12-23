@@ -1,8 +1,10 @@
 package divinerpg.tile.statue.models;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import divinerpg.tile.base.DivineTileEModel;
 import divinerpg.tile.statue.TileEntityStatue;
 import net.minecraft.client.renderer.entity.model.RendererModel;
+import org.lwjgl.opengl.GL11;
 
 public class AncientEntityModel extends DivineTileEModel<TileEntityStatue> {
     RendererModel head;
@@ -189,5 +191,13 @@ public class AncientEntityModel extends DivineTileEModel<TileEntityStatue> {
         support1.setTextureSize(64, 32);
         support1.mirror = true;
         setRotation(support1, 0F, 0F, 0F);
+    }
+
+    @Override
+    public void render(TileEntityStatue tile, float scale) {
+        GL11.glTranslatef(0, 0, 0.5F);
+        float additiveScale = 0.8F;
+        GlStateManager.scalef(additiveScale, additiveScale, additiveScale);
+        super.render(tile, scale);
     }
 }

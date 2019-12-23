@@ -1,5 +1,6 @@
 package divinerpg.blocks.twilight;
 
+import divinerpg.tile.statue.StatueConstants;
 import divinerpg.tile.statue.TileEntityStatue;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -8,15 +9,15 @@ import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.IntegerProperty;
+import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
@@ -25,20 +26,21 @@ import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nullable;
 
+// TODO breaking particles
 public class StatueBlock extends ContainerBlock {
     private final String name;
-    public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_0_15;
-    protected static final VoxelShape SHAPE = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 8.0D, 12.0D);
+    public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
     public StatueBlock(String name) {
         super(Block.Properties.create(Material.ROCK, MaterialColor.GRAY).hardnessAndResistance(6).harvestTool(ToolType.PICKAXE).harvestLevel(0));
         this.name = name;
-        this.setDefaultState(this.stateContainer.getBaseState().with(ROTATION, 0));
+
+        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
     }
 
     @Override
     public boolean hasTileEntity(BlockState state) {
-        return state.getBlock() == this;
+        return true;
     }
 
     @Nullable
@@ -53,9 +55,12 @@ public class StatueBlock extends ContainerBlock {
         return new TileEntityStatue(name);
     }
 
+    /**
+     * Render only model, do not need to render block
+     */
     @Override
     public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+        return BlockRenderType.INVISIBLE;
     }
 
     @Override
@@ -70,7 +75,7 @@ public class StatueBlock extends ContainerBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return SHAPE;
+        return StatueConstants.getShape(name);
     }
 
     @Override
@@ -78,22 +83,32 @@ public class StatueBlock extends ContainerBlock {
         return false;
     }
 
+    /**
+     * Adds FACING prop to builder
+     */
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(ROTATION);
+        builder.add(FACING);
     }
 
     @Override
     public BlockState rotate(BlockState state, Rotation rot) {
-        return state.with(ROTATION, rot.rotate(state.get(ROTATION), 16));
+        return state.with(FACING, rot.rotate(state.get(FACING)));
     }
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(ROTATION, MathHelper.floor((double) (context.getPlacementYaw() * 16.0F / 360.0F) + 0.5D) & 15);
+        return this.getDefaultState().with(FACING, context.getPlayer().getHorizontalFacing().getOpposite());
     }
 
     @Override
     public BlockState mirror(BlockState state, Mirror mirrorIn) {
-        return state.with(ROTATION, mirrorIn.mirrorRotation(state.get(ROTATION), 16));
+        return state.with(FACING, mirrorIn.mirror(state.get(FACING)));
+    }
+
+    /**
+     * Gets name of statue
+     */
+    public String getName() {
+        return name;
     }
 }
