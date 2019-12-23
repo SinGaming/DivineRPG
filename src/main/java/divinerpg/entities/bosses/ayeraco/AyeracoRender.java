@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 
 public class AyeracoRender extends DivineRender<Ayeraco, AyeracoModel> {
     public AyeracoRender(EntityRendererManager manager) {
-        super(manager, new AyeracoModel(), 0, "");
+        super(manager, new AyeracoModel(), 0, "", 2F);
     }
 
     @Nullable

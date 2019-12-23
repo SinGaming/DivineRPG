@@ -1,23 +1,31 @@
 package divinerpg.tile.ayeraco.spawn;
 
+import divinerpg.blocks.twilight.AyeracoBeamBlock;
 import divinerpg.entities.bosses.ayeraco.manager.AyeracoManager;
+import divinerpg.registry.BlockRegistry;
 import divinerpg.registry.TileEntityRegistry;
 import divinerpg.tile.base.DivineTileEntity;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.BossInfo;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class AyeracoSpawn extends DivineTileEntity implements ITickableTileEntity {
-    private final Map<BossInfo.Color, Integer> colorToTick = new HashMap<>();
+    private final Map<BossInfo.Color, Integer> colorToTick = new LinkedHashMap<>();
+    private BossInfo.Color currentColor;
     private int ticks;
 
+    public AyeracoSpawn() {
+        this(600);
+    }
+
     public AyeracoSpawn(int spawnTicks) {
-        super(TileEntityRegistry.ayeraco_spawn);
+        super(TileEntityRegistry.ayeraco_spawner);
         // max summinig time
         ticks = spawnTicks;
 
@@ -29,6 +37,8 @@ public class AyeracoSpawn extends DivineTileEntity implements ITickableTileEntit
 
             maxSummonogTime -= byOne;
         }
+
+        currentColor = colorToTick.keySet().stream().findFirst().get();
     }
 
     @Override
@@ -41,6 +51,7 @@ public class AyeracoSpawn extends DivineTileEntity implements ITickableTileEntit
             colorToTick.remove(entry.getKey());
 
             log("message.ayeraco.spawn", TextFormatting.getValueByName(entry.getKey().getName()));
+            currentColor = entry.getKey();
         }
 
         if (ticks <= 0) {
@@ -55,10 +66,19 @@ public class AyeracoSpawn extends DivineTileEntity implements ITickableTileEntit
     }
 
     private void setBlock(BlockPos pos, BossInfo.Color color) {
-        // todo deam block
+        Block block = BlockRegistry.find(AyeracoBeamBlock.getName(color));
+
+        if (block != null)
+            world.setBlockState(pos, block.getDefaultState());
     }
 
     private void log(String text, TextFormatting color) {
         // todo logger
+    }
+
+    String genSummoningColorName() {
+        return currentColor != null
+                ? currentColor.getName()
+                : "";
     }
 }

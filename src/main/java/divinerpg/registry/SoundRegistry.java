@@ -24,7 +24,7 @@ public final class SoundRegistry {
     public static final SoundEvent AYERACO_HALF_HEALTH = createEvent("ayeraco_half_health");
     public static final SoundEvent AYERACO_HURT = createEvent("ayeraco_hurt");
     public static final SoundEvent AYERACO_PILLAR = createEvent("ayeraco_pillar");
-    public static final SoundEvent AYERACO_SPAWN = createEvent("ayeraco_spawn");
+    public static final SoundEvent AYERACO_SPAWN = createEvent("ayeraco_spawner");
     public static final SoundEvent AYERACO_TELEPORT = createEvent("ayeraco_teleport");
     public static final SoundEvent BLITZ = createEvent("blitz");
     public static final SoundEvent BUNNY = createEvent("bunny");

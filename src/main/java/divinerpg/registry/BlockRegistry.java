@@ -3,6 +3,7 @@ package divinerpg.registry;
 import divinerpg.DivineRPG;
 import divinerpg.blocks.base.*;
 import divinerpg.blocks.twilight.AyeracoBeamBlock;
+import divinerpg.blocks.twilight.AyeracoSpawnerBlock;
 import divinerpg.blocks.twilight.DivinePortalBlock;
 import divinerpg.blocks.twilight.StatueBlock;
 import divinerpg.entities.bosses.ayeraco.manager.AyeracoManager;
@@ -195,6 +196,8 @@ public class BlockRegistry {
     public static DivinePortalBlock mortumPortal;
     @ObjectHolder("mortum_block")
     public static Block mortumBlock;
+    @ObjectHolder("ayeraco_spawner")
+    public static Block ayeraco_spawner;
 
 
     private static int STONE = 1, IRON = 2, DIAMOND = 3;
@@ -465,8 +468,10 @@ public class BlockRegistry {
         }
 
         for (BossInfo.Color color : AyeracoManager.beamLocations.keySet()) {
-            registerBlock(new AyeracoBeamBlock(color), "ayeraco_beam_" + color.getName(), null);
+            registerBlock(new AyeracoBeamBlock(color), AyeracoBeamBlock.getName(color), null);
         }
+
+        registerBlock(new AyeracoSpawnerBlock(), "ayeraco_spawner", null);
 
 
         ///////////////////////
@@ -518,5 +523,10 @@ public class BlockRegistry {
             return SoundType.WOOD;
         }
         return SoundType.ANVIL;
+    }
+
+    public static Block find(String name) {
+        ResourceLocation key = new ResourceLocation(DivineRPG.MODID, name);
+        return ForgeRegistries.BLOCKS.getValue(key);
     }
 }

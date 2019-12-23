@@ -56,7 +56,7 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
         return randomColor(Arrays.asList(BossInfo.Color.values()));
     }
 
-    protected static BossInfo.Color randomColor(Collection<BossInfo.Color> colors) {
+    public static BossInfo.Color randomColor(Collection<BossInfo.Color> colors) {
         Random random = new Random();
         int i = random.nextInt(colors.size());
         return colors.stream().skip(i).findFirst().get();
@@ -73,6 +73,13 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
         this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+    }
+
+    @Override
+    protected void registerAttributes() {
+        super.registerAttributes();
+
+        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3);
     }
 
     @Override
@@ -190,10 +197,10 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
      */
     protected void initAI(boolean isArcher, boolean isMeelee) {
         if (isMeelee)
-            this.goalSelector.addGoal(1, new MeleeGoal(this, 1, true));
+            this.goalSelector.addGoal(2, new MeleeGoal(this, 1, true));
 
         if (isArcher)
-            this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1.0D, 40, 20.0F));
+            this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1, 40, 20.0F));
     }
 
     /**

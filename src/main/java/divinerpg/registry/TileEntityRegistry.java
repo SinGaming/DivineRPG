@@ -1,23 +1,24 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
+import divinerpg.blocks.twilight.AyeracoBeamBlock;
 import divinerpg.entities.bosses.ayeraco.manager.AyeracoManager;
 import divinerpg.tile.ayeraco.beam.AyeracoBeam;
 import divinerpg.tile.ayeraco.beam.AyeracoBeamRender;
+import divinerpg.tile.ayeraco.spawn.AyeracoSpawn;
+import divinerpg.tile.ayeraco.spawn.AyeracoSpawnRender;
 import divinerpg.tile.statue.StatueConstants;
 import divinerpg.tile.statue.StatueRender;
 import divinerpg.tile.statue.TileEntityStatue;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -30,8 +31,8 @@ import java.util.stream.Collectors;
 public class TileEntityRegistry {
     @ObjectHolder("statue")
     public static TileEntityType<?> statue;
-    @ObjectHolder("ayeraco_spawn")
-    public static TileEntityType<?> ayeraco_spawn;
+    @ObjectHolder("ayeraco_spawner")
+    public static TileEntityType<?> ayeraco_spawner;
     @ObjectHolder("ayeraco_beam")
     public static TileEntityType<?> ayeraco_beam;
 
@@ -41,18 +42,19 @@ public class TileEntityRegistry {
 
         singleRegister(registry, TileEntityStatue::new, "statue", byName(StatueConstants.getStatueNames()));
         singleRegister(registry, AyeracoBeam::new, "ayeraco_beam",
-                // Take a look at BlockRegistry and search AyeracoBeamBlock registry for correct name
-                byName(AyeracoManager.beamLocations.keySet().stream().map(x -> "ayeraco_beam_" + x.getName()).collect(Collectors.toList())));
+                byName(AyeracoManager.beamLocations.keySet().stream().map(AyeracoBeamBlock::getName).collect(Collectors.toList())));
+        singleRegister(registry, AyeracoSpawn::new, "ayeraco_spawner", BlockRegistry.ayeraco_spawner);
     }
 
     @OnlyIn(Dist.CLIENT)
     public static void registerRender() {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStatue.class, new StatueRender());
         ClientRegistry.bindTileEntitySpecialRenderer(AyeracoBeam.class, new AyeracoBeamRender());
+        ClientRegistry.bindTileEntitySpecialRenderer(AyeracoSpawn.class, new AyeracoSpawnRender());
     }
 
     private static Block[] byName(List<String> names) {
-        return names.stream().map(x -> new ResourceLocation(DivineRPG.MODID, x)).map(ForgeRegistries.BLOCKS::getValue).toArray(Block[]::new);
+        return names.stream().map(BlockRegistry::find).toArray(Block[]::new);
     }
 
     private static <T extends TileEntity> void singleRegister(IForgeRegistry<TileEntityType<?>> registry, Supplier<T> ctor, String name, Block... validBlocks) {

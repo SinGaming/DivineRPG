@@ -18,11 +18,7 @@ import net.minecraft.world.BossInfo;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 // TODO think about ayeraco goal?..
@@ -30,7 +26,7 @@ public class AyeracoManager {
     /**
      * Possible ayeraco colors
      */
-    public static final Map<BossInfo.Color, Vec3i> beamLocations = new ConcurrentHashMap<BossInfo.Color, Vec3i>() {{
+    public static final Map<BossInfo.Color, Vec3i> beamLocations = new LinkedHashMap<BossInfo.Color, Vec3i>() {{
         put(BossInfo.Color.GREEN, new Vec3i(8, 0, 8));
         put(BossInfo.Color.BLUE, new Vec3i(15, 0, 0));
         put(BossInfo.Color.RED, new Vec3i(5, 0, -12));
@@ -78,11 +74,11 @@ public class AyeracoManager {
      * Summon whole gang
      *
      * @param world
-     * @param summon
+     * @param summonPos
      * @return
      */
-    public static List<Ayeraco> summonGang(World world, BlockPos summon) {
-        List<Ayeraco> ayeracos = beamLocations.keySet().stream().map(x -> new Ayeraco(world, summon, x)).collect(Collectors.toList());
+    public static List<Ayeraco> summonGang(World world, BlockPos summonPos) {
+        List<Ayeraco> ayeracos = beamLocations.keySet().stream().map(x -> new Ayeraco(world, summonPos, x)).collect(Collectors.toList());
         ayeracos.forEach(x -> x.initGang(ayeracos));
         return ayeracos;
     }

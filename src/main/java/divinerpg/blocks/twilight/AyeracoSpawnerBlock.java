@@ -1,7 +1,6 @@
 package divinerpg.blocks.twilight;
 
-import divinerpg.entities.bosses.ayeraco.manager.AyeracoManager;
-import divinerpg.tile.ayeraco.beam.AyeracoBeam;
+import divinerpg.tile.ayeraco.spawn.AyeracoSpawn;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -12,22 +11,17 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.BossInfo;
 import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nullable;
 
-public class AyeracoBeamBlock extends ContainerBlock {
-    private BossInfo.Color color;
-
-    public AyeracoBeamBlock(BossInfo.Color color) {
+public class AyeracoSpawnerBlock extends ContainerBlock {
+    public AyeracoSpawnerBlock() {
         super(Block.Properties.create(Material.FIRE)
                 .hardnessAndResistance(60000)
                 .lightValue(0)
                 .variableOpacity()
                 .noDrops());
-
-        this.color = color;
     }
 
     @Override
@@ -43,19 +37,6 @@ public class AyeracoBeamBlock extends ContainerBlock {
     @Nullable
     @Override
     public TileEntity createNewTileEntity(IBlockReader worldIn) {
-        return new AyeracoBeam(color);
-    }
-
-    /**
-     * Returns name with color mask
-     *
-     * @return
-     */
-    public static String getName(BossInfo.Color color) {
-        if (!AyeracoManager.beamLocations.containsKey(color)) {
-            color = AyeracoManager.beamLocations.keySet().stream().findFirst().get();
-        }
-
-        return "ayeraco_beam_" + color.getName();
+        return new AyeracoSpawn();
     }
 }

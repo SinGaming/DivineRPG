@@ -1,8 +1,8 @@
 package divinerpg.entities.base.render;
 
-import divinerpg.entities.base.DivineBoss;
+import net.minecraft.entity.MobEntity;
 
-public abstract class DivineBossModel<T extends DivineBoss> extends DivineModel<T> implements IItemModel {
+public abstract class DivineBossModel<T extends MobEntity> extends DivineModel<T> implements IItemModel {
     /**
      * Render as item. Should looks the same as default render method
      *

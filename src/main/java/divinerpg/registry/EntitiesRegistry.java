@@ -5,6 +5,7 @@ import divinerpg.entities.apalachia.warrior.EnchantedWarrior;
 import divinerpg.entities.apalachia.warrior.EnchantedWarriorRender;
 import divinerpg.entities.base.DivineFireball;
 import divinerpg.entities.bosses.ayeraco.Ayeraco;
+import divinerpg.entities.bosses.ayeraco.AyeracoRender;
 import divinerpg.entities.bosses.vamacheron.Vamacheron;
 import divinerpg.entities.bosses.vamacheron.VamacheronRender;
 import divinerpg.entities.eden.archer.SunArcher;
@@ -388,6 +389,7 @@ public class EntitiesRegistry {
         registerSingle(registry, SoulStealer::new, "soul_stealer", 0.8F, 2);
         registerSingle(registry, Vamacheron::new, "vamacheron", 1.45F, 2.2F);
         registerSingle(registry, Behemoth::new, "behemoth", 1, 1.2F);
+        registerSingle(registry, Ayeraco::new, "ayeraco", 2.8F, 1.2F);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -461,6 +463,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(SoulStealer.class, SoulStealerRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Vamacheron.class, VamacheronRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Behemoth.class, BehemothRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Ayeraco.class, AyeracoRender::new);
     }
 
 
