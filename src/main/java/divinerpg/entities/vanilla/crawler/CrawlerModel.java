@@ -1,7 +1,6 @@
 package divinerpg.entities.vanilla.crawler;
 
-import divinerpg.entities.base.DivineModel;
-import divinerpg.entities.vanilla.crawler.cave.CaveCrawler;
+import divinerpg.entities.base.render.DivineModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;

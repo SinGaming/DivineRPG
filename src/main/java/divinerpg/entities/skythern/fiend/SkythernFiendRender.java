@@ -1,6 +1,6 @@
 package divinerpg.entities.skythern.fiend;
 
-import divinerpg.entities.base.DivineRender;
+import divinerpg.entities.base.render.DivineRender;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 
 public class SkythernFiendRender extends DivineRender<SkythernFiend, SkythernFiendModel> {

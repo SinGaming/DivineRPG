@@ -1,6 +1,6 @@
 package divinerpg.entities.eden.bunny.angry;
 
-import divinerpg.entities.base.DivineRender;
+import divinerpg.entities.base.render.DivineRender;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 
 public class AngryBunnyRender extends DivineRender<AngryBunny, AngryBunnyModel> {

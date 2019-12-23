@@ -1,6 +1,6 @@
 package divinerpg.entities.vanilla.watcher;
 
-import divinerpg.entities.base.DivineModel;
+import divinerpg.entities.base.render.DivineModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.entity.Entity;
 

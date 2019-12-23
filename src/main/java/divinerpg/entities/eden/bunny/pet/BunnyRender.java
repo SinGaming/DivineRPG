@@ -1,7 +1,7 @@
 package divinerpg.entities.eden.bunny.pet;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import divinerpg.entities.base.DivineRender;
+import divinerpg.entities.base.render.DivineRender;
 import divinerpg.utils.CachedTexture;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;

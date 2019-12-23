@@ -1,6 +1,6 @@
 package divinerpg.entities.vanilla.dramcryx.jungle;
 
-import divinerpg.entities.base.DivineRender;
+import divinerpg.entities.base.render.DivineRender;
 import divinerpg.entities.vanilla.dramcryx.DramcryxModel;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 

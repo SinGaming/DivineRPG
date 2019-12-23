@@ -1,6 +1,6 @@
 package divinerpg.entities.vanilla.cyclop.cave;
 
-import divinerpg.entities.base.DivineRender;
+import divinerpg.entities.base.render.DivineRender;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 

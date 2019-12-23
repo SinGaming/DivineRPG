@@ -1,6 +1,6 @@
 package divinerpg.entities.bosses.vamacheron;
 
-import divinerpg.entities.base.DivineRender;
+import divinerpg.entities.base.render.DivineRender;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 
 public class VamacheronRender extends DivineRender<Vamacheron, VamacheronModel> {

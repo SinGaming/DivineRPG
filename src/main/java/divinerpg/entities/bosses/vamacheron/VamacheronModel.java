@@ -1,10 +1,10 @@
 package divinerpg.entities.bosses.vamacheron;
 
-import divinerpg.entities.base.DivineModel;
+import divinerpg.entities.base.render.DivineBossModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.util.math.MathHelper;
 
-public class VamacheronModel extends DivineModel<Vamacheron> {
+public class VamacheronModel extends DivineBossModel<Vamacheron> {
     RendererModel head;
     RendererModel body;
     RendererModel leg1;

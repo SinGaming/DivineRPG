@@ -1,6 +1,6 @@
 package divinerpg.entities.mortum.deamon;
 
-import divinerpg.entities.base.DivineModel;
+import divinerpg.entities.base.render.DivineModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.util.math.MathHelper;
 

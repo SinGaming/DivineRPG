@@ -1,6 +1,6 @@
 package divinerpg.entities.bosses.ayeraco;
 
-import divinerpg.entities.base.DivineRender;
+import divinerpg.entities.base.render.DivineRender;
 import divinerpg.entities.bosses.ayeraco.manager.AyeracoManager;
 import divinerpg.utils.CachedTexture;
 import net.minecraft.client.renderer.entity.EntityRendererManager;

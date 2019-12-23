@@ -1,6 +1,6 @@
 package divinerpg.entities.vanilla.triplets;
 
-import divinerpg.entities.base.DivineModel;
+import divinerpg.entities.base.render.DivineModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 
 public class EnderTripletsModel extends DivineModel<EnderTriplets> {

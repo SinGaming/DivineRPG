@@ -1,6 +1,6 @@
 package divinerpg.entities.eden.feet;
 
-import divinerpg.entities.base.DivineRender;
+import divinerpg.entities.base.render.DivineRender;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 
 public class GreenfeetRender extends DivineRender<Greenfeet, GreenfeetModel> {

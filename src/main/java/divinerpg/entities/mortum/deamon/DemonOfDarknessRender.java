@@ -1,6 +1,6 @@
 package divinerpg.entities.mortum.deamon;
 
-import divinerpg.entities.base.DivineRender;
+import divinerpg.entities.base.render.DivineRender;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 
 public class DemonOfDarknessRender extends DivineRender<DemonOfDarkness, DemonOfDarknessModel> {

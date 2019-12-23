@@ -1,10 +1,7 @@
 package divinerpg.tile.statue;
 
-import divinerpg.entities.base.DivineModel;
-import divinerpg.tile.base.DivineTileEModel;
 import divinerpg.utils.CachedTexture;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
@@ -42,20 +39,17 @@ public class StatueRender extends TileEntityRenderer<TileEntityStatue> {
     }
 
     private ResourceLocation findResource(TileEntityStatue te) {
-        return CachedTexture.ENTITIES.getTexture(te.getName().replace("_statue", ""));
+        String resourceName = te.getName().replace("_statue", "");
+
+        if (resourceName.contains("ayeraco")) {
+            // Don't know what is to use as default, and I love purple!
+            resourceName += "_purple";
+        }
+
+        return CachedTexture.ENTITIES.getTexture(resourceName);
     }
 
     private void renderModel(TileEntityStatue te, float scale) {
-        Model model = StatueConstants.get(te.getName());
-
-        if (model instanceof DivineModel) {
-            ((DivineModel) model).render(null, 0, 0, 0, 0, 0, scale);
-            return;
-        }
-
-        if (model instanceof DivineTileEModel) {
-            ((DivineTileEModel) model).render(te, scale);
-            return;
-        }
+        StatueConstants.get(te.getName()).render(scale);
     }
 }

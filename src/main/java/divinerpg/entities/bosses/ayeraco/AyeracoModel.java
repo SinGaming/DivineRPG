@@ -1,10 +1,10 @@
 package divinerpg.entities.bosses.ayeraco;
 
-import divinerpg.entities.base.DivineModel;
+import divinerpg.entities.base.render.DivineBossModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.util.math.MathHelper;
 
-public class AyeracoModel extends DivineModel<Ayeraco> {
+public class AyeracoModel extends DivineBossModel<Ayeraco> {
     RendererModel BodyLower;
     RendererModel Neck;
     RendererModel Head;

@@ -1,4 +1,4 @@
-package divinerpg.entities.base;
+package divinerpg.entities.base.render;
 
 import divinerpg.utils.ReflectionHelper;
 import net.minecraft.client.renderer.entity.model.EntityModel;
@@ -6,12 +6,7 @@ import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.LazyLoadBase;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class DivineModel<T extends Entity> extends EntityModel<T> {
     protected LazyLoadBase<List<RendererModel>> parts;
@@ -36,7 +31,7 @@ public class DivineModel<T extends Entity> extends EntityModel<T> {
      *
      * @return
      */
-    private List<RendererModel> getRenderers() {
+    protected List<RendererModel> getRenderers() {
         return ReflectionHelper.getDeclaredFieldsValues(this, RendererModel.class);
     }
 

@@ -1,6 +1,6 @@
 package divinerpg.entities.vanilla.arid;
 
-import divinerpg.entities.base.DivineRender;
+import divinerpg.entities.base.render.DivineRender;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 
 public class AridWarriorRender extends DivineRender<AridWarrior, AridWarriorModel> {

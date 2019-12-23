@@ -1,6 +1,6 @@
 package divinerpg.entities.twilight.golem;
 
-import divinerpg.entities.base.DivineModel;
+import divinerpg.entities.base.render.DivineModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.util.math.MathHelper;

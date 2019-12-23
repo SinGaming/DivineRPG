@@ -1,4 +1,4 @@
-package divinerpg.entities.base;
+package divinerpg.entities.base.render;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import divinerpg.utils.CachedTexture;
@@ -19,15 +19,19 @@ public class DivineRender<T extends MobEntity, M extends EntityModel<T>> extends
 
     public DivineRender(EntityRendererManager manager, M model, float shadow, String name) {
         this(manager, model, shadow, name, null);
-
-        if (model instanceof IHasArm)
-            this.addLayer(new HeldItemLayer(this));
     }
 
     public DivineRender(EntityRendererManager manager, M model, float shadow, String name, Float scale) {
         super(manager, model, shadow);
         location = createFromName(name);
         this.scale = scale;
+
+        if (model instanceof IHasArm)
+            this.addLayer(new HeldItemLayer(this));
+
+        if (model instanceof IHasArms) {
+            this.addLayer(new HeldItemsLayer(this));
+        }
     }
 
     protected ResourceLocation createFromName(String name) {

@@ -1,7 +1,7 @@
 package divinerpg.entities.vanilla.bat;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import divinerpg.entities.base.DivineRender;
+import divinerpg.entities.base.render.DivineRender;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.model.BatModel;
 import net.minecraft.entity.passive.BatEntity;

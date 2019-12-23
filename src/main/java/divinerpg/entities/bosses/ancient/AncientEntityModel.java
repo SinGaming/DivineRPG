@@ -1,18 +1,18 @@
-package divinerpg.tile.statue.models;
+package divinerpg.entities.bosses.ancient;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import divinerpg.tile.base.DivineTileEModel;
-import divinerpg.tile.statue.TileEntityStatue;
+import divinerpg.entities.base.DivineBoss;
+import divinerpg.entities.base.render.DivineBossModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
-public class AncientEntityModel extends DivineTileEModel<TileEntityStatue> {
+public class AncientEntityModel extends DivineBossModel<DivineBoss> {
     RendererModel head;
     RendererModel legr;
     RendererModel legl;
     RendererModel legL2B;
     RendererModel body2;
-    RendererModel support2;
+    RendererModel body;
     RendererModel legR2B;
     RendererModel legL2T;
     RendererModel legR2T;
@@ -31,10 +31,11 @@ public class AncientEntityModel extends DivineTileEModel<TileEntityStatue> {
     RendererModel horntopl;
     RendererModel hornbottomr;
     RendererModel horntopr;
-    RendererModel body;
-    RendererModel support1;
 
     public AncientEntityModel() {
+        textureWidth = 64;
+        textureHeight = 32;
+
         head = new RendererModel(this, 0, 0);
         head.addBox(-4F, -4F, -6F, 8, 8, 6);
         head.setRotationPoint(0F, -13F, -19F);
@@ -46,61 +47,61 @@ public class AncientEntityModel extends DivineTileEModel<TileEntityStatue> {
         legr.setRotationPoint(-7F, 12F, 4F);
         legr.setTextureSize(64, 32);
         legr.mirror = true;
-        setRotation(legr, 0.2230717F, 0F, 0F);
+        setRotation(legr, 0F, 0F, 0F);
         legl = new RendererModel(this, 0, 16);
         legl.addBox(-1F, 0F, -2F, 4, 12, 4);
         legl.setRotationPoint(7F, 12F, 4F);
         legl.setTextureSize(64, 32);
         legl.mirror = true;
-        setRotation(legl, -0.1858931F, 0F, 0F);
+        setRotation(legl, 0F, 0F, 0F);
         legL2B = new RendererModel(this, 0, 19);
         legL2B.addBox(-1F, 24F, -2F, 3, 9, 2);
         legL2B.setRotationPoint(7F, -9F, -16F);
         legL2B.setTextureSize(64, 32);
         legL2B.mirror = true;
-        setRotation(legL2B, -0.3346075F, 0F, 0F);
+        setRotation(legL2B, 0F, 0F, 0F);
         body2 = new RendererModel(this, 18, 4);
         body2.addBox(-6F, -10F, -7F, 12, 18, 10);
         body2.setRotationPoint(0F, -7.6F, -10.7F);
         body2.setTextureSize(64, 32);
         body2.mirror = true;
         setRotation(body2, 0.7853982F, 0F, 0F);
-        support2 = new RendererModel(this, 18, 4);
-        support2.addBox(-6F, -10F, -10F, 6, 10, 6);
-        support2.setRotationPoint(3F, 24F, -3F);
-        support2.setTextureSize(64, 32);
-        support2.mirror = true;
-        setRotation(support2, 0F, 0F, 0F);
+        body = new RendererModel(this, 18, 4);
+        body.addBox(-6F, -10F, -7F, 12, 18, 10);
+        body.setRotationPoint(0F, 5F, 2F);
+        body.setTextureSize(64, 32);
+        body.mirror = true;
+        setRotation(body, 0.7853982F, 0F, 0F);
         legR2B = new RendererModel(this, 0, 19);
         legR2B.addBox(-2F, 24F, -2F, 3, 9, 2);
         legR2B.setRotationPoint(-7F, -9F, -16F);
         legR2B.setTextureSize(64, 32);
         legR2B.mirror = true;
-        setRotation(legR2B, 0.2602503F, 0F, 0F);
+        setRotation(legR2B, 0F, 0F, 0F);
         legL2T = new RendererModel(this, 0, 14);
         legL2T.addBox(-1F, 0F, -4F, 6, 12, 6);
         legL2T.setRotationPoint(7F, -9F, -16F);
         legL2T.setTextureSize(64, 32);
         legL2T.mirror = true;
-        setRotation(legL2T, -0.3346075F, 0F, 0F);
+        setRotation(legL2T, 0F, 0F, 0F);
         legR2T = new RendererModel(this, 0, 14);
         legR2T.addBox(-5F, 0F, -4F, 6, 12, 6);
         legR2T.setRotationPoint(-7F, -9F, -16F);
         legR2T.setTextureSize(64, 32);
         legR2T.mirror = true;
-        setRotation(legR2T, 0.2602503F, 0F, 0F);
+        setRotation(legR2T, 0F, 0F, 0F);
         legR2M = new RendererModel(this, 0, 16);
         legR2M.addBox(-3F, 12F, -3F, 4, 12, 4);
         legR2M.setRotationPoint(-7F, -9F, -16F);
         legR2M.setTextureSize(64, 32);
         legR2M.mirror = true;
-        setRotation(legR2M, 0.2602503F, 0F, 0F);
+        setRotation(legR2M, 0F, 0F, 0F);
         legL2M = new RendererModel(this, 0, 16);
         legL2M.addBox(-1F, 12F, -3F, 4, 12, 4);
         legL2M.setRotationPoint(7F, -9F, -16F);
         legL2M.setTextureSize(64, 32);
         legL2M.mirror = true;
-        setRotation(legL2M, -0.3346075F, 0F, 0F);
+        setRotation(legL2M, 0F, 0F, 0F);
         Shape1 = new RendererModel(this, 34, 4);
         Shape1.addBox(0F, 0F, 0F, 6, 11, 1);
         Shape1.setRotationPoint(-3F, 9F, 1F);
@@ -179,25 +180,26 @@ public class AncientEntityModel extends DivineTileEModel<TileEntityStatue> {
         horntopr.setTextureSize(64, 32);
         horntopr.mirror = true;
         setRotation(horntopr, 0F, 0F, 0F);
-        body = new RendererModel(this, 18, 4);
-        body.addBox(-6F, -10F, -7F, 12, 18, 10);
-        body.setRotationPoint(0F, 5F, 2F);
-        body.setTextureSize(64, 32);
-        body.mirror = true;
-        setRotation(body, 0.7853982F, 0F, 0F);
-        support1 = new RendererModel(this, 18, 4);
-        support1.addBox(-6F, -10F, -10F, 6, 14, 6);
-        support1.setRotationPoint(3F, 10F, -3F);
-        support1.setTextureSize(64, 32);
-        support1.mirror = true;
-        setRotation(support1, 0F, 0F, 0F);
     }
 
     @Override
-    public void render(TileEntityStatue tile, float scale) {
+    public void render(DivineBoss entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         GL11.glTranslatef(0, 0, 0.5F);
-        float additiveScale = 0.8F;
-        GlStateManager.scalef(additiveScale, additiveScale, additiveScale);
-        super.render(tile, scale);
+        super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+    }
+
+    @Override
+    public void setRotationAngles(DivineBoss entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
+        super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
+
+        this.legr.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.legR2B.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.legR2M.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.legR2T.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+
+        this.legl.rotateAngleX = MathHelper.cos((float) (limbSwing * 0.6662F + Math.PI)) * 1.4F * limbSwingAmount;
+        this.legL2B.rotateAngleX = MathHelper.cos((float) (limbSwing * 0.6662F + Math.PI)) * 1.4F * limbSwingAmount;
+        this.legL2M.rotateAngleX = MathHelper.cos((float) (limbSwing * 0.6662F + Math.PI)) * 1.4F * limbSwingAmount;
+        this.legL2T.rotateAngleX = MathHelper.cos((float) (limbSwing * 0.6662F + Math.PI)) * 1.4F * limbSwingAmount;
     }
 }

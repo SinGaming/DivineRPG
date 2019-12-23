@@ -1,6 +1,6 @@
 package divinerpg.entities.vanilla.crawler;
 
-import divinerpg.entities.base.DivineRender;
+import divinerpg.entities.base.render.DivineRender;
 import divinerpg.entities.vanilla.crawler.desert.DesertCrawler;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 
