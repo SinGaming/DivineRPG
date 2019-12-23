@@ -2,8 +2,10 @@ package divinerpg.registry;
 
 import divinerpg.DivineRPG;
 import divinerpg.blocks.base.*;
+import divinerpg.blocks.twilight.AyeracoBeamBlock;
 import divinerpg.blocks.twilight.DivinePortalBlock;
 import divinerpg.blocks.twilight.StatueBlock;
+import divinerpg.entities.bosses.ayeraco.manager.AyeracoManager;
 import divinerpg.tile.statue.ItemStackStatueRender;
 import divinerpg.tile.statue.StatueConstants;
 import divinerpg.utils.DivineParticleTypes;
@@ -24,6 +26,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.Tuple;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.BossInfo;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
@@ -459,6 +462,10 @@ public class BlockRegistry {
                     .setTEISR(() -> ItemStackStatueRender::new);
 
             registerBlock(new StatueBlock(name), name, itemGroup);
+        }
+
+        for (BossInfo.Color color : AyeracoManager.beamLocations.keySet()) {
+            registerBlock(new AyeracoBeamBlock(color), "ayeraco_beam_" + color.getName(), null);
         }
 
 

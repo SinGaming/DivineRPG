@@ -1,6 +1,7 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
+import divinerpg.entities.bosses.ayeraco.manager.AyeracoManager;
 import divinerpg.tile.ayeraco.beam.AyeracoBeam;
 import divinerpg.tile.ayeraco.beam.AyeracoBeamRender;
 import divinerpg.tile.statue.StatueConstants;
@@ -22,6 +23,7 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber(modid = DivineRPG.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(DivineRPG.MODID)
@@ -38,6 +40,9 @@ public class TileEntityRegistry {
         IForgeRegistry<TileEntityType<?>> registry = e.getRegistry();
 
         singleRegister(registry, TileEntityStatue::new, "statue", byName(StatueConstants.getStatueNames()));
+        singleRegister(registry, AyeracoBeam::new, "ayeraco_beam",
+                // Take a look at BlockRegistry and search AyeracoBeamBlock registry for correct name
+                byName(AyeracoManager.beamLocations.keySet().stream().map(x -> "ayeraco_beam_" + x.getName()).collect(Collectors.toList())));
     }
 
     @OnlyIn(Dist.CLIENT)

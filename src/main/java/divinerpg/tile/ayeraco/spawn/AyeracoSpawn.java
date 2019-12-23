@@ -16,10 +16,10 @@ public class AyeracoSpawn extends DivineTileEntity implements ITickableTileEntit
     private final Map<BossInfo.Color, Integer> colorToTick = new HashMap<>();
     private int ticks;
 
-    public AyeracoSpawn() {
+    public AyeracoSpawn(int spawnTicks) {
         super(TileEntityRegistry.ayeraco_spawn);
         // max summinig time
-        ticks = 600;
+        ticks = spawnTicks;
 
         int maxSummonogTime = ticks;
         int byOne = maxSummonogTime / AyeracoManager.beamLocations.size();

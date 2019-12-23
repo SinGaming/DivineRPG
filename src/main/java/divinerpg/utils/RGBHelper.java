@@ -19,4 +19,12 @@ public class RGBHelper {
         Vec3d color = vecFromRGB(red, green, blue);
         return new RedstoneParticleData((float) color.x, (float) color.y, (float) color.z, 1);
     }
+
+    public static float[] getColorArray(Color color) {
+        int red = color.getRed();
+        int green = color.getGreen();
+        int blue = color.getBlue();
+
+        return new float[]{red / 255F, green / 255F, blue / 255F};
+    }
 }

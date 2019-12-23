@@ -15,11 +15,11 @@ public class AyeracoBeam extends DivineTileEntity {
     private float beam;
 
     public AyeracoBeam() {
-        super(TileEntityRegistry.ayeraco_beam);
+        this(BossInfo.Color.GREEN);
     }
 
     public AyeracoBeam(BossInfo.Color color) {
-        this();
+        super(TileEntityRegistry.ayeraco_beam);
         this.color = color.getName();
     }
 
@@ -36,7 +36,9 @@ public class AyeracoBeam extends DivineTileEntity {
     @Override
     public void read(CompoundNBT compound) {
         super.read(compound);
-        color = compound.getString(key);
+
+        if (compound.contains(key))
+            color = compound.getString(key);
     }
 
     @Override
