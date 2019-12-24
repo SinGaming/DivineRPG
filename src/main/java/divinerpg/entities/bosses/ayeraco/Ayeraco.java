@@ -1,13 +1,12 @@
 package divinerpg.entities.bosses.ayeraco;
 
+import divinerpg.entities.base.DivineBatBoss;
 import divinerpg.entities.base.DivineBoss;
-import divinerpg.entities.base.DivineGhastBoss;
 import divinerpg.entities.bosses.ayeraco.manager.AyeracoManager;
-import divinerpg.entities.goal.RandomFlyGoal;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
@@ -16,7 +15,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class Ayeraco extends DivineGhastBoss {
+public class Ayeraco extends DivineBatBoss {
     private final static String beamKey = "BeamPos";
     private final AyeracoManager model;
     private BlockPos beam;
@@ -26,9 +25,17 @@ public class Ayeraco extends DivineGhastBoss {
     }
 
     public Ayeraco(World world, BlockPos summoner, BossInfo.Color color) {
-        super(EntitiesRegistry.ayeraco, world, SoundRegistry.AYERACO_HURT, SoundRegistry.AYERACO, 2, color, 2000);
+        super(EntitiesRegistry.ayeraco, world, SoundRegistry.AYERACO_HURT, SoundRegistry.AYERACO, color, 2000);
         model = new AyeracoManager(this);
         beam = model.getBeamLocation(summoner);
+
+        BlockPos pos = beam == null
+                ? summoner
+                : beam;
+
+        // todo ayeracos move to zero coords after update NBT tag hanling
+        if (pos != null)
+            setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
     }
 
     public void initGang(List<Ayeraco> ayeracos) {
@@ -38,7 +45,6 @@ public class Ayeraco extends DivineGhastBoss {
     @Override
     protected void registerAttributes() {
         super.registerAttributes();
-        this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
 
         initAttr(600, 5, 0);
     }
@@ -48,7 +54,6 @@ public class Ayeraco extends DivineGhastBoss {
         super.registerGoals();
 
         initAI(false, true);
-        this.goalSelector.addGoal(5, new RandomFlyGoal(this));
     }
 
     public BossInfo.Color getColor() {
@@ -109,5 +114,10 @@ public class Ayeraco extends DivineGhastBoss {
         if (beam != null) {
             world.setBlockState(beam, Blocks.AIR.getDefaultState());
         }
+    }
+
+    @Override
+    public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
+
     }
 }

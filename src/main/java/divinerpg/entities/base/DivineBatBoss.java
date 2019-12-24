@@ -1,15 +1,15 @@
 package divinerpg.entities.base;
 
-import divinerpg.entities.goal.GhastAttackGoal;
 import divinerpg.entities.goal.MeleeGoal;
-import divinerpg.entities.goal.RandomFlyGoal;
+import divinerpg.entities.goal.RevengeGoal;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.monster.GhastEntity;
+import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -27,18 +27,17 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// TODO change on Divine Bat
-public abstract class DivineGhastBoss extends DivineGhast {
+public abstract class DivineBatBoss extends DivineBat implements IRangedAttackMob {
     private final static String colorKey = "ProgressbarColor";
     private final static String specialNameKey = "EntityName";
     protected final ServerBossInfo info;
 
-    private DivineGhastBoss(World world) {
-        this(EntityType.GHAST, world, SoundEvents.ENTITY_GHAST_HURT, SoundEvents.ENTITY_GHAST_AMBIENT, 2.6F, DivineBoss.randomColor(), 2000);
+    private DivineBatBoss(World world) {
+        this(EntityType.BAT, world, SoundEvents.ENTITY_BAT_HURT, SoundEvents.ENTITY_BAT_AMBIENT, DivineBoss.randomColor(), 2000);
     }
 
-    public DivineGhastBoss(EntityType<? extends GhastEntity> type, World world, SoundEvent hurt, SoundEvent ambient, float eyeHight, BossInfo.Color color, int exp) {
-        super(type, world, hurt, ambient, eyeHight);
+    public DivineBatBoss(EntityType<? extends BatEntity> type, World world, SoundEvent hurt, SoundEvent ambient, BossInfo.Color color, int exp) {
+        super(type, world, hurt, ambient);
 
         info = new ServerBossInfo(getDisplayName(), color, BossInfo.Overlay.PROGRESS);
         this.experienceValue = exp;
@@ -60,17 +59,13 @@ public abstract class DivineGhastBoss extends DivineGhast {
 
     @Override
     protected void registerGoals() {
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
-
-        this.goalSelector.addGoal(5, new RandomFlyGoal(this));
-        this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(3, new RevengeGoal(this));
     }
 
     @Override
     protected void registerAttributes() {
         super.registerAttributes();
-
-        this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
     }
 
     /**
@@ -81,7 +76,7 @@ public abstract class DivineGhastBoss extends DivineGhast {
             this.goalSelector.addGoal(2, new MeleeGoal(this, 1, true));
 
         if (isArcher)
-            this.goalSelector.addGoal(7, new GhastAttackGoal(this, this, shootSound()));
+            this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1, 40, 20.0F));
     }
 
     /////////////////////////
