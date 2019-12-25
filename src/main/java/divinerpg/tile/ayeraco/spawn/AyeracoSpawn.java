@@ -56,7 +56,7 @@ public class AyeracoSpawn extends DivineTileEntity implements ITickableTileEntit
 
         if (ticks <= 0) {
             if (!world.isRemote()) {
-                AyeracoManager.summonGang(world, getPos()).forEach(x -> world.addEntity(x));
+                AyeracoManager.summonGang(world, getPos());
             }
 
             world.setBlockState(getPos(), Blocks.AIR.getDefaultState());

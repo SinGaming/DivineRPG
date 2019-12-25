@@ -17,7 +17,9 @@ import java.util.function.Supplier;
 
 public class DivineArmorMaterial implements IArmorMaterial {
     public static final DivineArmorMaterial JACK_O_MAN = new DivineArmorMaterial("jack_o_man", -1, 0, 22,
-            SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, Ingredient::fromItems);
+            SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, () -> Ingredient.EMPTY);
+    public static final DivineArmorMaterial DIVINE = new DivineArmorMaterial("divine", 11500, 25, 10,
+            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2, () -> Ingredient.fromItems(ItemRegistry.divineStone));
 
     /**
      * @param name                   - name of armor material

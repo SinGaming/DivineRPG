@@ -40,12 +40,6 @@ public class StatueRender extends TileEntityRenderer<TileEntityStatue> {
 
     private ResourceLocation findResource(TileEntityStatue te) {
         String resourceName = te.getName().replace("_statue", "");
-
-        if (resourceName.contains("ayeraco")) {
-            // Don't know what is to use as default, and I love purple!
-            resourceName += "_purple";
-        }
-
         return CachedTexture.ENTITIES.getTexture(resourceName);
     }
 

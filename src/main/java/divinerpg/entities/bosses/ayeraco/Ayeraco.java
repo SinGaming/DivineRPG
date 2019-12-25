@@ -60,6 +60,10 @@ public class Ayeraco extends DivineBatBoss {
         return info.getColor();
     }
 
+    public BlockPos getBeam() {
+        return beam;
+    }
+
     @Override
     public void read(CompoundNBT compound) {
         super.read(compound);

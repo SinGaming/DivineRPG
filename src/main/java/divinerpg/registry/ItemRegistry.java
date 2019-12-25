@@ -21,11 +21,13 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -325,6 +327,15 @@ public class ItemRegistry {
     @ObjectHolder("fury_arrow")
     public static Item fury_arrow;
 
+    @ObjectHolder("divine_helmet")
+    public static ArmorItem divine_helmet;
+    @ObjectHolder("divine_chestplate")
+    public static ArmorItem divine_chestplate;
+    @ObjectHolder("divine_leggings")
+    public static ArmorItem divine_leggings;
+    @ObjectHolder("divine_boots")
+    public static ArmorItem divine_boots;
+
 
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {
@@ -562,6 +573,11 @@ public class ItemRegistry {
         registry.register(new ArmorItem(DivineArmorMaterial.JACK_O_MAN, EquipmentSlotType.CHEST, armorGroup).setRegistryName(DivineRPG.MODID, "jack_o_man_chestplate"));
         registry.register(new ArmorItem(DivineArmorMaterial.JACK_O_MAN, EquipmentSlotType.LEGS, armorGroup).setRegistryName(DivineRPG.MODID, "jack_o_man_leggings"));
         registry.register(new ArmorItem(DivineArmorMaterial.JACK_O_MAN, EquipmentSlotType.FEET, armorGroup).setRegistryName(DivineRPG.MODID, "jack_o_man_boots"));
+
+        registry.register(new ArmorItem(DivineArmorMaterial.DIVINE, EquipmentSlotType.HEAD, armorGroup).setRegistryName(DivineRPG.MODID, "divine_helmet"));
+        registry.register(new ArmorItem(DivineArmorMaterial.DIVINE, EquipmentSlotType.CHEST, armorGroup).setRegistryName(DivineRPG.MODID, "divine_chestplate"));
+        registry.register(new ArmorItem(DivineArmorMaterial.DIVINE, EquipmentSlotType.LEGS, armorGroup).setRegistryName(DivineRPG.MODID, "divine_leggings"));
+        registry.register(new ArmorItem(DivineArmorMaterial.DIVINE, EquipmentSlotType.FEET, armorGroup).setRegistryName(DivineRPG.MODID, "divine_boots"));
 
 
         // Bows
@@ -915,6 +931,20 @@ public class ItemRegistry {
                 .withAmmo(() -> fury_arrow, 1)
                 .group(DivineRPGTabs.DivineRanged), 25, "", SoundEvents.ENTITY_ARROW_SHOOT, "twilight_bow")
                 .setRegistryName(DivineRPG.MODID, "twilight_bow"));
+
+//        registerColors(registry,
+//                color -> new Item(new Item.Properties().group(DivineRPGTabs.DivineItems)).setRegistryName(DivineRPG.MODID, "ayeraco_fragment_" + color),
+//                AyeracoManager.beamLocations.keySet().stream().map(BossInfo.Color::getName).toArray(String[]::new));
+    }
+
+    /**
+     * Search items in divinerpg allias
+     *
+     * @param name - name of item
+     */
+    public static Item find(String name) {
+        ResourceLocation key = new ResourceLocation(DivineRPG.MODID, name);
+        return ForgeRegistries.ITEMS.getValue(key);
     }
 
     private static void registerColors(IForgeRegistry<Item> registry, Function<String, Item> createFunc, String... colors) {

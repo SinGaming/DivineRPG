@@ -77,10 +77,21 @@ public class AyeracoManager {
      * @param summonPos
      * @return
      */
-    public static List<Ayeraco> summonGang(World world, BlockPos summonPos) {
-        List<Ayeraco> ayeracos = beamLocations.keySet().stream().map(x -> new Ayeraco(world, summonPos, x)).collect(Collectors.toList());
+    public static boolean summonGang(World world, BlockPos summonPos) {
+        List<Ayeraco> ayeracos = beamLocations.keySet().stream().map(x -> {
+            Ayeraco result = new Ayeraco(world, summonPos, x);
+            BlockPos beam = result.getBeam().up();
+            result.setPosition(beam.getX(), beam.getY(), beam.getZ());
+            return result;
+        }).collect(Collectors.toList());
+
+        if (ayeracos.size() != beamLocations.size())
+            return false;
+
         ayeracos.forEach(x -> x.initGang(ayeracos));
-        return ayeracos;
+        ayeracos.forEach(world::addEntity);
+
+        return true;
     }
 
     public void write(CompoundNBT tag) {

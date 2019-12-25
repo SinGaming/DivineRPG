@@ -4,6 +4,7 @@ import divinerpg.entities.base.render.DivineBossModel;
 import divinerpg.entities.base.render.IItemModel;
 import divinerpg.entities.bosses.ancient.AncientEntityModel;
 import divinerpg.entities.bosses.ayeraco.AyeracoModel;
+import divinerpg.entities.bosses.ayeraco.manager.AyeracoManager;
 import divinerpg.entities.bosses.deamon.TwilightDemonModel;
 import divinerpg.entities.bosses.densos.DensosModel;
 import divinerpg.entities.bosses.etheral.EternalArcherModel;
@@ -32,7 +33,6 @@ public class StatueConstants {
         SIZES = new HashMap<>();
 
         put("ancient_entity_statue", AncientEntityModel::new, VoxelShapes.fullCube());
-        put("ayeraco_statue", AyeracoModel::new, Block.makeCuboidShape(3, 0, 3, 13, 6, 13));
         put("twilight_demon_statue", TwilightDemonModel::new, Block.makeCuboidShape(3, 0, 3, 13, 16, 13));
         put("densos_statue", DensosModel::new, VoxelShapes.fullCube());
         put("reyvor_statue", DensosModel::new, VoxelShapes.fullCube());
@@ -43,6 +43,9 @@ public class StatueConstants {
         put("the_watcher_statue", WatcherModel::new, Block.makeCuboidShape(5, 0, 5, 11, 8, 11));
         put("king_of_scorchers_statue", KingScorcherModel::new, VoxelShapes.fullCube());
 
+        AyeracoManager.beamLocations.keySet().forEach(x -> {
+            put(String.format("ayeraco_%s_statue", x.getName()), AyeracoModel::new, Block.makeCuboidShape(3, 0, 3, 13, 6, 13));
+        });
 
         // TODO fill insert models
         //put("parasecta_statue", null, Block.makeCuboidShape(3, 3, 3, 13, 16, 13));

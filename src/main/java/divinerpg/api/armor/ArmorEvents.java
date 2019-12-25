@@ -17,6 +17,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 import java.util.List;
@@ -321,6 +322,18 @@ public class ArmorEvents {
             boltEntity.setCaster(((ServerPlayerEntity) playerEntity));
 
             ((ServerWorld) playerEntity.getEntityWorld()).addLightningBolt(boltEntity);
+        }
+    }
+
+    /**
+     * increasing jump height for event
+     *
+     * @param event       - jump event
+     * @param totalHeight - desired jump height in blocks (default is one)
+     */
+    public static void adjustJumpHeight(LivingEvent.LivingJumpEvent event, int totalHeight) {
+        if (event != null && event.getEntityLiving() != null){
+            event.getEntityLiving().addVelocity(0, totalHeight / 10F, 0);
         }
     }
 
