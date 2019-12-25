@@ -1,5 +1,6 @@
 package divinerpg.entities.bosses.ayeraco;
 
+import divinerpg.DivineRPG;
 import divinerpg.entities.base.DivineBatBoss;
 import divinerpg.entities.base.DivineBoss;
 import divinerpg.entities.bosses.ayeraco.manager.AyeracoManager;
@@ -7,11 +8,16 @@ import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootParameterSets;
+import net.minecraft.world.storage.loot.LootTable;
 
 import java.util.List;
 
@@ -28,14 +34,6 @@ public class Ayeraco extends DivineBatBoss {
         super(EntitiesRegistry.ayeraco, world, SoundRegistry.AYERACO_HURT, SoundRegistry.AYERACO, color, 2000);
         model = new AyeracoManager(this);
         beam = model.getBeamLocation(summoner);
-
-        BlockPos pos = beam == null
-                ? summoner
-                : beam;
-
-        // todo ayeracos move to zero coords after update NBT tag hanling
-        if (pos != null)
-            setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
     }
 
     public void initGang(List<Ayeraco> ayeracos) {
@@ -47,6 +45,8 @@ public class Ayeraco extends DivineBatBoss {
         super.registerAttributes();
 
         initAttr(600, 5, 0);
+
+        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.27 * 1.5);
     }
 
     @Override
@@ -123,5 +123,16 @@ public class Ayeraco extends DivineBatBoss {
     @Override
     public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
 
+    }
+
+    @Override
+    protected void dropLoot(DamageSource p_213354_1_, boolean p_213354_2_) {
+        super.dropLoot(p_213354_1_, p_213354_2_);
+
+        ResourceLocation location = new ResourceLocation(DivineRPG.MODID, getType().getRegistryName().getPath() + "_" + getColor().getName());
+
+        LootTable table = this.world.getServer().getLootTableManager().getLootTableFromLocation(location);
+        LootContext.Builder builder = this.func_213363_a(p_213354_2_, p_213354_1_);
+        table.generate(builder.build(LootParameterSets.ENTITY), this::entityDropItem);
     }
 }

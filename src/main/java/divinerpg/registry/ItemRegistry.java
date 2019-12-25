@@ -834,7 +834,7 @@ public class ItemRegistry {
 
         registry.register(new SpecialSwordItem(DivineItemTier.HALITE, 10, -2.4F, (ExtendedItemProperties) new ExtendedItemProperties()
                 // TODO REMOVE
-                .onHit((s, p, t) -> t.onKillCommand())
+                .onHit((s, p, t) -> t.attackEntityFrom(DamageSource.causePlayerDamage(p), Float.MAX_VALUE))
                 .group(DivineRPGTabs.DivineSwords).maxDamage(2500))
                 .setRegistryName(DivineRPG.MODID, "halite_blade"));
 

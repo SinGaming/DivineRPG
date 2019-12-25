@@ -3,6 +3,7 @@ package divinerpg.entities.goal;
 import divinerpg.utils.properties.item.ICreateFireball;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.monster.GhastEntity;
 import net.minecraft.entity.projectile.FireballEntity;
@@ -14,12 +15,12 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class GhastAttackGoal extends Goal {
-    private final GhastEntity parentEntity;
+    private final MobEntity parentEntity;
     public int attackTimer;
     private ICreateFireball func;
     private SoundEvent shootSound;
 
-    public GhastAttackGoal(GhastEntity ghast, ICreateFireball func, SoundEvent shootSound) {
+    public GhastAttackGoal(MobEntity ghast, ICreateFireball func, SoundEvent shootSound) {
         this.parentEntity = ghast;
         this.func = func;
         this.shootSound = shootSound;
@@ -44,7 +45,8 @@ public class GhastAttackGoal extends Goal {
      * Reset the task's internal state. Called when this task is interrupted by another one
      */
     public void resetTask() {
-        this.parentEntity.setAttacking(false);
+        if (parentEntity instanceof GhastEntity)
+            ((GhastEntity) this.parentEntity).setAttacking(false);
     }
 
     /**
@@ -69,8 +71,8 @@ public class GhastAttackGoal extends Goal {
 
                 Entity fireballentity = func.createFireball(world, this.parentEntity, d2, d3, d4);
 
-                if (fireballentity instanceof FireballEntity) {
-                    ((FireballEntity) fireballentity).explosionPower = this.parentEntity.getFireballStrength();
+                if (fireballentity instanceof FireballEntity && parentEntity instanceof GhastEntity) {
+                    ((FireballEntity) fireballentity).explosionPower = ((GhastEntity) this.parentEntity).getFireballStrength();
                 }
 
                 fireballentity.posX = this.parentEntity.posX + vec3d.x * 4.0D;
@@ -83,6 +85,7 @@ public class GhastAttackGoal extends Goal {
             --this.attackTimer;
         }
 
-        this.parentEntity.setAttacking(this.attackTimer > 10);
+        if (parentEntity instanceof GhastEntity)
+            ((GhastEntity) this.parentEntity).setAttacking(this.attackTimer > 10);
     }
 }

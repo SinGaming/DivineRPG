@@ -33,6 +33,7 @@ public class AyeracoManager {
         put(BossInfo.Color.YELLOW, new Vec3i(-5, 0, -12));
         put(BossInfo.Color.PURPLE, new Vec3i(-8, 0, 8));
     }};
+    private int lastTeleportedTime;
 
     public AyeracoManager(Ayeraco owner) {
         this.owner = owner;
@@ -200,9 +201,21 @@ public class AyeracoManager {
     ////////////////////////
 
     private void teleportEntity() {
+        // can teleport only if alive and aggressive
         if (!isAlive(owner) || owner.world == null || owner.world.rand == null)
             return;
 
+        // Last hit was recently
+        if (owner.ticksExisted - owner.getLastAttackedEntityTime() > 20) {
+            return;
+        }
+
+        // check prev teleport time
+        if (owner.ticksExisted - lastTeleportedTime < 90) {
+            return;
+        }
+
+        lastTeleportedTime = owner.ticksExisted;
 
         Random rand = owner.world.rand;
         owner.playSound(SoundRegistry.AYERACO_TELEPORT, 2.0F, 0.4F / (rand.nextFloat() * 0.4F + 0.8F));

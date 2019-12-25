@@ -62,7 +62,11 @@ public class DivineFireball extends FireballEntity implements ITextured {
 
     @Override
     protected IParticleData getParticle() {
-        return getDataManager().get(PARTICLE);
+        IParticleData result = getDataManager().get(PARTICLE);
+
+        return result == null
+                ? super.getParticle()
+                : result;
     }
 
     @Override

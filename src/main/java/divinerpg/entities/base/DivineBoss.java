@@ -1,11 +1,9 @@
 package divinerpg.entities.base;
 
 import divinerpg.entities.goal.MeleeGoal;
+import divinerpg.utils.properties.item.ICreateFireball;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.RangedAttackGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -72,7 +70,8 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
         this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
 
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
 
     @Override
@@ -139,7 +138,7 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
         compound.putString(colorKey, info.getColor().getName());
 
         if (hasCustomName() && getCustomName() != null)
-            compound.putString(colorKey, this.getCustomName().getFormattedText());
+            compound.putString(specialNameKey, this.getCustomName().getFormattedText());
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -188,6 +187,24 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
         this.world.addEntity(bullet);
     }
 
+    /**
+     * Creates fireball and launch it
+     *
+     * @param target         - victim
+     * @param createFireball - create fireball func
+     * @return
+     */
+    protected Entity createFireball(LivingEntity target, ICreateFireball createFireball) {
+        double distance = this.getDistanceSq(target);
+        float f = MathHelper.sqrt(MathHelper.sqrt(distance)) * 0.5F;
+
+        double x = target.posX - this.posX;
+        double y = target.getBoundingBox().minY + (double) (target.getHeight() / 2.0F) - (this.posY + (double) (this.getHeight() / 2.0F));
+        double z = target.posZ - this.posZ;
+
+        return createFireball.createFireball(this.world, this, x + this.getRNG().nextGaussian() * (double) f, y, z + this.getRNG().nextGaussian() * (double) f);
+    }
+
     protected SoundEvent getShootSound() {
         return SoundEvents.ENTITY_SKELETON_SHOOT;
     }
@@ -200,7 +217,7 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
             this.goalSelector.addGoal(2, new MeleeGoal(this, 1, true));
 
         if (isArcher)
-            this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1, 40, 20.0F));
+            this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1, 40, 100));
     }
 
     /**

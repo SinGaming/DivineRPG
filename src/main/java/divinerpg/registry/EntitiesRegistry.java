@@ -10,6 +10,8 @@ import divinerpg.entities.bosses.ayeraco.Ayeraco;
 import divinerpg.entities.bosses.ayeraco.AyeracoRender;
 import divinerpg.entities.bosses.vamacheron.Vamacheron;
 import divinerpg.entities.bosses.vamacheron.VamacheronRender;
+import divinerpg.entities.bosses.watcher.Watcher;
+import divinerpg.entities.bosses.watcher.WatcherRender;
 import divinerpg.entities.eden.archer.SunArcher;
 import divinerpg.entities.eden.archer.SunArcherRender;
 import divinerpg.entities.eden.bunny.angry.AngryBunny;
@@ -154,16 +156,16 @@ import java.util.function.Function;
 public class EntitiesRegistry {
 
     @ObjectHolder("bullet_item_entity")
-    public static final EntityType<ItemBulletEntity> bullet_item_entity = null;
+    public static EntityType<ItemBulletEntity> bullet_item_entity = null;
     @ObjectHolder("bullet_entity")
-    public static final EntityType<BulletEntity> bullet_entity = null;
+    public static EntityType<BulletEntity> bullet_entity = null;
     @ObjectHolder("arrow_entity")
-    public static final EntityType<DivineArrow> arrow_entity = null;
+    public static EntityType<DivineArrow> arrow_entity = null;
 
     @ObjectHolder("divine_fireball")
-    public static final EntityType<DivineFireball> divine_fireball = null;
+    public static EntityType<DivineFireball> divine_fireball = null;
     @ObjectHolder("frost_shot")
-    public static final EntityType<FrostFireball> frost_shot = null;
+    public static EntityType<FrostFireball> frost_shot = null;
 
     @ObjectHolder("entrhralled_dramcryx")
     public static EntityType<EnthralledDramcryx> entrhralled_dramcryx = null;
@@ -301,6 +303,8 @@ public class EntitiesRegistry {
     public static EntityType<Behemoth> behemoth;
     @ObjectHolder("ancient_entity")
     public static EntityType<AncientEntity> ancient_entity;
+    @ObjectHolder("the_watcher")
+    public static EntityType<Watcher> the_watcher;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -311,6 +315,7 @@ public class EntitiesRegistry {
         registerBulletEntity(registry, DivineArrow::new, w -> arrow_entity.create(w), "arrow_entity");
         registerBulletEntity(registry, FrostFireball::new, w -> frost_shot.create(w), "frost_fireball");
         registerBulletEntity(registry, ScorcherFireball::new, w -> scorcher_fireball.create(w), "scorcher_fireball");
+        registerBulletEntity(registry, DivineFireball::new, w -> divine_fireball.create(w), "divine_fireball");
 
         registerSingle(registry, EnthralledDramcryx::new, "entrhralled_dramcryx", 1.35F, 1.75F);
         registerSingle(registry, Crab::new, "crab", 1.1F, 0.8F);
@@ -395,6 +400,7 @@ public class EntitiesRegistry {
         registerSingle(registry, Behemoth::new, "behemoth", 1, 1.2F);
         registerSingle(registry, Ayeraco::new, "ayeraco", 2.8F, 1.2F);
         registerSingle(registry, AncientEntity::new, "ancient_entity", 6, 10);
+        registerSingle(registry, Watcher::new, "the_watcher", 4, 4);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -470,6 +476,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Behemoth.class, BehemothRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Ayeraco.class, AyeracoRender::new);
         RenderingRegistry.registerEntityRenderingHandler(AncientEntity.class, AncientEntityRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Watcher.class, WatcherRender::new);
     }
 
 

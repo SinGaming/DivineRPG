@@ -14,6 +14,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -28,7 +31,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class DivineBatBoss extends DivineBat implements IRangedAttackMob {
-    private final static String colorKey = "ProgressbarColor";
+    protected static final DataParameter<String> COLOR = EntityDataManager.createKey(DivineBatBoss.class, DataSerializers.STRING);
     private final static String specialNameKey = "EntityName";
     protected final ServerBossInfo info;
 
@@ -41,6 +44,8 @@ public abstract class DivineBatBoss extends DivineBat implements IRangedAttackMo
 
         info = new ServerBossInfo(getDisplayName(), color, BossInfo.Overlay.PROGRESS);
         this.experienceValue = exp;
+
+        getDataManager().set(COLOR, color.getName());
     }
 
     @Override
@@ -55,6 +60,13 @@ public abstract class DivineBatBoss extends DivineBat implements IRangedAttackMo
         super.removeTrackingPlayer(player);
 
         info.removePlayer(player);
+    }
+
+    @Override
+    protected void registerData() {
+        super.registerData();
+
+        getDataManager().register(COLOR, BossInfo.Color.GREEN.getName());
     }
 
     @Override
@@ -87,21 +99,18 @@ public abstract class DivineBatBoss extends DivineBat implements IRangedAttackMo
     public void read(CompoundNBT compound) {
         super.read(compound);
 
-        if (compound.contains(colorKey))
-            info.setColor(BossInfo.Color.byName(compound.getString(colorKey)));
-
         if (compound.contains(specialNameKey))
             setCustomName(new StringTextComponent(compound.getString(specialNameKey)));
+
+        info.setColor(BossInfo.Color.byName(getDataManager().get(COLOR)));
     }
 
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
 
-        compound.putString(colorKey, info.getColor().getName());
-
         if (hasCustomName() && getCustomName() != null)
-            compound.putString(colorKey, this.getCustomName().getFormattedText());
+            compound.putString(specialNameKey, this.getCustomName().getFormattedText());
     }
 
     /**
