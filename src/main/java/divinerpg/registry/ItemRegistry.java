@@ -608,6 +608,11 @@ public class ItemRegistry {
                 .infiiniteArrows(true)
                 .group(DivineRPGTabs.DivineRanged), 11, "fire", SoundEvents.ENTITY_ARROW_SHOOT, "inferno_arrow")
                 .setRegistryName(DivineRPG.MODID, "inferno_bow"));
+        registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withUseDuration(72000)
+                .withAmmo(() -> ItemRegistry.fury_arrow, 1)
+                .group(DivineRPGTabs.DivineRanged), 25, "", SoundEvents.ENTITY_ARROW_SHOOT, "fury_arrow")
+                .setRegistryName(DivineRPG.MODID, "halite_bow"));
 
         // Anchors
         registry.register(new RangeWeaponItem((ExtendedItemProperties) new ExtendedItemProperties()

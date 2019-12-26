@@ -8,6 +8,8 @@ import divinerpg.entities.bosses.ancient.AncientEntity;
 import divinerpg.entities.bosses.ancient.AncientEntityRender;
 import divinerpg.entities.bosses.ayeraco.Ayeraco;
 import divinerpg.entities.bosses.ayeraco.AyeracoRender;
+import divinerpg.entities.bosses.deamon.TwilightDemon;
+import divinerpg.entities.bosses.deamon.TwilightDemonRender;
 import divinerpg.entities.bosses.vamacheron.Vamacheron;
 import divinerpg.entities.bosses.vamacheron.VamacheronRender;
 import divinerpg.entities.eden.archer.SunArcher;
@@ -301,6 +303,8 @@ public class EntitiesRegistry {
     public static EntityType<Behemoth> behemoth;
     @ObjectHolder("ancient_entity")
     public static EntityType<AncientEntity> ancient_entity;
+    @ObjectHolder("twilight_demon")
+    public static EntityType<TwilightDemon> twilight_demon;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -395,6 +399,7 @@ public class EntitiesRegistry {
         registerSingle(registry, Behemoth::new, "behemoth", 1, 1.2F);
         registerSingle(registry, Ayeraco::new, "ayeraco", 2.8F, 1.2F);
         registerSingle(registry, AncientEntity::new, "ancient_entity", 6, 10);
+        registerSingle(registry, TwilightDemon::new, "twilight_demon", 2, 4);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -470,6 +475,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Behemoth.class, BehemothRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Ayeraco.class, AyeracoRender::new);
         RenderingRegistry.registerEntityRenderingHandler(AncientEntity.class, AncientEntityRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(TwilightDemon.class, TwilightDemonRender::new);
     }
 
 
