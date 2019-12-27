@@ -10,6 +10,9 @@ import divinerpg.entities.bosses.ayeraco.Ayeraco;
 import divinerpg.entities.bosses.ayeraco.AyeracoRender;
 import divinerpg.entities.bosses.deamon.TwilightDemon;
 import divinerpg.entities.bosses.deamon.TwilightDemonRender;
+import divinerpg.entities.bosses.densos.Densos;
+import divinerpg.entities.bosses.densos.DensosRender;
+import divinerpg.entities.bosses.densos.Reyvor;
 import divinerpg.entities.bosses.vamacheron.Vamacheron;
 import divinerpg.entities.bosses.vamacheron.VamacheronRender;
 import divinerpg.entities.bosses.watcher.Watcher;
@@ -309,6 +312,10 @@ public class EntitiesRegistry {
     public static EntityType<TwilightDemon> twilight_demon;
     @ObjectHolder("the_watcher")
     public static EntityType<Watcher> the_watcher;
+    @ObjectHolder("densos")
+    public static EntityType<Densos> densos;
+    @ObjectHolder("reyvor")
+    public static EntityType<Reyvor> reyvor;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -406,6 +413,8 @@ public class EntitiesRegistry {
         registerSingle(registry, AncientEntity::new, "ancient_entity", 6, 10);
         registerSingle(registry, Watcher::new, "the_watcher", 4, 4);
         registerSingle(registry, TwilightDemon::new, "twilight_demon", 2, 4);
+        registerSingle(registry, Densos::new, "densos", 1, 2.5F);
+        registerSingle(registry, Reyvor::new, "reyvor", 1, 2.5F);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -458,6 +467,7 @@ public class EntitiesRegistry {
         registerForOneRender(MysticRender::new, Spellbinder.class, Mystic.class);
         registerForOneRender(SamekRender::new, Samek.class, Verek.class);
         registerForOneRender(ArcherRender::new, EnchantedArcher.class, SkythernArcher.class);
+        registerForOneRender(DensosRender::new, Densos.class, Reyvor.class);
 
         RenderingRegistry.registerEntityRenderingHandler(MoonWolf.class, MoonWolfRender::new);
         RenderingRegistry.registerEntityRenderingHandler(HellPig.class, HellPigRender::new);

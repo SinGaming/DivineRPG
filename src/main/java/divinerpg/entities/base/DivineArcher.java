@@ -36,7 +36,7 @@ public class DivineArcher extends PeacefullDivineMonster implements IRangedAttac
     }
 
     public DivineArcher(EntityType<? extends MonsterEntity> type, World world, SoundEvent hurt,
-                        SoundEvent ambient, float eyeHight, float damage, String arrowName, String powers,
+                        SoundEvent ambient, float eyeHight, double damage, String arrowName, String powers,
                         ItemStack mainHand) {
         super(type, world, hurt, ambient, eyeHight);
 
@@ -45,7 +45,7 @@ public class DivineArcher extends PeacefullDivineMonster implements IRangedAttac
 
         manager.set(NAME, arrowName);
         manager.set(POWER, powers);
-        manager.set(DAMAGE, damage);
+        manager.set(DAMAGE, (float) damage);
     }
 
     @Override

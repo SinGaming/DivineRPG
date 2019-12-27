@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 
+// todo check model eyes
 public class DensosModel extends DivineBossModel<DivineBoss> implements IHasArm {
     RendererModel head;
     RendererModel body;
@@ -120,10 +121,6 @@ public class DensosModel extends DivineBossModel<DivineBoss> implements IHasArm 
                 rightarm.postRender(scale);
 
                 GlStateManager.translatef(-0.0625F, 0.4375F, 0.0625F);
-                GlStateManager.translatef(-0F, 0.2F, -0.55f);
-                GlStateManager.rotatef(90, 0, 1, 0);
-                GlStateManager.rotatef(45, 0, 0, -1);
-                GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
                 break;
 
             case LEFT:

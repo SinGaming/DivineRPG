@@ -60,5 +60,17 @@ public class ArmorRegistry {
                 .addAbility(LivingEvent.LivingJumpEvent.class, event -> ArmorEvents.adjustJumpHeight(event, 2))
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "divine_set"))
         );
+
+        // halite
+        registry.register(new PoweredArmorSet(
+                new ArmorSet().withVariant(
+                        ItemRegistry.halite_helmet,
+                        ItemRegistry.halite_chestplate,
+                        ItemRegistry.halite_leggings,
+                        ItemRegistry.halite_boots, null),
+                null)
+                .addAbility(LivingHurtEvent.class, event -> ArmorEvents.onAddMeleeDamage(event, x -> x + 16))
+                .setRegistryName(new ResourceLocation(DivineRPG.MODID, "halite_set"))
+        );
     }
 }

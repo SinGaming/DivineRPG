@@ -20,6 +20,8 @@ public class DivineArmorMaterial implements IArmorMaterial {
             SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, () -> Ingredient.EMPTY);
     public static final DivineArmorMaterial DIVINE = new DivineArmorMaterial("divine", 11500, 25, 10,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2, () -> Ingredient.fromItems(ItemRegistry.divineStone));
+    public static final DivineArmorMaterial HALITE = new DivineArmorMaterial("halite", -1, 35, 10,
+            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2, () -> Ingredient.EMPTY);
 
     /**
      * @param name                   - name of armor material

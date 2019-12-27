@@ -336,6 +336,15 @@ public class ItemRegistry {
     @ObjectHolder("divine_boots")
     public static ArmorItem divine_boots;
 
+    @ObjectHolder("halite_helmet")
+    public static ArmorItem halite_helmet;
+    @ObjectHolder("halite_chestplate")
+    public static ArmorItem halite_chestplate;
+    @ObjectHolder("halite_leggings")
+    public static ArmorItem halite_leggings;
+    @ObjectHolder("halite_boots")
+    public static ArmorItem halite_boots;
+
 
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {
@@ -560,58 +569,46 @@ public class ItemRegistry {
 
 
         // ARMOR
-        registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.forRupee(color), EquipmentSlotType.HEAD, armorGroup)
-                .setRegistryName(DivineRPG.MODID, color + "rupee_helmet"), colors);
-        registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.forRupee(color), EquipmentSlotType.CHEST, armorGroup)
-                .setRegistryName(DivineRPG.MODID, color + "rupee_chestplate"), colors);
-        registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.forRupee(color), EquipmentSlotType.LEGS, armorGroup)
-                .setRegistryName(DivineRPG.MODID, color + "rupee_leggings"), colors);
-        registerColors(registry, color -> new ArmorItem(DivineArmorMaterial.forRupee(color), EquipmentSlotType.FEET, armorGroup)
-                .setRegistryName(DivineRPG.MODID, color + "rupee_boots"), colors);
+        for (String color : colors) {
+            registerArmor(registry, DivineArmorMaterial.forRupee(color), color + "rupee");
+        }
 
-        registry.register(new ArmorItem(DivineArmorMaterial.JACK_O_MAN, EquipmentSlotType.HEAD, armorGroup).setRegistryName(DivineRPG.MODID, "jack_o_man_helmet"));
-        registry.register(new ArmorItem(DivineArmorMaterial.JACK_O_MAN, EquipmentSlotType.CHEST, armorGroup).setRegistryName(DivineRPG.MODID, "jack_o_man_chestplate"));
-        registry.register(new ArmorItem(DivineArmorMaterial.JACK_O_MAN, EquipmentSlotType.LEGS, armorGroup).setRegistryName(DivineRPG.MODID, "jack_o_man_leggings"));
-        registry.register(new ArmorItem(DivineArmorMaterial.JACK_O_MAN, EquipmentSlotType.FEET, armorGroup).setRegistryName(DivineRPG.MODID, "jack_o_man_boots"));
-
-        registry.register(new ArmorItem(DivineArmorMaterial.DIVINE, EquipmentSlotType.HEAD, armorGroup).setRegistryName(DivineRPG.MODID, "divine_helmet"));
-        registry.register(new ArmorItem(DivineArmorMaterial.DIVINE, EquipmentSlotType.CHEST, armorGroup).setRegistryName(DivineRPG.MODID, "divine_chestplate"));
-        registry.register(new ArmorItem(DivineArmorMaterial.DIVINE, EquipmentSlotType.LEGS, armorGroup).setRegistryName(DivineRPG.MODID, "divine_leggings"));
-        registry.register(new ArmorItem(DivineArmorMaterial.DIVINE, EquipmentSlotType.FEET, armorGroup).setRegistryName(DivineRPG.MODID, "divine_boots"));
+        registerArmor(registry, DivineArmorMaterial.JACK_O_MAN, "jack_o_man");
+        registerArmor(registry, DivineArmorMaterial.DIVINE, "divine");
+        registerArmor(registry, DivineArmorMaterial.HALITE, "halite");
 
 
         // Bows
         registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
                 .withUseDuration(36000)
                 .group(DivineRPGTabs.DivineRanged)
-                .maxDamage(10000), 11, null, SoundEvents.ENTITY_ARROW_SHOOT, "shadow_arrow")
+                .maxDamage(10000), 3, null, SoundEvents.ENTITY_ARROW_SHOOT, "shadow_arrow")
                 .setRegistryName(DivineRPG.MODID, "shadow_bow"));
         registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
                 .withUseDuration(72000)
                 .group(DivineRPGTabs.DivineRanged)
-                .maxDamage(2500), 11, null, SoundEvents.ENTITY_ARROW_SHOOT, "hunter_arrow")
+                .maxDamage(2500), 3, null, SoundEvents.ENTITY_ARROW_SHOOT, "hunter_arrow")
                 .withEffects(new EffectInstance(Effects.POISON, 40, 2))
                 .setRegistryName(DivineRPG.MODID, "hunter_bow"));
-
         registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
                 .withUseDuration(72000)
                 .infiiniteArrows(true)
-                .group(DivineRPGTabs.DivineRanged), 16, "", SoundEvents.ENTITY_ARROW_SHOOT, "ender_arrow")
+                .group(DivineRPGTabs.DivineRanged), 5, "", SoundEvents.ENTITY_ARROW_SHOOT, "ender_arrow")
                 .setRegistryName(DivineRPG.MODID, "ender_bow"));
         registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
                 .withUseDuration(72000)
                 .infiiniteArrows(true)
-                .group(DivineRPGTabs.DivineRanged), 11, "explosion", SoundEvents.ENTITY_ARROW_SHOOT, "bluefire_arrow")
+                .group(DivineRPGTabs.DivineRanged), 3, "explosion", SoundEvents.ENTITY_ARROW_SHOOT, "bluefire_arrow")
                 .setRegistryName(DivineRPG.MODID, "bluefire_bow"));
         registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
                 .withUseDuration(72000)
                 .infiiniteArrows(true)
-                .group(DivineRPGTabs.DivineRanged), 11, "fire", SoundEvents.ENTITY_ARROW_SHOOT, "inferno_arrow")
+                .group(DivineRPGTabs.DivineRanged), 3, "fire", SoundEvents.ENTITY_ARROW_SHOOT, "inferno_arrow")
                 .setRegistryName(DivineRPG.MODID, "inferno_bow"));
         registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
                 .withUseDuration(72000)
                 .withAmmo(() -> ItemRegistry.fury_arrow, 1)
-                .group(DivineRPGTabs.DivineRanged), 25, "", SoundEvents.ENTITY_ARROW_SHOOT, "fury_arrow")
+                .group(DivineRPGTabs.DivineRanged), 8, "", SoundEvents.ENTITY_ARROW_SHOOT, "fury_arrow")
                 .setRegistryName(DivineRPG.MODID, "halite_bow"));
 
         // Anchors
@@ -957,5 +954,14 @@ public class ItemRegistry {
             Item item = createFunc.apply(color);
             registry.register(item);
         }
+    }
+
+    private static void registerArmor(IForgeRegistry<Item> registry, IArmorMaterial material, String name) {
+        Item.Properties armorGroup = new Item.Properties().group(DivineRPGTabs.DivineArmor);
+
+        registry.register(new ArmorItem(material, EquipmentSlotType.HEAD, armorGroup).setRegistryName(DivineRPG.MODID, name + "_helmet"));
+        registry.register(new ArmorItem(material, EquipmentSlotType.CHEST, armorGroup).setRegistryName(DivineRPG.MODID, name + "_chestplate"));
+        registry.register(new ArmorItem(material, EquipmentSlotType.LEGS, armorGroup).setRegistryName(DivineRPG.MODID, name + "_leggings"));
+        registry.register(new ArmorItem(material, EquipmentSlotType.FEET, armorGroup).setRegistryName(DivineRPG.MODID, name + "_boots"));
     }
 }
