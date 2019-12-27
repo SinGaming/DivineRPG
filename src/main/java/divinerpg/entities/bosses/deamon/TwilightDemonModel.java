@@ -5,6 +5,7 @@ import divinerpg.entities.base.render.DivineBossModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.util.math.MathHelper;
 
+// todo check eyes
 public class TwilightDemonModel extends DivineBossModel<DivineBoss> {
     RendererModel head;
     RendererModel body;

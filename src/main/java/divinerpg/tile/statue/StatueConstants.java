@@ -17,7 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.DistExecutor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class StatueConstants {
+    // Filled on client side only
     private static final HashMap<String, IItemModel> MODELS;
     private static final HashMap<String, VoxelShape> SIZES;
 
@@ -36,7 +37,7 @@ public class StatueConstants {
         put("twilight_demon_statue", TwilightDemonModel::new, Block.makeCuboidShape(3, 0, 3, 13, 16, 13));
         put("densos_statue", DensosModel::new, VoxelShapes.fullCube());
         put("reyvor_statue", DensosModel::new, VoxelShapes.fullCube());
-        put("eternal_archer_statue", EternalArcherModel::new);
+        put("eternal_archer_statue", EternalArcherModel::new, VoxelShapes.fullCube());
         put("soul_fiend_statue", SoulFiendModel::new, Block.makeCuboidShape(3, 0, 3, 13, 16, 13));
         put("karot_statue", KarotModel::new, Block.makeCuboidShape(5, 0, 5, 11, 8, 11));
         put("vamacheron_statue", VamacheronModel::new, Block.makeCuboidShape(3, 0, 3, 13, 11, 13));
@@ -48,8 +49,8 @@ public class StatueConstants {
         });
 
         // TODO fill insert models
-        //put("parasecta_statue", null, Block.makeCuboidShape(3, 3, 3, 13, 16, 13));
-        //put("dramix_statue", null);
+        //putClientModel("parasecta_statue", null, Block.makeCuboidShape(3, 3, 3, 13, 16, 13));
+        //putClientModel("dramix_statue", null);
     }
 
     /**
@@ -61,18 +62,7 @@ public class StatueConstants {
      */
     private static void put(String name, Supplier<DivineBossModel> model, VoxelShape size) {
         SIZES.put(name, size);
-        put(name, model);
-    }
-
-    /**
-     * Saves model only on client
-     *
-     * @param name  - statue name
-     * @param model - entity model
-     */
-    @OnlyIn(Dist.CLIENT)
-    private static void put(String name, Supplier<DivineBossModel> model) {
-        MODELS.put(name, model.get());
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> MODELS.put(name, model.get()));
     }
 
     /**

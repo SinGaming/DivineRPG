@@ -22,7 +22,7 @@
               "looting_multiplier": 0.5
             }
           ],
-          "name": "divinerpg:vamacheron_statue"
+          "name": "divinerpg:twilight_demon_statue"
         }
       ]
     },
@@ -31,13 +31,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 1
-            }
-          ],
-          "name": "divinerpg:halite_blade"
+          "weight": 1,
+          "name": "divinerpg:halite_blitz"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "divinerpg:halite_bow"
         }
       ]
     }

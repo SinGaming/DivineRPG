@@ -109,7 +109,8 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
         this.dropInventory();
 
         Collection<ItemEntity> drops = captureDrops(null);
-        if (!net.minecraftforge.common.ForgeHooks.onLivingDrops(this, source, drops, i, recentlyHit > 0)) {
+        if (!net.minecraftforge.common.ForgeHooks.onLivingDrops(this, source, drops, i, recentlyHit > 0)
+                && !drops.isEmpty()) {
 
             onDrop(drops);
         }
@@ -182,9 +183,13 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
         double z = target.posZ - this.posZ;
         double xzVec = (double) MathHelper.sqrt(x * x + z * z);
 
-        bullet.shoot(x, y + xzVec * (double) 0.2F, z, 1.6F, (float) (14 - this.world.getDifficulty().getId() * 4));
+        bullet.shoot(x, y + xzVec * (double) 0.2F, z, 1.6F, getInaccuracy());
         this.playSound(getShootSound(), 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
         this.world.addEntity(bullet);
+    }
+
+    protected float getInaccuracy() {
+        return 14 - this.world.getDifficulty().getId() * 4;
     }
 
     /**
