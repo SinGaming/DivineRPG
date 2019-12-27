@@ -222,7 +222,7 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
             this.goalSelector.addGoal(2, new MeleeGoal(this, 1, true));
 
         if (isArcher)
-            this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1, 40, 100));
+            this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1, 20, 100));
     }
 
     /**

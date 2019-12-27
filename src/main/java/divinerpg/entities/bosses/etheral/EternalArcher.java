@@ -6,11 +6,15 @@ import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.ItemRegistry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EternalArcher extends DivineBoss {
     public EternalArcher(World world) {
@@ -23,37 +27,45 @@ public class EternalArcher extends DivineBoss {
     @Override
     public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
         String power = "";
-        EffectInstance effect = null;
+        List<EffectInstance> effects = new ArrayList<>();
 
-        switch (rand.nextInt(100)) {
-            case 0:
+        // Every 15-th arrow is killing
+        if (rand.nextInt(15) == 0) {
+
+            if (canApplyAbility()) {
                 power = "fire";
-                break;
+            }
 
-            case 1:
-                power = "explosion";
-                break;
+            if (canApplyAbility()) {
+                power = String.join(";", power, "explosion");
+            }
 
-            case 2:
-                effect = new EffectInstance(Effects.WITHER, 100, 2);
-                break;
+            if (canApplyAbility()) {
+                effects.add(new EffectInstance(Effects.WITHER, 100, 2));
+            }
 
-            case 3:
-                effect = new EffectInstance(Effects.SLOWNESS, 100, 2);
-                break;
+            if (canApplyAbility()) {
+                effects.add(new EffectInstance(Effects.SLOWNESS, 100, 2));
+            }
 
-            case 4:
-                effect = new EffectInstance(Effects.BLINDNESS, 100, 0);
-                break;
+            if (canApplyAbility()) {
+                effects.add(new EffectInstance(Effects.BLINDNESS, 100, 0));
+            }
 
-            case 5:
-                effect = new EffectInstance(Effects.NAUSEA, 100, 0);
+            if (canApplyAbility()) {
+                effects.add(new EffectInstance(Effects.NAUSEA, 100, 0));
+            }
         }
 
-        DivineArrow arrow = new DivineArrow(world, this, "fury_arrow", 18, power);
 
-        if (effect != null) {
-            arrow.addEffect(effect);
+        DivineArrow arrow = new DivineArrow(world, this, "fury_arrow", 26, power);
+
+        if (!effects.isEmpty()) {
+            effects.forEach(arrow::addEffect);
+        }
+
+        if (!power.isEmpty() || effects.isEmpty()) {
+            // todo particle
         }
 
         launchArrow(target, arrow);
@@ -70,11 +82,17 @@ public class EternalArcher extends DivineBoss {
     protected void registerGoals() {
         super.registerGoals();
 
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         initAI(true, false);
     }
 
     @Override
     public float getEyeHeight(Pose p_213307_1_) {
         return 4.5F;
+    }
+
+    private boolean canApplyAbility() {
+        // 6 arms and can choose beetween 6 of them
+        return rand.nextInt(6) == 0;
     }
 }

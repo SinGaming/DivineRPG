@@ -155,6 +155,11 @@ public class DivineBowItem extends BowItem {
     }
 
     @Override
+    public Predicate<ItemStack> getInventoryAmmoPredicate() {
+        return getAmmoPredicate();
+    }
+
+    @Override
     public int getUseDuration(ItemStack stack) {
         return duration;
     }
