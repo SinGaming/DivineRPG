@@ -1,0 +1,45 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "killed_by_player"
+            },
+            {
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0.02,
+              "looting_multiplier": 0.5
+            }
+          ],
+          "name": "divinerpg:soul_fiend_statue"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 200
+            }
+          ],
+          "name": "divinerpg:halite_slicer"
+        }
+      ]
+    }
+  ]
+}

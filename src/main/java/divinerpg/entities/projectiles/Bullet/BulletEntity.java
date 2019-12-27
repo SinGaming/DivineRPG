@@ -58,6 +58,10 @@ public class BulletEntity extends ThrowableEntity implements ITextured {
         }
     }
 
+    protected BulletEntity(EntityType<? extends ThrowableEntity> type, World worldIn, LivingEntity thrower, float damage, String name, IParticleData particleData) {
+        super(type, thrower, worldIn);
+    }
+
     @Override
     protected void onImpact(RayTraceResult result) {
         EntityHelper.handleImpact(this, result, getDataManager().get(DAMAGE));

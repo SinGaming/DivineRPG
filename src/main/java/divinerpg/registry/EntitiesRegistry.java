@@ -15,6 +15,10 @@ import divinerpg.entities.bosses.densos.DensosRender;
 import divinerpg.entities.bosses.densos.Reyvor;
 import divinerpg.entities.bosses.etheral.EternalArcher;
 import divinerpg.entities.bosses.etheral.EternalArcherRender;
+import divinerpg.entities.bosses.fiend.SoulFiend;
+import divinerpg.entities.bosses.fiend.SoulFiendRender;
+import divinerpg.entities.bosses.fiend.pet.SoulSpider;
+import divinerpg.entities.bosses.fiend.pet.SoulSpiderRender;
 import divinerpg.entities.bosses.vamacheron.Vamacheron;
 import divinerpg.entities.bosses.vamacheron.VamacheronRender;
 import divinerpg.entities.bosses.watcher.Watcher;
@@ -44,6 +48,7 @@ import divinerpg.entities.projectiles.Bullet.BulletEntityRender;
 import divinerpg.entities.projectiles.DivineArrow.DivineArrow;
 import divinerpg.entities.projectiles.DivineArrow.DivineArrowRender;
 import divinerpg.entities.projectiles.ItemBulletEntity;
+import divinerpg.entities.projectiles.SoulFiendShot;
 import divinerpg.entities.skythern.fiend.SkythernFiend;
 import divinerpg.entities.skythern.fiend.SkythernFiendRender;
 import divinerpg.entities.skythern.megalith.Megalith;
@@ -173,6 +178,9 @@ public class EntitiesRegistry {
     public static EntityType<DivineFireball> divine_fireball = null;
     @ObjectHolder("frost_shot")
     public static EntityType<FrostFireball> frost_shot = null;
+
+    @ObjectHolder("soul_fiend_shot")
+    public static EntityType<SoulFiendShot> soul_fiend_shot;
 
     @ObjectHolder("entrhralled_dramcryx")
     public static EntityType<EnthralledDramcryx> entrhralled_dramcryx = null;
@@ -320,6 +328,11 @@ public class EntitiesRegistry {
     public static EntityType<Reyvor> reyvor;
     @ObjectHolder("eternal_archer")
     public static EntityType<EternalArcher> eternal_archer;
+    @ObjectHolder("soul_fiend")
+    public static EntityType<SoulFiend> soul_fiend;
+    @ObjectHolder("soul_spider")
+    public static EntityType<SoulSpider> soul_spider;
+
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -331,6 +344,7 @@ public class EntitiesRegistry {
         registerBulletEntity(registry, FrostFireball::new, w -> frost_shot.create(w), "frost_fireball");
         registerBulletEntity(registry, ScorcherFireball::new, w -> scorcher_fireball.create(w), "scorcher_fireball");
         registerBulletEntity(registry, DivineFireball::new, w -> divine_fireball.create(w), "divine_fireball");
+        registerBulletEntity(registry, SoulFiendShot::new, w -> soul_fiend_shot.create(w), "soul_fiend_shot");
 
         registerSingle(registry, EnthralledDramcryx::new, "entrhralled_dramcryx", 1.35F, 1.75F);
         registerSingle(registry, Crab::new, "crab", 1.1F, 0.8F);
@@ -420,6 +434,8 @@ public class EntitiesRegistry {
         registerSingle(registry, Densos::new, "densos", 1, 2.5F);
         registerSingle(registry, Reyvor::new, "reyvor", 1, 2.5F);
         registerSingle(registry, EternalArcher::new, "eternal_archer", 3, 5);
+        registerSingle(registry, SoulSpider::new, "soul_spider", 0.3F, 0.5F);
+        registerSingle(registry, SoulFiend::new, "soul_fiend", 0.8F, 2);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -427,9 +443,7 @@ public class EntitiesRegistry {
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
         // projectiles
-        RenderingRegistry.registerEntityRenderingHandler(BulletEntity.class, BulletEntityRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(FrostFireball.class, BulletEntityRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(ScorcherFireball.class, BulletEntityRender::new);
+        registerForOneRender(BulletEntityRender::new, BulletEntity.class, FrostFireball.class, ScorcherFireball.class, SoulFiendShot.class);
 
         RenderingRegistry.registerEntityRenderingHandler(DivineArrow.class, DivineArrowRender::new);
         RenderingRegistry.registerEntityRenderingHandler(ItemBulletEntity.class, factory -> new SpriteRenderer<>(factory, itemRenderer));
@@ -449,8 +463,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Scorcher.class, ScorcherRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Wildfire.class, WildfireRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Grue.class, GrueRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(CaveCrawler.class, f -> new CrawlerRender<>(f, "cave_crawler"));
-        RenderingRegistry.registerEntityRenderingHandler(DesertCrawler.class, f -> new CrawlerRender<>(f, "desert_crawler"));
+        registerForOneRender(CrawlerRender::new, CaveCrawler.class, DesertCrawler.class);
         RenderingRegistry.registerEntityRenderingHandler(Cavelops.class, CavelopsRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Cyclops.class, CyclopsRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Miner.class, MinerRender::new);
@@ -499,6 +512,8 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(TwilightDemon.class, TwilightDemonRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Watcher.class, WatcherRender::new);
         RenderingRegistry.registerEntityRenderingHandler(EternalArcher.class, EternalArcherRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(SoulSpider.class, SoulSpiderRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(SoulFiend.class, SoulFiendRender::new);
     }
 
 

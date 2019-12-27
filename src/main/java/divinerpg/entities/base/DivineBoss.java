@@ -69,6 +69,7 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
     protected void registerGoals() {
         this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(7, new RandomWalkingGoal(this, 1));
 
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
@@ -183,13 +184,17 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
         double z = target.posZ - this.posZ;
         double xzVec = (double) MathHelper.sqrt(x * x + z * z);
 
-        bullet.shoot(x, y + xzVec * (double) 0.2F, z, 1.6F, getInaccuracy());
+        bullet.shoot(x, y + xzVec * (double) 0.2F, z, getArrowVelocity(), getInaccuracy());
         this.playSound(getShootSound(), 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
         this.world.addEntity(bullet);
     }
 
     protected float getInaccuracy() {
         return 14 - this.world.getDifficulty().getId() * 4;
+    }
+
+    protected float getArrowVelocity() {
+        return 1.6F;
     }
 
     /**
