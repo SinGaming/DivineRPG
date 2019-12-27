@@ -13,6 +13,8 @@ import divinerpg.entities.bosses.deamon.TwilightDemonRender;
 import divinerpg.entities.bosses.densos.Densos;
 import divinerpg.entities.bosses.densos.DensosRender;
 import divinerpg.entities.bosses.densos.Reyvor;
+import divinerpg.entities.bosses.etheral.EternalArcher;
+import divinerpg.entities.bosses.etheral.EternalArcherRender;
 import divinerpg.entities.bosses.vamacheron.Vamacheron;
 import divinerpg.entities.bosses.vamacheron.VamacheronRender;
 import divinerpg.entities.bosses.watcher.Watcher;
@@ -316,6 +318,8 @@ public class EntitiesRegistry {
     public static EntityType<Densos> densos;
     @ObjectHolder("reyvor")
     public static EntityType<Reyvor> reyvor;
+    @ObjectHolder("eternal_archer")
+    public static EntityType<EternalArcher> eternal_archer;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<EntityType<?>> e) {
@@ -415,6 +419,7 @@ public class EntitiesRegistry {
         registerSingle(registry, TwilightDemon::new, "twilight_demon", 2, 4);
         registerSingle(registry, Densos::new, "densos", 1, 2.5F);
         registerSingle(registry, Reyvor::new, "reyvor", 1, 2.5F);
+        registerSingle(registry, EternalArcher::new, "eternal_archer", 3, 5);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -493,6 +498,7 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(AncientEntity.class, AncientEntityRender::new);
         RenderingRegistry.registerEntityRenderingHandler(TwilightDemon.class, TwilightDemonRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Watcher.class, WatcherRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(EternalArcher.class, EternalArcherRender::new);
     }
 
 

@@ -35,15 +35,16 @@ public class HeldItemsLayer<T extends LivingEntity, M extends EntityModel<T> & I
     }
 
     private void renderHeldItems(LivingEntity entity, ItemStack stack, ItemCameraTransforms.TransformType type, HandSide handSide) {
-        if (!stack.isEmpty()) {
-            GlStateManager.pushMatrix();
-            if (entity.shouldRenderSneaking()) {
-                GlStateManager.translatef(0.0F, 0.2F, 0.0F);
-            }
 
+        if (!stack.isEmpty()) {
             M model = this.getEntityModel();
 
             for (int i = 0; i < model.size(handSide); i++) {
+                GlStateManager.pushMatrix();
+                if (entity.shouldRenderSneaking()) {
+                    GlStateManager.translatef(0.0F, 0.2F, 0.0F);
+                }
+
                 // Forge: moved this call down, fixes incorrect offset while sneaking.
                 model.postRenderArm(i, 0.0625F, handSide);
 
@@ -52,9 +53,9 @@ public class HeldItemsLayer<T extends LivingEntity, M extends EntityModel<T> & I
                 boolean flag = handSide == HandSide.LEFT;
                 GlStateManager.translatef((float) (flag ? -1 : 1) / 16.0F, 0.125F, -0.625F);
                 Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entity, stack, type, flag);
+
                 GlStateManager.popMatrix();
             }
-
         }
     }
 

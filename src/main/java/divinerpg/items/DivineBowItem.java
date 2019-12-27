@@ -7,10 +7,7 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.item.ArrowItem;
-import net.minecraft.item.BowItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
@@ -19,14 +16,16 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class DivineBowItem extends BowItem {
     /**
      * Default Arrow is used for shooting if bow if infinite
      */
-    private final List<ArrowItem> arrows = new ArrayList<>();
+    private final List<Supplier<Item>> arrows = new ArrayList<>();
     private final List<EffectInstance> effects = new ArrayList<>();
     private final boolean isInfinite;
     public final double damage;
@@ -46,7 +45,7 @@ public class DivineBowItem extends BowItem {
 
         arrows.addAll(builder.possibleArrows);
         if (arrows.isEmpty()) {
-            arrows.add((ArrowItem) Items.ARROW);
+            arrows.add(() -> Items.ARROW);
         }
     }
 
@@ -151,7 +150,8 @@ public class DivineBowItem extends BowItem {
 
     @Override
     public Predicate<ItemStack> getAmmoPredicate() {
-        return itemStack -> arrows.contains(itemStack.getItem());
+        return stack -> arrows.stream().map(Supplier::get).filter(Objects::nonNull)
+                .anyMatch(x -> x.equals(stack.getItem()));
     }
 
     @Override

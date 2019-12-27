@@ -1,6 +1,5 @@
 package divinerpg.utils.properties.item;
 
-import net.minecraft.item.ArrowItem;
 import net.minecraft.item.Item;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class ExtendedItemProperties extends Item.Properties {
     public IHitEntity onHit;
     public IBlockHit onBlockHit;
     public boolean disableSword = false;
-    public final List<ArrowItem> possibleArrows = new ArrayList<>();
+    public final List<Supplier<Item>> possibleArrows = new ArrayList<>();
     public boolean infiniteArrows = false;
 
     /**
@@ -103,7 +102,7 @@ public class ExtendedItemProperties extends Item.Properties {
      *
      * @param arrows - list of possible arrows
      */
-    public ExtendedItemProperties withArrows(ArrowItem... arrows) {
+    public ExtendedItemProperties withArrows(Supplier<Item>... arrows) {
         if (arrows != null && arrows.length > 0) {
             possibleArrows.addAll(Arrays.stream(arrows).collect(Collectors.toList()));
         }
