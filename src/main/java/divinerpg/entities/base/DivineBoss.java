@@ -32,6 +32,7 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
     protected final ServerBossInfo info;
     private final static String colorKey = "ProgressbarColor";
     private final static String specialNameKey = "EntityName";
+    private PrioritizedGoal ranged;
 
     @Deprecated
     private DivineBoss(World world) {
@@ -80,6 +81,7 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
         super.registerAttributes();
 
         this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3);
+        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50);
     }
 
     @Override
@@ -152,6 +154,9 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
         super.updateAITasks();
 
         this.info.setPercent(this.getHealth() / this.getMaxHealth());
+
+        if (ranged != null)
+            rangedDamageTask();
     }
 
     protected void putInPlayerInventory(List<ItemEntity> drops, PlayerEntity player) {
@@ -223,11 +228,17 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
      * Init attack target ai
      */
     protected void initAI(boolean isArcher, boolean isMeelee) {
-        if (isMeelee)
+        if (isMeelee) {
             this.goalSelector.addGoal(2, new MeleeGoal(this, 1, true));
+        }
 
-        if (isArcher)
-            this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1, 20, 100));
+        if (isArcher) {
+            initArcher(20);
+        }
+    }
+
+    protected void initArcher(int attackTime) {
+        ranged = new PrioritizedGoal(1, new RangedAttackGoal(this, 1, attackTime, (float) getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).getValue()));
     }
 
     /**
@@ -255,5 +266,20 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
             return;
 
         putDropInTheWorld(actual);
+    }
+
+    private void rangedDamageTask() {
+        if (ranged == null)
+            return;
+
+        if (ranged.isRunning()) {
+            if (ranged.shouldContinueExecuting()) {
+                ranged.tick();
+            } else {
+                ranged.resetTask();
+            }
+        } else if (ranged.shouldExecute()) {
+            ranged.startExecuting();
+        }
     }
 }

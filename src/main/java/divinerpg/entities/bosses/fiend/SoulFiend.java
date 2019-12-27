@@ -22,7 +22,9 @@ public class SoulFiend extends DivineBoss {
     protected void registerGoals() {
         super.registerGoals();
 
-        initAI(true, true);
+        initAI(false, true);
+
+        initArcher(150);
     }
 
     @Override
@@ -36,7 +38,9 @@ public class SoulFiend extends DivineBoss {
 
     @Override
     public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
-        launchArrow(target, new SoulFiendShot(world, this));
+        for (int i = 0; i < 4; i++) {
+            launchArrow(target, new SoulFiendShot(world, this));
+        }
     }
 
     @Override
