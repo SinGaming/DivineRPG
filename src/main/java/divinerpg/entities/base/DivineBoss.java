@@ -46,6 +46,8 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
         info.setDarkenSky(true);
 
         this.experienceValue = experience;
+
+        enablePersistence();
     }
 
     /**

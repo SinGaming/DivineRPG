@@ -19,7 +19,7 @@ public class Spellbinder extends DivineArcher {
     }
 
     public Spellbinder(EntityType<? extends MonsterEntity> type, World world) {
-        super(type, world, SoundRegistry.INSECT, SoundRegistry.INSECT, 2, 0, "", "", ItemStack.EMPTY);
+        super(type, world, SoundRegistry.INSECT, SoundRegistry.INSECT, 2, 0, "", null, ItemStack.EMPTY);
     }
 
     @Override

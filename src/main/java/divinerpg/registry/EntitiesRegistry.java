@@ -19,6 +19,10 @@ import divinerpg.entities.bosses.fiend.SoulFiend;
 import divinerpg.entities.bosses.fiend.SoulFiendRender;
 import divinerpg.entities.bosses.fiend.pet.SoulSpider;
 import divinerpg.entities.bosses.fiend.pet.SoulSpiderRender;
+import divinerpg.entities.bosses.karot.Karot;
+import divinerpg.entities.bosses.karot.KarotRender;
+import divinerpg.entities.bosses.scorcher.KingOfScorchers;
+import divinerpg.entities.bosses.scorcher.KingScorcherRender;
 import divinerpg.entities.bosses.vamacheron.Vamacheron;
 import divinerpg.entities.bosses.vamacheron.VamacheronRender;
 import divinerpg.entities.bosses.watcher.Watcher;
@@ -332,6 +336,10 @@ public class EntitiesRegistry {
     public static EntityType<SoulFiend> soul_fiend;
     @ObjectHolder("soul_spider")
     public static EntityType<SoulSpider> soul_spider;
+    @ObjectHolder("karot")
+    public static EntityType<Karot> karot;
+    @ObjectHolder("king_of_scorchers")
+    public static EntityType<KingOfScorchers> king_of_scorchers;
 
 
     @SubscribeEvent
@@ -358,7 +366,7 @@ public class EntitiesRegistry {
         registerSingle(registry, EnderSpider::new, "ender_spider", 0.5F, 0.55F);
         registerSingle(registry, EnderWatcher::new, "ender_watcher", 0.7F, 0.9F);
         registerSingle(registry, EnderTriplets::new, "ender_triplets", 0.7F, 0.9F);
-        registerSingle(registry, Scorcher::new, "scorcher", 1.2F, 2);
+        registerImmunedToFire(registry, Scorcher::new, "scorcher", 1.2F, 2);
         registerSingle(registry, Wildfire::new, "wildfire", 0.8F, 2.2F);
         registerSingle(registry, Grue::new, "grue", 0.8F, 1.9F);
         registerSingle(registry, CaveCrawler::new, "cave_crawler", 1, 1.5F);
@@ -413,11 +421,9 @@ public class EntitiesRegistry {
         registerSingle(registry, Madivel::new, "madivel", 0.6F, 2.9F);
         registerSingle(registry, SunArcher::new, "sun_archer", 0.8F, 2.2F);
 
-        registry.register(EntityType.Builder.create(Epiphite::new, EntityClassification.MONSTER)
-                .size(0.9F, 1.3F)
-                .immuneToFire()
-                .setCustomClientFactory((spawnEntity, world) -> new Epiphite(world))
-                .build("epiphite").setRegistryName(DivineRPG.MODID, ""));
+        registerImmunedToFire(registry, Epiphite::new, "epiphite", 0.9F, 1.3F);
+        registerImmunedToFire(registry, Watcher::new, "the_watcher", 4, 4);
+
 
         registerSingle(registry, Mage::new, "mage", 0.5F, 2.2F);
         registerSingle(registry, Megalith::new, "megalith", 1.2F, 4);
@@ -429,13 +435,15 @@ public class EntitiesRegistry {
         registerSingle(registry, Behemoth::new, "behemoth", 1, 1.2F);
         registerSingle(registry, Ayeraco::new, "ayeraco", 2.8F, 1.2F);
         registerSingle(registry, AncientEntity::new, "ancient_entity", 6, 10);
-        registerSingle(registry, Watcher::new, "the_watcher", 4, 4);
         registerSingle(registry, TwilightDemon::new, "twilight_demon", 2, 4);
         registerSingle(registry, Densos::new, "densos", 1, 2.5F);
         registerSingle(registry, Reyvor::new, "reyvor", 1, 2.5F);
         registerSingle(registry, EternalArcher::new, "eternal_archer", 3, 5);
         registerSingle(registry, SoulSpider::new, "soul_spider", 0.3F, 0.5F);
         registerSingle(registry, SoulFiend::new, "soul_fiend", 0.8F, 2);
+        registerSingle(registry, Karot::new, "karot", 3.25F, 4);
+
+        registerImmunedToFire(registry, KingOfScorchers::new, "king_of_scorchers", 2, 2.5F);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -514,8 +522,19 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(EternalArcher.class, EternalArcherRender::new);
         RenderingRegistry.registerEntityRenderingHandler(SoulSpider.class, SoulSpiderRender::new);
         RenderingRegistry.registerEntityRenderingHandler(SoulFiend.class, SoulFiendRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Karot.class, KarotRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(KingOfScorchers.class, KingScorcherRender::new);
     }
 
+    private static <T extends Entity> void registerImmunedToFire(IForgeRegistry<EntityType<?>> registry, Function<World, T> createFunc, String name, float width, float height) {
+        registry.register(
+                EntityType.Builder.<T>create((type, world) -> createFunc.apply(world), EntityClassification.MONSTER)
+                        .setCustomClientFactory((spawnEntity, world) -> createFunc.apply(world))
+                        .size(width, height)
+                        .immuneToFire()
+                        .build(name).setRegistryName(DivineRPG.MODID, name)
+        );
+    }
 
     private static <T extends Entity> void registerSingle(IForgeRegistry<EntityType<?>> registry, Function<World, T> createFunc, String name, float width, float height) {
         registerSingle(registry, createFunc, EntityClassification.MONSTER, name, width, height);

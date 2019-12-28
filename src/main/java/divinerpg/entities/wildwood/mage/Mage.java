@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class Mage extends DivineArcher {
     public Mage(World world) {
-        super(EntitiesRegistry.mage, world, SoundRegistry.INSECT, SoundRegistry.INSECT, 2, 0, "", "", ItemStack.EMPTY);
+        super(EntitiesRegistry.mage, world, SoundRegistry.INSECT, SoundRegistry.INSECT, 2, 0, "", null, ItemStack.EMPTY);
     }
 
     @Override

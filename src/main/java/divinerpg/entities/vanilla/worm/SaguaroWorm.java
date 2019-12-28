@@ -4,7 +4,10 @@ import divinerpg.entities.base.DivineArcher;
 import divinerpg.entities.projectiles.Bullet.BulletEntity;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.IProjectile;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.item.ItemStack;
@@ -15,7 +18,7 @@ import net.minecraft.world.World;
 
 public class SaguaroWorm extends DivineArcher {
     public SaguaroWorm(World world) {
-        super(EntitiesRegistry.saguaro_worm, world, SoundRegistry.SAGUARO_WORM, SoundRegistry.SAGUARO_WORM, 2.5F, 0, "", "", ItemStack.EMPTY);
+        super(EntitiesRegistry.saguaro_worm, world, SoundRegistry.SAGUARO_WORM, SoundRegistry.SAGUARO_WORM, 2.5F, 0, "", null, ItemStack.EMPTY);
     }
 
     @Override

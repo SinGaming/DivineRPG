@@ -4,6 +4,7 @@ import divinerpg.entities.base.DivineBoss;
 import divinerpg.entities.projectiles.DivineArrow.DivineArrow;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.ItemRegistry;
+import divinerpg.utils.projectile.Powers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
@@ -11,6 +12,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -26,18 +28,18 @@ public class EternalArcher extends DivineBoss {
 
     @Override
     public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
-        String power = "";
+        Powers power = new Powers();
         List<EffectInstance> effects = new ArrayList<>();
 
         // Every 15-th arrow is killing
         if (rand.nextInt(15) == 0) {
 
             if (canApplyAbility()) {
-                power = "fire";
+                power.withFire(12);
             }
 
             if (canApplyAbility()) {
-                power = String.join(";", power, "explosion");
+                power.withExplosion(3, Explosion.Mode.BREAK);
             }
 
             if (canApplyAbility()) {
@@ -62,10 +64,6 @@ public class EternalArcher extends DivineBoss {
 
         if (!effects.isEmpty()) {
             effects.forEach(arrow::addEffect);
-        }
-
-        if (!power.isEmpty() || effects.isEmpty()) {
-            // todo particle
         }
 
         launchArrow(target, arrow);

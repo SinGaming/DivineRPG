@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 public class Cavelops extends DivineArcher {
     public Cavelops(World world) {
         super(EntitiesRegistry.cavelops, world, SoundRegistry.CYCLOPS_HURT, SoundRegistry.CYCLOPS, 3.5F,
-                1, "", "", ItemStack.EMPTY);
+                1, "", null, ItemStack.EMPTY);
     }
 
     @Override

@@ -25,7 +25,7 @@ public class Reyvor extends DivineBoss {
 
     @Override
     public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
-        DivineArrow arrow = new DivineArrow(world, this, "fury_arrow", 15, "");
+        DivineArrow arrow = new DivineArrow(world, this, "fury_arrow", 15);
         launchArrow(this, arrow);
     }
 

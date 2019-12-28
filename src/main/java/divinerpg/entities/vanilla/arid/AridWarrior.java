@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class AridWarrior extends DivineArcher {
     public AridWarrior(World world) {
-        super(EntitiesRegistry.arid_warrior, world, SoundRegistry.ARID_WARRIOR_HURT, SoundRegistry.ARID_WARRIOR, 2.25F, 0, "", "",
+        super(EntitiesRegistry.arid_warrior, world, SoundRegistry.ARID_WARRIOR_HURT, SoundRegistry.ARID_WARRIOR, 2.25F, 0, "", null,
                 new ItemStack(ItemRegistry.shadow_bow));
     }
 

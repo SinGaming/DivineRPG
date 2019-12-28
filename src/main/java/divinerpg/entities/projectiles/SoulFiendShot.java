@@ -27,7 +27,7 @@ public class SoulFiendShot extends BulletEntity {
     }
 
     public SoulFiendShot(World worldIn, LivingEntity thrower) {
-        super(EntitiesRegistry.soul_fiend_shot, worldIn, thrower, 0, "blank", RGBHelper.particlefromRGB(255, 0, 0));
+        super(EntitiesRegistry.soul_fiend_shot, worldIn, thrower, 0, "blank", RGBHelper.particlefromRGB(255, 0, 0), null);
     }
 
     @Override

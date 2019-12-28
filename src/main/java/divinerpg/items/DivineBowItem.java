@@ -1,6 +1,7 @@
 package divinerpg.items;
 
 import divinerpg.entities.projectiles.DivineArrow.DivineArrow;
+import divinerpg.utils.projectile.Powers;
 import divinerpg.utils.properties.item.ExtendedItemProperties;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -29,12 +30,12 @@ public class DivineBowItem extends BowItem {
     private final List<EffectInstance> effects = new ArrayList<>();
     private final boolean isInfinite;
     public final double damage;
-    public final String power;
+    public final Powers power;
     private final int duration;
     private final SoundEvent sound;
     public final String arrowName;
 
-    public DivineBowItem(ExtendedItemProperties builder, double arrowDamage, String power, SoundEvent sound, String arrowName) {
+    public DivineBowItem(ExtendedItemProperties builder, double arrowDamage, Powers power, SoundEvent sound, String arrowName) {
         super(builder);
         this.damage = arrowDamage;
         this.isInfinite = builder.infiniteArrows;

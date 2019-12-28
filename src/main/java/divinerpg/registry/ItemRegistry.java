@@ -10,6 +10,7 @@ import divinerpg.items.*;
 import divinerpg.utils.DivineArmorMaterial;
 import divinerpg.utils.DivineItemTier;
 import divinerpg.utils.DivineParticleTypes;
+import divinerpg.utils.projectile.Powers;
 import divinerpg.utils.properties.item.ExtendedItemProperties;
 import divinerpg.utils.properties.item.SpawnHelper;
 import net.minecraft.entity.LivingEntity;
@@ -24,6 +25,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.Explosion;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -536,6 +538,8 @@ public class ItemRegistry {
         ).setRegistryName(DivineRPG.MODID, "massivence"));
         registerColors(registry, color -> new SwordItem(DivineItemTier.ENDER, 0, -2.4F,
                 new Item.Properties().group(DivineRPGTabs.DivineSwords)).setRegistryName(DivineRPG.MODID, color + "ender_sword"), colors);
+        registry.register(new SwordItem(DivineItemTier.SHADOWBAR, 12, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords)
+                .maxDamage(100)).setRegistryName(DivineRPG.MODID, "sandslash"));
 
 
         // Axes
@@ -596,17 +600,17 @@ public class ItemRegistry {
         registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
                 .withUseDuration(72000)
                 .infiiniteArrows(true)
-                .group(DivineRPGTabs.DivineRanged), 5, "", SoundEvents.ENTITY_ARROW_SHOOT, "ender_arrow")
+                .group(DivineRPGTabs.DivineRanged), 5, null, SoundEvents.ENTITY_ARROW_SHOOT, "ender_arrow")
                 .setRegistryName(DivineRPG.MODID, "ender_bow"));
         registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
                 .withUseDuration(72000)
                 .infiiniteArrows(true)
-                .group(DivineRPGTabs.DivineRanged), 3, "explosion", SoundEvents.ENTITY_ARROW_SHOOT, "bluefire_arrow")
-                .setRegistryName(DivineRPG.MODID, "bluefire_bow"));
+                .group(DivineRPGTabs.DivineRanged), 3, new Powers().withExplosion(3, Explosion.Mode.NONE),
+                SoundEvents.ENTITY_ARROW_SHOOT, "bluefire_arrow").setRegistryName(DivineRPG.MODID, "bluefire_bow"));
         registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
                 .withUseDuration(72000)
                 .infiiniteArrows(true)
-                .group(DivineRPGTabs.DivineRanged), 3, "fire", SoundEvents.ENTITY_ARROW_SHOOT, "inferno_arrow")
+                .group(DivineRPGTabs.DivineRanged), 3, new Powers().withFire(12), SoundEvents.ENTITY_ARROW_SHOOT, "inferno_arrow")
                 .setRegistryName(DivineRPG.MODID, "inferno_bow"));
 
 
@@ -754,6 +758,8 @@ public class ItemRegistry {
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "apalachia_dust"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "skythern_dust"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "mortum_dust"));
+
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "fury_fire"));
 
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "base_spawn_crystal"));
 
@@ -909,34 +915,34 @@ public class ItemRegistry {
         registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
                 .withUseDuration(72000)
                 .withArrows(() -> eden_arrow)
-                .group(DivineRPGTabs.DivineRanged), 16, "", SoundEvents.ENTITY_ARROW_SHOOT, "eden_arrow")
+                .group(DivineRPGTabs.DivineRanged), 16, null, SoundEvents.ENTITY_ARROW_SHOOT, "eden_arrow")
                 .setRegistryName(DivineRPG.MODID, "eden_bow"));
 
         registry.register(new ArrowItem(new Item.Properties().group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "apalachia_arrow"));
         registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
                 .withUseDuration(72000)
                 .withArrows(() -> apalachia_arrow)
-                .group(DivineRPGTabs.DivineRanged), 20, "", SoundEvents.ENTITY_ARROW_SHOOT, "apalachia_arrow")
+                .group(DivineRPGTabs.DivineRanged), 20, null, SoundEvents.ENTITY_ARROW_SHOOT, "apalachia_arrow")
                 .setRegistryName(DivineRPG.MODID, "apalachia_bow"));
 
         registry.register(new ArrowItem(new Item.Properties().group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "skythern_arrow"));
         registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
                 .withUseDuration(72000)
                 .withArrows(() -> skythern_arrow)
-                .group(DivineRPGTabs.DivineRanged), 20, "", SoundEvents.ENTITY_ARROW_SHOOT, "apalachia_arrow")
+                .group(DivineRPGTabs.DivineRanged), 20, null, SoundEvents.ENTITY_ARROW_SHOOT, "apalachia_arrow")
                 .setRegistryName(DivineRPG.MODID, "skythern_bow"));
 
         registry.register(new ArrowItem(new Item.Properties().group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "fury_arrow"));
         registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
                 .withUseDuration(14400)
                 .withArrows(() -> fury_arrow)
-                .group(DivineRPGTabs.DivineRanged), 25, "", SoundEvents.ENTITY_ARROW_SHOOT, "twilight_bow")
+                .group(DivineRPGTabs.DivineRanged), 25, null, SoundEvents.ENTITY_ARROW_SHOOT, "twilight_bow")
                 .setRegistryName(DivineRPG.MODID, "twilight_bow"));
 
         registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
                 .withUseDuration(72000)
                 .withArrows(() -> fury_arrow)
-                .group(DivineRPGTabs.DivineRanged), 8, "", SoundEvents.ENTITY_ARROW_SHOOT, "fury_arrow")
+                .group(DivineRPGTabs.DivineRanged), 8, null, SoundEvents.ENTITY_ARROW_SHOOT, "fury_arrow")
                 .setRegistryName(DivineRPG.MODID, "halite_bow"));
     }
 

@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class Sorcerer extends DivineArcher {
     public Sorcerer(World world) {
-        super(EntitiesRegistry.sorcerer, world, SoundRegistry.INSECT, SoundRegistry.INSECT, 2.2F, 0, "", "", ItemStack.EMPTY);
+        super(EntitiesRegistry.sorcerer, world, SoundRegistry.INSECT, SoundRegistry.INSECT, 2.2F, 0, "", null, ItemStack.EMPTY);
     }
 
     @Override

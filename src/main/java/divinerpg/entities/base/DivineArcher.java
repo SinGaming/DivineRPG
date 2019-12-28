@@ -2,6 +2,7 @@ package divinerpg.entities.base;
 
 import divinerpg.entities.projectiles.DivineArrow.DivineArrow;
 import divinerpg.items.DivineBowItem;
+import divinerpg.utils.projectile.Powers;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RangedAttackGoal;
@@ -12,6 +13,7 @@ import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -22,7 +24,7 @@ import net.minecraft.world.World;
 
 public class DivineArcher extends PeacefullDivineMonster implements IRangedAttackMob {
     private static final DataParameter<String> NAME = EntityDataManager.createKey(DivineArcher.class, DataSerializers.STRING);
-    private static final DataParameter<String> POWER = EntityDataManager.createKey(DivineArcher.class, DataSerializers.STRING);
+    private static final DataParameter<CompoundNBT> POWER = EntityDataManager.createKey(DivineArcher.class, DataSerializers.COMPOUND_NBT);
     private static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(DivineArcher.class, DataSerializers.FLOAT);
 
     @Deprecated
@@ -36,7 +38,7 @@ public class DivineArcher extends PeacefullDivineMonster implements IRangedAttac
     }
 
     public DivineArcher(EntityType<? extends MonsterEntity> type, World world, SoundEvent hurt,
-                        SoundEvent ambient, float eyeHight, double damage, String arrowName, String powers,
+                        SoundEvent ambient, float eyeHight, double damage, String arrowName, Powers powers,
                         ItemStack mainHand) {
         super(type, world, hurt, ambient, eyeHight);
 
@@ -44,7 +46,7 @@ public class DivineArcher extends PeacefullDivineMonster implements IRangedAttac
         this.setItemStackToSlot(EquipmentSlotType.MAINHAND, mainHand);
 
         manager.set(NAME, arrowName);
-        manager.set(POWER, powers);
+        manager.set(POWER, powers == null ? new CompoundNBT() : powers.toTag());
         manager.set(DAMAGE, (float) damage);
     }
 
@@ -56,7 +58,7 @@ public class DivineArcher extends PeacefullDivineMonster implements IRangedAttac
 
         manager.register(DAMAGE, 0F);
         manager.register(NAME, "");
-        manager.register(POWER, "");
+        manager.register(POWER, new CompoundNBT());
     }
 
     @Override
@@ -79,7 +81,7 @@ public class DivineArcher extends PeacefullDivineMonster implements IRangedAttac
 
     protected <T extends Entity & IProjectile> T createArrow(ItemStack arrow, float distance) {
         EntityDataManager manager = getDataManager();
-        AbstractArrowEntity bullet = new DivineArrow(this.world, this, manager.get(NAME), manager.get(DAMAGE), manager.get(POWER));
+        AbstractArrowEntity bullet = new DivineArrow(this.world, this, manager.get(NAME), manager.get(DAMAGE), new Powers(manager.get(POWER)));
 
         if (this.getHeldItemMainhand().getItem() instanceof net.minecraft.item.BowItem)
             bullet = ((net.minecraft.item.BowItem) this.getHeldItemMainhand().getItem()).customeArrow(bullet);
