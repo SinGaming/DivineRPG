@@ -114,6 +114,11 @@ public class DivinePortalBlock extends Block {
 
     @Override
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+        if (entityIn.timeUntilPortal > 0) {
+            entityIn.timeUntilPortal--;
+            return;
+        }
+
         entityIn.timeUntilPortal = entityIn.getPortalCooldown();
 
         if (!(worldIn instanceof ServerWorld)

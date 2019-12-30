@@ -45,12 +45,9 @@ public class CustomTeleporter extends Teleporter {
 
         DimensionType destinationType = world.dimension.getType();
 
-        // both types should be the same
-        return (current == currentTeleportType
-                || current == destinationTeleportType)
-                &&
-                (destinationType == currentTeleportType
-                        || destinationType == destinationTeleportType);
+        return (current == currentTeleportType && destinationType == destinationTeleportType)
+                ||
+                (destinationType == currentTeleportType && current == destinationTeleportType);
     }
 
     @Override
