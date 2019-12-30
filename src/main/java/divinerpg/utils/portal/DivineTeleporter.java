@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
+@Deprecated
 public class DivineTeleporter extends Teleporter {
     private static final Logger LOGGER = LogManager.getLogger();
     protected final ServerWorld world;

@@ -29,7 +29,6 @@ public class EatWoodGoal extends Goal {
         if (!isAngry())
             return false;
 
-        // FIXME it's not working
         // search in 12 blocks area
         BlockPos nearestWood = BlockPos.getAllInBox(entity.getPosition().add(-12, -12, -12), entity.getPosition().add(12, 12, 12))
                 // ordered by distane of entity
@@ -46,6 +45,7 @@ public class EatWoodGoal extends Goal {
         return true;
     }
 
+    // FIXME it's not working
     @Override
     public void tick() {
         super.tick();

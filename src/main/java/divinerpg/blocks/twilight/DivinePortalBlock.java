@@ -1,12 +1,15 @@
 package divinerpg.blocks.twilight;
 
+import divinerpg.utils.portal.PortalConstants;
 import divinerpg.utils.portal.PortalHelper;
+import divinerpg.utils.portal.description.IPortalDescription;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
@@ -111,24 +114,26 @@ public class DivinePortalBlock extends Block {
 
     @Override
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-        if (!worldIn.isRemote
-                && type != null
-                && !entityIn.isPassenger()
-                && !entityIn.isBeingRidden()
-                && entityIn.isNonBoss()
-                && worldIn instanceof ServerWorld) {
-            DimensionType destination = type.get();
+        entityIn.timeUntilPortal = entityIn.getPortalCooldown();
 
-            if (worldIn.getDimension().getType() == destination) {
-                destination = DimensionType.OVERWORLD;
-            }
+        if (!(worldIn instanceof ServerWorld)
+                || !(entityIn instanceof ServerPlayerEntity)
+                || entityIn.isPassenger()
+                || entityIn.isBeingRidden()
+                || !entityIn.isNonBoss())
+            return;
 
-            entityIn.timeUntilPortal = entityIn.getPortalCooldown();
-            entityIn.changeDimension(destination);
+        ServerWorld serverWorld = (ServerWorld) worldIn;
+        DimensionType destination = worldIn.getDimension().getType() == type.get()
+                ? DimensionType.OVERWORLD
+                : type.get();
 
-            // TODO currently not working
-            //PortalHelper.tryChangeDimention(entityIn, destination, this, frame.get());
-        }
+        IPortalDescription description = PortalConstants.findByFrame(frame.get());
+        if (description == null)
+            return;
+
+        // TODO currently not working
+        PortalHelper.tryChangeDimention(((ServerPlayerEntity) entityIn), destination, description);
     }
 
     @Override
@@ -139,9 +144,12 @@ public class DivinePortalBlock extends Block {
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
         // TODO optimize, heavy calculation
-        BlockPattern.PatternHelper match = PortalHelper.createNetherLikePattern(frame.get(), this).match(worldIn, currentPos);
-        if (match == null)
-            return Blocks.AIR.getDefaultState();
+        IPortalDescription description = PortalConstants.findByFrame(frame.get());
+        if (description != null && worldIn instanceof World) {
+            BlockPattern.PatternHelper match = description.matchFrame(((World) worldIn), currentPos);
+            if (match == null)
+                return Blocks.AIR.getDefaultState();
+        }
 
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }

@@ -10,6 +10,7 @@ import net.minecraft.world.IWorld;
 
 import javax.annotation.Nullable;
 
+@Deprecated
 public class DivinePortalSize {
     public final Direction rightDir;
     public final Direction leftDir;

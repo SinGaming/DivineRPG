@@ -7,6 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+@Deprecated
 public class TeleportPlacement {
     private final BlockPos frontTopLeft;
     private BlockPattern.PatternHelper match;
