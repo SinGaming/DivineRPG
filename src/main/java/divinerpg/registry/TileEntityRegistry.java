@@ -7,6 +7,7 @@ import divinerpg.tile.ayeraco.beam.AyeracoBeam;
 import divinerpg.tile.ayeraco.beam.AyeracoBeamRender;
 import divinerpg.tile.ayeraco.spawn.AyeracoSpawn;
 import divinerpg.tile.ayeraco.spawn.AyeracoSpawnRender;
+import divinerpg.tile.furnace.DivineFurnaceTileEntity;
 import divinerpg.tile.statue.StatueConstants;
 import divinerpg.tile.statue.StatueRender;
 import divinerpg.tile.statue.TileEntityStatue;
@@ -35,6 +36,8 @@ public class TileEntityRegistry {
     public static TileEntityType<?> ayeraco_spawner;
     @ObjectHolder("ayeraco_beam")
     public static TileEntityType<?> ayeraco_beam;
+    @ObjectHolder("coalstone_furnace")
+    public static TileEntityType<?> infinite_furnace;
 
     @SubscribeEvent
     public static void registerRenders(final RegistryEvent.Register<TileEntityType<?>> e) {
@@ -44,6 +47,8 @@ public class TileEntityRegistry {
         singleRegister(registry, AyeracoBeam::new, "ayeraco_beam",
                 byName(AyeracoManager.beamLocations.keySet().stream().map(AyeracoBeamBlock::getName).collect(Collectors.toList())));
         singleRegister(registry, AyeracoSpawn::new, "ayeraco_spawner", BlockRegistry.ayeraco_spawner);
+
+        singleRegister(registry, DivineFurnaceTileEntity::new, "coalstone_furnace", BlockRegistry.coalstone_furnace);
     }
 
     @OnlyIn(Dist.CLIENT)

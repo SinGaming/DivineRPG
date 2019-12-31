@@ -1,4 +1,4 @@
-package divinerpg.tile;
+package divinerpg.tile.furnace;
 
 import divinerpg.utils.time.FurnaceArbiter;
 import net.minecraft.block.material.Material;
@@ -27,8 +27,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
+@Deprecated
 public abstract class InfiniteFurnace extends LockableTileEntity implements ISidedInventory, IRecipeHolder, IRecipeHelperPopulator, ITickableTileEntity {
 
     private final IRecipeType<? extends AbstractCookingRecipe> recipeTypeIn;
@@ -73,7 +73,7 @@ public abstract class InfiniteFurnace extends LockableTileEntity implements ISid
 
     @Override
     public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-        return direction != Direction.DOWN || ArrayUtils.contains(outputs, index);
+        return direction == Direction.DOWN || ArrayUtils.contains(outputs, index);
     }
 
     @Override

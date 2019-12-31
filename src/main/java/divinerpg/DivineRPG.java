@@ -96,6 +96,7 @@ public class DivineRPG {
 
         EntitiesRegistry.registerRender();
         TileEntityRegistry.registerRender();
+        ContainerRegistry.registerGUI();
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
