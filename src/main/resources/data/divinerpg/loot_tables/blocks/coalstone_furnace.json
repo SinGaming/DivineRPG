@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "divinerpg:coalstone_furnace.json"
+          "name": "divinerpg:coalstone_furnace"
         }
       ],
       "conditions": [

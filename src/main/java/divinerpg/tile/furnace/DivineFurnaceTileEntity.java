@@ -6,7 +6,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.AbstractCookingRecipe;
@@ -177,6 +176,6 @@ public class DivineFurnaceTileEntity extends AbstractFurnaceTileEntity {
 
     @Override
     protected Container createMenu(int id, PlayerInventory player) {
-        return new DivineFurnaceContainer(ContainerType.FURNACE, IRecipeType.SMELTING, id, player, this, this.furnaceData);
+        return new DivineFurnaceContainer(id, player, this, this.furnaceData);
     }
 }

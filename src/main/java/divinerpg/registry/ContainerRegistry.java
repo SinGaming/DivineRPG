@@ -17,14 +17,14 @@ import net.minecraftforge.registries.ObjectHolder;
 @Mod.EventBusSubscriber(modid = DivineRPG.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(DivineRPG.MODID)
 public class ContainerRegistry {
-    @ObjectHolder("coalstone_furnace")
+    @ObjectHolder("infinite_furnace")
     public static ContainerType<? extends AbstractFurnaceContainer> infinite_furnace;
 
     @SubscribeEvent
     public static void register(final RegistryEvent.Register<ContainerType<?>> e) {
         IForgeRegistry<ContainerType<?>> registry = e.getRegistry();
 
-        registry.register(new ContainerType<>(DivineFurnaceContainer::new).setRegistryName(DivineRPG.MODID, "coalstone_furnace"));
+        registry.register(new ContainerType<>(DivineFurnaceContainer::new).setRegistryName(DivineRPG.MODID, "infinite_furnace"));
     }
 
     @OnlyIn(Dist.CLIENT)
