@@ -2,7 +2,9 @@ package divinerpg.tile.furnace;
 
 import divinerpg.registry.TileEntityRegistry;
 import net.minecraft.block.AbstractFurnaceBlock;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -11,31 +13,45 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.AbstractCookingRecipe;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.AbstractFurnaceTileEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nullable;
 
 public class DivineFurnaceTileEntity extends AbstractFurnaceTileEntity {
     // 1 slot is the fuel
+    private TextComponent name;
+    private float cookTimeSpeedModifier;
+    private boolean isInfinite = true;
 
     public DivineFurnaceTileEntity() {
+        this("container.furnace", 1, true);
+    }
+
+    public DivineFurnaceTileEntity(String name, float cookTimeSpeedModifier, boolean isInfinite) {
         super(TileEntityRegistry.infinite_furnace, IRecipeType.SMELTING);
+        this.name = new TranslationTextComponent(name);
+        this.cookTimeSpeedModifier = cookTimeSpeedModifier;
+        this.isInfinite = isInfinite;
     }
 
     @Override
     public void tick() {
         boolean wasBurning = this.isBurning();
         boolean statusChanged = false;
+        int tickCount = getTickIncrease();
+
         if (this.isBurning()) {
-            setBurnTime(getBurnTime() - 1);
+            setBurnTime(getBurnTime() - tickCount);
         }
 
         if (!this.world.isRemote) {
             ItemStack itemstack = this.items.get(1);
-            if (!this.items.get(0).isEmpty()) {
+            if (!this.items.get(0).isEmpty() && haveFuel()) {
                 IRecipe<?> irecipe = this.world.getRecipeManager().getRecipe((IRecipeType<AbstractCookingRecipe>) this.recipeType, this, this.world).orElse(null);
                 if (!this.isBurning() && this.canSmelt(irecipe)) {
                     setBurnTime(getBurnTime(itemstack));
@@ -48,7 +64,7 @@ public class DivineFurnaceTileEntity extends AbstractFurnaceTileEntity {
                 }
 
                 if (this.isBurning() && this.canSmelt(irecipe)) {
-                    cookTick();
+                    setCookTime(getCookTime() + tickCount);
                     if (getCookTime() >= getCookTimeTotal()) {
                         setCookTime(0);
                         setCookTimeTotal(func_214005_h());
@@ -75,13 +91,36 @@ public class DivineFurnaceTileEntity extends AbstractFurnaceTileEntity {
 
     @Override
     protected int getBurnTime(ItemStack stack) {
-        return func_214005_h();
+        return needFuel()
+                ? super.getBurnTime(stack)
+                : func_214005_h();
     }
 
     @Override
-    public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return index == 0;
+    protected int func_214005_h() {
+        // takes less time to cook item
+        return (int) Math.floor(super.func_214005_h() * cookTimeSpeedModifier);
     }
+
+    @Override
+    public CompoundNBT write(CompoundNBT compound) {
+        CompoundNBT result = super.write(compound);
+        result.putFloat("cookTimeSpeedModifier", cookTimeSpeedModifier);
+        result.putString("defaultName", getDefaultName().getString());
+        result.putBoolean("isInfinite", isInfinite);
+        return result;
+    }
+
+    @Override
+    public void read(CompoundNBT compound) {
+        super.read(compound);
+
+        cookTimeSpeedModifier = compound.getFloat("cookTimeSpeedModifier");
+        name = new TranslationTextComponent(compound.getString("defaultName"));
+        isInfinite = compound.getBoolean("isInfinite");
+    }
+
+    // region helping methods
 
     protected void populateRecipe(@Nullable IRecipe<?> recipe) {
         if (recipe != null && this.canSmelt(recipe)) {
@@ -153,29 +192,59 @@ public class DivineFurnaceTileEntity extends AbstractFurnaceTileEntity {
         }
     }
 
-    private void cookTick() {
-        int cookTime = getCookTime();
+    /**
+     * Gets tick modifier based on ground material (lava or fire)
+     *
+     * @return
+     */
+    private int getTickIncrease() {
+        BlockState state = world.getBlockState(pos.down());
 
-        int descrease = 1;
+        // source increase by 3 times
+        if (state.getBlock() == Blocks.LAVA && ((FlowingFluidBlock) state.getBlock()).getFluidState(state).isSource()) {
+            return 3;
+            // fire or floating lava - 2 times
+        } else if (state.getMaterial() == Material.FIRE || state.getBlock() == Blocks.LAVA) {
+            return 2;
+        }
 
-        Material material = world.getBlockState(pos.down()).getMaterial();
-
-        if (material == Material.FIRE)
-            descrease = 2;
-
-        if (material == Material.LAVA)
-            descrease = 3;
-
-        setCookTime(cookTime + descrease);
+        return 1;
     }
+
+    /**
+     * Checks wherever furnace needs fuel
+     *
+     * @return
+     */
+    private boolean haveFuel() {
+        if (isInfinite)
+            return true;
+
+        if (isBurning())
+            return true;
+
+        return !items.get(1).isEmpty();
+    }
+
+    /**
+     * Is furnace infinite
+     *
+     * @return
+     */
+    public boolean needFuel() {
+        return !isInfinite;
+    }
+
+    // endregion
 
     @Override
     protected ITextComponent getDefaultName() {
-        return new TranslationTextComponent("container.furnace");
+        return name;
     }
 
     @Override
     protected Container createMenu(int id, PlayerInventory player) {
         return new DivineFurnaceContainer(id, player, this, this.furnaceData);
     }
+
 }

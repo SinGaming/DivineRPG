@@ -24,7 +24,7 @@ public class ContainerRegistry {
     public static void register(final RegistryEvent.Register<ContainerType<?>> e) {
         IForgeRegistry<ContainerType<?>> registry = e.getRegistry();
 
-        registry.register(new ContainerType<>(DivineFurnaceContainer::new).setRegistryName(DivineRPG.MODID, "infinite_furnace"));
+        registry.register(new ContainerType<>(new DivineFurnaceContainer.DivineFurnaceFactory()).setRegistryName(DivineRPG.MODID, "infinite_furnace"));
     }
 
     @OnlyIn(Dist.CLIENT)

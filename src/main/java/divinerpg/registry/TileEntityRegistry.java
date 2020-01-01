@@ -36,7 +36,7 @@ public class TileEntityRegistry {
     public static TileEntityType<?> ayeraco_spawner;
     @ObjectHolder("ayeraco_beam")
     public static TileEntityType<?> ayeraco_beam;
-    @ObjectHolder("coalstone_furnace")
+    @ObjectHolder("infinite_furnace")
     public static TileEntityType<?> infinite_furnace;
 
     @SubscribeEvent
@@ -48,7 +48,7 @@ public class TileEntityRegistry {
                 byName(AyeracoManager.beamLocations.keySet().stream().map(AyeracoBeamBlock::getName).collect(Collectors.toList())));
         singleRegister(registry, AyeracoSpawn::new, "ayeraco_spawner", BlockRegistry.ayeraco_spawner);
 
-        singleRegister(registry, DivineFurnaceTileEntity::new, "coalstone_furnace", BlockRegistry.coalstone_furnace);
+        singleRegister(registry, DivineFurnaceTileEntity::new, "infinite_furnace", BlockRegistry.coalstone_furnace, BlockRegistry.greenlight_furnace);
     }
 
     @OnlyIn(Dist.CLIENT)

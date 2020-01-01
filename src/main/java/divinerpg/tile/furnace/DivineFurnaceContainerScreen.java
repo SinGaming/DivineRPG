@@ -1,6 +1,6 @@
 package divinerpg.tile.furnace;
 
-import divinerpg.DivineRPG;
+import divinerpg.utils.ITextured;
 import net.minecraft.client.gui.recipebook.FurnaceRecipeGui;
 import net.minecraft.client.gui.screen.inventory.AbstractFurnaceScreen;
 import net.minecraft.entity.player.PlayerInventory;
@@ -14,7 +14,10 @@ public class DivineFurnaceContainerScreen extends AbstractFurnaceScreen<Abstract
     }
 
     protected static ResourceLocation findGuiLayer(AbstractFurnaceContainer container) {
-        // todo implement
-        return new ResourceLocation(DivineRPG.MODID, "textures/gui/coalstone_furnace.png");
+        if (container instanceof ITextured) {
+            return ((ITextured) container).getTexture();
+        }
+
+        return new ResourceLocation("textures/gui/container/furnace.png");
     }
 }

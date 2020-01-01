@@ -7,7 +7,6 @@ import divinerpg.blocks.twilight.AyeracoSpawnerBlock;
 import divinerpg.blocks.twilight.DivinePortalBlock;
 import divinerpg.blocks.twilight.StatueBlock;
 import divinerpg.entities.bosses.ayeraco.manager.AyeracoManager;
-import divinerpg.tile.furnace.DivineFurnaceTileEntity;
 import divinerpg.tile.statue.ItemStackStatueRender;
 import divinerpg.tile.statue.StatueConstants;
 import divinerpg.utils.DivineParticleTypes;
@@ -201,6 +200,9 @@ public class BlockRegistry {
     public static Block ayeraco_spawner;
     @ObjectHolder("coalstone_furnace")
     public static Block coalstone_furnace;
+    @ObjectHolder("greenlight_furnace")
+    public static Block greenlight_furnace;
+
 
 
     private static int STONE = 1, IRON = 2, DIAMOND = 3;
@@ -475,10 +477,8 @@ public class BlockRegistry {
         }
 
         registerBlock(new AyeracoSpawnerBlock(), "ayeraco_spawner", null);
-
-        registerBlock(new DivineFurnace(Block.Properties.create(Material.ROCK, MaterialColor.BLACK)
-                        .hardnessAndResistance(3.5F).lightValue(13), DivineFurnaceTileEntity::new), "coalstone_furnace",
-                blockTabProperty);
+        registerBlock(new DivineFurnace(MaterialColor.BLACK, 1, true), "coalstone_furnace", blockTabProperty);
+        registerBlock(new DivineFurnace(MaterialColor.GREEN, 0.46F, false), "greenlight_furnace", blockTabProperty);
 
 
         ///////////////////////
