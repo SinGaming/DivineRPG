@@ -26,7 +26,7 @@ public class DivineFurnaceTileEntity extends AbstractFurnaceTileEntity {
     // 1 slot is the fuel
     private TextComponent name;
     private float cookTimeSpeedModifier;
-    private boolean isInfinite = true;
+    private boolean isInfinite;
 
     public DivineFurnaceTileEntity() {
         this("container.furnace", 1, true);

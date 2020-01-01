@@ -198,10 +198,17 @@ public class BlockRegistry {
     public static Block mortumBlock;
     @ObjectHolder("ayeraco_spawner")
     public static Block ayeraco_spawner;
+
     @ObjectHolder("coalstone_furnace")
     public static Block coalstone_furnace;
+    @ObjectHolder("molten_furnace")
+    public static Block molten_furnace;
+    @ObjectHolder("oceanfire_furnace")
+    public static Block oceanfire_furnace;
     @ObjectHolder("greenlight_furnace")
     public static Block greenlight_furnace;
+    @ObjectHolder("moonlight_furnace")
+    public static Block moonlight_furnace;
 
 
 
@@ -478,7 +485,11 @@ public class BlockRegistry {
 
         registerBlock(new AyeracoSpawnerBlock(), "ayeraco_spawner", null);
         registerBlock(new DivineFurnace(MaterialColor.BLACK, 1, true), "coalstone_furnace", blockTabProperty);
+        registerBlock(new DivineFurnace(MaterialColor.RED, 0.91F, true), "molten_furnace", blockTabProperty);
+        registerBlock(new DivineFurnace(MaterialColor.LIGHT_BLUE, 0.75F, true), "oceanfire_furnace", blockTabProperty);
+        registerBlock(new DivineFurnace(MaterialColor.WHITE_TERRACOTTA, 0.5F, true), "whitefire_furnace", blockTabProperty);
         registerBlock(new DivineFurnace(MaterialColor.GREEN, 0.46F, false), "greenlight_furnace", blockTabProperty);
+        registerBlock(new DivineFurnace(MaterialColor.PURPLE, 0.3F, false), "moonlight_furnace", blockTabProperty);
 
 
         ///////////////////////
