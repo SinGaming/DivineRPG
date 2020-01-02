@@ -299,24 +299,6 @@ public class ItemRegistry {
     @ObjectHolder("purple_blaze")
     public static Item purpleBlaze;
 
-    @ObjectHolder("jack_o_man_helmet")
-    public static ArmorItem jack_o_man_helmet;
-    @ObjectHolder("jack_o_man_chestplate")
-    public static ArmorItem jack_o_man_chestplate;
-    @ObjectHolder("jack_o_man_leggings")
-    public static ArmorItem jack_o_man_leggings;
-    @ObjectHolder("jack_o_man_boots")
-    public static ArmorItem jack_o_man_boots;
-
-    @ObjectHolder("wither_reaper_helmet")
-    public static ArmorItem wither_reaper_helmet;
-    @ObjectHolder("wither_reaper_chestplate")
-    public static ArmorItem wither_reaper_chestplate;
-    @ObjectHolder("wither_reaper_leggings")
-    public static ArmorItem wither_reaper_leggings;
-    @ObjectHolder("wither_reaper_boots")
-    public static ArmorItem wither_reaper_boots;
-
 
     @ObjectHolder("healing_stone")
     public static Item healing_stone;
@@ -339,94 +321,14 @@ public class ItemRegistry {
     @ObjectHolder("fury_arrow")
     public static Item fury_arrow;
 
-    @ObjectHolder("divine_helmet")
-    public static ArmorItem divine_helmet;
-    @ObjectHolder("divine_chestplate")
-    public static ArmorItem divine_chestplate;
-    @ObjectHolder("divine_leggings")
-    public static ArmorItem divine_leggings;
-    @ObjectHolder("divine_boots")
-    public static ArmorItem divine_boots;
-
-    @ObjectHolder("halite_helmet")
-    public static ArmorItem halite_helmet;
-    @ObjectHolder("halite_chestplate")
-    public static ArmorItem halite_chestplate;
-    @ObjectHolder("halite_leggings")
-    public static ArmorItem halite_leggings;
-    @ObjectHolder("halite_boots")
-    public static ArmorItem halite_boots;
     @ObjectHolder("halite_bow")
     public static DivineBowItem halite_bow;
-
-    @ObjectHolder("bedrock_helmet")
-    public static ArmorItem bedrock_helmet;
-    @ObjectHolder("bedrock_chestplate")
-    public static ArmorItem bedrock_chestplate;
-    @ObjectHolder("bedrock_leggings")
-    public static ArmorItem bedrock_leggings;
-    @ObjectHolder("bedrock_boots")
-    public static ArmorItem bedrock_boots;
-
-    @ObjectHolder("elite_realmit_helmet")
-    public static ArmorItem elite_realmit_helmet;
-    @ObjectHolder("elite_realmit_chestplate")
-    public static ArmorItem elite_realmit_chestplate;
-    @ObjectHolder("elite_realmit_leggings")
-    public static ArmorItem elite_realmit_leggings;
-    @ObjectHolder("elite_realmit_boots")
-    public static ArmorItem elite_realmit_boots;
-
-    @ObjectHolder("arlemite_helmet")
-    public static ArmorItem arlemite_helmet;
-    @ObjectHolder("arlemite_chestplate")
-    public static ArmorItem arlemite_chestplate;
-    @ObjectHolder("arlemite_leggings")
-    public static ArmorItem arlemite_leggings;
-    @ObjectHolder("arlemite_boots")
-    public static ArmorItem arlemite_boots;
-
 
     @ObjectHolder("kraken_skin")
     public static Item kraken_skin;
     @ObjectHolder("kraken_scale")
     public static Item kraken_scale;
 
-    @ObjectHolder("kraken_helmet")
-    public static ArmorItem kraken_helmet;
-    @ObjectHolder("kraken_chestplate")
-    public static ArmorItem kraken_chestplate;
-    @ObjectHolder("kraken_leggings")
-    public static ArmorItem kraken_leggings;
-    @ObjectHolder("kraken_boots")
-    public static ArmorItem kraken_boots;
-
-    @ObjectHolder("skeleman_helmet")
-    public static ArmorItem skeleman_helmet;
-    @ObjectHolder("skeleman_chestplate")
-    public static ArmorItem skeleman_chestplate;
-    @ObjectHolder("skeleman_leggings")
-    public static ArmorItem skeleman_leggings;
-    @ObjectHolder("skeleman_boots")
-    public static ArmorItem skeleman_boots;
-
-    @ObjectHolder("inferno_helmet")
-    public static ArmorItem inferno_helmet;
-    @ObjectHolder("inferno_chestplate")
-    public static ArmorItem inferno_chestplate;
-    @ObjectHolder("inferno_leggings")
-    public static ArmorItem inferno_leggings;
-    @ObjectHolder("inferno_boots")
-    public static ArmorItem inferno_boots;
-
-    @ObjectHolder("aquastrive_helmet")
-    public static ArmorItem aquastrive_helmet;
-    @ObjectHolder("aquastrive_chestplate")
-    public static ArmorItem aquastrive_chestplate;
-    @ObjectHolder("aquastrive_leggings")
-    public static ArmorItem aquastrive_leggings;
-    @ObjectHolder("aquastrive_boots")
-    public static ArmorItem aquastrive_boots;
 
 
     @SubscribeEvent
@@ -671,6 +573,18 @@ public class ItemRegistry {
         registerArmor(registry, DivineArmorMaterial.ARLEMITE);
         registerArmor(registry, DivineArmorMaterial.KRAKEN);
         registerArmor(registry, DivineArmorMaterial.INFERNO);
+        registerArmor(registry, DivineArmorMaterial.SHADOW);
+        registerArmor(registry, DivineArmorMaterial.NETHERITE);
+        registerArmor(registry, DivineArmorMaterial.JUNGLE);
+        registerArmor(registry, DivineArmorMaterial.FROZEN);
+        registerArmor(registry, DivineArmorMaterial.CORRUPTED);
+        registerArmor(registry, DivineArmorMaterial.TERRAN);
+
+        registerArmor(registry, DivineArmorMaterial.EDEN);
+        registerArmor(registry, DivineArmorMaterial.WILDWOOD);
+        registerArmor(registry, DivineArmorMaterial.APALACHIA);
+        registerArmor(registry, DivineArmorMaterial.SKYTHERN);
+        registerArmor(registry, DivineArmorMaterial.MORTUM);
 
 
         // Bows
@@ -1057,13 +971,7 @@ public class ItemRegistry {
     }
 
     private static void registerArmor(IForgeRegistry<Item> registry, DivineArmorMaterial material) {
-        String name = material.name;
-        int i = name.indexOf(":");
-        if (i >= 0) {
-            name = name.substring(i + 1);
-        }
-
-        registerArmor(registry, material, name);
+        registerArmor(registry, material, material.getArmorName());
     }
 
     private static void registerArmor(IForgeRegistry<Item> registry, IArmorMaterial material, String name) {

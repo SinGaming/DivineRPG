@@ -1,5 +1,7 @@
 package divinerpg.api.armor;
 
+import divinerpg.api.DivineAPI;
+import divinerpg.registry.BlockRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -9,16 +11,22 @@ import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.LazyLoadBase;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.world.BlockEvent;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
@@ -29,6 +37,8 @@ import java.util.function.Function;
 public class ArmorEvents {
 
     private static final UUID ARMOR_SPEED_UUID = UUID.fromString("2ae05d96-4b26-420b-8406-156e8febb45f");
+    private static final LazyLoadBase<List<net.minecraft.block.Block>> twilightOres = new LazyLoadBase<>(
+            () -> Arrays.asList(BlockRegistry.edenOre, BlockRegistry.wildwoodOre, BlockRegistry.apalachiaOre, BlockRegistry.skythernOre, BlockRegistry.mortumOre));
 
     /**
      * Managing player's fly ability on server side
@@ -78,15 +88,21 @@ public class ArmorEvents {
      * @param e                    - event
      * @param damageConversionFunc - function modifying original damage amount
      */
-    public static void onAddRangedDamage(LivingHurtEvent e, Function<Float, Float> damageConversionFunc) {
-        DamageSource source = e.getSource();
-        if (!(source.getTrueSource() instanceof PlayerEntity)
-                || !source.isProjectile()
-                // should call only on server
-                || isRemote(e.getEntity()))
+    public static void onAddRangedDamage(LivingHurtEvent e, ResourceLocation armorId, Function<Float, Float> damageConversionFunc) {
+        if (isRemote(e.getEntity()) || !(e.getSource().getTrueSource() instanceof PlayerEntity))
             return;
 
-        e.setAmount(damageConversionFunc.apply(e.getAmount()));
+        DamageSource source = e.getSource();
+        Entity entity = source.getTrueSource();
+
+        // if ranged damage
+        if (source.isProjectile() || source.getDamageType().equals("thrown")) {
+            // if armor is on
+            if (DivineAPI.isOn(entity, armorId)) {
+                // set new amount
+                e.setAmount(damageConversionFunc.apply(e.getAmount()));
+            }
+        }
     }
 
     /**
@@ -144,30 +160,14 @@ public class ArmorEvents {
      * @param force           - should force to set passed value to player
      */
     public static void speedUpPlayer(PlayerEntity player, float speedMultiplier, boolean force) {
-        IAttribute speedAttr = SharedMonsterAttributes.MOVEMENT_SPEED;
-        IAttributeInstance playerSpeedAttribute = player.getAttribute(speedAttr);
-        AttributeModifier modifier = playerSpeedAttribute.getModifier(ARMOR_SPEED_UUID);
 
-        // Detect if removing speed modifier
-        boolean isRemove = speedMultiplier <= 1;
+        boolean isRemove = speedMultiplier <= 0;
 
-        // changing step height on client
         if (isRemote(player)) {
             player.stepHeight = isRemove ? 0.6F : 1.0625F;
-        } else {
-            // Change speed on server
-
-            // removing speed modifier if can set faster
-            if (force || modifier == null || modifier.getAmount() < speedMultiplier) {
-                playerSpeedAttribute.removeModifier(ARMOR_SPEED_UUID);
-
-                if (!isRemove) {
-                    modifier = (new AttributeModifier(ARMOR_SPEED_UUID, "Armor speed modifier", speedMultiplier,
-                            AttributeModifier.Operation.MULTIPLY_BASE));
-                    playerSpeedAttribute.applyModifier(modifier);
-                }
-            }
         }
+
+        speedUpAttribute(player, SharedMonsterAttributes.MOVEMENT_SPEED, speedMultiplier, force);
     }
 
     /**
@@ -194,27 +194,22 @@ public class ArmorEvents {
             return;
         }
 
-        List<Entity> entities = player.world.getEntitiesWithinAABB(LivingEntity.class,
+        List<Entity> entities = player.world.getEntitiesWithinAABBExcludingEntity(e.player,
                 player.getBoundingBox().grow(radius));
 
-        for (Entity mob : entities) {
-            ((LivingEntity) mob).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 40, 1, true, true));
-        }
+        EffectInstance effectInstance = new EffectInstance(Effects.SLOWNESS, skipTicks * 2, 1, true, true);
+        entities.stream().filter(x -> x instanceof LivingEntity).forEach(x -> ((LivingEntity) x).addPotionEffect(effectInstance));
     }
 
     /**
-     * Should Speed up CLIENT SIDE player in water
+     * Should Speed up player in water
      *
      * @param player - player
-     * @param speed  - speed modifier
+     * @param speed  - increase speed
+     * @param force  - is forced
      */
-    public static void speedUpInWater(PlayerEntity player, float speed) {
-        // todo remake
-        if (player.isInWater()) {
-            speedUpPlayer(player, speed, false);
-        } else {
-            removeSpeed(player);
-        }
+    public static void speedUpInWater(PlayerEntity player, float speed, boolean force) {
+        speedUpAttribute(player, LivingEntity.SWIM_SPEED, speed, force);
     }
 
     /**
@@ -318,6 +313,24 @@ public class ArmorEvents {
     }
 
     /**
+     * Increasing fragments drop values
+     *
+     * @param e
+     */
+    public static void increaseFragmentDrops(BlockEvent.HarvestDropsEvent e) {
+        if (e.isSilkTouching() || e.getDrops().isEmpty())
+            return;
+
+        if (!twilightOres.getValue().contains(e.getState().getBlock()))
+            return;
+
+        ItemStack fragment = e.getDrops().get(0);
+
+        if (!fragment.isEmpty())
+            e.getDrops().addAll(Collections.nCopies(3, fragment.copy()));
+    }
+
+    /**
      * Checks wherever entity contains in remote world
      *
      * @param e - entity
@@ -325,5 +338,45 @@ public class ArmorEvents {
      */
     private static boolean isRemote(Entity e) {
         return e == null || e.world.isRemote;
+    }
+
+    /**
+     * speed up selected attribute
+     *
+     * @param player          - for player
+     * @param attr            - increasing that attribute
+     * @param speedMultiplier - 1 - regular speed, 2 - 2 times faster, etc.
+     * @param force           - if false don't change if player already faster. Otherwise force new value
+     */
+    private static void speedUpAttribute(PlayerEntity player, IAttribute attr, float speedMultiplier, boolean force) {
+        // getting instance
+        IAttributeInstance attribute = player.getAttribute(attr);
+        // get special divine modifier
+        AttributeModifier modifier = attribute.getModifier(ARMOR_SPEED_UUID);
+
+        // chech if removing
+        boolean remove = speedMultiplier <= 0;
+
+        // already deleted
+        if (remove && modifier == null)
+            return;
+
+        // can't change
+        if (!force && modifier != null && modifier.getAmount() >= speedMultiplier)
+            return;
+
+        // remove attribute
+        if (modifier != null)
+            attribute.removeModifier(modifier);
+
+        // already deleted delete
+        if (remove) {
+            return;
+        }
+
+        // createing new modifier
+        modifier = new AttributeModifier(ARMOR_SPEED_UUID, "Divine modifier", speedMultiplier, AttributeModifier.Operation.MULTIPLY_BASE);
+        // and applying it
+        attribute.applyModifier(modifier);
     }
 }

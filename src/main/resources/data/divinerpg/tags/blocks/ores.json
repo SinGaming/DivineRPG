@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "divinerpg:realmite_ore",
+    "divinerpg:arlemite_ore",
+    "divinerpg:rupee_ore",
+    "divinerpg:netherite_ore",
+    "divinerpg:bloodgem_ore",
+    "divinerpg:eden_ore",
+    "divinerpg:wildwood_ore",
+    "divinerpg:apalachia_ore",
+    "divinerpg:skythern_ore",
+    "divinerpg:mortum_ore"
+  ]
+}
