@@ -4,6 +4,7 @@ import divinerpg.api.arcana.IArcana;
 import divinerpg.api.armor.IPoweredArmorSet;
 import divinerpg.arcana.Arcana;
 import divinerpg.arcana.ArcanaStorage;
+import divinerpg.arcana.client.ArcanaRender;
 import divinerpg.config.DivineConfig;
 import divinerpg.registry.*;
 import divinerpg.utils.ReflectionHelper;
@@ -97,6 +98,8 @@ public class DivineRPG {
         EntitiesRegistry.registerRender();
         TileEntityRegistry.registerRender();
         ContainerRegistry.registerGUI();
+
+        MinecraftForge.EVENT_BUS.register(new ArcanaRender());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {

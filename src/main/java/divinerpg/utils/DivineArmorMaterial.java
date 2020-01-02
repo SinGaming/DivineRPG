@@ -16,12 +16,24 @@ import java.util.Arrays;
 import java.util.function.Supplier;
 
 public class DivineArmorMaterial implements IArmorMaterial {
-    public static final DivineArmorMaterial JACK_O_MAN = new DivineArmorMaterial("jack_o_man", -1, 0, 22,
+    public static final DivineArmorMaterial JACK_O_MAN = new DivineArmorMaterial("jack_o_man", -1, 7, 22,
             SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, () -> Ingredient.EMPTY);
-    public static final DivineArmorMaterial DIVINE = new DivineArmorMaterial("divine", 11500, 25, 10,
-            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2, () -> Ingredient.fromItems(ItemRegistry.divineStone));
-    public static final DivineArmorMaterial HALITE = new DivineArmorMaterial("halite", -1, 35, 10,
-            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2, () -> Ingredient.EMPTY);
+    public static final DivineArmorMaterial HALITE = new DivineArmorMaterial("halite", -1, 40, 10,
+            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 20, () -> Ingredient.EMPTY);
+    public static final DivineArmorMaterial DIVINE = new DivineArmorMaterial("divine", 11500, 37, 10,
+            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 15, () -> Ingredient.fromItems(ItemRegistry.divineStone));
+    public static final DivineArmorMaterial BEDROCK = new DivineArmorMaterial("bedrock", 10000, 37, 10,
+            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 15, () -> Ingredient.fromItems(ItemRegistry.bedrock_chunk));
+    public static final DivineArmorMaterial REALMIT = new DivineArmorMaterial("realmite", 5000, 24, 10,
+            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 10, () -> Ingredient.fromItems(ItemRegistry.realmiteIngot));
+    public static final DivineArmorMaterial ELITE_REALMIT = new DivineArmorMaterial("elite_realmite", -1, 29, 10,
+            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 10, () -> Ingredient.fromItems(ItemRegistry.realmiteIngot));
+    public static final DivineArmorMaterial ARLEMITE = new DivineArmorMaterial("arlemite", -1, 24, 22,
+            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 10, () -> Ingredient.fromItems(ItemRegistry.arlemiteIngot));
+    public static final DivineArmorMaterial KRAKEN = new DivineArmorMaterial("kraken", 5000, 20, 10,
+            SoundEvents.ITEM_ARMOR_EQUIP_IRON, 10, () -> Ingredient.fromItems(ItemRegistry.kraken_skin));
+    public static final DivineArmorMaterial INFERNO = new DivineArmorMaterial("inferno", 6500, 35, 10,
+            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 15, () -> Ingredient.EMPTY);
 
     /**
      * @param name                   - name of armor material
@@ -63,7 +75,7 @@ public class DivineArmorMaterial implements IArmorMaterial {
     }
 
     private final int[] MAX_DAMAGE_ARRAY;
-    private final String name;
+    public final String name;
     private final float chestplateDamage;
     private final int[] damageReductionAmountArray;
     private final int enchantability;
@@ -74,6 +86,11 @@ public class DivineArmorMaterial implements IArmorMaterial {
     public static DivineArmorMaterial forRupee(String color) {
         return new DivineArmorMaterial(color + "rupee", -1, 20, 15,
                 SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2F, () -> Ingredient.fromItems(ItemRegistry.rupeeIngot));
+    }
+
+    public static DivineArmorMaterial forEnder(String color) {
+        return new DivineArmorMaterial(color + "ender", 7500, 24, 15,
+                SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2F, () -> Ingredient.fromItems(ItemRegistry.enderStone));
     }
 
     public int getDurability(EquipmentSlotType slotIn) {

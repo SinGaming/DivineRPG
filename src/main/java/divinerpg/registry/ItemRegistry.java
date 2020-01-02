@@ -308,6 +308,16 @@ public class ItemRegistry {
     @ObjectHolder("jack_o_man_boots")
     public static ArmorItem jack_o_man_boots;
 
+    @ObjectHolder("wither_reaper_helmet")
+    public static ArmorItem wither_reaper_helmet;
+    @ObjectHolder("wither_reaper_chestplate")
+    public static ArmorItem wither_reaper_chestplate;
+    @ObjectHolder("wither_reaper_leggings")
+    public static ArmorItem wither_reaper_leggings;
+    @ObjectHolder("wither_reaper_boots")
+    public static ArmorItem wither_reaper_boots;
+
+
     @ObjectHolder("healing_stone")
     public static Item healing_stone;
     @ObjectHolder("eden_sparkles")
@@ -348,6 +358,75 @@ public class ItemRegistry {
     public static ArmorItem halite_boots;
     @ObjectHolder("halite_bow")
     public static DivineBowItem halite_bow;
+
+    @ObjectHolder("bedrock_helmet")
+    public static ArmorItem bedrock_helmet;
+    @ObjectHolder("bedrock_chestplate")
+    public static ArmorItem bedrock_chestplate;
+    @ObjectHolder("bedrock_leggings")
+    public static ArmorItem bedrock_leggings;
+    @ObjectHolder("bedrock_boots")
+    public static ArmorItem bedrock_boots;
+
+    @ObjectHolder("elite_realmit_helmet")
+    public static ArmorItem elite_realmit_helmet;
+    @ObjectHolder("elite_realmit_chestplate")
+    public static ArmorItem elite_realmit_chestplate;
+    @ObjectHolder("elite_realmit_leggings")
+    public static ArmorItem elite_realmit_leggings;
+    @ObjectHolder("elite_realmit_boots")
+    public static ArmorItem elite_realmit_boots;
+
+    @ObjectHolder("arlemite_helmet")
+    public static ArmorItem arlemite_helmet;
+    @ObjectHolder("arlemite_chestplate")
+    public static ArmorItem arlemite_chestplate;
+    @ObjectHolder("arlemite_leggings")
+    public static ArmorItem arlemite_leggings;
+    @ObjectHolder("arlemite_boots")
+    public static ArmorItem arlemite_boots;
+
+
+    @ObjectHolder("kraken_skin")
+    public static Item kraken_skin;
+    @ObjectHolder("kraken_scale")
+    public static Item kraken_scale;
+
+    @ObjectHolder("kraken_helmet")
+    public static ArmorItem kraken_helmet;
+    @ObjectHolder("kraken_chestplate")
+    public static ArmorItem kraken_chestplate;
+    @ObjectHolder("kraken_leggings")
+    public static ArmorItem kraken_leggings;
+    @ObjectHolder("kraken_boots")
+    public static ArmorItem kraken_boots;
+
+    @ObjectHolder("skeleman_helmet")
+    public static ArmorItem skeleman_helmet;
+    @ObjectHolder("skeleman_chestplate")
+    public static ArmorItem skeleman_chestplate;
+    @ObjectHolder("skeleman_leggings")
+    public static ArmorItem skeleman_leggings;
+    @ObjectHolder("skeleman_boots")
+    public static ArmorItem skeleman_boots;
+
+    @ObjectHolder("inferno_helmet")
+    public static ArmorItem inferno_helmet;
+    @ObjectHolder("inferno_chestplate")
+    public static ArmorItem inferno_chestplate;
+    @ObjectHolder("inferno_leggings")
+    public static ArmorItem inferno_leggings;
+    @ObjectHolder("inferno_boots")
+    public static ArmorItem inferno_boots;
+
+    @ObjectHolder("aquastrive_helmet")
+    public static ArmorItem aquastrive_helmet;
+    @ObjectHolder("aquastrive_chestplate")
+    public static ArmorItem aquastrive_chestplate;
+    @ObjectHolder("aquastrive_leggings")
+    public static ArmorItem aquastrive_leggings;
+    @ObjectHolder("aquastrive_boots")
+    public static ArmorItem aquastrive_boots;
 
 
     @SubscribeEvent
@@ -576,12 +655,22 @@ public class ItemRegistry {
 
         // ARMOR
         for (String color : colors) {
-            registerArmor(registry, DivineArmorMaterial.forRupee(color), color + "rupee");
+            registerArmor(registry, DivineArmorMaterial.forRupee(color));
+            registerArmor(registry, DivineArmorMaterial.forEnder(color));
         }
 
-        registerArmor(registry, DivineArmorMaterial.JACK_O_MAN, "jack_o_man");
-        registerArmor(registry, DivineArmorMaterial.DIVINE, "divine");
-        registerArmor(registry, DivineArmorMaterial.HALITE, "halite");
+        registerArmor(registry, DivineArmorMaterial.JACK_O_MAN);
+        registerArmor(registry, DivineArmorMaterial.JACK_O_MAN, "wither_reaper");
+        registerArmor(registry, DivineArmorMaterial.JACK_O_MAN, "skeleman");
+        registerArmor(registry, DivineArmorMaterial.DIVINE);
+        registerArmor(registry, DivineArmorMaterial.HALITE);
+        registerArmor(registry, DivineArmorMaterial.BEDROCK);
+        registerArmor(registry, DivineArmorMaterial.REALMIT);
+        registerArmor(registry, DivineArmorMaterial.ELITE_REALMIT);
+        registerArmor(registry, DivineArmorMaterial.ELITE_REALMIT, "aquastrive");
+        registerArmor(registry, DivineArmorMaterial.ARLEMITE);
+        registerArmor(registry, DivineArmorMaterial.KRAKEN);
+        registerArmor(registry, DivineArmorMaterial.INFERNO);
 
 
         // Bows
@@ -704,7 +793,10 @@ public class ItemRegistry {
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "hellstone_ingot"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "aquatic_ingot"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "shadow_bar"));
+
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "cyclops_eye"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "kraken_skin"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "kraken_scale"));
 
         // SHICKAXES
         registry.register(new Shickaxe(-2.8F, DivineItemTier.RUPEE.forShickaxe(), new Item.Properties().group(DivineRPGTabs.DivineTools).maxDamage(-1)).setRegistryName(DivineRPG.MODID, "rupee_shickaxe"));
@@ -946,6 +1038,7 @@ public class ItemRegistry {
                 .setRegistryName(DivineRPG.MODID, "halite_bow"));
     }
 
+
     /**
      * Search items in divinerpg allias
      *
@@ -963,9 +1056,18 @@ public class ItemRegistry {
         }
     }
 
+    private static void registerArmor(IForgeRegistry<Item> registry, DivineArmorMaterial material) {
+        String name = material.name;
+        int i = name.indexOf(":");
+        if (i >= 0) {
+            name = name.substring(i + 1);
+        }
+
+        registerArmor(registry, material, name);
+    }
+
     private static void registerArmor(IForgeRegistry<Item> registry, IArmorMaterial material, String name) {
         Item.Properties armorGroup = new Item.Properties().group(DivineRPGTabs.DivineArmor);
-
         registry.register(new ArmorItem(material, EquipmentSlotType.HEAD, armorGroup).setRegistryName(DivineRPG.MODID, name + "_helmet"));
         registry.register(new ArmorItem(material, EquipmentSlotType.CHEST, armorGroup).setRegistryName(DivineRPG.MODID, name + "_chestplate"));
         registry.register(new ArmorItem(material, EquipmentSlotType.LEGS, armorGroup).setRegistryName(DivineRPG.MODID, name + "_leggings"));

@@ -13,7 +13,6 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.TickEvent;
@@ -210,41 +209,12 @@ public class ArmorEvents {
      * @param speed  - speed modifier
      */
     public static void speedUpInWater(PlayerEntity player, float speed) {
-        if (player == null
-                // Should call on client
-                || !isRemote(player)
-                || !player.isInWater()) {
-            return;
+        // todo remake
+        if (player.isInWater()) {
+            speedUpPlayer(player, speed, false);
+        } else {
+            removeSpeed(player);
         }
-
-        Vec3d m = player.getMotion();
-        double x = m.getX();
-        double y = m.getY();
-        double z = m.getZ();
-
-        // Motion should determine by client
-        // Server only receive position changed status
-        if (!isMaxSpeed(x, speed)) {
-            x *= speed;
-        }
-        if (!isMaxSpeed(z, speed)) {
-            z *= speed;
-        }
-
-        if (!isMaxSpeed(y, speed)) {
-            // max X/Z speed. If moving faster, should not change
-            // Y cord
-            double maxSpeed = 0.3D;
-
-            // managing Y pos if sneaking or just come out the water
-            // on full speed should stay on same Y level
-            if (player.isSneaking() ||
-                    x < maxSpeed && z < maxSpeed) {
-                y *= speed;
-            }
-        }
-
-        player.setMotion(x, y, z);
     }
 
     /**
@@ -332,25 +302,19 @@ public class ArmorEvents {
      * @param totalHeight - desired jump height in blocks (default is one)
      */
     public static void adjustJumpHeight(LivingEvent.LivingJumpEvent event, int totalHeight) {
-        if (event != null && event.getEntityLiving() != null){
+        if (event != null && event.getEntityLiving() != null) {
             event.getEntityLiving().addVelocity(0, totalHeight / 10F, 0);
         }
     }
 
-
     /**
-     * Trying to check wherever player motion is more than passed maxSpeed
+     * extinguish player and add fire resistance
      *
-     * @param motion - player motion (can be negative)
-     * @param speed  - speed (always not negative)
-     * @return is Player reached max speed
+     * @param event
      */
-    private static boolean isMaxSpeed(double motion, float speed) {
-        if (speed < 0) {
-            throw new IllegalArgumentException("Speed cannot be less than zero");
-        }
-
-        return !(motion > -speed && motion < speed);
+    public static void removeFire(TickEvent.PlayerTickEvent event) {
+        event.player.extinguish();
+        event.player.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 4));
     }
 
     /**

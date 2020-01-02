@@ -18,8 +18,14 @@ import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+@OnlyIn(
+        value = Dist.CLIENT,
+        _interface = IRendersAsItem.class
+)
 public class ItemBulletEntity extends ThrowableEntity implements IRendersAsItem {
     protected static final DataParameter<ItemStack> ITEMSTACK_DATA = EntityDataManager.createKey(ItemBulletEntity.class, DataSerializers.ITEMSTACK);
     protected static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(ItemBulletEntity.class, DataSerializers.FLOAT);

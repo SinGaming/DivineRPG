@@ -1,6 +1,7 @@
 package divinerpg.events;
 
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,5 +25,10 @@ public class ArmorAbilityEventHandler {
     @SubscribeEvent
     public static void onPlayerHurt(LivingHurtEvent e) {
         handleForAll(e);
+    }
+
+    @SubscribeEvent
+    public static void onPLayerJump(LivingEvent.LivingJumpEvent event) {
+        handleForAll(event);
     }
 }

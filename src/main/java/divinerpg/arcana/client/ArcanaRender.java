@@ -4,15 +4,10 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import divinerpg.DivineRPG;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.config.GuiUtils;
-import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber
-@OnlyIn(Dist.CLIENT)
 public class ArcanaRender {
 
     private static final Minecraft mc = Minecraft.getInstance();
@@ -20,7 +15,7 @@ public class ArcanaRender {
     public static int percentage = 100;
 
     @SubscribeEvent
-    public static void onRender(RenderGameOverlayEvent.Pre e) {
+    public void onRender(RenderGameOverlayEvent.Pre e) {
         if (e.isCanceled())
             return;
 

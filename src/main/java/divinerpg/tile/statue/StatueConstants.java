@@ -17,6 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
 
 import java.util.ArrayList;
@@ -33,24 +34,48 @@ public class StatueConstants {
         MODELS = new HashMap<>();
         SIZES = new HashMap<>();
 
-        put("ancient_entity_statue", AncientEntityModel::new, VoxelShapes.fullCube());
-        put("twilight_demon_statue", TwilightDemonModel::new, Block.makeCuboidShape(3, 0, 3, 13, 16, 13));
-        put("densos_statue", DensosModel::new, VoxelShapes.fullCube());
-        put("reyvor_statue", DensosModel::new, VoxelShapes.fullCube());
-        put("eternal_archer_statue", EternalArcherModel::new, VoxelShapes.fullCube());
-        put("soul_fiend_statue", SoulFiendModel::new, Block.makeCuboidShape(3, 0, 3, 13, 16, 13));
-        put("karot_statue", KarotModel::new, Block.makeCuboidShape(5, 0, 5, 11, 8, 11));
-        put("vamacheron_statue", VamacheronModel::new, Block.makeCuboidShape(3, 0, 3, 13, 11, 13));
-        put("the_watcher_statue", WatcherModel::new, Block.makeCuboidShape(5, 0, 5, 11, 8, 11));
-        put("king_of_scorchers_statue", KingScorcherModel::new, VoxelShapes.fullCube());
+        initSizes();
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> StatueConstants::initModels);
+    }
 
-        AyeracoManager.beamLocations.keySet().forEach(x -> {
-            put(String.format("ayeraco_%s_statue", x.getName()), AyeracoModel::new, Block.makeCuboidShape(3, 0, 3, 13, 6, 13));
-        });
+    private static void initSizes() {
+        SIZES.put("ancient_entity_statue", VoxelShapes.fullCube());
+        SIZES.put("twilight_demon_statue", Block.makeCuboidShape(3, 0, 3, 13, 16, 13));
+        SIZES.put("densos_statue", VoxelShapes.fullCube());
+        SIZES.put("reyvor_statue", VoxelShapes.fullCube());
+        SIZES.put("eternal_archer_statue", VoxelShapes.fullCube());
+        SIZES.put("soul_fiend_statue", Block.makeCuboidShape(3, 0, 3, 13, 16, 13));
+        SIZES.put("karot_statue", Block.makeCuboidShape(5, 0, 5, 11, 8, 11));
+        SIZES.put("vamacheron_statue", Block.makeCuboidShape(3, 0, 3, 13, 11, 13));
+        SIZES.put("the_watcher_statue", Block.makeCuboidShape(5, 0, 5, 11, 8, 11));
+        SIZES.put("king_of_scorchers_statue", VoxelShapes.fullCube());
 
-        // TODO fill insert models
-        //putClientModel("parasecta_statue", null, Block.makeCuboidShape(3, 3, 3, 13, 16, 13));
-        //putClientModel("dramix_statue", null);
+        // todo add sizes
+//        SIZES.put("parasecta_statue", VoxelShapes.fullCube());
+//        SIZES.put("dramix_statue", VoxelShapes.fullCube());
+
+        AyeracoManager.beamLocations.keySet().forEach(x -> SIZES.put(String.format("ayeraco_%s_statue", x.getName()),
+                Block.makeCuboidShape(3, 0, 3, 13, 6, 13)));
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private static void initModels() {
+        MODELS.put("ancient_entity_statue", new AncientEntityModel());
+        MODELS.put("twilight_demon_statue", new TwilightDemonModel());
+        MODELS.put("densos_statue", new DensosModel());
+        MODELS.put("reyvor_statue", new DensosModel());
+        MODELS.put("eternal_archer_statue", new EternalArcherModel());
+        MODELS.put("soul_fiend_statue", new SoulFiendModel());
+        MODELS.put("karot_statue", new KarotModel());
+        MODELS.put("vamacheron_statue", new VamacheronModel());
+        MODELS.put("the_watcher_statue", new WatcherModel());
+        MODELS.put("king_of_scorchers_statue", new KingScorcherModel());
+
+        // todo add models
+//        MODELS.put("dramix_statue", null);
+//        MODELS.put("parasecta_statue", null);
+
+        AyeracoManager.beamLocations.keySet().forEach(x -> MODELS.put(String.format("ayeraco_%s_statue", x.getName()), new AyeracoModel()));
     }
 
     /**
