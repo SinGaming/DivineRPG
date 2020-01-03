@@ -4,6 +4,7 @@ import divinerpg.DivineRPG;
 import divinerpg.messages.ArcanaMessage;
 import divinerpg.messages.EquipmentChangedMessage;
 import divinerpg.messages.IMessage;
+import divinerpg.messages.TeleportMessage;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -19,6 +20,7 @@ public class MessageRegistry {
 
         registerMessage(messageID++, EquipmentChangedMessage.class);
         registerMessage(messageID++, ArcanaMessage.class);
+        registerMessage(messageID++, TeleportMessage.class);
     }
 
 

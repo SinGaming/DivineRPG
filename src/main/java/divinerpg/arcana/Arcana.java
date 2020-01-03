@@ -34,6 +34,7 @@ public class Arcana implements IArcana {
 
     /**
      * Assotiating entity with capability
+     *
      * @param e - player
      */
     public Arcana withPlayer(Entity e) {
@@ -91,6 +92,20 @@ public class Arcana implements IArcana {
     }
 
     @Override
+    public boolean tryConsume(float points) {
+        // do not need to consume
+        if (points < 0)
+            return true;
+
+        // not enough arcana
+        if (getArcana() < points)
+            return false;
+
+        consume(points);
+        return true;
+    }
+
+    @Override
     public Entity getAssotitatedEntity() {
         return entity;
     }
@@ -105,7 +120,11 @@ public class Arcana implements IArcana {
     }
 
     private <T> void setNumberAndSendPacket(AtomicReference<T> prev, T val, boolean sendPacket) {
-        if (prev.get() != val) {
+        T old = prev.get();
+        if (old == null && val == null)
+            return;
+
+        if (old == null || !old.equals(val)) {
             prev.set(val);
 
             if (sendPacket) {

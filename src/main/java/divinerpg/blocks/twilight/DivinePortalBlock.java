@@ -1,8 +1,8 @@
 package divinerpg.blocks.twilight;
 
 import divinerpg.utils.portal.PortalConstants;
-import divinerpg.utils.portal.PortalHelper;
 import divinerpg.utils.portal.description.IPortalDescription;
+import divinerpg.utils.portal.relocate.PortalRelocator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -128,7 +128,6 @@ public class DivinePortalBlock extends Block {
                 || !entityIn.isNonBoss())
             return;
 
-        ServerWorld serverWorld = (ServerWorld) worldIn;
         DimensionType destination = worldIn.getDimension().getType() == type.get()
                 ? DimensionType.OVERWORLD
                 : type.get();
@@ -137,8 +136,7 @@ public class DivinePortalBlock extends Block {
         if (description == null)
             return;
 
-        // TODO currently not working
-        PortalHelper.tryChangeDimention(((ServerPlayerEntity) entityIn), destination, description);
+        new PortalRelocator(((ServerPlayerEntity) entityIn), destination, description).relocate();
     }
 
     @Override

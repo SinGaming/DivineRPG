@@ -4,6 +4,7 @@ import divinerpg.api.arcana.IArcana;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nullable;
@@ -34,5 +35,12 @@ public class ArcanaStorage implements Capability.IStorage<IArcana> {
             instance.setRegenCooldown(tag.getInt(regenDelay));
             instance.setArcana(tag.getFloat(arcana), true);
         }
+    }
+
+    /**
+     * Gets arcana percantage from tag
+     */
+    public static int percantage(CompoundNBT tag) {
+        return (int) MathHelper.clamp(100 * tag.getFloat(arcana) / tag.getFloat(maxArcana), 0, 100);
     }
 }

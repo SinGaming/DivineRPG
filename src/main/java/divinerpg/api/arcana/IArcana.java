@@ -48,6 +48,12 @@ public interface IArcana {
     void fill(float points);
 
     /**
+     * Check if enough arcana for action and consumes amount.
+     * If points <= 0 always returns true with no consuming
+     */
+    boolean tryConsume(float points);
+
+    /**
      * Gets current entity
      */
     Entity getAssotitatedEntity();

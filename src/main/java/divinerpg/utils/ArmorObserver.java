@@ -18,6 +18,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.Event;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -97,11 +98,11 @@ public class ArmorObserver {
             changed = true;
         }
 
-        List<ItemStack> rings = Stream.of(inventory.mainInventory, inventory.armorInventory, inventory.offHandInventory).flatMap(Collection::stream)
-                .filter(x -> x.getItem() instanceof IArmorRing).limit(1).collect(Collectors.toList());
+        ItemStack[] rings = Stream.of(inventory.mainInventory, inventory.armorInventory, inventory.offHandInventory).flatMap(Collection::stream)
+                .filter(x -> x.getItem() instanceof IArmorRing).limit(1).toArray(ItemStack[]::new);
 
-        if (!stacksEquals(ring, rings)) {
-            ring = new NonNullList<>(rings, ItemStack.EMPTY);
+        if (!stacksEquals(ring, Arrays.asList(rings))) {
+            ring = NonNullList.from(ItemStack.EMPTY, rings);
             changed = true;
         }
 

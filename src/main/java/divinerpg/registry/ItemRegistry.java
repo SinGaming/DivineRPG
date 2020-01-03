@@ -953,6 +953,8 @@ public class ItemRegistry {
                 .withArrows(() -> fury_arrow)
                 .group(DivineRPGTabs.DivineRanged), 8, null, SoundEvents.ENTITY_ARROW_SHOOT, "fury_arrow")
                 .setRegistryName(DivineRPG.MODID, "halite_bow"));
+
+        registry.register(new TeleportCrystal(itemTabProperty, -1).setRegistryName(DivineRPG.MODID, "teleportation_crystal"));
     }
 
 

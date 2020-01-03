@@ -11,7 +11,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.UUID;
-import java.util.function.Supplier;
 
 public class EquipmentChangedMessage implements IMessage {
 
@@ -38,27 +37,29 @@ public class EquipmentChangedMessage implements IMessage {
     }
 
     @Override
-    public void consume(Supplier<NetworkEvent.Context> context) {
-        context.get().enqueueWork(() -> {
-            // get sender
-            ServerPlayerEntity playerEntity = context.get().getSender();
-            if (playerEntity != null) {
-                // get world
-                World world = playerEntity.getEntityWorld();
-                // find caller
-                PlayerEntity player = world.getPlayerByUuid(id);
-                if (player != null) {
-                    // find his powers ability record
-                    ArmorObserver observer = FullArmorEventHandler.playerMap.get(id);
-                    if (observer != null) {
-                        // request update
-                        observer.Update(player);
-                        return;
-                    }
+    public void handleClientSide(NetworkEvent.Context context) {
+        // ignored
+    }
+
+    @Override
+    public void handleServerSide(NetworkEvent.Context context) {
+        ServerPlayerEntity playerEntity = context.getSender();
+        if (playerEntity != null) {
+            // get world
+            World world = playerEntity.getEntityWorld();
+            // find caller
+            PlayerEntity player = world.getPlayerByUuid(id);
+            if (player != null) {
+                // find his powers ability record
+                ArmorObserver observer = FullArmorEventHandler.playerMap.get(id);
+                if (observer != null) {
+                    // request update
+                    observer.Update(player);
+                    return;
                 }
             }
+        }
 
-            throw new RuntimeException("Can't access to player world!");
-        });
+        throw new RuntimeException("Can't access to player world!");
     }
 }

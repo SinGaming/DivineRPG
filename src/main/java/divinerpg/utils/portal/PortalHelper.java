@@ -1,100 +1,35 @@
 package divinerpg.utils.portal;
 
 import divinerpg.utils.portal.description.IPortalDescription;
+import divinerpg.utils.portal.relocate.PortalRelocator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.play.server.*;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.dimension.DimensionType;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.WorldInfo;
 
 public class PortalHelper {
     /**
      * Legacy copy of {@link Entity} changeDimension
      *
-     * @param traveler    - enriry traveler
+     * @param traveler    - enriry serverTraveler
      * @param destination - dim destination
      * @param description
      * @return success of operation
      */
     public static boolean tryChangeDimention(ServerPlayerEntity traveler, DimensionType destination, IPortalDescription description) {
         // todo sometimes fall back to overworld
+        return new PortalRelocator(traveler, destination, description).relocate();
+    }
 
-        // block traveling
-        if (!net.minecraftforge.common.ForgeHooks.onTravelToDimension(traveler, destination))
-            return false;
+    /**
+     * Relocates player by current dim and pos
+     *
+     * @param traveler    - player
+     * @param destination - final dimension
+     * @param pos         - position there
+     */
+    public static void relocatePlayer(ServerPlayerEntity traveler, DimensionType destination, BlockPos pos) {
 
-        DimensionType currentDimention = traveler.dimension;
-        ServerWorld currentWorld = traveler.server.getWorld(currentDimention);
-
-        traveler.dimension = destination;
-        ServerWorld destinationWorld = traveler.server.getWorld(destination);
-        WorldInfo worldinfo = traveler.world.getWorldInfo();
-        traveler.connection.sendPacket(new SRespawnPacket(destination, worldinfo.getGenerator(), traveler.interactionManager.getGameType()));
-        traveler.connection.sendPacket(new SServerDifficultyPacket(worldinfo.getDifficulty(), worldinfo.isDifficultyLocked()));
-        PlayerList playerlist = traveler.server.getPlayerList();
-        playerlist.updatePermissionLevel(traveler);
-        currentWorld.removeEntity(traveler, true); //Forge: the player entity is moved to the new world, NOT cloned. So keep the data alive with no matching invalidate call.
-        traveler.revive();
-        double d0 = traveler.posX;
-        double d1 = traveler.posY;
-        double d2 = traveler.posZ;
-        float f = traveler.rotationPitch;
-        float f1 = traveler.rotationYaw;
-        double d3 = 8.0D;
-        float f2 = f1;
-        currentWorld.getProfiler().startSection("moving");
-        double moveFactor = currentWorld.getDimension().getMovementFactor() / destinationWorld.getDimension().getMovementFactor();
-        d0 *= moveFactor;
-        d2 *= moveFactor;
-
-        traveler.setLocationAndAngles(d0, d1, d2, f1, f);
-        currentWorld.getProfiler().endSection();
-        currentWorld.getProfiler().startSection("placing");
-        double d7 = Math.min(-2.9999872E7D, destinationWorld.getWorldBorder().minX() + 16.0D);
-        double d4 = Math.min(-2.9999872E7D, destinationWorld.getWorldBorder().minZ() + 16.0D);
-        double d5 = Math.min(2.9999872E7D, destinationWorld.getWorldBorder().maxX() - 16.0D);
-        double d6 = Math.min(2.9999872E7D, destinationWorld.getWorldBorder().maxZ() - 16.0D);
-        d0 = MathHelper.clamp(d0, d7, d5);
-        d2 = MathHelper.clamp(d2, d4, d6);
-        traveler.setLocationAndAngles(d0, d1, d2, f1, f);
-
-        CustomTeleporter teleporter = destinationWorld.customTeleporters.stream()
-                .filter(x -> x instanceof CustomTeleporter)
-                .map(x -> ((CustomTeleporter) x))
-                // check correct world
-                .filter(x -> x.sameType(currentWorld, destinationWorld))
-                .findFirst().orElse(new CustomTeleporter(destinationWorld, currentWorld, description));
-
-        if (!teleporter.func_222268_a(traveler, f2)) {
-            teleporter.makePortal(traveler);
-            teleporter.func_222268_a(traveler, f2);
-        }
-
-        currentWorld.getProfiler().endSection();
-        traveler.setWorld(destinationWorld);
-        destinationWorld.func_217447_b(traveler);
-        traveler.connection.setPlayerLocation(traveler.posX, traveler.posY, traveler.posZ, f1, f);
-        traveler.interactionManager.setWorld(destinationWorld);
-        traveler.connection.sendPacket(new SPlayerAbilitiesPacket(traveler.abilities));
-        playerlist.sendWorldInfo(traveler, destinationWorld);
-        playerlist.sendInventory(traveler);
-
-        for (EffectInstance effectinstance : traveler.getActivePotionEffects()) {
-            traveler.connection.sendPacket(new SPlayEntityEffectPacket(traveler.getEntityId(), effectinstance));
-        }
-
-        traveler.connection.sendPacket(new SPlaySoundEventPacket(1032, BlockPos.ZERO, 0, false));
-        // todo make smth
-        //traveler.lastHealth = -1.0F;
-        //traveler.lastFoodLevel = -1;
-        //traveler.lastExperience = -1;
-        net.minecraftforge.fml.hooks.BasicEventHooks.firePlayerChangedDimensionEvent(traveler, currentDimention, destination);
-        return true;
     }
 
 //    public static BlockPattern createNetherLikePattern(Block frame, Predicate<BlockState> portalMatcher) {

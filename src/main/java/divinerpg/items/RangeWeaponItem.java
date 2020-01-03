@@ -2,16 +2,22 @@ package divinerpg.items;
 
 import divinerpg.api.DivineAPI;
 import divinerpg.api.arcana.IArcana;
+import divinerpg.utils.TooltipUtil;
 import divinerpg.utils.properties.item.ExtendedItemProperties;
 import divinerpg.utils.properties.item.IShootEntity;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -164,6 +170,25 @@ public class RangeWeaponItem extends ShootableItem {
         if (speed > 0.1 && canShoot(player, stack)) {
             float percantage = (float) timeLeft / getUseDuration(stack) * 100;
             performShoot(worldIn, player, player.findAmmo(stack), stack, Hand.MAIN_HAND, (int) percantage);
+        }
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+
+        if (worldIn == null)
+            return;
+
+        // todo add range dam info
+        tooltip.add(new TranslationTextComponent("tooltip.damage.ranged", 14));
+
+        tooltip.add(TooltipUtil.withRangedAmmo(stack, ammo));
+
+        tooltip.add(TooltipUtil.uses(stack));
+
+        if (arcana > 0) {
+            tooltip.add(TooltipUtil.arcana(arcana));
         }
     }
 }

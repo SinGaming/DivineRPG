@@ -1,41 +1,45 @@
 package divinerpg.messages;
 
+import divinerpg.api.DivineAPI;
+import divinerpg.api.arcana.ArcanaProvider;
 import divinerpg.api.arcana.IArcana;
+import divinerpg.arcana.ArcanaStorage;
 import divinerpg.arcana.client.ArcanaRender;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.LogicalSide;
+import net.minecraft.util.Direction;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.network.NetworkEvent;
 
-import java.util.function.Supplier;
-
 public class ArcanaMessage implements IMessage {
-    public int percantage;
+    private static final Capability.IStorage<IArcana> storage = ArcanaProvider.ARCANA_CAPABILITY.getStorage();
+    private CompoundNBT nbt;
 
     public ArcanaMessage() {
     }
 
     public ArcanaMessage(IArcana arcana) {
-        percantage = (int) MathHelper.clamp(100 * arcana.getArcana() / arcana.getMaxArcana(), 0, 100);
+        nbt = (CompoundNBT) storage.writeNBT(ArcanaProvider.ARCANA_CAPABILITY, arcana, Direction.UP);
     }
 
     @Override
     public void read(PacketBuffer buffer) {
-        percantage = buffer.readInt();
+        nbt = buffer.readCompoundTag();
     }
 
     @Override
     public void write(PacketBuffer buffer) {
-        buffer.writeInt(percantage);
+        buffer.writeCompoundTag(nbt);
     }
 
     @Override
-    public void consume(Supplier<NetworkEvent.Context> context) {
-        NetworkEvent.Context ctx = context.get();
-        ctx.enqueueWork(() -> {
-            if (ctx.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-                ArcanaRender.percentage = percantage;
-            }
-        });
+    public void handleClientSide(NetworkEvent.Context context) {
+        ArcanaRender.percentage = ArcanaStorage.percantage(nbt);
+    }
+
+    @Override
+    public void handleServerSide(NetworkEvent.Context context) {
+        IArcana arcana = DivineAPI.getPlayerArcana(context.getSender());
+        storage.readNBT(ArcanaProvider.ARCANA_CAPABILITY, arcana, Direction.UP, nbt);
     }
 }
