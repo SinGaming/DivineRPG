@@ -22,6 +22,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.Vec3d;
@@ -331,6 +332,10 @@ public class ItemRegistry {
     @ObjectHolder("kraken_scale")
     public static Item kraken_scale;
 
+    @ObjectHolder("kraken_scale")
+    public static IItemProvider cheese;
+    @ObjectHolder("kraken_helmet")
+    public static IItemProvider kraken_helmet;
 
 
     @SubscribeEvent
