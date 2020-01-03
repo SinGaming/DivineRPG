@@ -81,4 +81,12 @@ public interface IArmorRing extends IItemProvider {
         tag.remove(id);
         tag.put(id, listNBT);
     }
+
+    /**
+     * Checks if current armor set is on
+     *
+     * @param ring    - ring Items stack
+     * @param armorID - armor set ID
+     */
+    boolean isOn(ItemStack ring, ResourceLocation armorID);
 }

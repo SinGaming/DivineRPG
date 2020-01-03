@@ -33,6 +33,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 
+import java.util.stream.Stream;
+
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(DivineRPG.MODID)
 public class ItemRegistry {
@@ -518,7 +520,8 @@ public class ItemRegistry {
                         .disableSword(true).group(DivineRPGTabs.DivineSwords).maxDamage(60)
         ).setRegistryName(DivineRPG.MODID, "massivence"));
         registerColors(registry, color -> new SwordItem(DivineItemTier.ENDER, 0, -2.4F,
-                new Item.Properties().group(DivineRPGTabs.DivineSwords)).setRegistryName(DivineRPG.MODID, color + "ender_sword"), colors);
+                        new Item.Properties().group(DivineRPGTabs.DivineSwords)).setRegistryName(DivineRPG.MODID, color + "ender_sword"),
+                Stream.of(colors).filter(x -> x != "gray_").toArray(String[]::new));
         registry.register(new SwordItem(DivineItemTier.SHADOWBAR, 12, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords)
                 .maxDamage(100)).setRegistryName(DivineRPG.MODID, "sandslash"));
 

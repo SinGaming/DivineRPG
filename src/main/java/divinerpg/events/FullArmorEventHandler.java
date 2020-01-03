@@ -2,8 +2,10 @@ package divinerpg.events;
 
 import divinerpg.api.DivineAPI;
 import divinerpg.api.events.IsEquippedEvent;
+import divinerpg.items.IArmorRing;
 import divinerpg.utils.ArmorObserver;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent;
@@ -75,7 +77,12 @@ public class FullArmorEventHandler {
             event.confirmEquipment();
         }
 
-        // TODO add ring support
+        ItemStack ring = event.getRing();
+        if (!ring.isEmpty() && ring.getItem() instanceof IArmorRing) {
+            if (((IArmorRing) ring.getItem()).isOn(ring, event.getArmorSet().getRegistryName())) {
+                event.confirmEquipment();
+            }
+        }
     }
 
 

@@ -4,6 +4,7 @@ import divinerpg.DivineRPG;
 import divinerpg.api.armor.IEquipped;
 import divinerpg.api.armor.IPoweredArmorSet;
 import divinerpg.api.events.IsEquippedEvent;
+import divinerpg.items.IArmorRing;
 import divinerpg.messages.EquipmentChangedMessage;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -96,14 +97,13 @@ public class ArmorObserver {
             changed = true;
         }
 
-        // TODO implement ring
-//        ItemStack ringStack = new ItemStack(ItemRegistry.armorRing);
-//        NonNullList<ItemStack> playerRingStask = find(inventory, ringStack);
-//
-//        if (!stacksEquals(ring, playerRingStask)){
-//            ring = playerRingStask;
-//            changed = true;
-//        }
+        List<ItemStack> rings = Stream.of(inventory.mainInventory, inventory.armorInventory, inventory.offHandInventory).flatMap(Collection::stream)
+                .filter(x -> x.getItem() instanceof IArmorRing).limit(1).collect(Collectors.toList());
+
+        if (!stacksEquals(ring, rings)) {
+            ring = new NonNullList<>(rings, ItemStack.EMPTY);
+            changed = true;
+        }
 
         if (changed) {
             stored.remove("armor");
