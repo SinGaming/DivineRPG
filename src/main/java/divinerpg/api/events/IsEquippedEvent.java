@@ -1,7 +1,7 @@
 package divinerpg.api.events;
 
 import divinerpg.api.armor.IPoweredArmorSet;
-import divinerpg.items.IArmorRing;
+import divinerpg.registry.ItemRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -23,7 +23,7 @@ public class IsEquippedEvent extends PlayerEvent {
         this.armorSet = armorSet;
 
         ring = Stream.of(player.inventory.mainInventory, player.inventory.armorInventory, player.inventory.offHandInventory).flatMap(Collection::stream)
-                .filter(x -> x.getItem() instanceof IArmorRing).findFirst().orElse(ItemStack.EMPTY);
+                .filter(x -> x.getItem() == ItemRegistry.armor_ring).findFirst().orElse(ItemStack.EMPTY);
     }
 
     /**

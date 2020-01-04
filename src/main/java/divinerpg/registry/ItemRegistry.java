@@ -336,6 +336,10 @@ public class ItemRegistry {
     @ObjectHolder("kraken_helmet")
     public static ArmorItem kraken_helmet;
 
+    // todo implement
+    @ObjectHolder("kraken_helmet")
+    public static Item armor_ring;
+
 
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {

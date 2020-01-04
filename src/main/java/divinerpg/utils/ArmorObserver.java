@@ -4,8 +4,8 @@ import divinerpg.DivineRPG;
 import divinerpg.api.armor.IEquipped;
 import divinerpg.api.armor.IPoweredArmorSet;
 import divinerpg.api.events.IsEquippedEvent;
-import divinerpg.items.IArmorRing;
 import divinerpg.messages.EquipmentChangedMessage;
+import divinerpg.registry.ItemRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ItemStackHelper;
@@ -99,7 +99,7 @@ public class ArmorObserver {
         }
 
         ItemStack[] rings = Stream.of(inventory.mainInventory, inventory.armorInventory, inventory.offHandInventory).flatMap(Collection::stream)
-                .filter(x -> x.getItem() instanceof IArmorRing).limit(1).toArray(ItemStack[]::new);
+                .filter(x -> x.getItem() == ItemRegistry.armor_ring).limit(1).toArray(ItemStack[]::new);
 
         if (!stacksEquals(ring, Arrays.asList(rings))) {
             ring = NonNullList.from(ItemStack.EMPTY, rings);
