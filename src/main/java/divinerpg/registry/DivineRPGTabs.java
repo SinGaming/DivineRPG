@@ -64,7 +64,7 @@ public class DivineRPGTabs {
             return new ItemStack(ItemRegistry.cheese);
         }
     };
-    public static ItemGroup DivineSwords = new ItemGroup("swords") {
+    public static ItemGroup DivineSwords = new ItemGroup(DivineRPG.MODID + "swords") {
         @Override
         public ItemStack createIcon() {
             return new ItemStack(ItemRegistry.haliteBlade);

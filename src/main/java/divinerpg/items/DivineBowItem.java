@@ -1,8 +1,10 @@
 package divinerpg.items;
 
 import divinerpg.entities.projectiles.DivineArrow.DivineArrow;
+import divinerpg.utils.TooltipUtil;
 import divinerpg.utils.projectile.Powers;
 import divinerpg.utils.properties.item.ExtendedItemProperties;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
@@ -12,8 +14,11 @@ import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -163,5 +168,28 @@ public class DivineBowItem extends BowItem {
     @Override
     public int getUseDuration(ItemStack stack) {
         return duration;
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+
+        if (worldIn == null)
+            return;
+
+        tooltip.add(new TranslationTextComponent("tooltip.damage.ranged", damage));
+
+        if (isInfinite) {
+            tooltip.add(TooltipUtil.i18n("tooltip.ammo.infinite"));
+        } else {
+            arrows.forEach(x -> tooltip.add(TooltipUtil.withRangedAmmo(stack, x)));
+        }
+
+        if (!effects.isEmpty()) {
+            TooltipUtil.potionEffects(effects, tooltip);
+        }
+
+        if (power != null)
+            power.addTooltip(tooltip);
     }
 }

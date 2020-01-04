@@ -13,6 +13,7 @@ public interface IShootEntity {
      * @param world           - Current world
      * @param thrower         - Entity thrower
      * @param percentagePower - loaded power
+     * @param damage          - bullet damage
      */
-    void shoot(World world, LivingEntity thrower, int percentagePower);
+    void shoot(World world, LivingEntity thrower, int percentagePower, float damage);
 }

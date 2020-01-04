@@ -29,6 +29,7 @@ public class RangeWeaponItem extends ShootableItem {
     private final int arcana;
     private final int delay;
     private final UseAction useAction;
+    private final float damage;
 
     public RangeWeaponItem(ExtendedItemProperties properties) {
         super(properties);
@@ -40,6 +41,7 @@ public class RangeWeaponItem extends ShootableItem {
         arcana = properties.arcana;
         delay = properties.cooldown;
         useAction = duration > 0 ? UseAction.BOW : UseAction.NONE;
+        damage = properties.bulletDamage;
     }
 
     /**
@@ -55,7 +57,7 @@ public class RangeWeaponItem extends ShootableItem {
     private void performShoot(World world, PlayerEntity player, ItemStack ammoStack, ItemStack weaponStack, Hand hand, int percentage) {
         // spawn entity only on server side
         if (spawnBullet != null && !world.isRemote) {
-            spawnBullet.shoot(world, player, percentage);
+            spawnBullet.shoot(world, player, percentage, damage);
         }
 
         if (player.isCreative())
@@ -180,8 +182,7 @@ public class RangeWeaponItem extends ShootableItem {
         if (worldIn == null)
             return;
 
-        // todo add range dam info
-        tooltip.add(new TranslationTextComponent("tooltip.damage.ranged", 14));
+        tooltip.add(new TranslationTextComponent("tooltip.damage.ranged", damage));
 
         tooltip.add(TooltipUtil.withRangedAmmo(stack, ammo));
 

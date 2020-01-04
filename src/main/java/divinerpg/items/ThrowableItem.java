@@ -2,16 +2,23 @@ package divinerpg.items;
 
 import divinerpg.utils.properties.item.ExtendedItemProperties;
 import divinerpg.utils.properties.item.IShootEntity;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class ThrowableItem extends Item {
     private final IShootEntity spawnBullet;
     private final SoundEvent soundEvent;
+    private final float damage;
 
     public ThrowableItem(ExtendedItemProperties properties) {
         this(properties, SoundEvents.ENTITY_EGG_THROW);
@@ -21,6 +28,7 @@ public class ThrowableItem extends Item {
         super(properties);
         this.soundEvent = event;
         spawnBullet = properties.spawnBullet;
+        damage = properties.bulletDamage;
     }
 
     @Override
@@ -32,10 +40,20 @@ public class ThrowableItem extends Item {
 
         world.playSound(null, player.posX, player.posY, player.posZ, soundEvent, SoundCategory.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
         if (!world.isRemote && spawnBullet != null) {
-            spawnBullet.shoot(world, player, 100);
+            spawnBullet.shoot(world, player, 100, damage);
         }
 
         player.addStat(Stats.ITEM_USED.get(this));
         return new ActionResult(ActionResultType.SUCCESS, stack);
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+
+        if (worldIn == null)
+            return;
+
+        tooltip.add(new TranslationTextComponent("tooltip.damage.ranged", damage));
     }
 }

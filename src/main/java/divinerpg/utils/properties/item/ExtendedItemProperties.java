@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 public class ExtendedItemProperties extends Item.Properties {
     public IShootEntity spawnBullet;
+    public float bulletDamage;
     public Supplier<Item> ammo;
     public int ammoConsumeCount = -1;
     public int cooldown = 0;
@@ -26,10 +27,12 @@ public class ExtendedItemProperties extends Item.Properties {
      * Adding shoot ability
      *
      * @param spawnBullet - function for creating bullet entity
+     * @param damage - bullet bulletDamage
      * @return this
      */
-    public ExtendedItemProperties withShooter(IShootEntity spawnBullet) {
+    public ExtendedItemProperties withShooter(IShootEntity spawnBullet, float damage) {
         this.spawnBullet = spawnBullet;
+        this.bulletDamage = damage;
         return this;
     }
 

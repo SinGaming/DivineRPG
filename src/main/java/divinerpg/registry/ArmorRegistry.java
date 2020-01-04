@@ -46,7 +46,7 @@ public class ArmorRegistry {
                                 null
                         ), null
         )
-                .addAbility(LivingHurtEvent.class, event -> ArmorEvents.onPlayerReceiveDamage(event, ArmorEvents::isMeeleeDamage, x -> x * 0.2F))
+                .addAbility(LivingHurtEvent.class, event -> ArmorEvents.onPlayerReceiveDamage(event, ArmorEvents::isMeeleeDamage, x -> x * 0.15F))
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "rupee_set")));
 
         // ender sets
@@ -97,7 +97,7 @@ public class ArmorRegistry {
         ).addAbility(LivingHurtEvent.class, event -> {
             ArmorEvents.onPlayerReceiveDamage(event,
                     source -> source.isProjectile() || source.damageType.equals("thrown"),
-                    x -> x * 0.2F);
+                    x -> x * 0.15F);
         })
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "arlemite_set")));
 
@@ -151,7 +151,7 @@ public class ArmorRegistry {
 
         // corrupted
         registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.CORRUPTED), null)
-                .addAbility(LivingHurtEvent.class, event -> ArmorEvents.onAddRangedDamage(event, CORRUPTED, x -> x * 2F))
+                .addAbility(LivingHurtEvent.class, event -> ArmorEvents.onAddRangedDamage(event, CORRUPTED, x -> x * 1.5F))
                 .setRegistryName(CORRUPTED));
 
         // terran
@@ -186,6 +186,7 @@ public class ArmorRegistry {
         // skythern
         registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.SKYTHERN), null)
                 .addAbility(TickEvent.PlayerTickEvent.class, ArmorEvents::disableFallDamage)
+                .addAbility(LivingEvent.LivingJumpEvent.class, event -> ArmorEvents.adjustJumpHeight(event, 5))
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "skythern_set")));
 
         // mortum

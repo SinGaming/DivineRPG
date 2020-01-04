@@ -8,11 +8,16 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.Explosion;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Powers {
     //region Private
@@ -125,6 +130,17 @@ public class Powers {
         }
 
         return this;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void addTooltip(List<ITextComponent> tooltip) {
+        if (fire > 0) {
+            tooltip.add(new TranslationTextComponent("tooltip.effect.burns", fire));
+        }
+
+        if (explosion > 0) {
+            tooltip.add(new TranslationTextComponent("tooltip.shots.explosive"));
+        }
     }
 
     public CompoundNBT toTag() {
