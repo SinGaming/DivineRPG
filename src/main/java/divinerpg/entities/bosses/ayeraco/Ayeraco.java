@@ -21,6 +21,7 @@ import net.minecraft.world.storage.loot.LootTable;
 
 import java.util.List;
 
+// TODO check movement
 public class Ayeraco extends DivineBatBoss {
     private final static String beamKey = "BeamPos";
     private final AyeracoManager model;

@@ -337,8 +337,53 @@ public class ItemRegistry {
     public static ArmorItem kraken_helmet;
 
     // todo implement
-    @ObjectHolder("kraken_helmet")
+    @ObjectHolder("armor_ring")
     public static Item armor_ring;
+
+
+    // todo implement all below
+    @ObjectHolder("santa_cap")
+    public static ArmorItem santa_cap;
+    @ObjectHolder("santa_tunic")
+    public static ArmorItem santa_tunic;
+    @ObjectHolder("santa_pants")
+    public static ArmorItem santa_pants;
+    @ObjectHolder("santa_boots")
+    public static ArmorItem santa_boots;
+
+    @ObjectHolder("egg_nog")
+    public static Item egg_nog;
+    @ObjectHolder("chocolate_log")
+    public static Item chocolate_log;
+    @ObjectHolder("peppermints")
+    public static Item peppermints;
+    @ObjectHolder("fruit_cake")
+    public static Item fruit_cake;
+    @ObjectHolder("icicle_bane")
+    public static SwordItem icicle_bane;
+    @ObjectHolder("red_christmas_lights")
+    public static Item red_christmas_lights;
+    @ObjectHolder("green_christmas_lights")
+    public static Item green_christmas_lights;
+    @ObjectHolder("blue_christmas_lights")
+    public static Item blue_christmas_lights;
+    @ObjectHolder("yellow_christmas_lights")
+    public static Item yellow_christmas_lights;
+    @ObjectHolder("purple_christmas_lights")
+    public static Item purple_christmas_lights;
+    @ObjectHolder("present_box")
+    public static Item present_box;
+
+    @ObjectHolder("red_candy_cane")
+    public static Item red_candy_cane;
+    @ObjectHolder("green_candy_cane")
+    public static Item green_candy_cane;
+    @ObjectHolder("blue_candy_cane")
+    public static Item blue_candy_cane;
+    @ObjectHolder("yellow_candy_cane")
+    public static Item yellow_candy_cane;
+    @ObjectHolder("purple_candy_cane")
+    public static Item purple_candy_cane;
 
 
     @SubscribeEvent
