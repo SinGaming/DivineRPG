@@ -28,6 +28,7 @@ public class FrostFireball extends DivineFireball {
     }
 
     public FrostFireball(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
+        // todo particles
         super(EntitiesRegistry.frost_shot, worldIn, shooter, accelX, accelY, accelZ, ParticleTypes.END_ROD, "frost_shot");
     }
 

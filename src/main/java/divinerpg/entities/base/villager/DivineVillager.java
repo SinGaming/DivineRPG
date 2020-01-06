@@ -9,6 +9,7 @@ import net.minecraft.entity.villager.IVillagerType;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.MerchantOffers;
 import net.minecraft.network.IPacket;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -32,16 +33,25 @@ public class DivineVillager extends VillagerEntity {
         super.populateTradeData();
     }
 
+    /**
+     * Returns GUI texture location
+     *
+     * @return
+     */
+    protected ResourceLocation getGUI() {
+        // using same name for GUI image
+        return CachedTexture.GUI.getTexture(getType().getRegistryName().getPath());
+    }
+
     @Override
     public void func_213707_a(PlayerEntity player, ITextComponent name, int var1) {
         if (player instanceof ServerPlayerEntity) {
-            // using same name for GUI image
-            String guiPath = getType().getRegistryName().getPath();
+            ResourceLocation gui = getGUI();
 
             NetworkHooks.openGui(((ServerPlayerEntity) player),
                     new SimpleNamedContainerProvider((windowId, inventory, playerEntity)
-                            -> new DivineMerchantContainer(windowId, inventory, this, CachedTexture.GUI.getTexture(guiPath)), name),
-                    packetBuffer -> packetBuffer.writeString(guiPath));
+                            -> new DivineMerchantContainer(windowId, inventory, this, gui), name),
+                    packetBuffer -> packetBuffer.writeString(gui.toString()));
 
             MerchantOffers merchantoffers = this.getOffers();
             if (!merchantoffers.isEmpty()) {

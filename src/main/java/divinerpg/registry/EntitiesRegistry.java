@@ -39,6 +39,10 @@ import divinerpg.entities.eden.madivel.Madivel;
 import divinerpg.entities.eden.madivel.MadivelRender;
 import divinerpg.entities.fireball.FrostFireball;
 import divinerpg.entities.fireball.ScorcherFireball;
+import divinerpg.entities.iceika.alicanto.Alicanto;
+import divinerpg.entities.iceika.alicanto.AlicantoRender;
+import divinerpg.entities.iceika.fractile.Fractite;
+import divinerpg.entities.iceika.fractile.FractiteRender;
 import divinerpg.entities.mortum.basilisk.Basilisk;
 import divinerpg.entities.mortum.basilisk.BasiliskRender;
 import divinerpg.entities.mortum.deamon.DemonOfDarkness;
@@ -340,6 +344,10 @@ public class EntitiesRegistry {
     public static EntityType<Karot> karot;
     @ObjectHolder("king_of_scorchers")
     public static EntityType<KingOfScorchers> king_of_scorchers;
+    @ObjectHolder("alicanto")
+    public static EntityType<Alicanto> alicanto;
+    @ObjectHolder("fractite")
+    public static EntityType<Fractite> fractite;
 
 
     @SubscribeEvent
@@ -442,8 +450,10 @@ public class EntitiesRegistry {
         registerSingle(registry, SoulSpider::new, "soul_spider", 0.3F, 0.5F);
         registerSingle(registry, SoulFiend::new, "soul_fiend", 0.8F, 2);
         registerSingle(registry, Karot::new, "karot", 3.25F, 4);
-
         registerImmunedToFire(registry, KingOfScorchers::new, "king_of_scorchers", 2, 2.5F);
+
+        registerImmunedToFire(registry, Alicanto::new, "alicanto", 1.2F, 1.6F);
+        registerImmunedToFire(registry, Fractite::new, "fractite", 1.2F, 1.6F);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -524,6 +534,9 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(SoulFiend.class, SoulFiendRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Karot.class, KarotRender::new);
         RenderingRegistry.registerEntityRenderingHandler(KingOfScorchers.class, KingScorcherRender::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(Alicanto.class, AlicantoRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Fractite.class, FractiteRender::new);
     }
 
     private static <T extends Entity> void registerImmunedToFire(IForgeRegistry<EntityType<?>> registry, Function<World, T> createFunc, String name, float width, float height) {
