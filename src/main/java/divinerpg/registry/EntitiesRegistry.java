@@ -121,6 +121,8 @@ import divinerpg.entities.vanilla.glacon.Glacon;
 import divinerpg.entities.vanilla.glacon.GlaconRender;
 import divinerpg.entities.vanilla.grue.Grue;
 import divinerpg.entities.vanilla.grue.GrueRender;
+import divinerpg.entities.vanilla.jack.JackOMan;
+import divinerpg.entities.vanilla.jack.JackOManRender;
 import divinerpg.entities.vanilla.koblin.Kobblin;
 import divinerpg.entities.vanilla.koblin.KobblinRender;
 import divinerpg.entities.vanilla.miner.Miner;
@@ -161,6 +163,7 @@ import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -355,6 +358,8 @@ public class EntitiesRegistry {
     public static EntityType<WorkshopMerchant> workshop_merchant;
     @ObjectHolder("workshop_tinkerer")
     public static EntityType<WorkshopTinkerer> workshop_tinkerer;
+    @ObjectHolder("jack_o_man")
+    public static EntityType<? extends VillagerEntity> jack_o_man;
 
 
     @SubscribeEvent
@@ -463,6 +468,7 @@ public class EntitiesRegistry {
         registerImmunedToFire(registry, Fractite::new, "fractite", 1.2F, 1.6F);
         registerImmunedToFire(registry, WorkshopMerchant::new, "workshop_merchant", 1, 2);
         registerImmunedToFire(registry, WorkshopTinkerer::new, "workshop_tinkerer", 1, 2);
+        registerImmunedToFire(registry, JackOMan::new, "jack_o_man", 1, 2);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -547,6 +553,7 @@ public class EntitiesRegistry {
 
         RenderingRegistry.registerEntityRenderingHandler(Alicanto.class, AlicantoRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Fractite.class, FractiteRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(JackOMan.class, JackOManRender::new);
     }
 
     private static <T extends Entity> void registerImmunedToFire(IForgeRegistry<EntityType<?>> registry, Function<World, T> createFunc, String name, float width, float height) {

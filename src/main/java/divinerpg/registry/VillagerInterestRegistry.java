@@ -3,6 +3,7 @@ package divinerpg.registry;
 import com.google.common.collect.ImmutableSet;
 import divinerpg.DivineRPG;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.village.PointOfInterestType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,6 +19,8 @@ import java.util.stream.Stream;
 public class VillagerInterestRegistry {
     @ObjectHolder("iceika")
     public static PointOfInterestType iceika;
+    @ObjectHolder("overworld")
+    public static PointOfInterestType overworld;
 
     @SubscribeEvent
     public static void initPoint(final RegistryEvent.Register<PointOfInterestType> e) {
@@ -26,6 +29,8 @@ public class VillagerInterestRegistry {
 
         // todo add some iceika blocks
         registry.register(create("iceika", BlockRegistry.coalstone_furnace));
+
+        registry.register(create("overworld", Blocks.GRASS_BLOCK, Blocks.STONE));
     }
 
     private static PointOfInterestType create(String name, Block... blocks) {

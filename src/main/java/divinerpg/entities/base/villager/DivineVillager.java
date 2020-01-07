@@ -22,6 +22,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import java.util.Arrays;
 import java.util.List;
 
+// todo natural gen don't saving own profession
 public class DivineVillager extends VillagerEntity {
     private IVillagerType type;
     private VillagerProfession profession;

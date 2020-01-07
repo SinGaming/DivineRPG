@@ -411,6 +411,35 @@ public class ItemRegistry {
     @ObjectHolder("snowslash")
     public static SwordItem snowslash;
 
+    @ObjectHolder("skeleman_helmet")
+    public static ArmorItem skeleman_helmet;
+    @ObjectHolder("skeleman_chestplate")
+    public static ArmorItem skeleman_chestplate;
+    @ObjectHolder("skeleman_leggings")
+    public static ArmorItem skeleman_leggings;
+    @ObjectHolder("skeleman_boots")
+    public static ArmorItem skeleman_boots;
+
+    @ObjectHolder("jack_o_man_helmet")
+    public static ArmorItem jack_o_man_helmet;
+    @ObjectHolder("jack_o_man_chestplate")
+    public static ArmorItem jack_o_man_chestplate;
+    @ObjectHolder("jack_o_man_leggings")
+    public static ArmorItem jack_o_man_leggings;
+    @ObjectHolder("jack_o_man_boots")
+    public static ArmorItem jack_o_man_boots;
+
+    @ObjectHolder("wither_reaper_helmet")
+    public static ArmorItem wither_reaper_helmet;
+    @ObjectHolder("wither_reaper_chestplate")
+    public static ArmorItem wither_reaper_chestplate;
+    @ObjectHolder("wither_reaper_leggings")
+    public static ArmorItem wither_reaper_leggings;
+    @ObjectHolder("wither_reaper_boots")
+    public static ArmorItem wither_reaper_boots;
+
+    @ObjectHolder("scythe")
+    public static RangeWeaponItem scythe;
 
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {

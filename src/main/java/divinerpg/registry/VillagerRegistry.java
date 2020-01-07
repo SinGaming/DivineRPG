@@ -2,10 +2,12 @@ package divinerpg.registry;
 
 import divinerpg.DivineRPG;
 import divinerpg.utils.VillagerBuilder;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.villager.IVillagerType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraftforge.common.BasicTrade;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,9 +22,12 @@ public class VillagerRegistry {
     public static VillagerProfession workshop_merchant;
     @ObjectHolder("workshop_tinkerer")
     public static VillagerProfession workshop_tinkerer;
+    @ObjectHolder("jack_o_man")
+    public static VillagerProfession jack_o_man;
 
     public static IVillagerType ICEIKA;
     public static IVillagerType ARCANA;
+    public static IVillagerType OVERWORLD;
 
 
     @SubscribeEvent
@@ -31,6 +36,7 @@ public class VillagerRegistry {
 
         ICEIKA = VillagerBuilder.getOrCreate("iceika");
         ARCANA = VillagerBuilder.getOrCreate("arcana");
+        OVERWORLD = VillagerBuilder.getOrCreate("overworld");
 
         // todo add biome
         new VillagerBuilder(registry, "workshop_merchant", ICEIKA)
@@ -82,7 +88,26 @@ public class VillagerRegistry {
                 )
                 .build(VillagerInterestRegistry.iceika);
 
+        new VillagerBuilder(registry, "jack_o_man", OVERWORLD)
+                .withTrades(
+                        infinite(new ItemStack(Items.SPIDER_EYE, 60), new ItemStack(Items.BONE, 60), new ItemStack(ItemRegistry.skeleman_helmet), 1),
+                        infinite(new ItemStack(Items.SPIDER_EYE, 60), new ItemStack(Items.BONE, 60), new ItemStack(ItemRegistry.skeleman_chestplate), 1),
+                        infinite(new ItemStack(Items.SPIDER_EYE, 60), new ItemStack(Items.BONE, 60), new ItemStack(ItemRegistry.skeleman_leggings), 1),
+                        infinite(new ItemStack(Items.SPIDER_EYE, 60), new ItemStack(Items.BONE, 60), new ItemStack(ItemRegistry.skeleman_boots), 1),
 
+                        infinite(new ItemStack(Items.ENDER_EYE, 10), new ItemStack(Blocks.PUMPKIN, 50), new ItemStack(ItemRegistry.jack_o_man_helmet), 1),
+                        infinite(new ItemStack(Items.ENDER_EYE, 10), new ItemStack(Blocks.PUMPKIN, 50), new ItemStack(ItemRegistry.jack_o_man_chestplate), 1),
+                        infinite(new ItemStack(Items.ENDER_EYE, 10), new ItemStack(Blocks.PUMPKIN, 50), new ItemStack(ItemRegistry.jack_o_man_leggings), 1),
+                        infinite(new ItemStack(Items.ENDER_EYE, 10), new ItemStack(Blocks.PUMPKIN, 50), new ItemStack(ItemRegistry.jack_o_man_boots), 1),
+
+                        infinite(new ItemStack(Items.WITHER_SKELETON_SKULL, 3), new ItemStack(ItemRegistry.wither_reaper_helmet), 1),
+                        infinite(new ItemStack(Items.WITHER_SKELETON_SKULL, 5), new ItemStack(ItemRegistry.wither_reaper_chestplate), 1),
+                        infinite(new ItemStack(Items.WITHER_SKELETON_SKULL, 4), new ItemStack(ItemRegistry.wither_reaper_leggings), 1),
+                        infinite(new ItemStack(Items.WITHER_SKELETON_SKULL, 2), new ItemStack(ItemRegistry.wither_reaper_boots), 1),
+
+                        infinite(new ItemStack(Items.WITHER_SKELETON_SKULL, 6), new ItemStack(ItemRegistry.scythe), 1)
+                )
+                .build(VillagerInterestRegistry.overworld);
     }
 
     private static VillagerTrades.ITrade infinite(ItemStack price, ItemStack second, ItemStack sale, int xp) {
