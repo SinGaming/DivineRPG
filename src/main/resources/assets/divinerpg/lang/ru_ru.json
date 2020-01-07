@@ -1376,6 +1376,8 @@
   "message.ayeraco.purple": "The Purple Ayeraco has been called upon",
   "message.ayeraco.spawn": "The Ayeraco Horde has arrived!",
   "tooltip.uses": "# Uses Remaining",
+  "tooltip.teleport_crystal.dim": "Dimension",
+  "tooltip.teleport_crystal.pos": "Position",
   "tooltip.iceika_only.effect": "Iceika Massive Buff",
   "tooltip.effect.flight": "Allows To Fly",
   "tooltip.harvest": "Harvest Level: +",

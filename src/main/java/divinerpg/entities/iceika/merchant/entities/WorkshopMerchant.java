@@ -1,4 +1,4 @@
-package divinerpg.entities.iceika.merchant;
+package divinerpg.entities.iceika.merchant.entities;
 
 import divinerpg.entities.base.villager.DivineVillager;
 import divinerpg.registry.EntitiesRegistry;

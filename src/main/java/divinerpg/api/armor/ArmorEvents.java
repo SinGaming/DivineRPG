@@ -12,6 +12,7 @@ import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
@@ -328,6 +329,31 @@ public class ArmorEvents {
 
         if (!fragment.isEmpty())
             e.getDrops().addAll(Collections.nCopies(3, fragment.copy()));
+    }
+
+    /**
+     * Add potion effect.
+     *
+     * @param entity - for entity
+     * @param effect - current effect
+     * @param values - Optional duration and amplifier values. 0 by default
+     */
+    public static void addEffect(Entity entity, Effect effect, int... values) {
+        if (!(entity instanceof LivingEntity))
+            return;
+
+        int duration = 0;
+        int amplifier = 0;
+
+        if (values != null && values.length > 0) {
+            duration = values[0];
+
+            if (values.length > 1) {
+                amplifier = values[1];
+            }
+        }
+
+        ((LivingEntity) entity).addPotionEffect(new EffectInstance(effect, duration, amplifier));
     }
 
     /**

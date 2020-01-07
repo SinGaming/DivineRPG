@@ -340,8 +340,6 @@ public class ItemRegistry {
     @ObjectHolder("armor_ring")
     public static Item armor_ring;
 
-
-    // todo implement all below
     @ObjectHolder("santa_cap")
     public static ArmorItem santa_cap;
     @ObjectHolder("santa_tunic")
@@ -361,6 +359,57 @@ public class ItemRegistry {
     public static Item fruit_cake;
     @ObjectHolder("icicle_bane")
     public static SwordItem icicle_bane;
+
+    @ObjectHolder("shuriken")
+    public static ThrowableItem shuriken;
+    @ObjectHolder("snowflake_shuriken")
+    public static ThrowableItem snowflake_shuriken;
+    @ObjectHolder("sandslash")
+    public static SwordItem sandslash;
+    @ObjectHolder("frost_sword")
+    public static SwordItem frost_sword;
+    @ObjectHolder("ender_sword")
+    public static SwordItem ender_sword;
+    @ObjectHolder("sandslash")
+    public static SwordItem slime_sword;
+    @ObjectHolder("serenade_striker")
+    public static ScepterItem serenade_striker;
+    @ObjectHolder("crabclaw_cannon")
+    public static RangeWeaponItem crabclaw_cannon;
+    @ObjectHolder("frost_cannon")
+    public static RangeWeaponItem frost_cannon;
+    @ObjectHolder("sound_of_music")
+    public static RangeWeaponItem sound_of_music;
+    @ObjectHolder("sound_of_carols")
+    public static RangeWeaponItem sound_of_carols;
+    @ObjectHolder("bedrock_maul")
+    public static SwordItem bedrock_maul;
+    @ObjectHolder("divine_sword")
+    public static SwordItem divine_sword;
+    @ObjectHolder("serenade_of_ice")
+    public static ScepterItem serenade_of_ice;
+    @ObjectHolder("glacier_sword")
+    public static SwordItem glacier_sword;
+    @ObjectHolder("icicle_bow")
+    public static DivineBowItem icicle_bow;
+    @ObjectHolder("frossivence")
+    public static SwordItem frossivence;
+    @ObjectHolder("frostclaw_cannon")
+    public static RangeWeaponItem frostclaw_cannon;
+    @ObjectHolder("fractite_cannon")
+    public static RangeWeaponItem fractite_cannon;
+    @ObjectHolder("frostking_sword")
+    public static SwordItem frostking_sword;
+    @ObjectHolder("enderice")
+    public static SwordItem enderice;
+    @ObjectHolder("snowstorm_bow")
+    public static BowItem snowstorm_bow;
+    @ObjectHolder("frozen_maul")
+    public static SwordItem frozen_maul;
+    @ObjectHolder("icine_sword")
+    public static SwordItem icine_sword;
+    @ObjectHolder("snowslash")
+    public static SwordItem snowslash;
 
 
     @SubscribeEvent
@@ -442,6 +491,10 @@ public class ItemRegistry {
                 (ExtendedItemProperties) new ExtendedItemProperties().onRightClick((world, player, hand) -> ArmorEvents.tryHeal(player, 0.5F))
                         .disableSword(true).group(DivineRPGTabs.DivineSwords).maxDamage(60)
         ).setRegistryName(DivineRPG.MODID, "palavence"));
+        registry.register(new SpecialSwordItem(DivineItemTier.SNOWFLAKE, 0, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onRightClick((world, player, hand) -> ArmorEvents.tryHeal(player, 1))
+                        .disableSword(true).group(DivineRPGTabs.DivineSwords).maxDamage(270)
+        ).setRegistryName(DivineRPG.MODID, "frossivence"));
         registry.register(new SpecialSwordItem(DivineItemTier.JUNGLE, 4, -2.4F,
                 (ExtendedItemProperties) new ExtendedItemProperties().onHit((stack, player, entity) -> ArmorEvents.tryPoison(entity, 5))
                         .group(DivineRPGTabs.DivineSwords).maxDamage(5000)
@@ -501,13 +554,33 @@ public class ItemRegistry {
                 Stream.of(colors).filter(x -> x != "gray_").toArray(String[]::new));
         registry.register(new SwordItem(DivineItemTier.SHADOWBAR, 12, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords)
                 .maxDamage(100)).setRegistryName(DivineRPG.MODID, "sandslash"));
-
         registry.register(new SpecialSwordItem(DivineItemTier.UNREPAIRABLE, 14, -2.4F,
-                (ExtendedItemProperties) new ExtendedItemProperties().onHit((world, player, victim) -> {
-                    if (victim instanceof LivingEntity) {
-                        ((LivingEntity) victim).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 50));
-                    }
-                }).group(DivineRPGTabs.DivineSwords).maxDamage(-1)).setRegistryName(DivineRPG.MODID, "icicle_bane"));
+                (ExtendedItemProperties) new ExtendedItemProperties().onHit((world, player, victim) -> ArmorEvents.addEffect(victim, Effects.SLOWNESS, 50, 3))
+                        .group(DivineRPGTabs.DivineSwords).maxDamage(-1)).setRegistryName(DivineRPG.MODID, "icicle_bane"));
+        registry.register(new SpecialSwordItem(DivineItemTier.SNOWFLAKE, 0, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onHit((world, player, victim) -> ArmorEvents.addEffect(victim, Effects.SLOWNESS, 50, 3))
+                        .group(DivineRPGTabs.DivineSwords).maxDamage(-1)).setRegistryName(DivineRPG.MODID, "glacier_sword"));
+        registry.register(new SpecialSwordItem(DivineItemTier.SNOWFLAKE, -2, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onHit((world, player, victim) -> ArmorEvents.addEffect(victim, Effects.SLOWNESS, 50, 3))
+                        .maxDamage(6000)
+                        .group(DivineRPGTabs.DivineSwords)).setRegistryName(DivineRPG.MODID, "frostking_sword"));
+        registry.register(new SpecialSwordItem(DivineItemTier.UNREPAIRABLE, 19, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onHit((world, player, victim) -> ArmorEvents.addEffect(victim, Effects.SLOWNESS, 50, 3))
+                        .maxDamage(-1)
+                        .group(DivineRPGTabs.DivineSwords)).setRegistryName(DivineRPG.MODID, "enderice"));
+        registry.register(new SpecialSwordItem(DivineItemTier.UNREPAIRABLE, 17, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onHit((world, player, victim) -> ArmorEvents.addEffect(victim, Effects.SLOWNESS, 50, 3))
+                        .maxDamage(-1)
+                        .group(DivineRPGTabs.DivineSwords)).setRegistryName(DivineRPG.MODID, "frozen_maul"));
+        registry.register(new SpecialSwordItem(DivineItemTier.UNREPAIRABLE, 22, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onHit((world, player, victim) -> ArmorEvents.addEffect(victim, Effects.SLOWNESS, 50, 3))
+                        .maxDamage(-1)
+                        .group(DivineRPGTabs.DivineSwords)).setRegistryName(DivineRPG.MODID, "icine_sword"));
+        registry.register(new SpecialSwordItem(DivineItemTier.SNOWFLAKE, 7, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onHit((world, player, victim) -> ArmorEvents.addEffect(victim, Effects.SLOWNESS, 50, 3))
+                        .maxDamage(150)
+                        .group(DivineRPGTabs.DivineSwords)).setRegistryName(DivineRPG.MODID, "snowslash"));
+
 
 
         // Axes
@@ -587,6 +660,11 @@ public class ItemRegistry {
                 .maxDamage(2500), 3, null, SoundEvents.ENTITY_ARROW_SHOOT, "hunter_arrow")
                 .withEffects(new EffectInstance(Effects.POISON, 40, 2))
                 .setRegistryName(DivineRPG.MODID, "hunter_bow"));
+        registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withUseDuration(72000)
+                .maxDamage(10000)
+                .group(DivineRPGTabs.DivineRanged), 3, null, SoundEvents.ENTITY_ARROW_SHOOT, "icicle_arrow")
+                .setRegistryName(DivineRPG.MODID, "icicle_bow"));
 
         registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
                 .withUseDuration(72000)
@@ -603,6 +681,12 @@ public class ItemRegistry {
                 .infiiniteArrows(true)
                 .group(DivineRPGTabs.DivineRanged), 3, new Powers().withFire(12), SoundEvents.ENTITY_ARROW_SHOOT, "inferno_arrow")
                 .setRegistryName(DivineRPG.MODID, "inferno_bow"));
+        registry.register(new DivineBowItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withUseDuration(72000)
+                .infiiniteArrows(true)
+                .group(DivineRPGTabs.DivineRanged), 3, new Powers().withExplosion(3, Explosion.Mode.NONE), SoundEvents.ENTITY_ARROW_SHOOT, "snowstorm_arrow")
+                .setRegistryName(DivineRPG.MODID, "snowstorm_bow"));
+
 
 
         // Anchors
@@ -654,6 +738,28 @@ public class ItemRegistry {
                     SpawnHelper.singleSpawn(world, thrower, new BulletEntity(world, thrower, damage, "scythe", particle));
                 }, 6)
                 .group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "scythe"));
+        registry.register(new RangeWeaponItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withAmmo(() -> Items.SNOWBALL, 1)
+                .withShooter((world, player, power, damage) -> SpawnHelper.singleSpawn(world, player, new BulletEntity(world, player, damage, "frost_cannon", ParticleTypes.ITEM_SNOWBALL))
+                        , 6).maxDamage(15000).group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "frost_cannon"));
+        registry.register(new RangeWeaponItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withShooter((world, player, power, damage) -> SpawnHelper.singleSpawn(world, player, new BulletEntity(world, player, damage, "music", ParticleTypes.NOTE)), 10)
+                .maxDamage(4000)
+                .group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "sound_of_music"));
+        registry.register(new RangeWeaponItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withShooter((world, player, power, damage) -> SpawnHelper.singleSpawn(world, player, new BulletEntity(world, player, damage, "music", ParticleTypes.NOTE)), 16)
+                .maxDamage(4000)
+                .group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "sound_of_carols"));
+        registry.register(new RangeWeaponItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withShooter((world, player, power, damage) -> SpawnHelper.singleSpawn(world, player, new BulletEntity(world, player, damage, "frostclaw_cannon")), 16)
+                .withAmmo(() -> Items.CACTUS, 1)
+                .maxDamage(10000)
+                .group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "frostclaw_cannon"));
+        registry.register(new RangeWeaponItem((ExtendedItemProperties) new ExtendedItemProperties()
+                .withShooter((world, player, power, damage) -> SpawnHelper.singleSpawn(world, player, new BulletEntity(world, player, damage, "fractite_cannon")), 14)
+                .withAmmo(() -> ItemRegistry.iceShards, 1)
+                .maxDamage(10000)
+                .group(DivineRPGTabs.DivineRanged)).setRegistryName(DivineRPG.MODID, "fractite_cannon"));
 
 
         // Shards
@@ -900,6 +1006,11 @@ public class ItemRegistry {
                             return false;
                         }
                 ).disableSword(true).group(DivineRPGTabs.DivineTools).maxDamage(15)).setRegistryName(DivineRPG.MODID, "serenade_of_health"));
+        registry.register(new ScepterItem(DivineItemTier.UNREPAIRABLE, (ExtendedItemProperties) new ExtendedItemProperties()
+                .onHit((stack, player, entity) -> ArmorEvents.addEffect(entity, Effects.SLOWNESS, 100, 3))
+                .maxDamage(4000).group(DivineRPGTabs.DivineTools), 30, ParticleTypes.ITEM_SNOWBALL)
+                .setRegistryName(DivineRPG.MODID, "serenade_of_ice")
+        );
 
         registry.register(new HealingStone(itemTabProperty).setRegistryName(DivineRPG.MODID, "healing_stone"));
         registry.register(new HealingStone(itemTabProperty).setRegistryName(DivineRPG.MODID, "eden_sparkles"));

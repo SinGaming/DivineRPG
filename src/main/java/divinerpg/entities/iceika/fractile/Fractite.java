@@ -22,7 +22,6 @@ public class Fractite extends DivineGhast {
     protected void registerAttributes() {
         super.registerAttributes();
 
-        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(20.0D);
         this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50);
     }
 

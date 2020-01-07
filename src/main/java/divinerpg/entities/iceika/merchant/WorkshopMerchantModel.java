@@ -1,6 +1,7 @@
 package divinerpg.entities.iceika.merchant;
 
 import divinerpg.entities.base.render.DivineModel;
+import divinerpg.entities.iceika.merchant.entities.WorkshopMerchant;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.util.math.MathHelper;
 

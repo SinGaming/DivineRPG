@@ -18,6 +18,8 @@ import net.minecraftforge.registries.ObjectHolder;
 public class VillagerRegistry {
     @ObjectHolder("workshop_merchant")
     public static VillagerProfession workshop_merchant;
+    @ObjectHolder("workshop_tinkerer")
+    public static VillagerProfession workshop_tinkerer;
 
     public static IVillagerType ICEIKA;
     public static IVillagerType ARCANA;
@@ -30,7 +32,7 @@ public class VillagerRegistry {
         ICEIKA = VillagerBuilder.getOrCreate("iceika");
         ARCANA = VillagerBuilder.getOrCreate("arcana");
 
-
+        // todo add biome
         new VillagerBuilder(registry, "workshop_merchant", ICEIKA)
                 .withTrades(
                         infinite(new ItemStack(ItemRegistry.snowFlake, 6), new ItemStack(ItemRegistry.santa_cap), 5),
@@ -59,11 +61,35 @@ public class VillagerRegistry {
                         infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(BlockRegistry.yellow_candy_cane, 4), 5),
                         infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(BlockRegistry.purple_candy_cane, 4), 5)
                 )
-                // todo add biome
-                .build(VillagerInterestRegistry.workshop_merchant);
+                .build(VillagerInterestRegistry.iceika);
+
+        new VillagerBuilder(registry, "workshop_tinkerer", ICEIKA)
+                .withTrades(
+                        infinite(new ItemStack(ItemRegistry.snowFlake), new ItemStack(ItemRegistry.shuriken, 16), new ItemStack(ItemRegistry.snowflake_shuriken, 16), 1),
+                        infinite(new ItemStack(ItemRegistry.snowFlake, 4), new ItemStack(ItemRegistry.serenade_striker), new ItemStack(ItemRegistry.serenade_of_ice), 1),
+                        infinite(new ItemStack(ItemRegistry.snowFlake, 7), new ItemStack(ItemRegistry.slime_sword), new ItemStack(ItemRegistry.glacier_sword), 1),
+                        infinite(new ItemStack(ItemRegistry.snowFlake, 12), new ItemStack(ItemRegistry.shadow_bow), new ItemStack(ItemRegistry.icicle_bow), 1),
+                        infinite(new ItemStack(ItemRegistry.snowFlake, 6), new ItemStack(ItemRegistry.massivence), new ItemStack(ItemRegistry.frossivence), 1),
+                        infinite(new ItemStack(ItemRegistry.snowFlake, 12), new ItemStack(ItemRegistry.crabclaw_cannon), new ItemStack(ItemRegistry.frostclaw_cannon), 1),
+                        infinite(new ItemStack(ItemRegistry.snowFlake, 12), new ItemStack(ItemRegistry.frost_cannon), new ItemStack(ItemRegistry.fractite_cannon), 1),
+                        infinite(new ItemStack(ItemRegistry.snowFlake, 15), new ItemStack(ItemRegistry.frost_sword), new ItemStack(ItemRegistry.frostking_sword), 1),
+                        infinite(new ItemStack(ItemRegistry.snowFlake, 18), new ItemStack(ItemRegistry.sound_of_music), new ItemStack(ItemRegistry.sound_of_carols, 1), 1),
+                        infinite(new ItemStack(ItemRegistry.snowFlake, 25), new ItemStack(ItemRegistry.ender_sword), new ItemStack(ItemRegistry.enderice), 1),
+                        infinite(new ItemStack(ItemRegistry.snowFlake, 30), new ItemStack(ItemRegistry.bluefire_bow), new ItemStack(ItemRegistry.snowstorm_bow), 1),
+                        infinite(new ItemStack(ItemRegistry.snowFlake, 45), new ItemStack(ItemRegistry.bedrock_maul), new ItemStack(ItemRegistry.frozen_maul), 1),
+                        infinite(new ItemStack(ItemRegistry.snowFlake, 40), new ItemStack(ItemRegistry.divine_sword), new ItemStack(ItemRegistry.icine_sword), 1),
+                        infinite(new ItemStack(ItemRegistry.snowFlake, 15), new ItemStack(ItemRegistry.sandslash), new ItemStack(ItemRegistry.snowslash), 1)
+                )
+                .build(VillagerInterestRegistry.iceika);
+
+
+    }
+
+    private static VillagerTrades.ITrade infinite(ItemStack price, ItemStack second, ItemStack sale, int xp) {
+        return new BasicTrade(price, second, sale, Integer.MAX_VALUE, xp, 1);
     }
 
     private static VillagerTrades.ITrade infinite(ItemStack price, ItemStack sale, int xp) {
-        return new BasicTrade(price, ItemStack.EMPTY, sale, Integer.MAX_VALUE, xp, 1);
+        return infinite(price, ItemStack.EMPTY, sale, xp);
     }
 }

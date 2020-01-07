@@ -16,8 +16,8 @@ import java.util.stream.Stream;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(DivineRPG.MODID)
 public class VillagerInterestRegistry {
-    @ObjectHolder("workshop_merchant")
-    public static PointOfInterestType workshop_merchant;
+    @ObjectHolder("iceika")
+    public static PointOfInterestType iceika;
 
     @SubscribeEvent
     public static void initPoint(final RegistryEvent.Register<PointOfInterestType> e) {
@@ -25,7 +25,7 @@ public class VillagerInterestRegistry {
         IForgeRegistry<PointOfInterestType> registry = e.getRegistry();
 
         // todo add some iceika blocks
-        registry.register(create("workshop_merchant", BlockRegistry.coalstone_furnace));
+        registry.register(create("iceika", BlockRegistry.coalstone_furnace));
     }
 
     private static PointOfInterestType create(String name, Block... blocks) {

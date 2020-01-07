@@ -230,6 +230,7 @@ public class BlockRegistry {
     @ObjectHolder("purple_candy_cane")
     public static Item purple_candy_cane;
 
+    // Todo implement
     @ObjectHolder("present_box")
     public static Block present_box;
 

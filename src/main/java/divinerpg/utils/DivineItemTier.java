@@ -67,6 +67,9 @@ public class DivineItemTier implements IItemTier {
     public static final DivineItemTier HALITE = new DivineItemTier(3, 7000, 56, 26, //(36)
             22, () -> Ingredient.fromItems(ItemRegistry.mortumGem));
 
+    public static final DivineItemTier SNOWFLAKE = new DivineItemTier(3, 1000, 12, 18,
+            10, () -> Ingredient.fromItems(ItemRegistry.snowFlake));
+
 
     private final int harvestLevel;
     private final int maxUses;

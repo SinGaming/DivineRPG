@@ -156,9 +156,9 @@ public class TeleportCrystal extends Item {
         DimensionType dim = getDim(stack);
 
         if (dim != null && pos != null) {
-            tooltip.add(new TranslationTextComponent("teleport_crystal.dim").appendText(": ")
+            tooltip.add(new TranslationTextComponent("tooltip.teleport_crystal.dim").appendText(": ")
                     .appendSibling(new StringTextComponent(dim.getRegistryName().toString()).applyTextStyle(TextFormatting.RED)));
-            tooltip.add(new TranslationTextComponent("teleport_crystal.pos").appendText(": ")
+            tooltip.add(new TranslationTextComponent("tooltip.teleport_crystal.pos").appendText(": ")
                     .appendSibling(new StringTextComponent(pos.getX() + ";" + pos.getY() + ";" + pos.getZ()).applyTextStyle(TextFormatting.GRAY)));
         }
     }

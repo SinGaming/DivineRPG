@@ -1,9 +1,11 @@
 package divinerpg.items;
 
 import divinerpg.utils.RayTraceHelper;
+import divinerpg.utils.TooltipUtil;
 import divinerpg.utils.properties.item.ExtendedItemProperties;
 import divinerpg.utils.properties.item.IBlockHit;
 import divinerpg.utils.properties.item.IHitEntity;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,7 +20,11 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class ScepterItem extends TieredItem {
 
@@ -100,5 +106,15 @@ public class ScepterItem extends TieredItem {
             world.addParticle(particle, start.x, start.y, start.z, step.x, step.y, step.z);
             start = start.add(step);
         }
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+
+        if (worldIn == null)
+            return;
+
+        TooltipUtil.uses(stack);
     }
 }

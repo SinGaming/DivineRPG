@@ -43,8 +43,9 @@ import divinerpg.entities.iceika.alicanto.Alicanto;
 import divinerpg.entities.iceika.alicanto.AlicantoRender;
 import divinerpg.entities.iceika.fractile.Fractite;
 import divinerpg.entities.iceika.fractile.FractiteRender;
-import divinerpg.entities.iceika.merchant.WorkshopMerchant;
 import divinerpg.entities.iceika.merchant.WorkshopMerchantRender;
+import divinerpg.entities.iceika.merchant.entities.WorkshopMerchant;
+import divinerpg.entities.iceika.merchant.entities.WorkshopTinkerer;
 import divinerpg.entities.mortum.basilisk.Basilisk;
 import divinerpg.entities.mortum.basilisk.BasiliskRender;
 import divinerpg.entities.mortum.deamon.DemonOfDarkness;
@@ -352,6 +353,8 @@ public class EntitiesRegistry {
     public static EntityType<Fractite> fractite;
     @ObjectHolder("workshop_merchant")
     public static EntityType<WorkshopMerchant> workshop_merchant;
+    @ObjectHolder("workshop_tinkerer")
+    public static EntityType<WorkshopTinkerer> workshop_tinkerer;
 
 
     @SubscribeEvent
@@ -459,6 +462,7 @@ public class EntitiesRegistry {
         registerImmunedToFire(registry, Alicanto::new, "alicanto", 1.2F, 1.6F);
         registerImmunedToFire(registry, Fractite::new, "fractite", 1.2F, 1.6F);
         registerImmunedToFire(registry, WorkshopMerchant::new, "workshop_merchant", 1, 2);
+        registerImmunedToFire(registry, WorkshopTinkerer::new, "workshop_tinkerer", 1, 2);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -509,6 +513,7 @@ public class EntitiesRegistry {
         registerForOneRender(SamekRender::new, Samek.class, Verek.class);
         registerForOneRender(ArcherRender::new, EnchantedArcher.class, SkythernArcher.class);
         registerForOneRender(DensosRender::new, Densos.class, Reyvor.class);
+        registerForOneRender(WorkshopMerchantRender::new, WorkshopMerchant.class, WorkshopTinkerer.class);
 
         RenderingRegistry.registerEntityRenderingHandler(MoonWolf.class, MoonWolfRender::new);
         RenderingRegistry.registerEntityRenderingHandler(HellPig.class, HellPigRender::new);
@@ -542,7 +547,6 @@ public class EntitiesRegistry {
 
         RenderingRegistry.registerEntityRenderingHandler(Alicanto.class, AlicantoRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Fractite.class, FractiteRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(WorkshopMerchant.class, WorkshopMerchantRender::new);
     }
 
     private static <T extends Entity> void registerImmunedToFire(IForgeRegistry<EntityType<?>> registry, Function<World, T> createFunc, String name, float width, float height) {

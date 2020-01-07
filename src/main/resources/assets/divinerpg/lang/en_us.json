@@ -1419,6 +1419,8 @@
   "message.version": "[New Version: %s]",
   "tooltip.uses": "%s Uses Remaining",
   "tooltip.iceika_only.effect": "Iceika Massive Buff",
+  "tooltip.teleport_crystal.dim": "Dimension",
+  "tooltip.teleport_crystal.pos": "Position",
   "tooltip.effect.flight": "Allows To Fly",
   "tooltip.harvest": "Harvest Level: +",
   "tooltip.uses.infinite": "Infinite Uses",

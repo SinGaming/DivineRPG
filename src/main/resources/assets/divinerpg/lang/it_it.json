@@ -1413,6 +1413,8 @@
   "message.ayeraco.spawn": "L'Orda di Ayeraco è arrivata!",
   "message.standard": "Grazie %s per aver scaricato e giocato &!",
   "tooltip.uses": "%s Usi Rimanenti",
+  "tooltip.teleport_crystal.dim": "Dimension",
+  "tooltip.teleport_crystal.pos": "Position",
   "tooltip.iceika_only.effect": "Iceika Massive Buff",
   "tooltip.harvest": "Livello di Raccoglimento: +",
   "tooltip.uses.infinite": "Usi Infiniti",
