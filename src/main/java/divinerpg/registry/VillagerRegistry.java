@@ -1,15 +1,11 @@
 package divinerpg.registry;
 
-import com.google.common.collect.ImmutableSet;
 import divinerpg.DivineRPG;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import divinerpg.utils.VillagerBuilder;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.villager.IVillagerType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.village.PointOfInterestType;
-import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BasicTrade;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -17,24 +13,26 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 
-import java.util.Arrays;
-import java.util.List;
-
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(DivineRPG.MODID)
 public class VillagerRegistry {
     @ObjectHolder("workshop_merchant")
     public static VillagerProfession workshop_merchant;
 
-    public static IVillagerType ICEIKA = IVillagerType.register("iceika");
+    public static IVillagerType ICEIKA;
+    public static IVillagerType ARCANA;
+
 
     @SubscribeEvent
     public static void initVillager(final RegistryEvent.Register<VillagerProfession> e) {
         IForgeRegistry<VillagerProfession> registry = e.getRegistry();
 
+        ICEIKA = VillagerBuilder.getOrCreate("iceika");
+        ARCANA = VillagerBuilder.getOrCreate("arcana");
 
-        register(registry, "workshop_merchant", VillagerInterestRegistry.workshop_merchant, ICEIKA, null,
-                Arrays.asList(
+
+        new VillagerBuilder(registry, "workshop_merchant", ICEIKA)
+                .withTrades(
                         infinite(new ItemStack(ItemRegistry.snowFlake, 6), new ItemStack(ItemRegistry.santa_cap), 5),
                         infinite(new ItemStack(ItemRegistry.snowFlake, 6), new ItemStack(ItemRegistry.santa_tunic), 5),
                         infinite(new ItemStack(ItemRegistry.snowFlake, 6), new ItemStack(ItemRegistry.santa_pants), 5),
@@ -61,44 +59,12 @@ public class VillagerRegistry {
                         infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(ItemRegistry.yellow_candy_cane, 4), 5),
                         infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(ItemRegistry.purple_candy_cane, 4), 5)
                 )
-        );
+                // todo add biome
+                .inBiomes(null)
+                .build(VillagerInterestRegistry.workshop_merchant);
     }
-
 
     private static VillagerTrades.ITrade infinite(ItemStack price, ItemStack sale, int xp) {
         return new BasicTrade(price, ItemStack.EMPTY, sale, Integer.MAX_VALUE, xp, 1);
-    }
-
-    /**
-     * Registeres villager profeccion
-     *
-     * @param registry - forge registries
-     * @param name     - name of villager
-     * @param type     - point of interest
-     * @param biomes   - list of biomes
-     * @param trades   - possible trades by levels
-     */
-    private static void register(IForgeRegistry<VillagerProfession> registry, String name, PointOfInterestType type, IVillagerType villagerType, List<Biome> biomes, List<VillagerTrades.ITrade>... trades) {
-        VillagerProfession profession = new VillagerProfession(name, type, ImmutableSet.of(), ImmutableSet.of()).setRegistryName(DivineRPG.MODID, name);
-        registry.register(profession);
-
-        if (biomes != null && !biomes.isEmpty() && villagerType != null) {
-            biomes.forEach(x -> IVillagerType.BY_BIOME.put(x, villagerType));
-        }
-
-        if (trades != null && trades.length > 0) {
-            Int2ObjectMap<VillagerTrades.ITrade[]> map = new Int2ObjectOpenHashMap<>();
-
-            for (int i = 0; i < trades.length; i++) {
-
-                List<VillagerTrades.ITrade> byLevel = trades[i];
-                if (byLevel.isEmpty())
-                    continue;
-
-                map.put(i + 1, byLevel.toArray(new VillagerTrades.ITrade[0]));
-            }
-
-            VillagerTrades.field_221239_a.put(profession, map);
-        }
     }
 }

@@ -13,7 +13,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(DivineRPG.MODID)
 public class VillagerInterestRegistry {
     @ObjectHolder("workshop_merchant")
@@ -21,6 +21,7 @@ public class VillagerInterestRegistry {
 
     @SubscribeEvent
     public static void initPoint(final RegistryEvent.Register<PointOfInterestType> e) {
+
         IForgeRegistry<PointOfInterestType> registry = e.getRegistry();
 
         // todo add some iceika blocks

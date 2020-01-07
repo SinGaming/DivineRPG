@@ -43,6 +43,8 @@ import divinerpg.entities.iceika.alicanto.Alicanto;
 import divinerpg.entities.iceika.alicanto.AlicantoRender;
 import divinerpg.entities.iceika.fractile.Fractite;
 import divinerpg.entities.iceika.fractile.FractiteRender;
+import divinerpg.entities.iceika.merchant.WorkshopMerchant;
+import divinerpg.entities.iceika.merchant.WorkshopMerchantRender;
 import divinerpg.entities.mortum.basilisk.Basilisk;
 import divinerpg.entities.mortum.basilisk.BasiliskRender;
 import divinerpg.entities.mortum.deamon.DemonOfDarkness;
@@ -348,6 +350,8 @@ public class EntitiesRegistry {
     public static EntityType<Alicanto> alicanto;
     @ObjectHolder("fractite")
     public static EntityType<Fractite> fractite;
+    @ObjectHolder("workshop_merchant")
+    public static EntityType<WorkshopMerchant> workshop_merchant;
 
 
     @SubscribeEvent
@@ -454,6 +458,7 @@ public class EntitiesRegistry {
 
         registerImmunedToFire(registry, Alicanto::new, "alicanto", 1.2F, 1.6F);
         registerImmunedToFire(registry, Fractite::new, "fractite", 1.2F, 1.6F);
+        registerImmunedToFire(registry, WorkshopMerchant::new, "workshop_merchant", 1, 2);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -537,6 +542,7 @@ public class EntitiesRegistry {
 
         RenderingRegistry.registerEntityRenderingHandler(Alicanto.class, AlicantoRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Fractite.class, FractiteRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(WorkshopMerchant.class, WorkshopMerchantRender::new);
     }
 
     private static <T extends Entity> void registerImmunedToFire(IForgeRegistry<EntityType<?>> registry, Function<World, T> createFunc, String name, float width, float height) {
