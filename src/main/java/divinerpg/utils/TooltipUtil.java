@@ -61,4 +61,41 @@ public class TooltipUtil {
 
         PotionUtils.addPotionTooltip(copy, tooltip, 1);
     }
+
+
+    //////////////////////////////////
+    // Armor section
+    /////////////////////////////////
+
+    public static ITextComponent armorSpeed(double speed) {
+        return i18n("tooltip.effect.speed", speed);
+    }
+
+    public static ITextComponent noFall() {
+        return i18n("tooltip.effect.no_fall");
+    }
+
+    public static ITextComponent fireProtect() {
+        return i18n("tooltip.effect.fire.protection");
+    }
+
+    public static ITextComponent jumpIncrease(double hight) {
+        return i18n("tooltip.effect.jump.increase", hight);
+    }
+
+    public static ITextComponent addMeleeDamage(double i) {
+        return i18n("tooltip.effect.melee.increase", i);
+    }
+
+    public static ITextComponent exposionProtection() {
+        return i18n("tooltip.effect.explosion.protection");
+    }
+
+    public static ITextComponent noHunger() {
+        return i18n("tooltip.effect.no_hunger");
+    }
+
+    public static ITextComponent meleeProtection(int percantages) {
+        return i18n("tooltip.effect.melee.protection", percantages);
+    }
 }

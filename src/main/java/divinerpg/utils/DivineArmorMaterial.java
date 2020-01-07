@@ -26,21 +26,23 @@ public class DivineArmorMaterial implements IArmorMaterial {
             SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, () -> Ingredient.EMPTY, TooltipUtil.i18n("tooltip.effect.wither.protection"));
 
     public static final DivineArmorMaterial SKELEMAN = new DivineArmorMaterial("skeleman", -1, 7, 22,
-            SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, () -> Ingredient.EMPTY, TooltipUtil.i18n("tooltip.effect.no_hunger"));
+            SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, () -> Ingredient.EMPTY,
+            TooltipUtil.noHunger());
 
     public static final DivineArmorMaterial HALITE = new DivineArmorMaterial("halite", -1, 40, 12,
-            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 20, () -> Ingredient.EMPTY, TooltipUtil.i18n("tooltip.effect.melee.increase", 6));
+            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 20, () -> Ingredient.EMPTY,
+            TooltipUtil.addMeleeDamage(6));
 
     public static final DivineArmorMaterial DIVINE = new DivineArmorMaterial("divine", 11500, 37, 10,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 15, () -> Ingredient.fromItems(ItemRegistry.divineStone),
-            TooltipUtil.i18n("tooltip.effect.melee.increase", 2),
-            TooltipUtil.i18n("tooltip.effect.jump.increase", 2),
-            TooltipUtil.i18n("tooltip.effect.no_fall"));
+            TooltipUtil.addMeleeDamage(2),
+            TooltipUtil.jumpIncrease(2),
+            TooltipUtil.noFall());
 
     public static final DivineArmorMaterial BEDROCK = new DivineArmorMaterial("bedrock", 10000, 37, 10,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 15, () -> Ingredient.fromItems(ItemRegistry.bedrock_chunk),
-            TooltipUtil.i18n("tooltip.effect.fire.protection"),
-            TooltipUtil.i18n("tooltip.effect.explosion.protection"));
+            TooltipUtil.fireProtect(),
+            TooltipUtil.exposionProtection());
 
     public static final DivineArmorMaterial REALMIT = new DivineArmorMaterial("realmite", 5000, 24, 10,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 10, () -> Ingredient.fromItems(ItemRegistry.realmiteIngot));
@@ -52,7 +54,7 @@ public class DivineArmorMaterial implements IArmorMaterial {
 
     public static final DivineArmorMaterial ELITE_REALMIT = new DivineArmorMaterial("elite_realmite", -1, 29, 10,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 10, () -> Ingredient.EMPTY,
-            TooltipUtil.i18n("tooltip.effect.no_fall"));
+            TooltipUtil.noFall());
 
     public static final DivineArmorMaterial ARLEMITE = new DivineArmorMaterial("arlemite", -1, 24, 22,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 10, () -> Ingredient.fromItems(ItemRegistry.arlemiteIngot),
@@ -64,15 +66,15 @@ public class DivineArmorMaterial implements IArmorMaterial {
 
     public static final DivineArmorMaterial INFERNO = new DivineArmorMaterial("inferno", 6500, 35, 10,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 15, () -> Ingredient.EMPTY,
-            TooltipUtil.i18n("tooltip.effect.fire.protection"));
+            TooltipUtil.fireProtect());
 
     public static final DivineArmorMaterial SHADOW = new DivineArmorMaterial("shadow", -1, 37, 10,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 15, () -> Ingredient.EMPTY,
-            TooltipUtil.i18n("tooltip.effect.speed", 2.5));
+            TooltipUtil.armorSpeed(2.5));
 
     public static final DivineArmorMaterial NETHERITE = new DivineArmorMaterial("netherite", 5000, 34, 10,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 14, () -> Ingredient.fromItems(ItemRegistry.netheriteIngot),
-            TooltipUtil.i18n("tooltip.effect.fire.protection"));
+            TooltipUtil.fireProtect());
 
     public static final DivineArmorMaterial JUNGLE = new DivineArmorMaterial("jungle", 5000, 27, 10,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 10, () -> Ingredient.fromItems(ItemRegistry.jungleStone),
@@ -101,12 +103,24 @@ public class DivineArmorMaterial implements IArmorMaterial {
 
     public static final DivineArmorMaterial SKYTHERN = new DivineArmorMaterial("skythern", -1, 36, 10,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 18, () -> Ingredient.EMPTY,
-            TooltipUtil.i18n("tooltip.effect.jump.increase", 5),
-            TooltipUtil.i18n("tooltip.effect.no_fall"));
+            TooltipUtil.jumpIncrease(5),
+            TooltipUtil.noFall());
 
     public static final DivineArmorMaterial MORTUM = new DivineArmorMaterial("mortum", -1, 38, 10,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 19, () -> Ingredient.EMPTY, TooltipUtil.i18n("tooltip.effect.night_vision"));
 
+    public static final DivineArmorMaterial ANGELIC = new DivineArmorMaterial("angelic", -1, 15, 10,
+            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0, () -> Ingredient.EMPTY,
+            TooltipUtil.noFall(),
+            TooltipUtil.i18n("tooltip.effect.flight"));
+
+
+    public static final DivineArmorMaterial SANTA = new DivineArmorMaterial("santa", -1, 7, 10,
+            SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, () -> Ingredient.EMPTY,
+            TooltipUtil.armorSpeed(2.5),
+            TooltipUtil.addMeleeDamage(6),
+            TooltipUtil.noHunger(),
+            TooltipUtil.meleeProtection(80));
 
     private final int[] MAX_DAMAGE_ARRAY;
     private final List<ITextComponent> keyes = new ArrayList<>();
@@ -177,13 +191,13 @@ public class DivineArmorMaterial implements IArmorMaterial {
     public static DivineArmorMaterial forRupee(String color) {
         return new DivineArmorMaterial(color + "rupee", -1, 25, 15,
                 SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2F, () -> Ingredient.fromItems(ItemRegistry.rupeeIngot),
-                TooltipUtil.i18n("tooltip.effect.melee.protection", 85));
+                TooltipUtil.meleeProtection(85));
     }
 
     public static DivineArmorMaterial forEnder(String color) {
         return new DivineArmorMaterial(color + "ender", 7500, 27, 15,
                 SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2F, () -> Ingredient.fromItems(ItemRegistry.enderStone),
-                TooltipUtil.i18n("tooltip.effect.explosion.protection"));
+                TooltipUtil.exposionProtection());
     }
 
     public int getDurability(EquipmentSlotType slotIn) {

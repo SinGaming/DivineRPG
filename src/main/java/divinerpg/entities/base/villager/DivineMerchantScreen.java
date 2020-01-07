@@ -30,7 +30,7 @@ public class DivineMerchantScreen extends ContainerScreen<MerchantContainer> {
     private int field_214139_n;
     private boolean field_214140_o;
 
-    public DivineMerchantScreen(DivineMerchantContainer container, PlayerInventory inventory, ITextComponent name) {
+    public DivineMerchantScreen(MerchantContainer container, PlayerInventory inventory, ITextComponent name) {
         super(container, inventory, name);
         this.xSize = 276;
     }

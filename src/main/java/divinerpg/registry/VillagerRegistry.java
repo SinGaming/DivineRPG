@@ -36,7 +36,7 @@ public class VillagerRegistry {
                         infinite(new ItemStack(ItemRegistry.snowFlake, 6), new ItemStack(ItemRegistry.santa_cap), 5),
                         infinite(new ItemStack(ItemRegistry.snowFlake, 6), new ItemStack(ItemRegistry.santa_tunic), 5),
                         infinite(new ItemStack(ItemRegistry.snowFlake, 6), new ItemStack(ItemRegistry.santa_pants), 5),
-                        infinite(new ItemStack(ItemRegistry.snowFlake, 3), new ItemStack(ItemRegistry.santa_boots, 2), 5),
+                        infinite(new ItemStack(ItemRegistry.snowFlake, 3), new ItemStack(ItemRegistry.santa_boots), 5),
 
                         infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(ItemRegistry.egg_nog, 2), 5),
                         infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(ItemRegistry.chocolate_log, 5), 5),
@@ -45,22 +45,21 @@ public class VillagerRegistry {
 
                         infinite(new ItemStack(ItemRegistry.snowFlake, 20), new ItemStack(ItemRegistry.icicle_bane), 20),
 
-                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(ItemRegistry.red_christmas_lights, 16), 5),
-                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(ItemRegistry.green_christmas_lights, 16), 5),
-                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(ItemRegistry.blue_christmas_lights, 16), 5),
-                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(ItemRegistry.yellow_christmas_lights, 16), 5),
-                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(ItemRegistry.purple_christmas_lights, 16), 5),
+                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(BlockRegistry.red_christmas_lights, 16), 5),
+                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(BlockRegistry.green_christmas_lights, 16), 5),
+                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(BlockRegistry.blue_christmas_lights, 16), 5),
+                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(BlockRegistry.yellow_christmas_lights, 16), 5),
+                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(BlockRegistry.purple_christmas_lights, 16), 5),
 
-                        infinite(new ItemStack(ItemRegistry.iceStone, 9), new ItemStack(ItemRegistry.present_box), 5),
+                        infinite(new ItemStack(ItemRegistry.iceStone, 9), new ItemStack(BlockRegistry.present_box), 5),
 
-                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(ItemRegistry.red_candy_cane, 4), 5),
-                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(ItemRegistry.green_candy_cane, 4), 5),
-                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(ItemRegistry.blue_candy_cane, 4), 5),
-                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(ItemRegistry.yellow_candy_cane, 4), 5),
-                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(ItemRegistry.purple_candy_cane, 4), 5)
+                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(BlockRegistry.red_candy_cane, 4), 5),
+                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(BlockRegistry.green_candy_cane, 4), 5),
+                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(BlockRegistry.blue_candy_cane, 4), 5),
+                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(BlockRegistry.yellow_candy_cane, 4), 5),
+                        infinite(new ItemStack(ItemRegistry.iceStone, 3), new ItemStack(BlockRegistry.purple_candy_cane, 4), 5)
                 )
                 // todo add biome
-                .inBiomes(null)
                 .build(VillagerInterestRegistry.workshop_merchant);
     }
 

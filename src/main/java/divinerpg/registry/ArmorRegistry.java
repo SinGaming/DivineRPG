@@ -194,7 +194,23 @@ public class ArmorRegistry {
                 .addAbility(TickEvent.PlayerTickEvent.class, event -> event.player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 20, 2)))
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "mortum_set")));
 
+        // angelic
+        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.ANGELIC), ArmorEvents::onCanFlyChanged)
+                .addAbility(TickEvent.PlayerTickEvent.class, event -> {
+                    ArmorEvents.onCanFlyChanged(event.player, true);
+                    ArmorEvents.disableFallDamage(event);
+                })
+                .setRegistryName(new ResourceLocation(DivineRPG.MODID, "angelic_set")));
 
+        // todo implement abilities
+        registry.register(new PoweredArmorSet(
+                new ArmorSet().withVariant(
+                        ItemRegistry.santa_cap,
+                        ItemRegistry.santa_tunic,
+                        ItemRegistry.santa_pants,
+                        ItemRegistry.santa_boots, null),
+                (player, isEquipped) -> ArmorEvents.speedUpPlayer(player, -1, true))
+                .setRegistryName(new ResourceLocation(DivineRPG.MODID, "santa_set")));
     }
 
     private static IArmorSet createFromName(DivineArmorMaterial material) {

@@ -1418,6 +1418,8 @@
   "message.update": "A DivineRPG update is avaliable.",
   "message.version": "[New Version: %s]",
   "tooltip.uses": "%s Uses Remaining",
+  "tooltip.iceika_only.effect": "Iceika Massive Buff",
+  "tooltip.effect.flight": "Allows To Fly",
   "tooltip.harvest": "Harvest Level: +",
   "tooltip.uses.infinite": "Infinite Uses",
   "tooltip.arcana": "Consumes %s Arcana",

@@ -361,29 +361,6 @@ public class ItemRegistry {
     public static Item fruit_cake;
     @ObjectHolder("icicle_bane")
     public static SwordItem icicle_bane;
-    @ObjectHolder("red_christmas_lights")
-    public static Item red_christmas_lights;
-    @ObjectHolder("green_christmas_lights")
-    public static Item green_christmas_lights;
-    @ObjectHolder("blue_christmas_lights")
-    public static Item blue_christmas_lights;
-    @ObjectHolder("yellow_christmas_lights")
-    public static Item yellow_christmas_lights;
-    @ObjectHolder("purple_christmas_lights")
-    public static Item purple_christmas_lights;
-    @ObjectHolder("present_box")
-    public static Item present_box;
-
-    @ObjectHolder("red_candy_cane")
-    public static Item red_candy_cane;
-    @ObjectHolder("green_candy_cane")
-    public static Item green_candy_cane;
-    @ObjectHolder("blue_candy_cane")
-    public static Item blue_candy_cane;
-    @ObjectHolder("yellow_candy_cane")
-    public static Item yellow_candy_cane;
-    @ObjectHolder("purple_candy_cane")
-    public static Item purple_candy_cane;
 
 
     @SubscribeEvent
@@ -404,76 +381,23 @@ public class ItemRegistry {
 //        registry.register(new BlockItem(foodGroup).setRegistryName(DivineRPG.MODID, "sky_plant_seeds"));
 
         // Food
-        registry.register(
-                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
-                        .food(new Food.Builder().meat().hunger(2).saturation(3).build())
-                ).setRegistryName(DivineRPG.MODID, "bacon")
-        );
-        registry.register(
-                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
-                        .food(new Food.Builder().hunger(1).saturation(0.3F).build())
-                ).setRegistryName(DivineRPG.MODID, "peppermints")
-        );
-        registry.register(
-                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
-                        .food(new Food.Builder().hunger(4).saturation(1).build())
-                ).setRegistryName(DivineRPG.MODID, "chocolate_log")
-        );
-        registry.register(
-                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
-                        .food(new Food.Builder().hunger(2).saturation(0.3F).build())
-                ).setRegistryName(DivineRPG.MODID, "snow_cones")
-        );
-        registry.register(
-                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
-                        .food(new Food.Builder().hunger(16).saturation(2).build())
-                ).setRegistryName(DivineRPG.MODID, "fruit_cake")
-        );
-        registry.register(
-                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
-                        .food(new Food.Builder().hunger(4).saturation(1).build())
-                ).setRegistryName(DivineRPG.MODID, "winterberry")
-        );
-        registry.register(
-                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
-                        .food(new Food.Builder().hunger(5).saturation(7).build())
-                ).setRegistryName(DivineRPG.MODID, "hot_pumpkin_pie")
-        );
-        registry.register(
-                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
-                        .food(new Food.Builder().hunger(4).saturation(0.5F).build())
-                ).setRegistryName(DivineRPG.MODID, "boiled_egg")
-        );
-        registry.register(
-                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
-                        .food(new Food.Builder().hunger(2).saturation(0.2F).build())
-                ).setRegistryName(DivineRPG.MODID, "cheese")
-        );
-        registry.register(
-                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
-                        .food(new Food.Builder().hunger(1).saturation(0.1F).build())
-                ).setRegistryName(DivineRPG.MODID, "white_mushroom")
-        );
-        registry.register(
-                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
-                        .food(new Food.Builder().hunger(10).saturation(10).build())
-                ).setRegistryName(DivineRPG.MODID, "advanced_mushroom_stew")
-        );
-        registry.register(
-                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
-                        .food(new Food.Builder().hunger(20).saturation(20).build())
-                ).setRegistryName(DivineRPG.MODID, "chicken_dinner")
-        );
-        registry.register(
-                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
-                        .food(new Food.Builder().hunger(4).saturation(0.3F).build())
-                ).setRegistryName(DivineRPG.MODID, "tomato")
-        );
-        registry.register(
-                new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
-                        .food(new Food.Builder().hunger(16).saturation(0.3F).build())
-                ).setRegistryName(DivineRPG.MODID, "donut")
-        );
+        registry.register(new ItemEggNog(DivineRPGTabs.DivineFood).setRegistryName(DivineRPG.MODID, "egg_nog"));
+        registerFood(registry, "bacon", 2, 3, true);
+        registerFood(registry, "peppermints", 1, 0.3F, false);
+        registerFood(registry, "chocolate_log", 4, 1, false);
+        registerFood(registry, "snow_cones", 2, 0.3F, false);
+        registerFood(registry, "fruit_cake", 16, 1, false);
+        registerFood(registry, "winterberry", 4, 1, false);
+        registerFood(registry, "hot_pumpkin_pie", 5, 7, false);
+        registerFood(registry, "boiled_egg", 4, 0.5F, false);
+        registerFood(registry, "cheese", 2, 0.2F, false);
+        registerFood(registry, "white_mushroom", 1, 0.1F, false);
+        registerFood(registry, "advanced_mushroom_stew", 10, 10, false);
+        registerFood(registry, "chicken_dinner", 20, 20, false);
+        registerFood(registry, "tomato", 4, 0.3F, false);
+        registerFood(registry, "donut", 16, 0.3F, false);
+
+
         registry.register(
                 new Item(new Item.Properties().group(DivineRPGTabs.DivineFood)
                         .food(new Food.Builder().hunger(5).saturation(2).fastToEat().meat().build())
@@ -578,6 +502,13 @@ public class ItemRegistry {
         registry.register(new SwordItem(DivineItemTier.SHADOWBAR, 12, -2.4F, new Item.Properties().group(DivineRPGTabs.DivineSwords)
                 .maxDamage(100)).setRegistryName(DivineRPG.MODID, "sandslash"));
 
+        registry.register(new SpecialSwordItem(DivineItemTier.UNREPAIRABLE, 14, -2.4F,
+                (ExtendedItemProperties) new ExtendedItemProperties().onHit((world, player, victim) -> {
+                    if (victim instanceof LivingEntity) {
+                        ((LivingEntity) victim).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 50));
+                    }
+                }).group(DivineRPGTabs.DivineSwords).maxDamage(-1)).setRegistryName(DivineRPG.MODID, "icicle_bane"));
+
 
         // Axes
         registry.register(new AxeItem(DivineItemTier.CORRUPTED, 1, -2.8F, new Item.Properties().group(DivineRPGTabs.DivineTools))
@@ -640,6 +571,8 @@ public class ItemRegistry {
         registerArmor(registry, DivineArmorMaterial.APALACHIA);
         registerArmor(registry, DivineArmorMaterial.SKYTHERN);
         registerArmor(registry, DivineArmorMaterial.MORTUM);
+        registerArmor(registry, DivineArmorMaterial.ANGELIC);
+        registerArmor(registry, DivineArmorMaterial.SANTA, "santa_cap", "santa_tunic", "santa_pants", "santa_boots");
 
 
         // Bows
@@ -732,7 +665,7 @@ public class ItemRegistry {
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "jungle_shards"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "molten_shards"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "terran_shards"));
-        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "snow_flake"));
+        registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "snowflake"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "aquatic_pellets"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "cyclops_eye_shards"));
         registry.register(new Item(itemTabProperty).setRegistryName(DivineRPG.MODID, "bedrock_chunk"));
@@ -1019,6 +952,19 @@ public class ItemRegistry {
         return ForgeRegistries.ITEMS.getValue(key);
     }
 
+    private static void registerFood(IForgeRegistry<Item> registry, String name, int hunger, float saturation, boolean isMeat) {
+        Food.Builder builder = new Food.Builder().hunger(hunger).saturation(saturation);
+        if (isMeat) {
+            builder.meat();
+        }
+
+        registry.register(
+                new Item(new Item.Properties().food(builder.build()).group(DivineRPGTabs.DivineFood))
+                        .setRegistryName(DivineRPG.MODID, name)
+        );
+    }
+
+
     private static void registerColors(IForgeRegistry<Item> registry, Function<String, Item> createFunc, String... colors) {
         for (String color : colors) {
             Item item = createFunc.apply(color);
@@ -1031,10 +977,14 @@ public class ItemRegistry {
     }
 
     private static void registerArmor(IForgeRegistry<Item> registry, IArmorMaterial material, String name) {
+        registerArmor(registry, material, name + "_helmet", name + "_chestplate", name + "_leggings", name + "_boots");
+    }
+
+    private static void registerArmor(IForgeRegistry<Item> registry, IArmorMaterial material, String... names) {
         Item.Properties armorGroup = new Item.Properties().group(DivineRPGTabs.DivineArmor);
-        registry.register(new ArmorItem(material, EquipmentSlotType.HEAD, armorGroup).setRegistryName(DivineRPG.MODID, name + "_helmet"));
-        registry.register(new ArmorItem(material, EquipmentSlotType.CHEST, armorGroup).setRegistryName(DivineRPG.MODID, name + "_chestplate"));
-        registry.register(new ArmorItem(material, EquipmentSlotType.LEGS, armorGroup).setRegistryName(DivineRPG.MODID, name + "_leggings"));
-        registry.register(new ArmorItem(material, EquipmentSlotType.FEET, armorGroup).setRegistryName(DivineRPG.MODID, name + "_boots"));
+        registry.register(new ArmorItem(material, EquipmentSlotType.HEAD, armorGroup).setRegistryName(DivineRPG.MODID, names[0]));
+        registry.register(new ArmorItem(material, EquipmentSlotType.CHEST, armorGroup).setRegistryName(DivineRPG.MODID, names[1]));
+        registry.register(new ArmorItem(material, EquipmentSlotType.LEGS, armorGroup).setRegistryName(DivineRPG.MODID, names[2]));
+        registry.register(new ArmorItem(material, EquipmentSlotType.FEET, armorGroup).setRegistryName(DivineRPG.MODID, names[3]));
     }
 }

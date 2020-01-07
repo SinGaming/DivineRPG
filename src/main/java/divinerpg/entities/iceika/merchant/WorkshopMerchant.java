@@ -33,7 +33,7 @@ public class WorkshopMerchant extends DivineVillager {
     @Override
     public boolean processInteract(PlayerEntity player, Hand hand) {
         boolean result = super.processInteract(player, hand);
-        if (result) {
+        if (result && !world.isRemote()) {
             sendRandomMessage(player);
         }
         return result;

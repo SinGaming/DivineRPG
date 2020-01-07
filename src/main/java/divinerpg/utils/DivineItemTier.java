@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 
 public class DivineItemTier implements IItemTier {
     public static final DivineItemTier UNREPAIRABLE = new DivineItemTier(3, 1, 1, 0,
-            15, Ingredient::fromItems);
+            15, () -> Ingredient.EMPTY);
 
     public static final DivineItemTier REALMIT = new DivineItemTier(3, 4000, 12.0F, 3,
             10, () -> Ingredient.fromItems(ItemRegistry.realmiteIngot));
@@ -52,7 +52,6 @@ public class DivineItemTier implements IItemTier {
             15, () -> Ingredient.fromItems(ItemRegistry.purpleBlaze));
     public static final DivineItemTier ENDER = new DivineItemTier(3, -1, 7, 16,
             16, () -> Ingredient.fromItems(ItemRegistry.enderStone));
-
 
 
     public static final DivineItemTier EDEN = new DivineItemTier(3, 6000, 20, 12, //(22)

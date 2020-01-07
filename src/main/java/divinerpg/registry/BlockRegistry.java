@@ -2,10 +2,7 @@ package divinerpg.registry;
 
 import divinerpg.DivineRPG;
 import divinerpg.blocks.base.*;
-import divinerpg.blocks.twilight.AyeracoBeamBlock;
-import divinerpg.blocks.twilight.AyeracoSpawnerBlock;
-import divinerpg.blocks.twilight.DivinePortalBlock;
-import divinerpg.blocks.twilight.StatueBlock;
+import divinerpg.blocks.twilight.*;
 import divinerpg.entities.bosses.ayeraco.manager.AyeracoManager;
 import divinerpg.tile.statue.ItemStackStatueRender;
 import divinerpg.tile.statue.StatueConstants;
@@ -37,6 +34,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -209,6 +207,31 @@ public class BlockRegistry {
     public static Block greenlight_furnace;
     @ObjectHolder("moonlight_furnace")
     public static Block moonlight_furnace;
+
+    @ObjectHolder("red_christmas_lights")
+    public static Block red_christmas_lights;
+    @ObjectHolder("green_christmas_lights")
+    public static Block green_christmas_lights;
+    @ObjectHolder("blue_christmas_lights")
+    public static Block blue_christmas_lights;
+    @ObjectHolder("yellow_christmas_lights")
+    public static Block yellow_christmas_lights;
+    @ObjectHolder("purple_christmas_lights")
+    public static Block purple_christmas_lights;
+
+    @ObjectHolder("red_candy_cane")
+    public static Item red_candy_cane;
+    @ObjectHolder("green_candy_cane")
+    public static Item green_candy_cane;
+    @ObjectHolder("blue_candy_cane")
+    public static Item blue_candy_cane;
+    @ObjectHolder("yellow_candy_cane")
+    public static Item yellow_candy_cane;
+    @ObjectHolder("purple_candy_cane")
+    public static Item purple_candy_cane;
+
+    @ObjectHolder("present_box")
+    public static Block present_box;
 
 
 
@@ -491,6 +514,14 @@ public class BlockRegistry {
         registerBlock(new DivineFurnace(MaterialColor.GREEN, 0.46F, false), "greenlight_furnace", blockTabProperty);
         registerBlock(new DivineFurnace(MaterialColor.PURPLE, 0.3F, false), "moonlight_furnace", blockTabProperty);
 
+
+        List<String> xmasColors = Arrays.asList("red", "green", "blue", "yellow", "purple");
+
+        xmasColors.forEach(x -> {
+            registerBlock(new XmasLight(), x + "_christmas_lights", blockTabProperty);
+            registerBlock(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(1).harvestTool(ToolType.PICKAXE)),
+                    x + "_candy_cane", blockTabProperty);
+        });
 
         ///////////////////////
         // TODO Arcana

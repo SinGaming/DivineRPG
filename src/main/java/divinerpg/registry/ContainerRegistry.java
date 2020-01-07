@@ -23,7 +23,7 @@ public class ContainerRegistry {
     @ObjectHolder("infinite_furnace")
     public static ContainerType<? extends AbstractFurnaceContainer> infinite_furnace;
     @ObjectHolder("divine_villager")
-    public static ContainerType<DivineMerchantContainer> divine_villager;
+    public static ContainerType<? extends DivineMerchantContainer> divine_villager;
 
     @SubscribeEvent
     public static void register(final RegistryEvent.Register<ContainerType<?>> e) {
