@@ -10,8 +10,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -220,12 +218,10 @@ public class DivineArmorMaterial implements IArmorMaterial {
         return this.repairMaterial.getValue();
     }
 
-    @OnlyIn(Dist.CLIENT)
     public String getName() {
         return this.name.toString();
     }
 
-    @OnlyIn(Dist.CLIENT)
     public void addTooltip(List<ITextComponent> tooltip) {
         if (!keyes.isEmpty()) {
             tooltip.add(TooltipUtil.i18n("tooltip.fullset"));

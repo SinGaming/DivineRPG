@@ -9,8 +9,6 @@ import divinerpg.tile.furnace.DivineFurnaceContainerScreen;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.inventory.container.AbstractFurnaceContainer;
 import net.minecraft.inventory.container.ContainerType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -33,7 +31,6 @@ public class ContainerRegistry {
         registry.register(new ContainerType<>(new DivineContainerProviderFactory()).setRegistryName(DivineRPG.MODID, "divine_villager"));
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static void registerGUI() {
         ScreenManager.registerFactory(infinite_furnace, DivineFurnaceContainerScreen::new);
         ScreenManager.registerFactory(divine_villager, DivineMerchantScreen::new);

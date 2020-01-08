@@ -6,8 +6,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.UUID;
@@ -20,7 +18,6 @@ public class EquipmentChangedMessage implements IMessage {
 
     }
 
-    @OnlyIn(Dist.CLIENT)
     public EquipmentChangedMessage(UUID id) {
         this.id = id;
     }
@@ -51,7 +48,7 @@ public class EquipmentChangedMessage implements IMessage {
             PlayerEntity player = world.getPlayerByUuid(id);
             if (player != null) {
                 // find his powers ability record
-                ArmorObserver observer = FullArmorEventHandler.playerMap.get(id);
+                ArmorObserver observer = FullArmorEventHandler.getPlayerMap().get(id);
                 if (observer != null) {
                     // request update
                     observer.Update(player);

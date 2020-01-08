@@ -45,7 +45,7 @@ public class DivineAPI {
         if (id == null || !(entity instanceof PlayerEntity))
             return false;
 
-        ArmorObserver observer = FullArmorEventHandler.playerMap.get(entity.getUniqueID());
+        ArmorObserver observer = FullArmorEventHandler.getPlayerMap().get(entity.getUniqueID());
         if (observer == null)
             return false;
 

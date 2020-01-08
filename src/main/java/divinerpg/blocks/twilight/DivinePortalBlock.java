@@ -24,8 +24,6 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Random;
 import java.util.function.Supplier;
@@ -104,7 +102,6 @@ public class DivinePortalBlock extends Block {
      * will always be called regardless
      * of whether the block can receive random update ticks
      */
-    @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         double d0 = (float) pos.getX() + rand.nextFloat();
         double d1 = (float) pos.getY() + 0.8F;

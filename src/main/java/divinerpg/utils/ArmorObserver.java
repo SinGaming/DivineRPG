@@ -48,8 +48,7 @@ public class ArmorObserver {
         if (!checkAndStore(e.inventory))
             return;
 
-        if (e.getEntityWorld().isRemote())
-            DivineRPG.CHANNEL.sendToServer(new EquipmentChangedMessage(e.getUniqueID()));
+        boolean wasChanged = false;
 
         for (IPoweredArmorSet armorSet : allPossible) {
             IsEquippedEvent event = new IsEquippedEvent(e, armorSet);
@@ -60,6 +59,8 @@ public class ArmorObserver {
             // status wasn't changed
             if (isActive == event.isEquipped())
                 continue;
+
+            wasChanged = true;
 
             if (event.isEquipped()) {
                 current.add(armorSet);
@@ -73,6 +74,10 @@ public class ArmorObserver {
             if (equippedHandler != null)
                 equippedHandler.onEquppedChanged(e, event.isEquipped());
         }
+
+        // send message to server only if changes was detected
+        if (e.getEntityWorld().isRemote() && wasChanged)
+            DivineRPG.CHANNEL.sendToServer(new EquipmentChangedMessage(e.getUniqueID()));
     }
 
     /**
@@ -116,7 +121,6 @@ public class ArmorObserver {
             stored.put("ring", ItemStackHelper.saveAllItems(new CompoundNBT(), ring));
         }
 
-
         return changed;
     }
 
@@ -145,9 +149,14 @@ public class ArmorObserver {
      * @return - equalituy status
      */
     private boolean stacksEquals(List<ItemStack> fromTag, List<ItemStack> right) {
+        // hack ItemStackHelper.saveAllItems saves empty array as ITemStack[1] with AIR
+        if (right.isEmpty()) {
+            return fromTag.isEmpty() || fromTag.stream().allMatch(ItemStack::isEmpty);
+        }
 
-        if (fromTag.size() != right.size())
+        if (fromTag.size() != right.size()) {
             return false;
+        }
 
         for (int i = fromTag.size() - 1; i >= 0; i--) {
             ItemStack x = fromTag.get(i);

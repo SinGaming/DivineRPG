@@ -11,8 +11,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.Explosion;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -132,7 +130,6 @@ public class Powers {
         return this;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public void addTooltip(List<ITextComponent> tooltip) {
         if (fire > 0) {
             tooltip.add(new TranslationTextComponent("tooltip.effect.burns", fire));

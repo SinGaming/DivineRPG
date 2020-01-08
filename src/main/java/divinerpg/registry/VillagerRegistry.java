@@ -110,11 +110,13 @@ public class VillagerRegistry {
                 .build(VillagerInterestRegistry.overworld);
     }
 
-    private static VillagerTrades.ITrade infinite(ItemStack price, ItemStack second, ItemStack sale, int xp) {
-        return new BasicTrade(price, second, sale, Integer.MAX_VALUE, xp, 1);
-    }
-
     private static VillagerTrades.ITrade infinite(ItemStack price, ItemStack sale, int xp) {
         return infinite(price, ItemStack.EMPTY, sale, xp);
     }
+
+    private static VillagerTrades.ITrade infinite(ItemStack price, ItemStack second, ItemStack sale, int xp) {
+        // priceMult makes recepies a little bit cheaper for regular customers
+        return new BasicTrade(price, second, sale, Integer.MAX_VALUE, xp, 0.05F);
+    }
+
 }

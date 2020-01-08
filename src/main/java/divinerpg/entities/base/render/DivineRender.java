@@ -10,9 +10,12 @@ import net.minecraft.client.renderer.entity.model.IHasArm;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
+@OnlyIn(Dist.CLIENT)
 public class DivineRender<T extends MobEntity, M extends EntityModel<T>> extends MobRenderer<T, M> {
     private final ResourceLocation location;
     private final Float scale;

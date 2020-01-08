@@ -2,6 +2,8 @@ package divinerpg.utils;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -16,18 +18,17 @@ public class ReflectionHelper {
     /**
      * Gets field value from storage class
      *
-     * @param storage   - storage object
-     * @param fieldName - field name
-     * @param clazz     - field class
-     * @param <T>       - type of field
+     * @param storage     - storage object. Pass null to static classes
+     * @param actualClazz - IF you know actual class where field lives
+     * @param fieldName   - field name
+     * @param clazz       - field class
      * @return field value
      */
-    public static <T> T getFieldValue(Object storage, String fieldName, Class<T> clazz) {
-
+    public static <T> T getFieldValue(@Nullable Object storage, @Nonnull Class actualClazz, String fieldName, Class<T> clazz) {
         T result = null;
 
         try {
-            Field declaredField = find(storage.getClass(), fieldName);
+            Field declaredField = find(actualClazz, fieldName);
 
             if (declaredField.getType().equals(clazz)) {
                 result = (T) declaredField.get(storage);
@@ -37,6 +38,19 @@ public class ReflectionHelper {
         }
 
         return result;
+    }
+
+    /**
+     * Gets field value from storage class
+     *
+     * @param storage   - storage object
+     * @param fieldName - field name
+     * @param clazz     - field class
+     * @param <T>       - type of field
+     * @return field value
+     */
+    public static <T> T getFieldValue(Object storage, String fieldName, Class<T> clazz) {
+        return getFieldValue(storage, storage.getClass(), fieldName, clazz);
     }
 
     /**

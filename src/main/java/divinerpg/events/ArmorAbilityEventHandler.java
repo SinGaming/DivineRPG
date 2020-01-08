@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.Mod;
 public class ArmorAbilityEventHandler {
 
     private static <T extends Event> void handleForAll(T event) {
-        FullArmorEventHandler.playerMap.values().forEach(x -> x.Handle(event));
+        FullArmorEventHandler.getPlayerMap().values().forEach(x -> x.Handle(event));
     }
 
     @SubscribeEvent

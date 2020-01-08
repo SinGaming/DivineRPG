@@ -50,9 +50,7 @@ public class ArmorEvents {
     public static void onCanFlyChanged(PlayerEntity player, boolean canFly) {
         // in creative mode we do not need any checks
         if (player.isCreative()
-                || canFly == player.abilities.allowFlying
-                // Checking only on server
-                || isRemote(player)) {
+                || canFly == player.abilities.allowFlying) {
             return;
         }
 
@@ -61,7 +59,8 @@ public class ArmorEvents {
             player.abilities.isFlying = false;
         }
 
-        player.sendPlayerAbilities();
+        if (!player.world.isRemote())
+            player.sendPlayerAbilities();
     }
 
     /**

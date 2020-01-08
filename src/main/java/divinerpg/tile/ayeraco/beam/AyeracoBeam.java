@@ -5,8 +5,6 @@ import divinerpg.tile.base.DivineTileEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.BossInfo;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class AyeracoBeam extends DivineTileEntity {
     private final static String key = "BeamColor";
@@ -55,7 +53,6 @@ public class AyeracoBeam extends DivineTileEntity {
         return color;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public float getScale() {
         int ticks = (int) (this.world.getGameTime() - this.time);
         this.time = this.world.getGameTime();

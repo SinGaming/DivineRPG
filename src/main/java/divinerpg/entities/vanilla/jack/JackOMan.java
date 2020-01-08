@@ -6,6 +6,7 @@ import divinerpg.registry.ItemRegistry;
 import divinerpg.registry.VillagerRegistry;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.world.World;
 
 public class JackOMan extends DivineVillager {
@@ -14,5 +15,7 @@ public class JackOMan extends DivineVillager {
 
         setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ItemRegistry.scythe));
         setDropChance(EquipmentSlotType.MAINHAND, -1);
+
+        setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(Items.JACK_O_LANTERN));
     }
 }

@@ -6,8 +6,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.dimension.DimensionType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 public class TeleportMessage implements IMessage {
@@ -18,7 +16,6 @@ public class TeleportMessage implements IMessage {
 
     }
 
-    @OnlyIn(Dist.CLIENT)
     public TeleportMessage(DimensionType dim, BlockPos pos) {
         this.dim = dim;
         this.pos = pos;

@@ -6,13 +6,13 @@ import divinerpg.items.IArmorRing;
 import divinerpg.utils.ArmorObserver;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.thread.EffectiveSide;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +24,18 @@ import java.util.UUID;
 @Mod.EventBusSubscriber()
 public class FullArmorEventHandler {
 
-    public static final HashMap<UUID, ArmorObserver> playerMap = new HashMap<>();
+    // TODO check on phisycal client/server model, not in a singleplayer
+    private static final HashMap<LogicalSide, HashMap<UUID, ArmorObserver>> playerMap = new HashMap<>();
+
+    /**
+     * Returns actual player map based on dist
+     *
+     * @return
+     */
+    public static final HashMap<UUID, ArmorObserver> getPlayerMap() {
+        return playerMap.computeIfAbsent(EffectiveSide.get(), key -> new HashMap<>());
+    }
+
 
     /**
      * Removing leaving player from map
@@ -35,7 +46,7 @@ public class FullArmorEventHandler {
         PlayerEntity player = e.getPlayer();
 
         if (player != null)
-            playerMap.remove(player.getUniqueID());
+            getPlayerMap().remove(player.getUniqueID());
     }
 
     /**
@@ -53,16 +64,15 @@ public class FullArmorEventHandler {
      * Detecting player's armor status changed
      */
     @SubscribeEvent
-    @OnlyIn(Dist.CLIENT)
     public static void detectArmorChanges(TickEvent.PlayerTickEvent e) {
         UUID id = e.player.getUniqueID();
 
-        if (playerMap.containsKey(id)) {
-            playerMap.get(id).Update(e.player);
-        } else {
-            // Awkward situation, we should add player in logged in event
+        if (!getPlayerMap().containsKey(id)) {
+            // PlayerLoggedInEvent server only as I understood, so it's possible situation
             putNewPLayer(e.player);
         }
+
+        getPlayerMap().get(id).Update(e.player);
     }
 
     /**
@@ -90,6 +100,6 @@ public class FullArmorEventHandler {
      * Adding new player to list
      */
     private static void putNewPLayer(PlayerEntity playerEntity) {
-        playerMap.put(playerEntity.getUniqueID(), new ArmorObserver(playerEntity, new ArrayList<>(DivineAPI.getPowerRegistry().getValues())));
+        getPlayerMap().put(playerEntity.getUniqueID(), new ArmorObserver(playerEntity, new ArrayList<>(DivineAPI.getPowerRegistry().getValues())));
     }
 }
