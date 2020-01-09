@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=z": {
+      "model": "divinerpg:block/iceika_portal_ew"
+    },
+    "axis=x": {
+      "model": "divinerpg:block/iceika_portal_ns"
+    }
+  }
+}

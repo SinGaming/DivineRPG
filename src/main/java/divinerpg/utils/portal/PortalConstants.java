@@ -21,6 +21,7 @@ public class PortalConstants {
         possiblePortals.add(new NetherLikeDescription(BlockRegistry.wildwoodBlock, BlockRegistry.apalachiaPortal));
         possiblePortals.add(new NetherLikeDescription(BlockRegistry.apalachiaBlock, BlockRegistry.skythernPortal));
         possiblePortals.add(new NetherLikeDescription(BlockRegistry.skythernBlock, BlockRegistry.mortumPortal));
+        possiblePortals.add(new NetherLikeDescription(Blocks.SNOW, BlockRegistry.iceika_portal));
     }
 
     @Nullable

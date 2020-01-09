@@ -12,11 +12,11 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BasicTorch extends TorchBlock {
+public class DivineTorch extends TorchBlock {
     private BasicParticleType flameParticle;
 
-    public BasicTorch(BasicParticleType particle) {
-        super(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0, 0).lightValue(14).sound(SoundType.WOOD));
+    public DivineTorch(float hardness, BasicParticleType particle) {
+        super(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(hardness).lightValue(14).sound(SoundType.WOOD));
         this.flameParticle = particle;
     }
 

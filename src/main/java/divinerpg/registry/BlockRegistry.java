@@ -17,6 +17,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.DamageSource;
@@ -234,7 +235,22 @@ public class BlockRegistry {
     @ObjectHolder("present_box")
     public static Block present_box;
 
-
+    @ObjectHolder("iceika_portal")
+    public static DivinePortalBlock iceika_portal;
+    @ObjectHolder("frozen_dirt")
+    private static Block frozen_dirt;
+    @ObjectHolder("frozen_grass")
+    private static Block frozen_grass;
+    @ObjectHolder("frozen_stone")
+    private static Block frozen_stone;
+    @ObjectHolder("brittle_leaves")
+    private static Block brittle_leaves;
+    @ObjectHolder("frozen_log")
+    private static Block frozen_log;
+    @ObjectHolder("coalstone")
+    private static Block coalstone;
+    @ObjectHolder("workshop_carpet")
+    private static Block workshop_carpet;
 
     private static int STONE = 1, IRON = 2, DIAMOND = 3;
     private static List<Tuple<Block, Item.Properties>> blockItems = new ArrayList<>();
@@ -291,8 +307,8 @@ public class BlockRegistry {
 //        registerBlock(new DivineCropsBlock(new ExtendedBlockProperties(plantProps)
 //                .withGround(Blocks.GRASS_BLOCK).withSeed(() -> ItemRegistry.sky_plant_seeds)), "sky_plant_plant", null);
 
-        //registerBlock(new BasicTorch(ParticleTypes.FLAME), "aqua_torch"));
-        //registerBlock(new BasicTorch(ParticleTypes.FLAME), "skeleton_torch"));
+        registerBlock(new DivineTorch(0.1F, ParticleTypes.DRIPPING_WATER), "aqua_torch", blockTabProperty);
+        registerBlock(new DivineTorch(0, ParticleTypes.FLAME), "skeleton_torch", blockTabProperty);
 
         registerBlock(new Block(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH).hardnessAndResistance(0.8F)), "checker", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH).hardnessAndResistance(0.8F)), "rainbow_wool", blockTabProperty);
@@ -525,6 +541,53 @@ public class BlockRegistry {
         });
 
         ///////////////////////
+        // TODO Iceika
+        //////////////////////
+        registerBlock(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.LIGHT_BLUE)
+                        .hardnessAndResistance(3).harvestTool(ToolType.SHOVEL)).mapDirt(() -> frozen_grass))
+                , "frozen_grass", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.EARTH, MaterialColor.LIGHT_GRAY).hardnessAndResistance(3).sound(SoundType.GROUND)
+                .harvestTool(ToolType.SHOVEL)), "frozen_dirt", blockTabProperty);
+        registerBlock(new DivinePortalBlock(
+                Block.Properties.create(Material.PORTAL, MaterialColor.SNOW),
+                () -> DimensionType.byName(DimensionTypeRegistry.ICEIKA),
+                () -> Blocks.SNOW,
+                ParticleTypes.ITEM_SNOWBALL), "iceika_portal", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(6).harvestTool(ToolType.PICKAXE)),
+                "frozen_stone", blockTabProperty);
+        // todo mortum sapling drop
+        registerBlock(new LeavesBlock(ExtendedBlockProperties.createForLeaves(MaterialColor.SNOW).props)
+                , "brittle_leaves", blockTabProperty);
+        registerBlock(new LogBlock(MaterialColor.BLACK, Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(5)
+                .sound(SoundType.WOOD).harvestTool(ToolType.AXE)), "frozen_log", blockTabProperty);
+
+        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE)
+                .hardnessAndResistance(-1, 3600000)), "icy_stone", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE)
+                .hardnessAndResistance(-1, 3600000)), "icy_bricks", blockTabProperty);
+
+        registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(6).harvestTool(ToolType.PICKAXE)),
+                "snow_bricks", blockTabProperty);
+        coalstone = registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.BLACK).hardnessAndResistance(3).harvestTool(ToolType.PICKAXE)),
+                "coalstone", blockTabProperty);
+
+        registerBlock(new StairsBlock(() -> coalstone.getDefaultState(), Block.Properties.from(coalstone)), "coalstone_stairs", blockTabProperty);
+
+        registerBlock(new Block(Block.Properties.create(Material.WOOL, MaterialColor.GREEN).hardnessAndResistance(0.1F)),
+                "workshop_carpet", blockTabProperty);
+
+        registerBlock(new ImprovedGlass(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS)),
+                "frosted_glass", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.RED_TERRACOTTA).hardnessAndResistance(1.5F)),
+                "workshop_bookcase", blockTabProperty);
+        registerBlock(new Block(Block.Properties.create(Material.GLASS, MaterialColor.BLACK).hardnessAndResistance(0.3F).lightValue(14)),
+                "workshop_lamp", blockTabProperty);
+
+        registerBlock(new DivineDoor(Block.Properties.create(Material.IRON, MaterialColor.IRON).hardnessAndResistance(7).sound(SoundType.METAL)),
+                "steel_door", blockTabProperty);
+
+
+        ///////////////////////
         // TODO Arcana
         //////////////////////
     }
@@ -548,11 +611,13 @@ public class BlockRegistry {
      * @param name  - his name
      * @param props - oprtional item block props. Pass null to not add to items
      */
-    private static void registerBlock(Block block, String name, Item.Properties props) {
+    private static Block registerBlock(Block block, String name, Item.Properties props) {
         ForgeRegistries.BLOCKS.register(block.setRegistryName(DivineRPG.MODID, name));
 
         if (props != null)
             blockItems.add(new Tuple<>(block, props));
+
+        return block;
     }
 
     //solely for reference

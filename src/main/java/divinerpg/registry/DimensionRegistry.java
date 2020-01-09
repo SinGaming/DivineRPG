@@ -17,6 +17,8 @@ import java.awt.*;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = DivineRPG.MODID)
 @ObjectHolder(DivineRPG.MODID)
 public class DimensionRegistry {
+    @ObjectHolder("iceika_dim")
+    public static ModDimension ICEIKA;
     @ObjectHolder("eden_dim")
     public static ModDimension EDEN_DIM;
     @ObjectHolder("wildwood_dim")
@@ -54,7 +56,6 @@ public class DimensionRegistry {
                         Color.GRAY))
                 .setRegistryName(DivineRPG.MODID, "skythern_dim"));
 
-        // TODO hell based dimension
         registry.register(new DivineDimension((world, dimensionType) ->
                 new CavesDimension(world, DimensionType.byName(DimensionTypeRegistry.MORTUM), BlockRegistry.mortumDirt.getDefaultState(), BiomeRegisty.MORTUM,
                         Color.BLACK))
