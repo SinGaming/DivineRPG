@@ -333,36 +333,24 @@ public class ArmorEvents {
     /**
      * Add potion effect.
      *
+     * @param entity    - for entity
+     * @param effect    - current effect
+     * @param duration  - potion duration
+     * @param amplifier -  potion amplifier
+     */
+    public static void addEffect(Entity entity, Effect effect, int duration, int amplifier) {
+        addEffect(entity, effect, duration, amplifier, false, true);
+    }
+
+    /**
+     * Add potion effect.
+     *
      * @param entity - for entity
      * @param effect - current effect
-     * @param values - Optional duration and amplifier values. 0 by default
      */
-    public static void addEffect(Entity entity, Effect effect, Object... values) {
+    public static void addEffect(Entity entity, Effect effect, int duration, int amplifier, boolean ambientIn, boolean showParticlesIn) {
         if (!(entity instanceof LivingEntity))
             return;
-
-        int duration = 0;
-        int amplifier = 0;
-        boolean ambientIn = false;
-        boolean showParticlesIn = true;
-
-        if (values != null && values.length > 0) {
-            if (values[0] instanceof Integer){
-                duration = (int) values[0];
-            }
-
-            if (values.length > 1 && values[1] instanceof Integer) {
-                amplifier = (int) values[1];
-            }
-
-            if (values.length > 2 && values[2] instanceof Boolean) {
-                ambientIn = (boolean) values[2];
-            }
-
-            if (values.length > 3 && values[3] instanceof Boolean) {
-                showParticlesIn = (boolean) values[3];
-            }
-        }
 
         ((LivingEntity) entity).addPotionEffect(new EffectInstance(effect, duration, amplifier, ambientIn, showParticlesIn));
     }

@@ -49,9 +49,13 @@ import divinerpg.entities.iceika.frosty.Frosty;
 import divinerpg.entities.iceika.frosty.FrostyRender;
 import divinerpg.entities.iceika.glacide.Glacide;
 import divinerpg.entities.iceika.glacide.GlacideRender;
+import divinerpg.entities.iceika.hastreus.Hastreus;
+import divinerpg.entities.iceika.hastreus.HastreusRender;
 import divinerpg.entities.iceika.merchant.WorkshopMerchantRender;
 import divinerpg.entities.iceika.merchant.entities.WorkshopMerchant;
 import divinerpg.entities.iceika.merchant.entities.WorkshopTinkerer;
+import divinerpg.entities.iceika.rollum.Rollum;
+import divinerpg.entities.iceika.rollum.RollumRender;
 import divinerpg.entities.mortum.basilisk.Basilisk;
 import divinerpg.entities.mortum.basilisk.BasiliskRender;
 import divinerpg.entities.mortum.deamon.DemonOfDarkness;
@@ -373,6 +377,10 @@ public class EntitiesRegistry {
     public static EntityType<? extends MonsterEntity> frosty;
     @ObjectHolder("glacide")
     public static EntityType<? extends MonsterEntity> glacide;
+    @ObjectHolder("rollum")
+    public static EntityType<? extends MonsterEntity> rollum;
+    @ObjectHolder("hastreus")
+    public static EntityType<? extends MonsterEntity> hastreus;
 
 
     @SubscribeEvent
@@ -485,6 +493,8 @@ public class EntitiesRegistry {
         registerImmunedToFire(registry, FrostArcher::new, "frost_archer", 0.6F, 2);
         registerImmunedToFire(registry, Frosty::new, "frosty", 0.9F, 2.5F);
         registerImmunedToFire(registry, Glacide::new, "glacide", 0.9F, 2);
+        registerImmunedToFire(registry, Rollum::new, "rollum", 1.2F, 2);
+        registerImmunedToFire(registry, Hastreus::new, "hastreus", 1, 1.9F);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -573,6 +583,8 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(FrostArcher.class, FrostArcherRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Frosty.class, FrostyRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Glacide.class, GlacideRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Rollum.class, RollumRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Hastreus.class, HastreusRender::new);
     }
 
     private static <T extends Entity> void registerImmunedToFire(IForgeRegistry<EntityType<?>> registry, Function<World, T> createFunc, String name, float width, float height) {
