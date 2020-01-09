@@ -41,8 +41,14 @@ import divinerpg.entities.fireball.FrostFireball;
 import divinerpg.entities.fireball.ScorcherFireball;
 import divinerpg.entities.iceika.alicanto.Alicanto;
 import divinerpg.entities.iceika.alicanto.AlicantoRender;
+import divinerpg.entities.iceika.archer.FrostArcher;
+import divinerpg.entities.iceika.archer.FrostArcherRender;
 import divinerpg.entities.iceika.fractile.Fractite;
 import divinerpg.entities.iceika.fractile.FractiteRender;
+import divinerpg.entities.iceika.frosty.Frosty;
+import divinerpg.entities.iceika.frosty.FrostyRender;
+import divinerpg.entities.iceika.glacide.Glacide;
+import divinerpg.entities.iceika.glacide.GlacideRender;
 import divinerpg.entities.iceika.merchant.WorkshopMerchantRender;
 import divinerpg.entities.iceika.merchant.entities.WorkshopMerchant;
 import divinerpg.entities.iceika.merchant.entities.WorkshopTinkerer;
@@ -164,6 +170,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -360,6 +367,12 @@ public class EntitiesRegistry {
     public static EntityType<WorkshopTinkerer> workshop_tinkerer;
     @ObjectHolder("jack_o_man")
     public static EntityType<? extends VillagerEntity> jack_o_man;
+    @ObjectHolder("frost_archer")
+    public static EntityType<? extends MonsterEntity> frost_archer;
+    @ObjectHolder("frosty")
+    public static EntityType<? extends MonsterEntity> frosty;
+    @ObjectHolder("glacide")
+    public static EntityType<? extends MonsterEntity> glacide;
 
 
     @SubscribeEvent
@@ -469,6 +482,9 @@ public class EntitiesRegistry {
         registerImmunedToFire(registry, WorkshopMerchant::new, "workshop_merchant", 1, 2);
         registerImmunedToFire(registry, WorkshopTinkerer::new, "workshop_tinkerer", 1, 2);
         registerImmunedToFire(registry, JackOMan::new, "jack_o_man", 1, 2);
+        registerImmunedToFire(registry, FrostArcher::new, "frost_archer", 0.6F, 2);
+        registerImmunedToFire(registry, Frosty::new, "frosty", 0.9F, 2.5F);
+        registerImmunedToFire(registry, Glacide::new, "glacide", 0.9F, 2);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -554,6 +570,9 @@ public class EntitiesRegistry {
         RenderingRegistry.registerEntityRenderingHandler(Alicanto.class, AlicantoRender::new);
         RenderingRegistry.registerEntityRenderingHandler(Fractite.class, FractiteRender::new);
         RenderingRegistry.registerEntityRenderingHandler(JackOMan.class, JackOManRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(FrostArcher.class, FrostArcherRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Frosty.class, FrostyRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(Glacide.class, GlacideRender::new);
     }
 
     private static <T extends Entity> void registerImmunedToFire(IForgeRegistry<EntityType<?>> registry, Function<World, T> createFunc, String name, float width, float height) {

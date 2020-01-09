@@ -8,10 +8,12 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
@@ -250,6 +252,16 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
         this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(health);
         this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(attack);
         this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(armor);
+    }
+
+    /**
+     * Puts item into slot and gives no chanse to drop it
+     *
+     * @param type - slot type
+     * @param item - item
+     */
+    protected void putItem(EquipmentSlotType type, IItemProvider item) {
+        PeacefullDivineMonster.putItem(this, type, item);
     }
 
     /////////////////////

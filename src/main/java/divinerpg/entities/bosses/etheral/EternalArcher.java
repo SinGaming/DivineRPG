@@ -9,7 +9,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.world.Explosion;
@@ -22,8 +21,8 @@ public class EternalArcher extends DivineBoss {
     public EternalArcher(World world) {
         super(EntitiesRegistry.eternal_archer, world, randomColor(), 250);
 
-        setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ItemRegistry.halite_bow));
-        setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(ItemRegistry.halite_bow));
+        putItem(EquipmentSlotType.MAINHAND, ItemRegistry.halite_bow);
+        putItem(EquipmentSlotType.OFFHAND, ItemRegistry.halite_bow);
     }
 
     @Override

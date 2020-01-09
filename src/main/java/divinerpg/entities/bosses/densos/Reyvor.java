@@ -8,7 +8,6 @@ import divinerpg.registry.SoundRegistry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.BossInfo;
@@ -20,7 +19,7 @@ public class Reyvor extends DivineBoss {
     public Reyvor(World world) {
         super(EntitiesRegistry.reyvor, world, BossInfo.Color.YELLOW, 2000);
 
-        setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ItemRegistry.twilight_bow));
+        putItem(EquipmentSlotType.MAINHAND, ItemRegistry.twilight_bow);
     }
 
     @Override

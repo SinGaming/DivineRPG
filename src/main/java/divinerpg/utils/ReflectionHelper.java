@@ -1,19 +1,21 @@
 package divinerpg.utils;
 
+import cpw.mods.modlauncher.api.INameMappingService;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.apache.commons.lang3.ArrayUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.*;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class ReflectionHelper {
 
     private static final HashMap<Class, HashMap<String, Field>> mappedFields = new HashMap<>();
-    private static final HashMap<Class, HashMap<String, List<Method>>> mappedMethods = new HashMap<>();
 
     /**
      * Gets field value from storage class
@@ -137,15 +139,17 @@ public class ReflectionHelper {
 
         Field declaredField = null;
 
+
+
         try {
             // search in declared fields
-            declaredField = clazz.getDeclaredField(field);
-        } catch (NoSuchFieldException e) {
+            declaredField = ObfuscationReflectionHelper.findField(clazz, field);
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (declaredField == null) {
                 // in superclasses
-                declaredField = clazz.getField(field);
+                declaredField = clazz.getField(ObfuscationReflectionHelper.remapName(INameMappingService.Domain.FIELD, field));
             }
         }
 
@@ -155,41 +159,5 @@ public class ReflectionHelper {
 
         fields.put(field, declaredField);
         return declaredField;
-    }
-
-    @Deprecated
-    public static <T> Object callMethod(Object main, Action action, String methodName, Object... params) {
-//        try {
-//            Method method = find(searchingClass, methodName, Arrays.stream(params).map(x -> x.getClass()).toArray());
-//            return method.invoke(main, params);
-//        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-//            e.printStackTrace();
-//        }
-
-        return null;
-    }
-
-    @Deprecated
-    private static Method find(Class clazz, String methodName, Class... params) throws NoSuchMethodException {
-        // find by class
-        HashMap<String, List<Method>> methods = mappedMethods.computeIfAbsent(clazz, key -> new HashMap<>());
-        // find by name
-        List<Method> sameNameList = methods.computeIfAbsent(methodName, name -> new ArrayList<>());
-
-        // if present
-        if (!sameNameList.isEmpty()) {
-            // same params
-            Optional<Method> result = sameNameList.stream().filter(x -> x.getParameterTypes().equals(params)).findFirst();
-            // if already present, return
-            if (result.isPresent())
-                return result.get();
-        }
-
-        // Only searching in declared!!!!
-        Method result = clazz.getDeclaredMethod(methodName, params);
-
-        // remember
-        sameNameList.add(result);
-        return result;
     }
 }

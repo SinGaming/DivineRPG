@@ -43,7 +43,7 @@ public class DivineArcher extends PeacefullDivineMonster implements IRangedAttac
         super(type, world, hurt, ambient, eyeHight);
 
         EntityDataManager manager = getDataManager();
-        this.setItemStackToSlot(EquipmentSlotType.MAINHAND, mainHand);
+        putItem(EquipmentSlotType.MAINHAND, mainHand.getItem());
 
         manager.set(NAME, arrowName);
         manager.set(POWER, powers == null ? new CompoundNBT() : powers.toTag());

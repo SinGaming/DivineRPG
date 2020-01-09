@@ -7,7 +7,6 @@ import divinerpg.registry.SoundRegistry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.BossInfo;
@@ -19,7 +18,7 @@ public class Densos extends DivineBoss {
     public Densos(World world) {
         super(EntitiesRegistry.densos, world, BossInfo.Color.RED, 2000);
 
-        setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ItemRegistry.haliteBlade));
+        putItem(EquipmentSlotType.MAINHAND, ItemRegistry.haliteBlade);
     }
 
     @Override

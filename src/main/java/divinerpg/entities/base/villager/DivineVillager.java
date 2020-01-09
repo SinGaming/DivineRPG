@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.Dynamic;
 import com.mojang.datafixers.util.Pair;
+import divinerpg.entities.base.PeacefullDivineMonster;
 import divinerpg.utils.CachedTexture;
 import divinerpg.utils.ReflectionHelper;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -27,9 +28,11 @@ import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.villager.IVillagerType;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.MerchantOffers;
 import net.minecraft.network.IPacket;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
@@ -40,7 +43,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-// todo natural gen don't saving own profession
 public class DivineVillager extends VillagerEntity {
     private IVillagerType type;
     private VillagerProfession profession;
@@ -103,6 +105,16 @@ public class DivineVillager extends VillagerEntity {
     protected ResourceLocation getGUI() {
         // using same name for GUI image
         return CachedTexture.GUI.getTexture(getType().getRegistryName().getPath());
+    }
+
+    /**
+     * Puts item into slot and gives no chanse to drop it
+     *
+     * @param type - slot type
+     * @param item - item
+     */
+    protected void putItem(EquipmentSlotType type, IItemProvider item) {
+        PeacefullDivineMonster.putItem(this, type, item);
     }
 
     @Override

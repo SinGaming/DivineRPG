@@ -138,6 +138,11 @@ public class SpawnRegistry {
         mortumMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.basilisk, 2, 4, 4));
         mortumMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.sorcerer, 1, 4, 4));
         mortumMonsters.add(new Biome.SpawnListEntry(EntitiesRegistry.soul_stealer, 2, 4, 4));
+
+        ///////////////
+        // ICEIKA
+        //////////////
+        // todo
     }
 
     private static void addOverworldSpawn(EntityType type, int weight, int min, int max) {

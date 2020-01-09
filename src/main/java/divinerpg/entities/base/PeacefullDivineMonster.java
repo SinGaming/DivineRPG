@@ -1,13 +1,17 @@
 package divinerpg.entities.base;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -52,17 +56,9 @@ public abstract class PeacefullDivineMonster extends MonsterEntity {
         this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3);
     }
 
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1, true));
-        this.goalSelector.addGoal(2, new SwimGoal(this));
-        this.goalSelector.addGoal(3, new RandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
-
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+    public static void putItem(MobEntity entity, EquipmentSlotType type, IItemProvider item) {
+        entity.setItemStackToSlot(type, new ItemStack(item));
+        entity.setDropChance(type, -1);
     }
 
     @Override
@@ -99,5 +95,22 @@ public abstract class PeacefullDivineMonster extends MonsterEntity {
     protected void initAttr(float health, float attack, float armor) {
         this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(armor);
         initAttr(health, attack);
+    }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1, true));
+        this.goalSelector.addGoal(2, new SwimGoal(this));
+        this.goalSelector.addGoal(3, new RandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
+
+        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+    }
+
+    protected void putItem(EquipmentSlotType type, IItemProvider item) {
+        putItem(this, type, item);
     }
 }

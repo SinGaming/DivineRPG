@@ -3,7 +3,10 @@ package divinerpg.entities.vanilla.miner;
 import divinerpg.entities.base.DivineMonster;
 import divinerpg.entities.goal.SunBurnGoal;
 import divinerpg.registry.EntitiesRegistry;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.BreakDoorGoal;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -67,7 +70,8 @@ public class Miner extends DivineMonster {
                 : rand.nextInt(3) == 0
                 ? Items.STONE_PICKAXE
                 : Items.WOODEN_PICKAXE;
-        this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(pickaxe));
+
+        putItem(EquipmentSlotType.MAINHAND, pickaxe);
         this.setEnchantmentBasedOnDifficulty(difficulty);
     }
 
