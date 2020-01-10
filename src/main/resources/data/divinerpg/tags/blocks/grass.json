@@ -1,10 +1,12 @@
 {
   "replace": false,
   "values": [
+    "minecraft:grass",
     "divinerpg:eden_grass",
     "divinerpg:wildwood_grass",
     "divinerpg:apalachia_grass",
     "divinerpg:skythern_grass",
-    "divinerpg:mortum_grass"
+    "divinerpg:mortum_grass",
+    "divinerpg:frozen_grass"
   ]
 }

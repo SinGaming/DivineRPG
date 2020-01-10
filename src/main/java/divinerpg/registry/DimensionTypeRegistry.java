@@ -40,8 +40,7 @@ public class DimensionTypeRegistry {
         }
 
         if (DimensionType.byName(ICEIKA) == null) {
-            // todo uncomment
-            //DimensionManager.registerDimension(ICEIKA, DimensionRegistry.ICEIKA, null, true);
+            DimensionManager.registerDimension(ICEIKA, DimensionRegistry.ICEIKA, null, true);
         }
     }
 }

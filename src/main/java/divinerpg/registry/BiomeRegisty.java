@@ -1,10 +1,11 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
-import divinerpg.world.biomes.DivineBiome;
-import divinerpg.world.feature.DivineTreeFeature;
-import divinerpg.world.feature.config.CustomFillerBlockType;
-import divinerpg.world.surface.DivineCaveSurfaceBuilder;
+import divinerpg.world.iceika.IceikaBiome;
+import divinerpg.world.mortum.DivineCaveSurfaceBuilder;
+import divinerpg.world.twilight.DivineBiome;
+import divinerpg.world.twilight.feature.DivineTreeFeature;
+import divinerpg.world.twilight.feature.config.CustomFillerBlockType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.event.RegistryEvent;
@@ -18,20 +19,23 @@ import java.awt.*;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(DivineRPG.MODID)
 public class BiomeRegisty {
-    @ObjectHolder("biome_eden")
+    @ObjectHolder("eden")
     public static Biome EDEN;
 
-    @ObjectHolder("biome_wildwood")
+    @ObjectHolder("wildwood")
     public static Biome WILDWOOD;
 
-    @ObjectHolder("biome_apalachia")
+    @ObjectHolder("apalachia")
     public static Biome APALACHIA;
 
-    @ObjectHolder("biome_skythern")
+    @ObjectHolder("skythern")
     public static Biome SKYTHERN;
 
-    @ObjectHolder("biome_mortum")
+    @ObjectHolder("mortum")
     public static Biome MORTUM;
+
+    @ObjectHolder("iceika")
+    public static Biome ICEIKA;
 
     @SubscribeEvent
     public static void registerBiomes(final RegistryEvent.Register<Biome> event) {
@@ -50,7 +54,7 @@ public class BiomeRegisty {
                 BlockRegistry.edenOre)
 //                .addSpawns(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntitiesRegistry.eden_tomo, 20, 4, 4))
 //                .addSpawns(EntityClassification.CREATURE, new Biome.SpawnListEntry(EntitiesRegistry.eden_tomo, 20, 4, 4))
-                .setRegistryName(DivineRPG.MODID, "biome_eden"));
+                .setRegistryName(DivineRPG.MODID, "eden"));
 
         registry.register(new DivineBiome(
                 BlockRegistry.wildwoodGrass,
@@ -61,7 +65,7 @@ public class BiomeRegisty {
                 BlockRegistry.wildwoodTallgrass,
                 BlockRegistry.moonlightFern,
                 BlockRegistry.moonBud,
-                BlockRegistry.wildwoodOre).setRegistryName(DivineRPG.MODID, "biome_wildwood"));
+                BlockRegistry.wildwoodOre).setRegistryName(DivineRPG.MODID, "wildwood"));
 
         registry.register(new DivineBiome(
                 BlockRegistry.apalachiaGrass,
@@ -72,7 +76,7 @@ public class BiomeRegisty {
                 BlockRegistry.apalachiaTallgrass,
                 BlockRegistry.dusk_flower,
                 BlockRegistry.dusk_bloom,
-                BlockRegistry.apalachiaOre).setRegistryName(DivineRPG.MODID, "biome_apalachia"));
+                BlockRegistry.apalachiaOre).setRegistryName(DivineRPG.MODID, "apalachia"));
 
         registry.register(new DivineBiome(
                 BlockRegistry.skythernGrass,
@@ -83,7 +87,7 @@ public class BiomeRegisty {
                 BlockRegistry.dust_lily,
                 BlockRegistry.dust_brambles,
                 BlockRegistry.skythern_brush,
-                BlockRegistry.skythernOre).setRegistryName(DivineRPG.MODID, "biome_skythern"));
+                BlockRegistry.skythernOre).setRegistryName(DivineRPG.MODID, "skythern"));
 
         // TODO spawn trees
         registry.register(new DivineBiome(
@@ -97,7 +101,9 @@ public class BiomeRegisty {
                 BlockRegistry.eye_plant,
                 BlockRegistry.mortum_brush,
                 BlockRegistry.demon_brambles,
-                BlockRegistry.mortumOre).setRegistryName(DivineRPG.MODID, "biome_mortum"));
+                BlockRegistry.mortumOre).setRegistryName(DivineRPG.MODID, "mortum"));
+
+        registry.register(new IceikaBiome().setRegistryName(DivineRPG.MODID, "iceika"));
 
     }
 }

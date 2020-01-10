@@ -1,4 +1,4 @@
-package divinerpg.world;
+package divinerpg.blocks;
 
 import net.minecraft.block.trees.Tree;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;

@@ -1,7 +1,7 @@
-package divinerpg.world.feature;
+package divinerpg.world.twilight.feature;
 
 import com.mojang.datafixers.Dynamic;
-import divinerpg.world.feature.config.DivineOreFeatureConfig;
+import divinerpg.world.twilight.feature.config.DivineOreFeatureConfig;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorld;

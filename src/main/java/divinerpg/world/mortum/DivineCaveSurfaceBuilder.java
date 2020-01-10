@@ -1,4 +1,4 @@
-package divinerpg.world.surface;
+package divinerpg.world.mortum;
 
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.BlockState;

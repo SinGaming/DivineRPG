@@ -1,4 +1,4 @@
-package divinerpg.world.feature.config;
+package divinerpg.world.twilight.feature.config;
 
 import divinerpg.DivineRPG;
 import divinerpg.registry.BlockRegistry;

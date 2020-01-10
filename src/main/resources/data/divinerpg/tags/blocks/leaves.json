@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "divinerpg:eden_leaves",
+    "divinerpg:wildwood_leaves",
+    "divinerpg:apalachia_leaves",
+    "divinerpg:skythern_leaves",
+    "divinerpg:mortum_leaves",
+    "divinerpg:brittle_leaves"
+  ]
+}

@@ -1,4 +1,4 @@
-package divinerpg.world.twilight;
+package divinerpg.world.mortum;
 
 import divinerpg.utils.RGBHelper;
 import net.minecraft.block.BlockState;

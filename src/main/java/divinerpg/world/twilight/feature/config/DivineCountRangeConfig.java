@@ -1,4 +1,4 @@
-package divinerpg.world.feature.config;
+package divinerpg.world.twilight.feature.config;
 
 import divinerpg.config.OreGen;
 import net.minecraft.world.gen.placement.CountRangeConfig;

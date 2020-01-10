@@ -2,12 +2,12 @@ package divinerpg.registry;
 
 import divinerpg.DivineRPG;
 import divinerpg.config.OreGen;
-import divinerpg.world.feature.DivineFlowersFeature;
-import divinerpg.world.feature.DivineOreFeature;
-import divinerpg.world.feature.DivineTreeFeature;
-import divinerpg.world.feature.config.CustomFillerBlockType;
-import divinerpg.world.feature.config.DivineCountRangeConfig;
-import divinerpg.world.feature.config.DivineOreFeatureConfig;
+import divinerpg.world.twilight.feature.DivineFlowersFeature;
+import divinerpg.world.twilight.feature.DivineOreFeature;
+import divinerpg.world.twilight.feature.DivineTreeFeature;
+import divinerpg.world.twilight.feature.config.CustomFillerBlockType;
+import divinerpg.world.twilight.feature.config.DivineCountRangeConfig;
+import divinerpg.world.twilight.feature.config.DivineOreFeatureConfig;
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;

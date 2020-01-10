@@ -1,6 +1,6 @@
-package divinerpg.world.feature;
+package divinerpg.world.twilight.feature;
 
-import divinerpg.world.feature.config.FlowerFeatureConfig;
+import divinerpg.world.twilight.feature.config.FlowerFeatureConfig;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Tuple;

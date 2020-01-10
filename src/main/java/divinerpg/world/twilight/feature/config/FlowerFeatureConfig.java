@@ -1,4 +1,4 @@
-package divinerpg.world.feature.config;
+package divinerpg.world.twilight.feature.config;
 
 import com.mojang.datafixers.Dynamic;
 import com.mojang.datafixers.types.DynamicOps;

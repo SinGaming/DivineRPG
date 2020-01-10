@@ -1,9 +1,11 @@
-package divinerpg.world.feature;
+package divinerpg.world.twilight.feature;
 
-import divinerpg.registry.BlockRegistry;
-import net.minecraft.block.*;
+import divinerpg.utils.DivineTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.SaplingBlock;
+import net.minecraft.block.VineBlock;
 import net.minecraft.state.BooleanProperty;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
@@ -217,12 +219,17 @@ public class DivineTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 
     protected boolean canPlaceSapling(IWorldGenerationBaseReader world, BlockPos pos, SaplingBlock sapling) {
         return world.hasBlockState(pos, state -> (!(world instanceof IWorldReader) || sapling.isValidPosition(state, (IWorldReader) world, pos))
-                || state.isIn(BlockTags.LEAVES)
+                /*
                 || state.isAir()
+
+                || state.isIn(BlockTags.LEAVES)
                 || state.isIn(BlockTags.LOGS)
                 || state.isIn(BlockTags.SAPLINGS)
                 // TODO think about instanceof
-                || state.getBlock() == Blocks.VINE);
+                || state.getBlock() == Blocks.VINE
+
+                 */
+        );
     }
 
     @Override
@@ -239,7 +246,7 @@ public class DivineTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     protected boolean isDirtOrGrassBlockOverrided(IWorldGenerationBaseReader worldIn, BlockPos pos) {
         return worldIn.hasBlockState(pos, (p_214582_0_) -> {
             Block block = p_214582_0_.getBlock();
-            return Block.isDirt(block) || BlockRegistry.DIVINE_GRASS.contains(block);
+            return Block.isDirt(block) || DivineTags.GRASS.contains(block);
         });
     }
 

@@ -1,6 +1,7 @@
 package divinerpg.registry;
 
 import divinerpg.DivineRPG;
+import divinerpg.blocks.DivineTree;
 import divinerpg.blocks.base.*;
 import divinerpg.blocks.twilight.*;
 import divinerpg.entities.bosses.ayeraco.manager.AyeracoManager;
@@ -10,16 +11,13 @@ import divinerpg.utils.DivineParticleTypes;
 import divinerpg.utils.DivinePlantType;
 import divinerpg.utils.properties.block.ExtendedBlockProperties;
 import divinerpg.utils.properties.block.IExpDrop;
-import divinerpg.world.DivineTree;
-import divinerpg.world.feature.DivineTreeFeature;
+import divinerpg.world.twilight.feature.DivineTreeFeature;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
@@ -44,8 +42,6 @@ import java.util.List;
 // Event bus for receiving Registry Events)
 @ObjectHolder(DivineRPG.MODID)
 public class BlockRegistry {
-
-    public static Tag<Block> DIVINE_GRASS = new BlockTags.Wrapper(new ResourceLocation(DivineRPG.MODID, "grass"));
 
     @ObjectHolder("realmite_ore")
     public static Block realmiteOre;
@@ -238,19 +234,19 @@ public class BlockRegistry {
     @ObjectHolder("iceika_portal")
     public static DivinePortalBlock iceika_portal;
     @ObjectHolder("frozen_dirt")
-    private static Block frozen_dirt;
+    public static Block frozen_dirt;
     @ObjectHolder("frozen_grass")
-    private static Block frozen_grass;
+    public static Block frozen_grass;
     @ObjectHolder("frozen_stone")
-    private static Block frozen_stone;
+    public static Block frozen_stone;
     @ObjectHolder("brittle_leaves")
-    private static Block brittle_leaves;
+    public static Block brittle_leaves;
     @ObjectHolder("frozen_log")
-    private static Block frozen_log;
+    public static Block frozen_log;
     @ObjectHolder("coalstone")
-    private static Block coalstone;
+    public static Block coalstone;
     @ObjectHolder("workshop_carpet")
-    private static Block workshop_carpet;
+    public static Block workshop_carpet;
 
     private static int STONE = 1, IRON = 2, DIAMOND = 3;
     private static List<Tuple<Block, Item.Properties>> blockItems = new ArrayList<>();
@@ -551,7 +547,7 @@ public class BlockRegistry {
         registerBlock(new DivinePortalBlock(
                 Block.Properties.create(Material.PORTAL, MaterialColor.SNOW),
                 () -> DimensionType.byName(DimensionTypeRegistry.ICEIKA),
-                () -> Blocks.SNOW,
+                () -> Blocks.SNOW_BLOCK,
                 ParticleTypes.ITEM_SNOWBALL), "iceika_portal", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.ROCK, MaterialColor.LIGHT_BLUE).hardnessAndResistance(6).harvestTool(ToolType.PICKAXE)),
                 "frozen_stone", blockTabProperty);
