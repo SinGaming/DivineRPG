@@ -38,7 +38,7 @@ public class IceikaDimension extends Dimension {
 
         this.settings = new OverworldGenSettings();
         settings.setDefaultFluid(Blocks.ICE.getDefaultState());
-        settings.setDefaultFluid(BlockRegistry.frozen_stone.getDefaultState());
+        settings.setDefaultBlock(BlockRegistry.frozen_stone.getDefaultState());
     }
 
     @Override

@@ -1,6 +1,7 @@
 package divinerpg.world.iceika;
 
 import divinerpg.registry.BlockRegistry;
+import divinerpg.registry.FeatureRegistry;
 import divinerpg.world.iceika.feature.HugeDivineTree;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -10,6 +11,7 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.LakesConfig;
+import net.minecraft.world.gen.feature.ProbabilityConfig;
 import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
 import net.minecraft.world.gen.placement.LakeChanceConfig;
 import net.minecraft.world.gen.placement.Placement;
@@ -17,6 +19,7 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
 import java.awt.*;
+import java.util.Arrays;
 
 public class IceikaBiome extends Biome {
     public IceikaBiome() {
@@ -45,13 +48,16 @@ public class IceikaBiome extends Biome {
                         new HugeDivineTree(false, true, BlockRegistry.frozen_log, BlockRegistry.brittle_leaves, null),
                         IFeatureConfig.NO_FEATURE_CONFIG,
                         Placement.COUNT_EXTRA_HEIGHTMAP,
-                        new AtSurfaceWithExtraConfig(40, 0.1F, 1)
+                        new AtSurfaceWithExtraConfig(3, 0.1F, 1)
                 )
         );
 
         // lakes
         addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS,
                 createDecoratedFeature(Feature.LAKE, new LakesConfig(Blocks.ICE.getDefaultState()), Placement.WATER_LAKE, new LakeChanceConfig(4)));
+
+        Arrays.asList(FeatureRegistry.COALSTONE_LAMP_1, FeatureRegistry.COALSTONE_LAMP_2, FeatureRegistry.COALSTONE_LAMP_3)
+                .forEach(x -> addStructure(x, new ProbabilityConfig(1 / 10F)));
     }
 
     @Override
