@@ -2,6 +2,7 @@ package divinerpg.world.structure;
 
 import com.mojang.datafixers.Dynamic;
 import divinerpg.DivineRPG;
+import divinerpg.utils.WorldGenUtil;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorld;
@@ -16,7 +17,6 @@ import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -63,16 +63,7 @@ public class TemplateFeature<T extends TemplateFeatureConfig> extends Feature<T>
             return false;
         }
 
-        AtomicBoolean result = new AtomicBoolean(true);
-
-        BlockPos.getAllInBoxMutable(pos, pos.add(size.getX(), 0, pos.getZ())).forEach(x -> {
-            if (world.getWorld().getBlockState(x).getBlock() != config.surface.getBlock()) {
-                result.set(false);
-                return;
-            }
-        });
-
-        return result.get();
+        return WorldGenUtil.checkSquare(world.getWorld(), pos, size.getX(), size.getZ(), config.surface.getBlock());
     }
 
     /**

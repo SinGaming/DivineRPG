@@ -1,10 +1,12 @@
 package divinerpg.world.iceika;
 
+import divinerpg.DivineRPG;
 import divinerpg.registry.BlockRegistry;
 import divinerpg.world.iceika.feature.HugeDivineTree;
 import divinerpg.world.structure.TemplateFeature;
 import divinerpg.world.structure.TemplateFeatureConfig;
 import net.minecraft.block.Blocks;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.biome.Biome;
@@ -12,6 +14,7 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.LakesConfig;
+import net.minecraft.world.gen.placement.ChanceConfig;
 import net.minecraft.world.gen.placement.HeightWithChanceConfig;
 import net.minecraft.world.gen.placement.LakeChanceConfig;
 import net.minecraft.world.gen.placement.Placement;
@@ -58,16 +61,15 @@ public class IceikaBiome extends Biome {
         );
 
         // lamps
-//        for (int i = 1; i <= 3; i++) {
-//            addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES,
-//                    createDecoratedFeature(
-//                            // todo top solid block
-//                            baseTemplateFeature,
-//                            new TemplateFeatureConfig(new ResourceLocation(DivineRPG.MODID, "coalstone_lamp_" + i), BlockRegistry.frozen_grass.getDefaultState()),
-//                            Placement.CHANCE_TOP_SOLID_HEIGHTMAP,
-//                            new ChanceConfig(25)
-//                    ));
-//        }
+        for (int i = 1; i <= 3; i++) {
+            addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES,
+                    createDecoratedFeature(
+                            baseTemplateFeature,
+                            new TemplateFeatureConfig(new ResourceLocation(DivineRPG.MODID, "coalstone_lamp_" + i), BlockRegistry.frozen_grass.getDefaultState()),
+                            Placement.CHANCE_TOP_SOLID_HEIGHTMAP,
+                            new ChanceConfig(25)
+                    ));
+        }
     }
 
     @Override
