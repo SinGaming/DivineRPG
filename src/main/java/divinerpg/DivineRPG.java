@@ -50,7 +50,7 @@ public class DivineRPG {
 
 
     // Directly reference a log4j logger.
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 
     public DivineRPG() {
         // Register the setup method for modloading

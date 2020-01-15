@@ -2,7 +2,6 @@ package divinerpg.registry;
 
 import divinerpg.DivineRPG;
 import divinerpg.config.OreGen;
-import divinerpg.world.iceika.feature.ChanceStructure;
 import divinerpg.world.twilight.feature.DivineFlowersFeature;
 import divinerpg.world.twilight.feature.DivineOreFeature;
 import divinerpg.world.twilight.feature.DivineTreeFeature;
@@ -10,14 +9,11 @@ import divinerpg.world.twilight.feature.config.CustomFillerBlockType;
 import divinerpg.world.twilight.feature.config.DivineCountRangeConfig;
 import divinerpg.world.twilight.feature.config.DivineOreFeatureConfig;
 import net.minecraft.block.Block;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.feature.ProbabilityConfig;
-import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.placement.ChanceConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeManager;
@@ -26,8 +22,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
-
-import java.util.stream.IntStream;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(DivineRPG.MODID)
@@ -38,12 +32,6 @@ public class FeatureRegistry {
     public static DivineFlowersFeature flowers_feature;
     @ObjectHolder("ore_feature")
     public static DivineOreFeature ORE;
-    @ObjectHolder("coalstone_lamp_1")
-    public static Structure<ProbabilityConfig> COALSTONE_LAMP_1;
-    @ObjectHolder("coalstone_lamp_2")
-    public static Structure<ProbabilityConfig> COALSTONE_LAMP_2;
-    @ObjectHolder("coalstone_lamp_3")
-    public static Structure<ProbabilityConfig> COALSTONE_LAMP_3;
 
     static {
         eden_tree_feature = new DivineTreeFeature(false, 7, () -> BlockRegistry.edenSapling,
@@ -94,12 +82,5 @@ public class FeatureRegistry {
         registry.register(eden_tree_feature.setRegistryName(DivineRPG.MODID, "eden_tree_feature"));
         registry.register(flowers_feature.setRegistryName(DivineRPG.MODID, "flowers_feature"));
         registry.register(ORE.setRegistryName(DivineRPG.MODID, "ore_feature"));
-
-        IntStream.range(1, 3 + 1).forEach(x -> registerChanceBasedTemplate(registry, "coalstone_lamp_" + x, 1));
-    }
-
-    private static void registerChanceBasedTemplate(IForgeRegistry<Feature<?>> registry, String name, int size) {
-        ResourceLocation key = new ResourceLocation(DivineRPG.MODID, name);
-        registry.register(new ChanceStructure(key, size).setRegistryName(key));
     }
 }
