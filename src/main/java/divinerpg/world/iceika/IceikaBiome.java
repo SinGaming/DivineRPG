@@ -70,6 +70,18 @@ public class IceikaBiome extends Biome {
                             new ChanceConfig(25)
                     ));
         }
+
+        // houses
+        // todo add from 4 to 6
+        for (int i = 1; i <= 3; i++) {
+            addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES,
+                    createDecoratedFeature(
+                            baseTemplateFeature,
+                            new TemplateFeatureConfig(new ResourceLocation(DivineRPG.MODID, "workshop_house_" + i), BlockRegistry.frozen_grass.getDefaultState()),
+                            Placement.CHANCE_TOP_SOLID_HEIGHTMAP,
+                            new ChanceConfig(10)
+                    ));
+        }
     }
 
     @Override
