@@ -8,6 +8,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.HashMap;
@@ -81,24 +82,29 @@ public class CustomTeleporter extends Teleporter {
 
     public boolean tryPlacePlayer(Entity entity, float yaw) {
         BlockPos position = entity.getPosition();
-        int maxDistance = distance * distance;
 
-        BlockPos nearest = portalCache.keySet().stream().filter(x -> x.distanceSq(position) <= maxDistance).findFirst().orElse(findNearestPortal(position));
+        BlockPos nearest = portalCache.keySet().stream()
+                // ignore height
+                .filter(x -> isInRadius(x, position, distance))
+                .findFirst().orElse(findNearestPortal(position));
+
         if (nearest == null)
             return false;
 
         BlockPattern.PatternHelper match = portalCache.get(nearest);
 
         // todo correct facing
-        Direction direction = match.getUp().rotateY();
+        Direction direction = match.getForwards();
+
+        nearest = description.getPlayerPosition(match);
 
         if (entity instanceof ServerPlayerEntity) {
             ServerPlayerEntity playerEntity = (ServerPlayerEntity) entity;
 
-            playerEntity.connection.setPlayerLocation(nearest.getX(), nearest.getY(), nearest.getZ(), entity.rotationYaw, entity.rotationPitch);
+            playerEntity.connection.setPlayerLocation(nearest.getX(), nearest.getY(), nearest.getZ(), direction.getHorizontalAngle(), direction.getHorizontalAngle());
             playerEntity.connection.captureCurrentPosition();
         } else {
-            entity.setLocationAndAngles(nearest.getX(), nearest.getY(), nearest.getZ(), entity.rotationYaw, entity.rotationPitch);
+            entity.setLocationAndAngles(nearest.getX(), nearest.getY(), nearest.getZ(), direction.getHorizontalAngle(), direction.getHorizontalAngle());
         }
 
         return true;
@@ -107,8 +113,8 @@ public class CustomTeleporter extends Teleporter {
     private BlockPos findNearestPortal(BlockPos center) {
         double portalSizeSquared = Math.pow(description.maxSize(), 2);
 
-        // search in raduis
-        List<BlockPos> framePoses = BlockPos.getAllInBox(center.add(-distance / 2, -distance / 2, -distance / 2), center.add(distance / 2, distance / 2, distance / 2))
+        // search in raduis (XZ radius ignore Y)
+        List<BlockPos> framePoses = BlockPos.getAllInBox(center.add(-distance / 2, 0, -distance / 2), center.add(distance / 2, world.getHeight(), distance / 2))
                 .map(BlockPos::toImmutable)
                 // find all frames
                 .filter(x -> world.getBlockState(x).getBlock() == description.getFrame())
@@ -143,7 +149,15 @@ public class CustomTeleporter extends Teleporter {
     }
 
     private BlockPos findFreePlace(BlockPos entityPos) {
-        // todo implement
-        return entityPos;
+        int y = world.getHeight(Heightmap.Type.WORLD_SURFACE, entityPos.getX(), entityPos.getZ());
+        return entityPos.add(0, y - entityPos.getY(), 0);
+    }
+
+    private boolean isInRadius(BlockPos left, BlockPos right, int radius) {
+        return Math.sqrt(
+                Math.pow(left.getX() - right.getX(), 2)
+                        +
+                Math.pow(left.getZ() - right.getZ(), 2)
+        ) <= radius;
     }
 }

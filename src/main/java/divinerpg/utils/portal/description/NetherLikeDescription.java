@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class NetherLikeDescription implements IPortalDescription {
     private final Block frame;
@@ -72,8 +73,10 @@ public class NetherLikeDescription implements IPortalDescription {
                 rightBottom.west(2).south()
         );
 
-        if (platformBlocks.stream().allMatch(x -> world.getBlockState(x).isAir(world, x))) {
-            platformBlocks.forEach(x -> placeBlock(world, x, frame.getDefaultState()));
+        for (BlockPos x : platformBlocks) {
+            if (Stream.of(pos, pos.down()).allMatch(world::isAirBlock)){
+                placeBlock(world, x, frame.getDefaultState());
+            }
         }
 
         lightPortal(world, leftTop, Direction.SOUTH, Direction.DOWN);
@@ -137,6 +140,7 @@ public class NetherLikeDescription implements IPortalDescription {
     public BlockPos getPlayerPosition(BlockPattern.PatternHelper match) {
         BlockPos result = match.getFrontTopLeft()
                 .offset(match.getUp(), 1)
+                .offset(match.getUp().getOpposite().rotateY(), 1)
                 .offset(match.getForwards(), 3);
 
         return result;

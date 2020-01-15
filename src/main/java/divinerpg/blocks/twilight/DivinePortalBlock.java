@@ -116,7 +116,7 @@ public class DivinePortalBlock extends Block {
             return;
         }
 
-        entityIn.timeUntilPortal = entityIn.getPortalCooldown();
+        entityIn.timeUntilPortal = 400;
 
         if (!(worldIn instanceof ServerWorld)
                 || !(entityIn instanceof ServerPlayerEntity)
