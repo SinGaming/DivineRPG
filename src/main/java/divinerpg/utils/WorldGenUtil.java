@@ -2,7 +2,7 @@ package divinerpg.utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.IWorld;
 
 public class WorldGenUtil {
 
@@ -16,19 +16,20 @@ public class WorldGenUtil {
      * @param block - block below
      * @return
      */
-    public static boolean checkSquare(World world, BlockPos pos, int xSize, int zSize, Block block) {
+    public static boolean checkSquare(IWorld world, BlockPos pos, int xSize, int zSize, Block block) {
         if (world == null || pos == null || block == null)
             return false;
 
         BlockPos.MutableBlockPos i = new BlockPos.MutableBlockPos();
 
         try {
-            world.getProfiler().startSection("DRPG.WorldGenUtil.checkSquare");
+            world.getWorld().getProfiler().startSection("DRPG.WorldGenUtil.checkSquare");
 
             for (int x = pos.getX(), endX = xSize + x; x <= endX; x++) {
                 for (int z = pos.getZ(), endZ = zSize + z; z <= endZ; z++) {
+
                     i.setPos(x, pos.getY(), z);
-                    if (world.getWorld().getBlockState(i).getBlock() != block) {
+                    if (world.getBlockState(i).getBlock() != block) {
                         return false;
                     }
                 }
@@ -36,7 +37,7 @@ public class WorldGenUtil {
 
             return true;
         } finally {
-            world.getProfiler().endSection();
+            world.getWorld().getProfiler().endSection();
         }
     }
 }

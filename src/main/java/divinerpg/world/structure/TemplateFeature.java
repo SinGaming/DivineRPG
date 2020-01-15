@@ -63,7 +63,7 @@ public class TemplateFeature<T extends TemplateFeatureConfig> extends Feature<T>
             return false;
         }
 
-        return WorldGenUtil.checkSquare(world.getWorld(), pos, size.getX(), size.getZ(), config.surface.getBlock());
+        return WorldGenUtil.checkSquare(world, pos.down(), size.getX(), size.getZ(), config.surface.getBlock());
     }
 
     /**
