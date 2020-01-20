@@ -86,19 +86,20 @@ public class TemplateFeature<T extends TemplateFeatureConfig> extends Feature<T>
         //  |-----|------|
 
         // So we sure that we have 32*32 loaded square
-        final int maxSize = 32;
+        // And we can't place block on edge because of block updating
+        final int maxSize = 32 - 1;
 
         // chunk start position
         int x = start.getX() << 4 >> 4;
         int z = start.getZ() << 4 >> 4;
 
-        if (size.getX() > maxSize || size.getY() > maxSize) {
+        if (size.getX() >= maxSize || size.getY() >= maxSize) {
             DivineRPG.LOGGER.warn(String.format("Template is too big (%s), will cause chunk overpopulation during loading. " +
-                    "For structures more than 32*32 use net.minecraft.world.gen.feature.structure.Structure", size.toString()));
+                    "For structures equals/more than %s*%s use net.minecraft.world.gen.feature.structure.Structure", size.toString(), maxSize, maxSize));
         }
 
-        x += random.nextInt(MathHelper.clamp(maxSize - size.getX(), 1, 16));
-        z += random.nextInt(MathHelper.clamp(maxSize - size.getZ(), 1, 16));
+        x += 1 + random.nextInt(MathHelper.clamp(maxSize - size.getX(), 1, 16));
+        z += 1 + random.nextInt(MathHelper.clamp(maxSize - size.getZ(), 1, 16));
 
         // Getting correct surface position
         return new BlockPos(x, world.getHeight(Heightmap.Type.WORLD_SURFACE_WG, x, z), z);

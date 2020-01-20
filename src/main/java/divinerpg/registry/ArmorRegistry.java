@@ -202,7 +202,6 @@ public class ArmorRegistry {
                 })
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "angelic_set")));
 
-        // todo implement abilities
         registry.register(new PoweredArmorSet(
                 new ArmorSet().withVariant(
                         ItemRegistry.santa_cap,
@@ -210,6 +209,22 @@ public class ArmorRegistry {
                         ItemRegistry.santa_pants,
                         ItemRegistry.santa_boots, null),
                 (player, isEquipped) -> ArmorEvents.speedUpPlayer(player, -1, true))
+                .addAbility(LivingHurtEvent.class, event -> {
+                    if (event.getEntity().dimension.getModType() == DimensionRegistry.ICEIKA){
+                        // handle 80% damage
+                        ArmorEvents.onPlayerReceiveDamage(event, ArmorEvents::isMeeleeDamage, x -> x * 0.2F);
+                        // Adds +6 melee damage
+                        ArmorEvents.onAddMeleeDamage(event, x -> x + 6);
+                    }
+                })
+                .addAbility(TickEvent.PlayerTickEvent.class, event -> {
+                    if (event.player.dimension.getModType() == DimensionRegistry.ICEIKA){
+                        // removes hunger
+                        ArmorEvents.refillHunger(event);
+                        // increase speed
+                        ArmorEvents.speedUpPlayer(event.player, 2.4F, false);
+                    }
+                })
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "santa_set")));
     }
 

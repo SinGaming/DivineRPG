@@ -4,6 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class WorldGenUtil {
 
     /**
@@ -17,27 +19,35 @@ public class WorldGenUtil {
      * @return
      */
     public static boolean checkSquare(IWorld world, BlockPos pos, int xSize, int zSize, Block block) {
-        if (world == null || pos == null || block == null)
+        return checkCube(world, pos, pos.add(xSize, 0, zSize), block);
+    }
+
+    /**
+     * Checks cube for single block
+     *
+     * @param world - world
+     * @param pos   - start position
+     * @param size  - size of cube (can be negative)
+     * @param block - searching for current block
+     * @return
+     */
+    public static boolean checkCube(IWorld world, BlockPos pos, BlockPos size, Block block) {
+        if (world == null || pos == null || block == null || size == null)
             return false;
 
-        BlockPos.MutableBlockPos i = new BlockPos.MutableBlockPos();
+        world.getWorld().getProfiler().startSection("DRPG.WorldGenUtil.checkCube");
 
-        try {
-            world.getWorld().getProfiler().startSection("DRPG.WorldGenUtil.checkSquare");
+        AtomicBoolean result = new AtomicBoolean(true);
 
-            for (int x = pos.getX(), endX = xSize + x; x <= endX; x++) {
-                for (int z = pos.getZ(), endZ = zSize + z; z <= endZ; z++) {
-
-                    i.setPos(x, pos.getY(), z);
-                    if (world.getBlockState(i).getBlock() != block) {
-                        return false;
-                    }
-                }
+        BlockPos.getAllInBoxMutable(pos, pos.add(size)).forEach(x -> {
+            if (world.getBlockState(x).getBlock() != block) {
+                result.set(false);
+                return;
             }
+        });
 
-            return true;
-        } finally {
-            world.getWorld().getProfiler().endSection();
-        }
+        world.getWorld().getProfiler().endSection();
+
+        return result.get();
     }
 }

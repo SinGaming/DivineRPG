@@ -10,12 +10,12 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class DimensionTypeRegistry {
-    public static final ResourceLocation EDEN = new ResourceLocation(DivineRPG.MODID, "eden_dim_type");
-    public static final ResourceLocation WILDWOOD = new ResourceLocation(DivineRPG.MODID, "wildwood_dim_type");
-    public static final ResourceLocation APALACHIA = new ResourceLocation(DivineRPG.MODID, "apalachia_dim_type");
-    public static final ResourceLocation SKYTHERN = new ResourceLocation(DivineRPG.MODID, "skythern_dim_type");
-    public static final ResourceLocation MORTUM = new ResourceLocation(DivineRPG.MODID, "mortum_dim_type");
-    public static final ResourceLocation ICEIKA = new ResourceLocation(DivineRPG.MODID, "iceika_dim_type");
+    public static final ResourceLocation EDEN = new ResourceLocation(DivineRPG.MODID, "eden");
+    public static final ResourceLocation WILDWOOD = new ResourceLocation(DivineRPG.MODID, "wildwood");
+    public static final ResourceLocation APALACHIA = new ResourceLocation(DivineRPG.MODID, "apalachia");
+    public static final ResourceLocation SKYTHERN = new ResourceLocation(DivineRPG.MODID, "skythern");
+    public static final ResourceLocation MORTUM = new ResourceLocation(DivineRPG.MODID, "mortum");
+    public static final ResourceLocation ICEIKA = new ResourceLocation(DivineRPG.MODID, "iceika");
 
     @SubscribeEvent
     public static void onRegisterDimensionsEvent(RegisterDimensionsEvent event) {
