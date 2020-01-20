@@ -38,8 +38,8 @@ public class VillagerRegistry {
         ARCANA = VillagerBuilder.getOrCreate("arcana");
         OVERWORLD = VillagerBuilder.getOrCreate("overworld");
 
-        // todo add biome
         new VillagerBuilder(registry, "workshop_merchant", ICEIKA)
+                .inBiomes(BiomeRegisty.ICEIKA)
                 .withTrades(
                         infinite(new ItemStack(ItemRegistry.snowFlake, 6), new ItemStack(ItemRegistry.santa_cap), 5),
                         infinite(new ItemStack(ItemRegistry.snowFlake, 6), new ItemStack(ItemRegistry.santa_tunic), 5),
@@ -70,6 +70,7 @@ public class VillagerRegistry {
                 .build(VillagerInterestRegistry.iceika);
 
         new VillagerBuilder(registry, "workshop_tinkerer", ICEIKA)
+                .inBiomes(BiomeRegisty.ICEIKA)
                 .withTrades(
                         infinite(new ItemStack(ItemRegistry.snowFlake), new ItemStack(ItemRegistry.shuriken, 16), new ItemStack(ItemRegistry.snowflake_shuriken, 16), 1),
                         infinite(new ItemStack(ItemRegistry.snowFlake, 4), new ItemStack(ItemRegistry.serenade_striker), new ItemStack(ItemRegistry.serenade_of_ice), 1),

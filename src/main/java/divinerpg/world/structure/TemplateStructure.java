@@ -12,8 +12,6 @@ import java.util.Random;
 import java.util.function.Function;
 
 
-// TODO nothing is work andI don't know why
-// Oh, shit, here we go again
 public class TemplateStructure<T extends IFeatureConfig> extends Structure<T> {
     private final int sizeInChunks;
     private ResourceLocation res;

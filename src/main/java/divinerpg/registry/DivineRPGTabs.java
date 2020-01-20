@@ -54,7 +54,6 @@ public class DivineRPGTabs {
     public static final ItemGroup DivineArmor = new ItemGroup(DivineRPG.MODID + ".armor") {
         @Override
         public ItemStack createIcon() {
-            // TODO use divine icon
             return new ItemStack(ItemRegistry.kraken_helmet);
         }
     };

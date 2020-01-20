@@ -25,7 +25,7 @@ public class WorldGenSection {
                 .translation("config.genTrees")
                 .define("genTrees", true);
 
-        genTar = builder.comment("Enables native generation of Tar lakes")
+        genTar = builder.comment("Enables native generation of TarFluid lakes")
                 .translation("config.genTar")
                 .define("genTar", true);
 
