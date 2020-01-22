@@ -248,6 +248,9 @@ public class BlockRegistry {
     @ObjectHolder("workshop_carpet")
     public static Block workshop_carpet;
 
+    @ObjectHolder("tar")
+    public static Block tar;
+
     private static int STONE = 1, IRON = 2, DIAMOND = 3;
     private static List<Tuple<Block, Item.Properties>> blockItems = new ArrayList<>();
 
@@ -536,9 +539,6 @@ public class BlockRegistry {
                     x + "_candy_cane", blockTabProperty);
         });
 
-        ///////////////////////
-        // TODO Iceika
-        //////////////////////
         registerBlock(new DivineGrassBlock(new ExtendedBlockProperties(Block.Properties.create(Material.ORGANIC, MaterialColor.LIGHT_BLUE)
                         .hardnessAndResistance(3).harvestTool(ToolType.SHOVEL)).mapDirt(() -> frozen_grass))
                 , "frozen_grass", blockTabProperty);
@@ -583,9 +583,13 @@ public class BlockRegistry {
                 "steel_door", blockTabProperty);
 
 
+        registerBlock(new FlowingFluidBlock(() -> FluidRegistry.tar, Block.Properties.create(Material.LAVA).doesNotBlockMovement().tickRandomly().hardnessAndResistance(100.0F).lightValue(15).noDrops())
+                , "tar", blockTabProperty);
+
         ///////////////////////
         // TODO Arcana
         //////////////////////
+
     }
 
     @SubscribeEvent
