@@ -15,7 +15,6 @@ import java.util.Random;
  */
 public class MazeConfig {
     private final int size;
-    private final Map<ChunkPos, RoomDescription> rooms = new LinkedHashMap<>();
     private Random random;
 
     /**
@@ -30,26 +29,34 @@ public class MazeConfig {
 
     public static void main(String[] args) {
         MazeConfig config = new MazeConfig(new Random(), 6);
-
-        config.generateMaze(new ChunkPos(0, 0));
-
-        Map<ChunkPos, RoomDescription> rooms = config.rooms;
+        Map<ChunkPos, RoomDescription> rooms = config.generateMaze(new ChunkPos(0, 0));
     }
 
-    public void generateMaze(ChunkPos start) {
-        addSpawnRoom(0, 0, Direction.NORTH, Direction.WEST);
-        addSpawnRoom(0, size - 1, Direction.SOUTH, Direction.WEST);
-        addSpawnRoom(size - 1, 0, Direction.SOUTH, Direction.WEST);
-        addSpawnRoom(size - 1, size - 1, Direction.SOUTH, Direction.EAST);
+    /**
+     * Generates new maze
+     *
+     * @param start
+     * @return
+     */
+    public Map<ChunkPos, RoomDescription> generateMaze(ChunkPos start) {
+        Map<ChunkPos, RoomDescription> rooms = new LinkedHashMap<>();
+        random.setSeed(random.nextLong());
 
-        addBossRoom();
+        addSpawnRoom(rooms, 0, 0, Direction.NORTH, Direction.WEST);
+        addSpawnRoom(rooms, 0, size - 1, Direction.SOUTH, Direction.WEST);
+        addSpawnRoom(rooms, size - 1, 0, Direction.SOUTH, Direction.WEST);
+        addSpawnRoom(rooms, size - 1, size - 1, Direction.SOUTH, Direction.EAST);
+
+        addBossRoom(rooms);
 
         // Generates 4 mazes from square corners
         for (int x = 0; x < 2; x++) {
             for (int y = 0; y < 2; y++) {
 
                 int halfSize = size / 2;
-                Cell maze = MazeGenerator.generateMap(halfSize).move(x * halfSize, y * halfSize);
+                Cell maze = MazeGenerator.generateMap(random, halfSize).move(x * halfSize, y * halfSize);
+
+                maze.move(start.x, start.z);
 
                 while (maze != null) {
                     ChunkPos pos = maze.getPos();
@@ -62,15 +69,16 @@ public class MazeConfig {
                 }
             }
         }
+
+        return rooms;
     }
 
-    private void addBossRoom() {
+    private void addBossRoom(Map<ChunkPos, RoomDescription> rooms) {
         // todo location
     }
 
-    private void addSpawnRoom(int x, int y, Direction... directions) {
+    private void addSpawnRoom(Map<ChunkPos, RoomDescription> rooms, int x, int y, Direction... directions) {
         // todo location
         rooms.put(new ChunkPos(x, y), new RoomDescription(new ChunkPos(x, y), Arrays.asList(directions), new ResourceLocation("")));
     }
-
 }

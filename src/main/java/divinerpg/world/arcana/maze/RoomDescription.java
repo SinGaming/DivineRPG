@@ -31,6 +31,13 @@ public class RoomDescription {
             findAndInitialize();
     }
 
+    public boolean canConnect(RoomDescription room) {
+        if (Math.abs(pos.x - room.pos.x) + Math.abs(pos.z - room.pos.z) != 0)
+            return false;
+
+        return enters.stream().anyMatch(x -> room.enters.stream().anyMatch(x::areConnected));
+    }
+
 
     private void findAndInitialize() {
         // todo search for

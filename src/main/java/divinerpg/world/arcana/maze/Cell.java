@@ -6,6 +6,7 @@ import net.minecraft.util.math.ChunkPos;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Cell {
     private final List<String> pathValues = Arrays.asList("#", "S", "E");
@@ -129,7 +130,27 @@ public class Cell {
      * String Representation of the Cell class
      */
     public String toString() {
-        return "[" + x + ":" + y + "]";
+        String result = String.format("[%s:%s]", x, y);
+
+        List<String> directions = entries.stream().map(x -> {
+            switch (x) {
+                case NORTH:
+                    return "↑";
+                case SOUTH:
+                    return "↓";
+                case WEST:
+                    return "→";
+                case EAST:
+                    return "←";
+
+                default:
+                    return "";
+            }
+        }).collect(Collectors.toList());
+
+        result += ", " + String.join("", directions);
+
+        return result;
     }
 
     @Override
