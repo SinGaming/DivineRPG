@@ -2,7 +2,8 @@ package divinerpg.registry;
 
 import divinerpg.DivineRPG;
 import divinerpg.config.OreGen;
-import divinerpg.world.arcana.ArcanaMazeRoomPiece;
+import divinerpg.world.arcana.structure.ArcanaMazeRoomPiece;
+import divinerpg.world.arcana.structure.ArcanaMazeStructure;
 import divinerpg.world.twilight.feature.DivineFlowersFeature;
 import divinerpg.world.twilight.feature.DivineOreFeature;
 import divinerpg.world.twilight.feature.DivineTreeFeature;
@@ -14,8 +15,10 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.structure.IStructurePieceType;
+import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.placement.ChanceConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeManager;
@@ -34,6 +37,8 @@ public class FeatureRegistry {
     public static DivineFlowersFeature flowers_feature;
     @ObjectHolder("ore_feature")
     public static DivineOreFeature ORE;
+    @ObjectHolder("arcana_maze")
+    public static Structure<NoFeatureConfig> arcana_maze;
 
     public static IStructurePieceType arcana_maze_type;
 
@@ -44,7 +49,7 @@ public class FeatureRegistry {
         ORE = new DivineOreFeature(DivineOreFeatureConfig::deserialize);
 
         // arcana structure piece type
-        arcana_maze_type = IStructurePieceType.register((manager, nbt) -> new ArcanaMazeRoomPiece(arcana_maze_type, manager, nbt), "ArcSPT");
+        arcana_maze_type = IStructurePieceType.register(ArcanaMazeRoomPiece::new, "ArcSPT");
     }
 
     /**
@@ -89,5 +94,6 @@ public class FeatureRegistry {
         registry.register(eden_tree_feature.setRegistryName(DivineRPG.MODID, "eden_tree_feature"));
         registry.register(flowers_feature.setRegistryName(DivineRPG.MODID, "flowers_feature"));
         registry.register(ORE.setRegistryName(DivineRPG.MODID, "ore_feature"));
+        registry.register(new ArcanaMazeStructure().setRegistryName(DivineRPG.MODID, "arcana_maze"));
     }
 }

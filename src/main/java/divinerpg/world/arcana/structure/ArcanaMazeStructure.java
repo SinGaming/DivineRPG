@@ -1,4 +1,4 @@
-package divinerpg.world.arcana;
+package divinerpg.world.arcana.structure;
 
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.gen.ChunkGenerator;

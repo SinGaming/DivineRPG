@@ -16,6 +16,7 @@ public class DimensionTypeRegistry {
     public static final ResourceLocation SKYTHERN = new ResourceLocation(DivineRPG.MODID, "skythern");
     public static final ResourceLocation MORTUM = new ResourceLocation(DivineRPG.MODID, "mortum");
     public static final ResourceLocation ICEIKA = new ResourceLocation(DivineRPG.MODID, "iceika");
+    public static final ResourceLocation ARCANA = new ResourceLocation(DivineRPG.MODID, "arcana");
 
     @SubscribeEvent
     public static void onRegisterDimensionsEvent(RegisterDimensionsEvent event) {
@@ -41,6 +42,10 @@ public class DimensionTypeRegistry {
 
         if (DimensionType.byName(ICEIKA) == null) {
             DimensionManager.registerDimension(ICEIKA, DimensionRegistry.ICEIKA, null, true);
+        }
+
+        if (DimensionType.byName(ARCANA) == null) {
+            DimensionManager.registerDimension(ARCANA, DimensionRegistry.ARCANA, null, true);
         }
     }
 }

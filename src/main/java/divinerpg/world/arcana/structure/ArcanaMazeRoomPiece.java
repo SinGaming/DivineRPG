@@ -1,12 +1,12 @@
-package divinerpg.world.arcana;
+package divinerpg.world.arcana.structure;
 
+import divinerpg.registry.FeatureRegistry;
 import divinerpg.world.arcana.maze.RoomDescription;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.TemplateStructurePiece;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
@@ -17,8 +17,8 @@ import java.util.Random;
 public class ArcanaMazeRoomPiece extends TemplateStructurePiece {
     private ResourceLocation loc;
 
-    public ArcanaMazeRoomPiece(IStructurePieceType type, TemplateManager manager, RoomDescription description) {
-        super(type, 0);
+    public ArcanaMazeRoomPiece(TemplateManager manager, RoomDescription description) {
+        super(FeatureRegistry.arcana_maze_type, 0);
 
         this.templatePosition = description.getPos();
         this.loc = description.getLocation();
@@ -26,8 +26,8 @@ public class ArcanaMazeRoomPiece extends TemplateStructurePiece {
         init(manager);
     }
 
-    public ArcanaMazeRoomPiece(IStructurePieceType type,TemplateManager manager, CompoundNBT tag) {
-        super(type, tag);
+    public ArcanaMazeRoomPiece(TemplateManager manager, CompoundNBT tag) {
+        super(FeatureRegistry.arcana_maze_type, tag);
 
         loc = new ResourceLocation(tag.getString("Loc"));
 

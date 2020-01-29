@@ -1,6 +1,5 @@
-package divinerpg.world.arcana;
+package divinerpg.world.arcana.structure;
 
-import divinerpg.registry.FeatureRegistry;
 import divinerpg.world.arcana.maze.MazeConfig;
 import divinerpg.world.arcana.maze.RoomDescription;
 import net.minecraft.util.math.ChunkPos;
@@ -26,7 +25,7 @@ public class ArcanaMazeStart extends StructureStart {
     public void init(ChunkGenerator<?> generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn) {
         Map<ChunkPos, RoomDescription> rooms = config.generateMaze(new ChunkPos(chunkX, chunkZ));
 
-        rooms.forEach((key, value) -> this.components.add(new ArcanaMazeRoomPiece(FeatureRegistry.arcana_maze_type, templateManagerIn, value)));
+        rooms.forEach((key, value) -> this.components.add(new ArcanaMazeRoomPiece(templateManagerIn, value)));
 
         this.recalculateStructureSize();
     }

@@ -2,6 +2,7 @@ package divinerpg.registry;
 
 import divinerpg.DivineRPG;
 import divinerpg.world.DivineDimension;
+import divinerpg.world.arcana.ArcanaDimension;
 import divinerpg.world.iceika.IceikaDimension;
 import divinerpg.world.mortum.CavesDimension;
 import divinerpg.world.twilight.FloatingDimension;
@@ -30,6 +31,8 @@ public class DimensionRegistry {
     public static ModDimension MORTUM_DIM;
     @ObjectHolder("iceika")
     public static ModDimension ICEIKA;
+    @ObjectHolder("arcana")
+    public static ModDimension ARCANA;
 
 
     @SubscribeEvent
@@ -63,5 +66,8 @@ public class DimensionRegistry {
 
         registry.register(new DivineDimension((world, type) -> new IceikaDimension(world, DimensionType.byName(DimensionTypeRegistry.ICEIKA)))
                 .setRegistryName(DivineRPG.MODID, "iceika"));
+
+        registry.register(new DivineDimension((world, type) -> new ArcanaDimension(world, DimensionType.byName(DimensionTypeRegistry.ARCANA)))
+                .setRegistryName(DivineRPG.MODID, "arcana"));
     }
 }

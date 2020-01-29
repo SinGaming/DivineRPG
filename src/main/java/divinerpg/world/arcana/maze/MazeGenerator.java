@@ -1,6 +1,9 @@
 package divinerpg.world.arcana.maze;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+import java.util.Stack;
 
 /**
  * This program generates mazes and solves them using Breadth-first Search and
@@ -54,9 +57,18 @@ public class MazeGenerator {
         return maze2D;
     }
 
-    public static Cell generateMap(Random r, int size) {
+    public static Cell generateMap(Random r, int size, boolean xStart, boolean yStart) {
         String[][] maze = MazeGenerator.maze2D(size);
-        maze = generator(maze, r);
+
+        Cell begin = null;
+        {
+            int x = xStart ? 0 : size - 1;
+            int y = yStart ? 0 : size - 1;
+
+            begin = new Cell(x, y);
+        }
+
+        maze = generator(maze, r, begin);
 
         System.out.println(convert2D(maze));
 
@@ -84,12 +96,12 @@ public class MazeGenerator {
      * @param maze2D The empty non-generated maze
      * @return maze2D The empty generated maze
      */
-    private static String[][] generator(String[][] maze2D, Random r) {
+    private static String[][] generator(String[][] maze2D, Random r, Cell begin) {
         Stack<Cell> location = new Stack<Cell>();
         int size = (maze2D.length - 1) / 2;
         int totalCells = size * size;
         int visitedCells = 1;
-        Cell current = new Cell(0, 0);
+        Cell current = begin;
 
         while (visitedCells < totalCells) {
 
@@ -311,20 +323,13 @@ public class MazeGenerator {
     public static void main(String[] args) {
         System.out.println("-------------------------------------------------------------------");
 
-        Scanner scan = new Scanner(System.in);
-        int size = 0;
+        Random random = new Random();
 
-        do {
-            System.out.print("Input the size for the maze: ");
-            while (!scan.hasNextInt()) {
-                // Repeat message when bad input
-                System.out.println("Needs a valid integer for maze size (3 or Higher)");
-                System.out.print("Input the size for the maze: ");
-                scan.next();
+        for (int x = 0; x < 2; x++) {
+            for (int y = 0; y < 2; y++) {
+                generateMap(random, 8, x == 0, y == 0);
+                System.out.println("\n-----------------------------------------------\n");
             }
-            size = scan.nextInt();
-        } while (size <= 2);
-
-        Cell cell = generateMap(new Random(), 8);
+        }
     }
 }
