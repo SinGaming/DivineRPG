@@ -2,6 +2,7 @@ package divinerpg.registry;
 
 import divinerpg.DivineRPG;
 import divinerpg.config.OreGen;
+import divinerpg.world.arcana.ArcanaMazeRoomPiece;
 import divinerpg.world.twilight.feature.DivineFlowersFeature;
 import divinerpg.world.twilight.feature.DivineOreFeature;
 import divinerpg.world.twilight.feature.DivineTreeFeature;
@@ -14,6 +15,7 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.placement.ChanceConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeManager;
@@ -33,11 +35,16 @@ public class FeatureRegistry {
     @ObjectHolder("ore_feature")
     public static DivineOreFeature ORE;
 
+    public static IStructurePieceType arcana_maze_type;
+
     static {
         eden_tree_feature = new DivineTreeFeature(false, 7, () -> BlockRegistry.edenSapling,
                 () -> BlockRegistry.edenLog, () -> BlockRegistry.edenLeaves);
         flowers_feature = new DivineFlowersFeature();
         ORE = new DivineOreFeature(DivineOreFeatureConfig::deserialize);
+
+        // arcana structure piece type
+        arcana_maze_type = IStructurePieceType.register((manager, nbt) -> new ArcanaMazeRoomPiece(arcana_maze_type, manager, nbt), "ArcSPT");
     }
 
     /**

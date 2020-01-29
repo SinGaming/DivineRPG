@@ -1,5 +1,6 @@
 package divinerpg.world.arcana.maze;
 
+import divinerpg.DivineRPG;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -40,11 +41,19 @@ public class RoomDescription {
 
 
     private void findAndInitialize() {
-        // todo search for
+        // todo search for locations and anters
+
+        // TODO debug
+        location = new ResourceLocation(DivineRPG.MODID, "debug/" + connections.size());
+        enters.addAll(connections.stream().map(x -> new Enter(x, new BlockPos(0, 0, 0))).collect(Collectors.toList()));
     }
 
     public ResourceLocation getLocation() {
         return location;
+    }
+
+    public BlockPos getPos() {
+        return pos.asBlockPos();
     }
 
     public class Enter {
@@ -86,10 +95,9 @@ public class RoomDescription {
                 return false;
             }
 
-            if (poses.size() != other.poses.size())
-                return false;
-
-            return poses.stream().anyMatch(x -> !other.poses.contains(x));
+            return poses.size() == other.poses.size()
+                    && poses.isEmpty()
+                    || poses.containsAll(other.poses);
         }
     }
 }
