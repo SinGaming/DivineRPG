@@ -1,67 +1,67 @@
 package divinerpg.entities.vanilla.worm;
 
 import divinerpg.entities.base.render.DivineModel;
-import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.client.renderer.model.ModelRenderer;
 
 public class SaguaroWormModel extends DivineModel<SaguaroWorm> {
-    RendererModel connector2;
-    RendererModel middle;
-    RendererModel base;
-    RendererModel connector1;
-    RendererModel head;
+    ModelRenderer connector2;
+    ModelRenderer middle;
+    ModelRenderer base;
+    ModelRenderer connector1;
+    ModelRenderer head;
 
-    RendererModel Shape1;
-    RendererModel Shape2;
-    RendererModel Shape3;
+    ModelRenderer Shape1;
+    ModelRenderer Shape2;
+    ModelRenderer Shape3;
 
     public SaguaroWormModel() {
         textureWidth = 64;
         textureHeight = 64;
 
-        connector2 = new RendererModel(this, 0, 32);
+        connector2 = new ModelRenderer(this, 0, 32);
         connector2.addBox(0F, 0F, 0F, 10, 16, 10);
         connector2.setRotationPoint(-5F, -24F, -21F);
         connector2.setTextureSize(64, 64);
         connector2.mirror = true;
         setRotation(connector2, 0.5759587F, 0F, 0F);
-        middle = new RendererModel(this, 0, 0);
+        middle = new ModelRenderer(this, 0, 0);
         middle.addBox(0F, 0F, 0F, 16, 16, 16);
         middle.setRotationPoint(-8F, -13F, -16F);
         middle.setTextureSize(64, 64);
         middle.mirror = true;
         setRotation(middle, 0.4363323F, 0F, 0F);
-        base = new RendererModel(this, 0, 0);
+        base = new ModelRenderer(this, 0, 0);
         base.addBox(0F, 0F, 0F, 16, 16, 16);
         base.setRotationPoint(-8F, 8F, -8F);
         base.setTextureSize(64, 64);
         base.mirror = true;
         setRotation(base, 0F, 0F, 0F);
-        connector1 = new RendererModel(this, 0, 32);
+        connector1 = new ModelRenderer(this, 0, 32);
         connector1.addBox(0F, 0F, 0F, 10, 16, 10);
         connector1.setRotationPoint(-5F, -3F, -9F);
         connector1.setTextureSize(64, 64);
         connector1.mirror = true;
         setRotation(connector1, 0.3316126F, 0F, 0F);
-        head = new RendererModel(this, 0, 0);
+        head = new ModelRenderer(this, 0, 0);
         head.addBox(-8F, -16F, -8F, 16, 16, 16);
         head.setRotationPoint(0F, -24F, -14F);
         head.setTextureSize(64, 64);
         head.mirror = true;
         setRotation(head, 1.047198F, 0F, 0F);
 
-        Shape1 = new RendererModel(this, 0, 0);
+        Shape1 = new ModelRenderer(this, 0, 0);
         Shape1.addBox(0F, 0F, 0F, 16, 16, 16);
         Shape1.setRotationPoint(-8F, -8F, -8F);
         Shape1.setTextureSize(64, 64);
         Shape1.mirror = true;
         setRotation(Shape1, 0F, 0F, 0F);
-        Shape2 = new RendererModel(this, 0, 0);
+        Shape2 = new ModelRenderer(this, 0, 0);
         Shape2.addBox(0F, 0F, 0F, 16, 16, 16);
         Shape2.setRotationPoint(-8F, 8F, -8F);
         Shape2.setTextureSize(64, 64);
         Shape2.mirror = true;
         setRotation(Shape2, 0F, 0F, 0F);
-        Shape3 = new RendererModel(this, 0, 0);
+        Shape3 = new ModelRenderer(this, 0, 0);
         Shape3.addBox(0F, 0F, 0F, 16, 16, 16);
         Shape3.setRotationPoint(-8F, -24F, -8F);
         Shape3.setTextureSize(64, 64);

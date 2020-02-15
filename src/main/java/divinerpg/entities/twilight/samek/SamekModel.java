@@ -1,20 +1,20 @@
 package divinerpg.entities.twilight.samek;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.MobEntity;
 
 public class SamekModel extends BipedModel<MobEntity> {
-    RendererModel secondHead;
+    ModelRenderer secondHead;
 
     public SamekModel() {
-        this.secondHead = new RendererModel(this, 0, 0);
+        this.secondHead = new ModelRenderer(this, 0, 0);
         this.secondHead.addBox(0.0F, 0.0F, 0.0F, 8, 8, 8);
         this.secondHead.setRotationPoint(1.466667F, -8.0F, -4.0F);
         this.secondHead.setTextureSize(64, 32);
         this.secondHead.mirror = true;
 
-        this.bipedHead = new RendererModel(this, 0, 0);
+        this.bipedHead = new ModelRenderer(this, 0, 0);
         this.bipedHead.addBox(-11.0F, -8.0F, -4.0F, 8, 8, 8);
         this.bipedHead.setRotationPoint(1.0F, 0.0F, 0.0F);
         this.bipedHead.setTextureSize(64, 32);

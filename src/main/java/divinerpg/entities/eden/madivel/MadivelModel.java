@@ -1,87 +1,87 @@
 package divinerpg.entities.eden.madivel;
 
 import divinerpg.entities.base.render.DivineModel;
-import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 
 public class MadivelModel extends DivineModel<Madivel> {
-    RendererModel head;
-    RendererModel body;
-    RendererModel rightarm;
-    RendererModel leftarm;
-    RendererModel rightleg;
-    RendererModel leftleg;
-    RendererModel neckbone;
-    RendererModel neck;
-    RendererModel headbone;
-    RendererModel rightarmbones;
-    RendererModel leftarmbones;
+    ModelRenderer head;
+    ModelRenderer body;
+    ModelRenderer rightarm;
+    ModelRenderer leftarm;
+    ModelRenderer rightleg;
+    ModelRenderer leftleg;
+    ModelRenderer neckbone;
+    ModelRenderer neck;
+    ModelRenderer headbone;
+    ModelRenderer rightarmbones;
+    ModelRenderer leftarmbones;
 
     public MadivelModel() {
         textureWidth = 64;
         textureHeight = 32;
 
-        head = new RendererModel(this, 35, 0);
+        head = new ModelRenderer(this, 35, 0);
         head.addBox(-4F, -8F, -4F, 6, 9, 7);
         head.setRotationPoint(1F, -13F, 0F);
         head.setTextureSize(64, 32);
         head.mirror = true;
         setRotation(head, 0F, 0F, 0F);
-        body = new RendererModel(this, 16, 16);
+        body = new ModelRenderer(this, 16, 16);
         body.addBox(-4F, 0F, -2F, 8, 12, 4);
         body.setRotationPoint(0F, -7F, 0F);
         body.setTextureSize(64, 32);
         body.mirror = true;
         setRotation(body, 0F, 0F, 0F);
-        rightarm = new RendererModel(this, 40, 16);
+        rightarm = new ModelRenderer(this, 40, 16);
         rightarm.addBox(-3F, -2F, -2F, 4, 12, 4);
         rightarm.setRotationPoint(-5F, -5F, 0F);
         rightarm.setTextureSize(64, 32);
         rightarm.mirror = true;
         setRotation(rightarm, 0F, 0F, 0F);
-        leftarm = new RendererModel(this, 40, 16);
+        leftarm = new ModelRenderer(this, 40, 16);
         leftarm.addBox(-1F, -2F, -2F, 4, 12, 4);
         leftarm.setRotationPoint(5F, -5F, 0F);
         leftarm.setTextureSize(64, 32);
         leftarm.mirror = true;
         setRotation(leftarm, 0F, 0F, 0F);
-        rightleg = new RendererModel(this, 0, 9);
+        rightleg = new ModelRenderer(this, 0, 9);
         rightleg.addBox(-2F, 0F, -2F, 4, 19, 4);
         rightleg.setRotationPoint(-2F, 5F, 0F);
         rightleg.setTextureSize(64, 32);
         rightleg.mirror = true;
         setRotation(rightleg, 0F, 0F, 0F);
-        leftleg = new RendererModel(this, 0, 9);
+        leftleg = new ModelRenderer(this, 0, 9);
         leftleg.addBox(-2F, 0F, -2F, 4, 19, 4);
         leftleg.setRotationPoint(2F, 5F, 0F);
         leftleg.setTextureSize(64, 32);
         leftleg.mirror = true;
         setRotation(leftleg, 0F, 0F, 0F);
-        neckbone = new RendererModel(this, 2, 1);
+        neckbone = new ModelRenderer(this, 2, 1);
         neckbone.addBox(-6F, 1F, -1F, 10, 2, 2);
         neckbone.setRotationPoint(1F, -13F, 0F);
         neckbone.setTextureSize(64, 32);
         neckbone.mirror = true;
         setRotation(neckbone, 0F, 0F, 0F);
-        neck = new RendererModel(this, 36, 20);
+        neck = new ModelRenderer(this, 36, 20);
         neck.addBox(0F, 0F, 0F, 4, 5, 4);
         neck.setRotationPoint(-2F, -12F, -2F);
         neck.setTextureSize(64, 32);
         neck.mirror = true;
         setRotation(neck, 0F, 0F, 0F);
-        headbone = new RendererModel(this, 2, 1);
+        headbone = new ModelRenderer(this, 2, 1);
         headbone.addBox(-6F, -2F, 0F, 10, 2, 2);
         headbone.setRotationPoint(1F, -18F, -1F);
         headbone.setTextureSize(64, 32);
         headbone.mirror = true;
         setRotation(headbone, 0F, 0F, 0F);
-        rightarmbones = new RendererModel(this, 40, 24);
+        rightarmbones = new ModelRenderer(this, 40, 24);
         rightarmbones.addBox(-8F, -2F, -1F, 6, 3, 2);
         rightarmbones.setRotationPoint(-5F, -1F, 0F);
         rightarmbones.setTextureSize(64, 32);
         rightarmbones.mirror = true;
         setRotation(rightarmbones, 0F, 0F, 0F);
-        leftarmbones = new RendererModel(this, 40, 24);
+        leftarmbones = new ModelRenderer(this, 40, 24);
         leftarmbones.addBox(2F, 2F, -1F, 6, 3, 2);
         leftarmbones.setRotationPoint(5F, -5F, 0F);
         leftarmbones.setTextureSize(64, 32);
@@ -91,7 +91,7 @@ public class MadivelModel extends DivineModel<Madivel> {
 
     }
 
-    protected void setRotation(RendererModel model, float x, float y, float z) {
+    protected void setRotation(ModelRenderer model, float x, float y, float z) {
         model.rotateAngleX = x;
         model.rotateAngleY = y;
         model.rotateAngleZ = z;
