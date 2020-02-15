@@ -72,7 +72,7 @@ public class BlazeAttackGoal extends Goal {
                     this.blaze.attackEntityAsMob(livingentity);
                 }
 
-                this.blaze.getMoveHelper().setMoveTo(livingentity.posX, livingentity.posY, livingentity.posZ, 1.0D);
+                this.blaze.getMoveHelper().setMoveTo(livingentity.serverPosX, livingentity.serverPosY, livingentity.serverPosZ, 1.0D);
             } else if (d0 < this.getFollowDistance() * this.getFollowDistance() && flag) {
                 if (this.attackTime <= 0) {
                     ++this.attackStep;
@@ -90,7 +90,7 @@ public class BlazeAttackGoal extends Goal {
 
                         for (int i = 0; i < 1; ++i) {
                             Entity fireballEntity = createFireball(this.blaze, livingentity);
-                            fireballEntity.posY = this.blaze.posY + (double) (this.blaze.getHeight() / 2.0F) + 0.5D;
+                            fireballEntity.serverPosY = this.blaze.serverPosY + (double) (this.blaze.getHeight() / 2.0F) + 0.5D;
                             this.blaze.world.addEntity(fireballEntity);
                         }
                     }
@@ -98,7 +98,7 @@ public class BlazeAttackGoal extends Goal {
 
                 this.blaze.getLookController().setLookPositionWithEntity(livingentity, 10.0F, 10.0F);
             } else if (this.ticks < 5) {
-                this.blaze.getMoveHelper().setMoveTo(livingentity.posX, livingentity.posY, livingentity.posZ, 1.0D);
+                this.blaze.getMoveHelper().setMoveTo(livingentity.serverPosX, livingentity.serverPosY, livingentity.serverPosZ, 1.0D);
             }
 
             super.tick();
@@ -113,9 +113,9 @@ public class BlazeAttackGoal extends Goal {
         double distance = entity.getDistanceSq(target);
         float f = MathHelper.sqrt(MathHelper.sqrt(distance)) * 0.5F;
 
-        double x = target.posX - entity.posX;
-        double y = target.getBoundingBox().minY + (double) (target.getHeight() / 2.0F) - (entity.posY + (double) (entity.getHeight() / 2.0F));
-        double z = target.posZ - entity.posZ;
+        double x = target.serverPosX - entity.serverPosX;
+        double y = target.getBoundingBox().minY + (double) (target.getHeight() / 2.0F) - (entity.serverPosY + (double) (entity.getHeight() / 2.0F));
+        double z = target.serverPosZ - entity.serverPosZ;
 
         return func.createFireball(entity.world, entity, x + entity.getRNG().nextGaussian() * (double) f, y, z + entity.getRNG().nextGaussian() * (double) f);
     }

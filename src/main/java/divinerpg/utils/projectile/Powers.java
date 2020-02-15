@@ -88,7 +88,7 @@ public class Powers {
         }
 
         if (explosion > 0 && !bullet.world.isRemote()) {
-            bullet.world.createExplosion(bullet, bullet.posX, bullet.posY, bullet.posZ, explosion, mode);
+            bullet.world.createExplosion(bullet, bullet.serverPosX, bullet.serverPosY, bullet.serverPosZ, explosion, mode);
         }
     }
 

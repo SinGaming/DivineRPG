@@ -15,7 +15,7 @@ public class MysticRender extends DivineRender<MobEntity, MysticModel> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(MobEntity entity) {
+    public ResourceLocation getEntityTexture(MobEntity entity) {
         return textureBasedOnType(entity);
     }
 }

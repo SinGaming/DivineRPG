@@ -14,7 +14,7 @@ public class ArcherRender extends DivineRender<MobEntity, ArcherModel> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(MobEntity entity) {
+    public ResourceLocation getEntityTexture(MobEntity entity) {
         return textureBasedOnType(entity);
     }
 }

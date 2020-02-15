@@ -15,7 +15,7 @@ public class SamekRender extends DivineRender<MobEntity, SamekModel> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(MobEntity entity) {
+    public ResourceLocation getEntityTexture(MobEntity entity) {
         return CachedTexture.ENTITIES.getTexture(entity.getType().getRegistryName().getPath());
     }
 }

@@ -64,9 +64,9 @@ public class GhastAttackGoal extends Goal {
 
             if (this.attackTimer == 20) {
                 Vec3d vec3d = this.parentEntity.getLook(1.0F);
-                double d2 = livingentity.posX - (this.parentEntity.posX + vec3d.x * 4.0D);
-                double d3 = livingentity.getBoundingBox().minY + (double) (livingentity.getHeight() / 2.0F) - (0.5D + this.parentEntity.posY + (double) (this.parentEntity.getHeight() / 2.0F));
-                double d4 = livingentity.posZ - (this.parentEntity.posZ + vec3d.z * 4.0D);
+                double d2 = livingentity.serverPosX - (this.parentEntity.serverPosX + vec3d.x * 4.0D);
+                double d3 = livingentity.getBoundingBox().minY + (double) (livingentity.getHeight() / 2.0F) - (0.5D + this.parentEntity.serverPosY + (double) (this.parentEntity.getHeight() / 2.0F));
+                double d4 = livingentity.serverPosZ - (this.parentEntity.serverPosZ + vec3d.z * 4.0D);
                 world.playSound(null, parentEntity.getPosition(), shootSound, SoundCategory.HOSTILE, 10.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
 
                 Entity fireballentity = func.createFireball(world, this.parentEntity, d2, d3, d4);
@@ -75,9 +75,9 @@ public class GhastAttackGoal extends Goal {
                     ((FireballEntity) fireballentity).explosionPower = ((GhastEntity) this.parentEntity).getFireballStrength();
                 }
 
-                fireballentity.posX = this.parentEntity.posX + vec3d.x * 4.0D;
-                fireballentity.posY = this.parentEntity.posY + (double) (this.parentEntity.getHeight() / 2.0F) + 0.5D;
-                fireballentity.posZ = this.parentEntity.posZ + vec3d.z * 4.0D;
+                fireballentity.serverPosX = this.parentEntity.serverPosX + vec3d.x * 4.0D;
+                fireballentity.serverPosY = this.parentEntity.serverPosY + (double) (this.parentEntity.getHeight() / 2.0F) + 0.5D;
+                fireballentity.serverPosZ = this.parentEntity.serverPosZ + vec3d.z * 4.0D;
                 world.addEntity(fireballentity);
                 this.attackTimer = -40;
             }

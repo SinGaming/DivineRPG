@@ -61,7 +61,7 @@ public class RevengeGoal extends TargetGoal {
 
     protected void alertOthers() {
         double d0 = this.getTargetDistance();
-        List<MobEntity> list = this.goalOwner.world.func_225317_b(this.goalOwner.getClass(), (new AxisAlignedBB(this.goalOwner.posX, this.goalOwner.posY, this.goalOwner.posZ, this.goalOwner.posX + 1.0D, this.goalOwner.posY + 1.0D, this.goalOwner.posZ + 1.0D)).grow(d0, 10.0D, d0));
+        List<MobEntity> list = this.goalOwner.world.func_225317_b(this.goalOwner.getClass(), (new AxisAlignedBB(this.goalOwner.serverPosX, this.goalOwner.serverPosY, this.goalOwner.serverPosZ, this.goalOwner.serverPosX + 1.0D, this.goalOwner.serverPosY + 1.0D, this.goalOwner.serverPosZ + 1.0D)).grow(d0, 10.0D, d0));
         Iterator iterator = list.iterator();
 
         while (true) {

@@ -54,9 +54,9 @@ public class SpawnHelper {
         for (int i = 0; i < count; i++) {
             ThrowableEntity bullet = createFunc.createBullet(world, player, power);
 
-            bullet.posX += (rand.nextDouble() - rand.nextDouble()) * 1.5;
-            bullet.posY += (rand.nextDouble() - rand.nextDouble()) * 1.5;
-            bullet.posZ += (rand.nextDouble() - rand.nextDouble()) * 1.5;
+            bullet.serverPosX += (rand.nextDouble() - rand.nextDouble()) * 1.5;
+            bullet.serverPosY += (rand.nextDouble() - rand.nextDouble()) * 1.5;
+            bullet.serverPosZ += (rand.nextDouble() - rand.nextDouble()) * 1.5;
 
             singleSpawn(world, player, bullet);
         }

@@ -22,7 +22,7 @@ public class GhastMoveController extends MovementController {
         if (this.action == MovementController.Action.MOVE_TO) {
             if (this.courseChangeCooldown-- <= 0) {
                 this.courseChangeCooldown += this.parentEntity.getRNG().nextInt(5) + 2;
-                Vec3d vec3d = new Vec3d(this.posX - this.parentEntity.posX, this.posY - this.parentEntity.posY, this.posZ - this.parentEntity.posZ);
+                Vec3d vec3d = new Vec3d(this.serverPosX - this.parentEntity.serverPosX, this.serverPosY - this.parentEntity.serverPosY, this.serverPosZ - this.parentEntity.serverPosZ);
                 double d0 = vec3d.length();
                 vec3d = vec3d.normalize();
                 if (this.func_220673_a(vec3d, MathHelper.ceil(d0))) {

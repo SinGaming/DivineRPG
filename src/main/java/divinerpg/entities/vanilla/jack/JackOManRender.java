@@ -22,7 +22,7 @@ public class JackOManRender extends DivineRender<JackOMan, JackOManModel> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(JackOMan entity) {
+    public ResourceLocation getEntityTexture(JackOMan entity) {
         return WITHER_SKELETON_TEXTURES;
     }
 }

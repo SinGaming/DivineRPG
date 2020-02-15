@@ -66,9 +66,9 @@ public class DivineArcher extends PeacefullDivineMonster implements IRangedAttac
         ItemStack itemstack = this.findAmmo(this.getHeldItem(ProjectileHelper.getHandWith(this, Items.BOW)));
         IProjectile bullet = this.createArrow(itemstack, distanceFactor);
 
-        double d0 = target.posX - this.posX;
-        double d1 = target.getBoundingBox().minY + (double) (target.getHeight() / 3.0F) - ((Entity) bullet).posY;
-        double d2 = target.posZ - this.posZ;
+        double d0 = target.serverPosX - this.serverPosX;
+        double d1 = target.getBoundingBox().minY + (double) (target.getHeight() / 3.0F) - ((Entity) bullet).serverPosY;
+        double d2 = target.serverPosZ - this.serverPosZ;
         double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
         lunch(bullet, d0, d1, d2, d3);
         this.playSound(getShootSound(), 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));

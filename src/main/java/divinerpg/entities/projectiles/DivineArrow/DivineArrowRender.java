@@ -14,7 +14,7 @@ public class DivineArrowRender extends ArrowRenderer<DivineArrow> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(DivineArrow entity) {
+    public ResourceLocation getEntityTexture(DivineArrow entity) {
         return entity.getTexture();
     }
 }

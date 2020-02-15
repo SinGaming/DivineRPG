@@ -101,7 +101,7 @@ public class DivineFireball extends FireballEntity implements ITextured {
             }
 
             boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this.shootingEntity);
-            this.world.createExplosion(shootingEntity, this.posX, this.posY, this.posZ, (float) this.explosionPower, flag, flag ? Explosion.Mode.DESTROY : Explosion.Mode.NONE);
+            this.world.createExplosion(shootingEntity, this.serverPosX, this.serverPosY, this.serverPosZ, (float) this.explosionPower, flag, flag ? Explosion.Mode.DESTROY : Explosion.Mode.NONE);
             this.remove();
         }
     }

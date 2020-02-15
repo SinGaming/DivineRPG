@@ -134,7 +134,7 @@ public class DivineBowItem extends BowItem {
                     worldIn.addEntity(arrowEntity);
                 }
 
-                worldIn.playSound(null, player.posX, player.posY, player.posZ, sound, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+                worldIn.playSound(null, player.serverPosX, player.serverPosY, player.serverPosZ, sound, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
                 if (!infiniteArrow && !player.abilities.isCreativeMode) {
                     ammo.shrink(1);
                     if (ammo.isEmpty()) {

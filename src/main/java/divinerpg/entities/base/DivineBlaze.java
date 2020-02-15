@@ -61,7 +61,7 @@ public class DivineBlaze extends DivineMonster {
         }
 
         LivingEntity livingentity = this.getAttackTarget();
-        if (livingentity != null && livingentity.posY + (double) livingentity.getEyeHeight() > this.posY + (double) this.getEyeHeight() + (double) this.heightOffset && this.canAttack(livingentity)) {
+        if (livingentity != null && livingentity.serverPosY + (double) livingentity.getEyeHeight() > this.serverPosY + (double) this.getEyeHeight() + (double) this.heightOffset && this.canAttack(livingentity)) {
             Vec3d vec3d = this.getMotion();
             this.setMotion(this.getMotion().add(0.0D, ((double) 0.3F - vec3d.y) * (double) 0.3F, 0.0D));
             this.isAirBorne = true;

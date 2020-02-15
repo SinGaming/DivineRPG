@@ -14,7 +14,7 @@ public class CoriRender extends DivineRender<MobEntity, CoriModel> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(MobEntity entity) {
+    public ResourceLocation getEntityTexture(MobEntity entity) {
         return textureBasedOnType(entity);
     }
 }

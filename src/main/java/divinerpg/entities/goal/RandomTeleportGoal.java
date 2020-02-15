@@ -35,9 +35,9 @@ public class RandomTeleportGoal extends Goal {
      * Teleport the enderman to a random nearby position
      */
     protected boolean teleportRandomly() {
-        double d0 = this.entity.posX + (this.entity.world.rand.nextDouble() - 0.5D) * 64.0D;
-        double d1 = this.entity.posY + (double) (this.entity.world.rand.nextInt(64) - 32);
-        double d2 = this.entity.posZ + (this.entity.world.rand.nextDouble() - 0.5D) * 64.0D;
+        double d0 = this.entity.serverPosX + (this.entity.world.rand.nextDouble() - 0.5D) * 64.0D;
+        double d1 = this.entity.serverPosY + (double) (this.entity.world.rand.nextInt(64) - 32);
+        double d2 = this.entity.serverPosZ + (this.entity.world.rand.nextDouble() - 0.5D) * 64.0D;
         return this.teleportTo(d0, d1, d2);
     }
 

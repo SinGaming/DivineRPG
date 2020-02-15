@@ -9,18 +9,18 @@ import net.minecraft.util.math.MathHelper;
 public class JackOManModel extends BipedModel<JackOMan> {
     public JackOManModel() {
         this.bipedRightArm = new ModelRenderer(this, 40, 16);
-        this.bipedRightArm.addBox(-1.0F, -2.0F, -1.0F, 2, 12, 2, 0);
+        this.bipedRightArm.func_228300_a_(-1.0F, -2.0F, -1.0F, 2, 12, 2, 0);
         this.bipedRightArm.setRotationPoint(-5.0F, 2.0F, 0.0F);
         this.bipedLeftArm = new ModelRenderer(this, 40, 16);
         this.bipedLeftArm.mirror = true;
-        this.bipedLeftArm.addBox(-1.0F, -2.0F, -1.0F, 2, 12, 2, 0);
+        this.bipedLeftArm.func_228300_a_(-1.0F, -2.0F, -1.0F, 2, 12, 2, 0);
         this.bipedLeftArm.setRotationPoint(5.0F, 2.0F, 0.0F);
         this.bipedRightLeg = new ModelRenderer(this, 0, 16);
-        this.bipedRightLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 12, 2, 0);
+        this.bipedRightLeg.func_228300_a_(-1.0F, 0.0F, -1.0F, 2, 12, 2, 0);
         this.bipedRightLeg.setRotationPoint(-2.0F, 12.0F, 0.0F);
         this.bipedLeftLeg = new ModelRenderer(this, 0, 16);
         this.bipedLeftLeg.mirror = true;
-        this.bipedLeftLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 12, 2, 0);
+        this.bipedLeftLeg.func_228300_a_(-1.0F, 0.0F, -1.0F, 2, 12, 2, 0);
         this.bipedLeftLeg.setRotationPoint(2.0F, 12.0F, 0.0F);
     }
 

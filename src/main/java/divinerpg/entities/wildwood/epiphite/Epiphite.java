@@ -32,7 +32,7 @@ public class Epiphite extends PeacefullDivineMonster {
         boolean result = super.attackEntityAsMob(entityIn);
 
         if (result && world instanceof ServerWorld && rand.nextInt(5) == 0) {
-            LightningBoltEntity boltEntity = new LightningBoltEntity(world, entityIn.posX, entityIn.posY, entityIn.posZ, true);
+            LightningBoltEntity boltEntity = new LightningBoltEntity(world, entityIn.serverPosX, entityIn.serverPosY, entityIn.serverPosZ, true);
             ((ServerWorld) world).addLightningBolt(boltEntity);
         }
 

@@ -15,7 +15,7 @@ public class DensosRender extends DivineRender<DivineBoss, DensosModel> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(DivineBoss entity) {
+    public ResourceLocation getEntityTexture(DivineBoss entity) {
         return CachedTexture.ENTITIES.getTexture(entity.getType().getRegistryName().getPath());
     }
 }

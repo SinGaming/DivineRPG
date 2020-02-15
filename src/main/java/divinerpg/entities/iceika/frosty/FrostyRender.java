@@ -14,7 +14,7 @@ public class FrostyRender extends DivineRender<Frosty, FrostyModel> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(Frosty entity) {
+    public ResourceLocation getEntityTexture(Frosty entity) {
         String name = "frosty";
         if (entity.isAggressive()) {
             name = "angry_" + name;

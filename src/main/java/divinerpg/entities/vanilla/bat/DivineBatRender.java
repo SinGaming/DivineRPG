@@ -17,7 +17,7 @@ public class DivineBatRender extends DivineRender<BatEntity, BatModel> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(BatEntity entity) {
+    public ResourceLocation getEntityTexture(BatEntity entity) {
         return textureBasedOnType(entity);
     }
 

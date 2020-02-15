@@ -61,7 +61,7 @@ public class DivineArrow extends ArrowEntity implements ITextured {
 
 
         this.setShooter(shooter);
-        setPositionAndRotation(shooter.posX, shooter.posY + shooter.getEyeHeight(), shooter.posZ, shooter.rotationYaw, shooter.rotationPitch);
+        setPositionAndRotation(shooter.serverPosX, shooter.serverPosY + shooter.getEyeHeight(), shooter.serverPosZ, shooter.rotationYaw, shooter.rotationPitch);
 
         if (shooter instanceof PlayerEntity && !((PlayerEntity) shooter).isCreative()) {
             this.pickupStatus = PickupStatus.ALLOWED;

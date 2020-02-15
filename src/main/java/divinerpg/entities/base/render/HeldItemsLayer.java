@@ -1,7 +1,9 @@
 package divinerpg.entities.base.render;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
@@ -9,58 +11,48 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.HandSide;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class HeldItemsLayer<T extends LivingEntity, M extends EntityModel<T> & IHasArms> extends LayerRenderer<T, M> {
-    public HeldItemsLayer(IEntityRenderer<T, M> entityRendererIn) {
-        super(entityRendererIn);
+    public HeldItemsLayer(IEntityRenderer<T, M> renderer) {
+        super(renderer);
     }
 
-    @Override
-    public void render(T entityIn, float p_212842_2_, float p_212842_3_, float p_212842_4_, float p_212842_5_, float p_212842_6_, float p_212842_7_, float p_212842_8_) {
-        boolean flag = entityIn.getPrimaryHand() == HandSide.RIGHT;
-        ItemStack itemstack = flag ? entityIn.getHeldItemOffhand() : entityIn.getHeldItemMainhand();
-        ItemStack itemstack1 = flag ? entityIn.getHeldItemMainhand() : entityIn.getHeldItemOffhand();
-        if (!itemstack.isEmpty() || !itemstack1.isEmpty()) {
-            GlStateManager.pushMatrix();
+    public void func_225628_a_(MatrixStack p_225628_1_, IRenderTypeBuffer p_225628_2_, int p_225628_3_, T p_225628_4_, float p_225628_5_, float p_225628_6_, float p_225628_7_, float p_225628_8_, float p_225628_9_, float p_225628_10_) {
+        boolean lvt_11_1_ = p_225628_4_.getPrimaryHand() == HandSide.RIGHT;
+        ItemStack lvt_12_1_ = lvt_11_1_ ? p_225628_4_.getHeldItemOffhand() : p_225628_4_.getHeldItemMainhand();
+        ItemStack lvt_13_1_ = lvt_11_1_ ? p_225628_4_.getHeldItemMainhand() : p_225628_4_.getHeldItemOffhand();
+        if (!lvt_12_1_.isEmpty() || !lvt_13_1_.isEmpty()) {
+            p_225628_1_.func_227860_a_();
             if (this.getEntityModel().isChild) {
-                float f = 0.5F;
-                GlStateManager.translatef(0.0F, 0.75F, 0.0F);
-                GlStateManager.scalef(0.5F, 0.5F, 0.5F);
+                float lvt_14_1_ = 0.5F;
+                p_225628_1_.func_227861_a_(0.0D, 0.75D, 0.0D);
+                p_225628_1_.func_227862_a_(0.5F, 0.5F, 0.5F);
             }
 
-            this.renderHeldItems(entityIn, itemstack1, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, HandSide.RIGHT);
-            this.renderHeldItems(entityIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, HandSide.LEFT);
-            GlStateManager.popMatrix();
+            this.func_229135_a_(p_225628_4_, lvt_13_1_, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, HandSide.RIGHT, p_225628_1_, p_225628_2_, p_225628_3_);
+            this.func_229135_a_(p_225628_4_, lvt_12_1_, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, HandSide.LEFT, p_225628_1_, p_225628_2_, p_225628_3_);
+            p_225628_1_.func_227865_b_();
         }
     }
 
-    private void renderHeldItems(LivingEntity entity, ItemStack stack, ItemCameraTransforms.TransformType type, HandSide handSide) {
+    private void func_229135_a_(LivingEntity p_229135_1_, ItemStack p_229135_2_, ItemCameraTransforms.TransformType p_229135_3_, HandSide p_229135_4_, MatrixStack p_229135_5_, IRenderTypeBuffer p_229135_6_, int p_229135_7_) {
+        if (!p_229135_2_.isEmpty()) {
 
-        if (!stack.isEmpty()) {
             M model = this.getEntityModel();
 
-            for (int i = 0; i < model.size(handSide); i++) {
-                GlStateManager.pushMatrix();
-                if (entity.shouldRenderSneaking()) {
-                    GlStateManager.translatef(0.0F, 0.2F, 0.0F);
-                }
-
-                // Forge: moved this call down, fixes incorrect offset while sneaking.
-                model.postRenderArm(i, 0.0625F, handSide);
-
-                GlStateManager.rotatef(-90.0F, 1.0F, 0.0F, 0.0F);
-                GlStateManager.rotatef(180.0F, 0.0F, 1.0F, 0.0F);
-                boolean flag = handSide == HandSide.LEFT;
-                GlStateManager.translatef((float) (flag ? -1 : 1) / 16.0F, 0.125F, -0.625F);
-                Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entity, stack, type, flag);
-
-                GlStateManager.popMatrix();
+            for (int i = 0; i < model.size(p_229135_4_); i++) {
+                p_229135_5_.func_227860_a_();
+                model.postRenderArm(i, p_229135_4_, p_229135_5_);
+                p_229135_5_.func_227863_a_(Vector3f.field_229179_b_.func_229187_a_(-90.0F));
+                p_229135_5_.func_227863_a_(Vector3f.field_229181_d_.func_229187_a_(180.0F));
+                boolean lvt_8_1_ = p_229135_4_ == HandSide.LEFT;
+                p_229135_5_.func_227861_a_((double) ((float) (lvt_8_1_ ? -1 : 1) / 16.0F), 0.125D, -0.625D);
+                Minecraft.getInstance().getFirstPersonRenderer().func_228397_a_(p_229135_1_, p_229135_2_, p_229135_3_, lvt_8_1_, p_229135_5_, p_229135_6_, p_229135_7_);
+                p_229135_5_.func_227865_b_();
             }
         }
-    }
-
-    @Override
-    public boolean shouldCombineTextures() {
-        return false;
     }
 }

@@ -13,7 +13,7 @@ public class MoonWolfRender extends WolfRenderer {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(WolfEntity entity) {
+    public ResourceLocation getEntityTexture(WolfEntity entity) {
         return CachedTexture.ENTITIES.getTexture("moon_wolf");
     }
 }

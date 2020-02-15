@@ -43,7 +43,7 @@ public class Eye extends DivineMonster {
             return false;
 
         Vec3d vec3d = player.getLook(1.0F).normalize();
-        Vec3d vec3d1 = new Vec3d(this.posX - player.posX, this.getBoundingBox().minY + (double) this.getEyeHeight() - (player.posY + (double) player.getEyeHeight()), this.posZ - player.posZ);
+        Vec3d vec3d1 = new Vec3d(this.serverPosX - player.serverPosX, this.getBoundingBox().minY + (double) this.getEyeHeight() - (player.serverPosY + (double) player.getEyeHeight()), this.serverPosZ - player.serverPosZ);
         double d0 = vec3d1.length();
         vec3d1 = vec3d1.normalize();
         double d1 = vec3d.dotProduct(vec3d1);

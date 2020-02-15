@@ -20,8 +20,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.GameRules;
-import net.minecraft.world.ServerBossInfo;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerBossInfo;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import java.util.Arrays;
@@ -188,9 +188,9 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
      * @param <T>    - type of arrow entity
      */
     protected <T extends Entity & IProjectile> void launchArrow(LivingEntity target, T bullet) {
-        double x = target.posX - this.posX;
-        double y = target.getBoundingBox().minY + (double) (target.getHeight() / 3.0F) - bullet.posY;
-        double z = target.posZ - this.posZ;
+        double x = target.serverPosX - this.serverPosX;
+        double y = target.getBoundingBox().minY + (double) (target.getHeight() / 3.0F) - bullet.serverPosY;
+        double z = target.serverPosZ - this.serverPosZ;
         double xzVec = (double) MathHelper.sqrt(x * x + z * z);
 
         bullet.shoot(x, y + xzVec * (double) 0.2F, z, getArrowVelocity(), getInaccuracy());
@@ -217,9 +217,9 @@ public abstract class DivineBoss extends MonsterEntity implements IRangedAttackM
         double distance = this.getDistanceSq(target);
         float f = MathHelper.sqrt(MathHelper.sqrt(distance)) * 0.5F;
 
-        double x = target.posX - this.posX;
-        double y = target.getBoundingBox().minY + (double) (target.getHeight() / 2.0F) - (this.posY + (double) (this.getHeight() / 2.0F));
-        double z = target.posZ - this.posZ;
+        double x = target.serverPosX - this.serverPosX;
+        double y = target.getBoundingBox().minY + (double) (target.getHeight() / 2.0F) - (this.serverPosY + (double) (this.getHeight() / 2.0F));
+        double z = target.serverPosZ - this.serverPosZ;
 
         return createFireball.createFireball(this.world, this, x + this.getRNG().nextGaussian() * (double) f, y, z + this.getRNG().nextGaussian() * (double) f);
     }

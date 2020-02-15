@@ -38,7 +38,7 @@ public class ThrowableItem extends Item {
             stack.shrink(1);
         }
 
-        world.playSound(null, player.posX, player.posY, player.posZ, soundEvent, SoundCategory.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+        world.playSound(null, player.serverPosX, player.serverPosY, player.serverPosZ, soundEvent, SoundCategory.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
         if (!world.isRemote && spawnBullet != null) {
             spawnBullet.shoot(world, player, 100, damage);
         }

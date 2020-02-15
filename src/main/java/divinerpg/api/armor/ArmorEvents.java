@@ -16,7 +16,7 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.LazyLoadBase;
+import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -38,7 +38,7 @@ import java.util.function.Function;
 public class ArmorEvents {
 
     private static final UUID ARMOR_SPEED_UUID = UUID.fromString("2ae05d96-4b26-420b-8406-156e8febb45f");
-    private static final LazyLoadBase<List<net.minecraft.block.Block>> twilightOres = new LazyLoadBase<>(
+    private static final LazyValue<List<net.minecraft.block.Block>> twilightOres = new LazyValue<>(
             () -> Arrays.asList(BlockRegistry.edenOre, BlockRegistry.wildwoodOre, BlockRegistry.apalachiaOre, BlockRegistry.skythernOre, BlockRegistry.mortumOre));
 
     /**

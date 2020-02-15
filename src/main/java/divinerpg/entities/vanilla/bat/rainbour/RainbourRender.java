@@ -17,7 +17,7 @@ public class RainbourRender extends DivineRender<Rainbour, RainbourModel> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(Rainbour entity) {
+    public ResourceLocation getEntityTexture(Rainbour entity) {
         return entity.isAggressive()
                 ? angry
                 : super.getEntityTexture(entity);

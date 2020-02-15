@@ -14,7 +14,7 @@ public class TomoRender extends DivineRender<MobEntity, TomoModel> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(MobEntity entity) {
+    public ResourceLocation getEntityTexture(MobEntity entity) {
         return textureBasedOnType(entity);
     }
 }

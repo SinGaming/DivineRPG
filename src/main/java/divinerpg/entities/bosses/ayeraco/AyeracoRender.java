@@ -16,7 +16,7 @@ public class AyeracoRender extends DivineRender<Ayeraco, AyeracoModel> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(Ayeraco entity) {
+    public ResourceLocation getEntityTexture(Ayeraco entity) {
         BossInfo.Color color = entity.getColor();
         if (!AyeracoManager.beamLocations.containsKey(entity.getColor())) {
             // use default color

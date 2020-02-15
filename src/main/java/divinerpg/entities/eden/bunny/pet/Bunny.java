@@ -52,7 +52,7 @@ public class Bunny extends DivineWolf {
             return;
 
         Entity angryBunny = createAngryBunny();
-        angryBunny.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
+        angryBunny.setLocationAndAngles(this.serverPosX, this.serverPosY, this.serverPosZ, this.rotationYaw, this.rotationPitch);
         world.addEntity(angryBunny);
 
         remove();

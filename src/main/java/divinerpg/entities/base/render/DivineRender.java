@@ -1,6 +1,6 @@
 package divinerpg.entities.base.render;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import divinerpg.utils.CachedTexture;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class DivineRender<T extends MobEntity, M extends EntityModel<T>> extends MobRenderer<T, M> {
+public class DivineRender<T extends MobEntity, M extends EntityModel<T>> extends MobRenderer<T, M> implements IRenderDeobf<T> {
     private final ResourceLocation location;
     private final Float scale;
 
@@ -33,7 +33,7 @@ public class DivineRender<T extends MobEntity, M extends EntityModel<T>> extends
             this.addLayer(new HeldItemLayer(this));
 
         if (model instanceof IHasArms) {
-            this.addLayer(new HeldItemsLayer(this));
+            this.addLayer(new HeldItemLayer<T, M>(this));
         }
     }
 
@@ -42,17 +42,22 @@ public class DivineRender<T extends MobEntity, M extends EntityModel<T>> extends
     }
 
     @Override
-    protected void preRenderCallback(T entitylivingbaseIn, float partialTickTime) {
+    protected void func_225620_a_(T p_225620_1_, MatrixStack p_225620_2_, float p_225620_3_) {
+        preRenderCallback(p_225620_1_, p_225620_2_, p_225620_3_);
+    }
+
+    @Override
+    public void preRenderCallback(T entitylivingbaseIn, MatrixStack stack, float partialTickTime) {
         if (scale != null) {
-            GlStateManager.scalef(this.scale, this.scale, this.scale);
+            DeobfHelper.scale(stack, this.scale, this.scale, this.scale);
         }
 
-        super.preRenderCallback(entitylivingbaseIn, partialTickTime);
+        super.func_225620_a_(entitylivingbaseIn, stack, partialTickTime);
     }
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(T entity) {
+    public ResourceLocation getEntityTexture(T entity) {
         return location;
     }
 
@@ -72,4 +77,6 @@ public class DivineRender<T extends MobEntity, M extends EntityModel<T>> extends
 
         return location;
     }
+
+
 }

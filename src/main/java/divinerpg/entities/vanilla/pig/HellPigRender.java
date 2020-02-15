@@ -16,7 +16,7 @@ public class HellPigRender extends DivineRender<HellPig, PigModel<HellPig>> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(HellPig entity) {
+    public ResourceLocation getEntityTexture(HellPig entity) {
         if (entity.isTamed())
             return CachedTexture.ENTITIES.getTexture("tame_hell_pig");
 

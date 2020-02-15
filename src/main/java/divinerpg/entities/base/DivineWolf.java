@@ -38,7 +38,7 @@ public abstract class DivineWolf extends WolfEntity {
 
         this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4F));
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F));
+        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, true));
         this.goalSelector.addGoal(7, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(9, new BegGoal(this, 8.0F));
@@ -195,7 +195,7 @@ public abstract class DivineWolf extends WolfEntity {
                 AgeableEntity ageableentity = this.createChild(this);
                 if (ageableentity != null) {
                     ageableentity.setGrowingAge(-24000);
-                    ageableentity.setLocationAndAngles(this.posX, this.posY, this.posZ, 0.0F, 0.0F);
+                    ageableentity.setLocationAndAngles(this.serverPosX, this.serverPosY, this.serverPosZ, 0.0F, 0.0F);
                     this.world.addEntity(ageableentity);
                     if (itemstack.hasDisplayName()) {
                         ageableentity.setCustomName(itemstack.getDisplayName());

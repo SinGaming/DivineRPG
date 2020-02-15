@@ -5,7 +5,7 @@ import divinerpg.registry.ItemRegistry;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyLoadBase;
+import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -123,6 +123,13 @@ public class DivineArmorMaterial implements IArmorMaterial {
     private final int[] MAX_DAMAGE_ARRAY;
     private final List<ITextComponent> keyes = new ArrayList<>();
 
+    private final LazyValue<Ingredient> repairMaterial;
+
+    private final float chestplateDamage;
+    private final int[] damageReductionAmountArray;
+    private final int enchantability;
+    private final SoundEvent soundEvent;
+    private final float toughness;
     /**
      * @param name                   - name of armor material
      * @param chestplateDamage       - amount of chestplate damage. Others parts will be calculated by resources, needed to createFireball armor piece
@@ -142,7 +149,7 @@ public class DivineArmorMaterial implements IArmorMaterial {
         this.enchantability = enchantabilityIn;
         this.soundEvent = onEquip;
         this.toughness = toughness;
-        this.repairMaterial = new LazyLoadBase<>(repairMaterialSupplier);
+        this.repairMaterial = new LazyValue<>(repairMaterialSupplier);
 
         if (totalDefense < 1)
             return;
@@ -161,13 +168,6 @@ public class DivineArmorMaterial implements IArmorMaterial {
             damageReductionAmountArray[2] += totalDefense;
         }
     }
-
-    private final float chestplateDamage;
-    private final int[] damageReductionAmountArray;
-    private final int enchantability;
-    private final SoundEvent soundEvent;
-    private final float toughness;
-    private final LazyLoadBase<Ingredient> repairMaterial;
     private final ResourceLocation name;
 
     /**

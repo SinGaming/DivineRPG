@@ -72,9 +72,9 @@ public class Karot extends DivineBoss {
         world.addEntity(angryBunny);
 
         world.addParticle(RGBHelper.particlefromRGB(255, 0, 0),
-                angryBunny.posX,
-                angryBunny.posY + angryBunny.getHeight() + 0.5,
-                angryBunny.posZ,
+                angryBunny.serverPosX,
+                angryBunny.serverPosY + angryBunny.getHeight() + 0.5,
+                angryBunny.serverPosZ,
                 randDistribute(),
                 randDistribute(),
                 randDistribute());

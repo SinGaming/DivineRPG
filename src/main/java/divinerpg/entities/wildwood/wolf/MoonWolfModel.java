@@ -26,8 +26,8 @@ public class MoonWolfModel extends WolfModel<MoonWolf> {
     }
 
     @Override
-    public void setRotationAngles(MoonWolf entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
-        super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
+    public void func_225597_a_(MoonWolf entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.func_225597_a_(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
 
         float yaw = netHeadYaw / (180F / (float) Math.PI);
         float pitch = headPitch / (180F / (float) Math.PI);

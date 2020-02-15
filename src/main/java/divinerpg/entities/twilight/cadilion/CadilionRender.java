@@ -14,7 +14,7 @@ public class CadilionRender extends DivineRender<DivineMonster, CadilionModel> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(DivineMonster entity) {
+    public ResourceLocation getEntityTexture(DivineMonster entity) {
         return textureBasedOnType(entity);
     }
 }

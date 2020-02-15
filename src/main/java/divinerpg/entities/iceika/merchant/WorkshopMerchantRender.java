@@ -14,7 +14,7 @@ public class WorkshopMerchantRender extends DivineRender<WorkshopMerchant, Works
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(WorkshopMerchant entity) {
+    public ResourceLocation getEntityTexture(WorkshopMerchant entity) {
         return textureBasedOnType(entity);
     }
 }

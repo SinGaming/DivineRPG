@@ -23,67 +23,67 @@ public class PumpkinSpiderModel extends DivineModel<PumpkinSpider> {
         textureHeight = 64;
 
         Head = new ModelRenderer(this, 32, 4);
-        Head.addBox(-4F, -4F, -8F, 8, 8, 8);
+        Head.func_228300_a_(-4F, -4F, -8F, 8, 8, 8);
         Head.setRotationPoint(0F, 20F, -3F);
         Head.setTextureSize(64, 64);
         Head.mirror = true;
         setRotation(Head, 0F, 0F, 0F);
         Body = new ModelRenderer(this, 0, 0);
-        Body.addBox(-3F, -3F, -3F, 6, 6, 6);
+        Body.func_228300_a_(-3F, -3F, -3F, 6, 6, 6);
         Body.setRotationPoint(0F, 20F, 0F);
         Body.setTextureSize(64, 64);
         Body.mirror = true;
         setRotation(Body, 0F, 0F, 0F);
         RearEnd = new ModelRenderer(this, 0, 20);
-        RearEnd.addBox(-5F, -4F, -6F, 16, 16, 16);
+        RearEnd.func_228300_a_(-5F, -4F, -6F, 16, 16, 16);
         RearEnd.setRotationPoint(-3F, 12F, 8F);
         RearEnd.setTextureSize(64, 64);
         RearEnd.mirror = true;
         setRotation(RearEnd, 0F, 0F, 0F);
         Leg8 = new ModelRenderer(this, 18, 0);
-        Leg8.addBox(-1F, -1F, -1F, 16, 2, 2);
+        Leg8.func_228300_a_(-1F, -1F, -1F, 16, 2, 2);
         Leg8.setRotationPoint(4F, 20F, -1F);
         Leg8.setTextureSize(64, 64);
         Leg8.mirror = true;
         setRotation(Leg8, 0F, 0.5759587F, 0.1919862F);
         Leg6 = new ModelRenderer(this, 18, 0);
-        Leg6.addBox(-1F, -1F, -1F, 16, 2, 2);
+        Leg6.func_228300_a_(-1F, -1F, -1F, 16, 2, 2);
         Leg6.setRotationPoint(4F, 20F, 0F);
         Leg6.setTextureSize(64, 64);
         Leg6.mirror = true;
         setRotation(Leg6, 0F, 0.2792527F, 0.1919862F);
         Leg4 = new ModelRenderer(this, 18, 0);
-        Leg4.addBox(-1F, -1F, -1F, 16, 2, 2);
+        Leg4.func_228300_a_(-1F, -1F, -1F, 16, 2, 2);
         Leg4.setRotationPoint(4F, 20F, 1F);
         Leg4.setTextureSize(64, 64);
         Leg4.mirror = true;
         setRotation(Leg4, 0F, -0.2792527F, 0.1919862F);
         Leg2 = new ModelRenderer(this, 18, 0);
-        Leg2.addBox(-1F, -1F, -1F, 16, 2, 2);
+        Leg2.func_228300_a_(-1F, -1F, -1F, 16, 2, 2);
         Leg2.setRotationPoint(4F, 20F, 2F);
         Leg2.setTextureSize(64, 64);
         Leg2.mirror = true;
         setRotation(Leg2, 0F, -0.5759587F, 0.1919862F);
         Leg7 = new ModelRenderer(this, 18, 0);
-        Leg7.addBox(-15F, -1F, -1F, 16, 2, 2);
+        Leg7.func_228300_a_(-15F, -1F, -1F, 16, 2, 2);
         Leg7.setRotationPoint(-4F, 20F, -1F);
         Leg7.setTextureSize(64, 64);
         Leg7.mirror = true;
         setRotation(Leg7, 0F, -0.5759587F, -0.1919862F);
         Leg5 = new ModelRenderer(this, 18, 0);
-        Leg5.addBox(-15F, -1F, -1F, 16, 2, 2);
+        Leg5.func_228300_a_(-15F, -1F, -1F, 16, 2, 2);
         Leg5.setRotationPoint(-4F, 20F, 0F);
         Leg5.setTextureSize(64, 64);
         Leg5.mirror = true;
         setRotation(Leg5, 0F, -0.2792527F, -0.1919862F);
         Leg3 = new ModelRenderer(this, 18, 0);
-        Leg3.addBox(-15F, -1F, -1F, 16, 2, 2);
+        Leg3.func_228300_a_(-15F, -1F, -1F, 16, 2, 2);
         Leg3.setRotationPoint(-4F, 20F, 1F);
         Leg3.setTextureSize(64, 64);
         Leg3.mirror = true;
         setRotation(Leg3, 0F, 0.2792527F, -0.1919862F);
         Leg1 = new ModelRenderer(this, 18, 0);
-        Leg1.addBox(-15F, -1F, -1F, 16, 2, 2);
+        Leg1.func_228300_a_(-15F, -1F, -1F, 16, 2, 2);
         Leg1.setRotationPoint(-4F, 20F, 2F);
         Leg1.setTextureSize(64, 64);
         Leg1.mirror = true;
@@ -92,7 +92,7 @@ public class PumpkinSpiderModel extends DivineModel<PumpkinSpider> {
 
     @Override
     public void render(PumpkinSpider entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        this.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        this.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         GL11.glPushMatrix();
 
         if (entityIn.isAggressive()) {
@@ -118,7 +118,7 @@ public class PumpkinSpiderModel extends DivineModel<PumpkinSpider> {
     }
 
     @Override
-    public void setRotationAngles(PumpkinSpider entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
+    public void setRotationAngles(PumpkinSpider entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         float var8 = ((float) Math.PI / 4F);
         this.Leg1.rotateAngleZ = -var8;
         this.Leg2.rotateAngleZ = var8;

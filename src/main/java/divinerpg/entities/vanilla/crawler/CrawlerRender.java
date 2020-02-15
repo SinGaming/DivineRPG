@@ -15,7 +15,7 @@ public class CrawlerRender<T extends DesertCrawler> extends DivineRender<T, Craw
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(T entity) {
+    public ResourceLocation getEntityTexture(T entity) {
         return CachedTexture.ENTITIES.getTexture(entity.getType().getRegistryName().getPath());
     }
 }

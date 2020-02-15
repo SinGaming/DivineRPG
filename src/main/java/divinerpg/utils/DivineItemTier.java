@@ -4,7 +4,7 @@ import divinerpg.registry.ItemRegistry;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyLoadBase;
+import net.minecraft.util.LazyValue;
 
 import java.util.function.Supplier;
 
@@ -76,7 +76,7 @@ public class DivineItemTier implements IItemTier {
     private final float efficiency;
     private final float attackDamage;
     private final int enchantability;
-    private final LazyLoadBase<Ingredient> repairMaterial;
+    private final LazyValue<Ingredient> repairMaterial;
 
     public DivineItemTier(int harvestLevel, int maxUses, float efficiency, float attackDamage, int enchantability, Supplier<Ingredient> repairMaterialIn) {
         this.harvestLevel = harvestLevel;
@@ -84,7 +84,7 @@ public class DivineItemTier implements IItemTier {
         this.efficiency = efficiency;
         this.attackDamage = attackDamage;
         this.enchantability = enchantability;
-        this.repairMaterial = new LazyLoadBase<>(repairMaterialIn);
+        this.repairMaterial = new LazyValue<>(repairMaterialIn);
     }
 
     public DivineItemTier forShickaxe() {

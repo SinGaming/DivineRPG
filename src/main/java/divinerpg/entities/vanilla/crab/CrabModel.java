@@ -19,43 +19,43 @@ public class CrabModel<T extends Entity> extends DivineModel<T> {
         this.textureHeight = 32;
 
         this.RearEnd = new ModelRenderer(this, 0, 12);
-        this.RearEnd.addBox(-5.0F, -4.0F, -6.0F, 12, 8, 12);
+        this.RearEnd.func_228300_a_(-5.0F, -4.0F, -6.0F, 12, 8, 12);
         this.RearEnd.setRotationPoint(-1.0F, 16.0F, 0.0F);
         this.RearEnd.setTextureSize(64, 32);
         this.RearEnd.mirror = true;
         this.setRotation(this.RearEnd, 0.0F, 0.0F, 0.0F);
         this.Leg8 = new ModelRenderer(this, 18, 0);
-        this.Leg8.addBox(-1.0F, -1.0F, -1.0F, 16, 4, 4);
+        this.Leg8.func_228300_a_(-1.0F, -1.0F, -1.0F, 16, 4, 4);
         this.Leg8.setRotationPoint(4.0F, 16.0F, -4.0F);
         this.Leg8.setTextureSize(64, 32);
         this.Leg8.mirror = true;
         this.setRotation(this.Leg8, 0.0F, 0.5759587F, -0.1396263F);
         this.Leg6 = new ModelRenderer(this, 18, 0);
-        this.Leg6.addBox(-1.0F, -1.0F, -1.0F, 16, 2, 2);
+        this.Leg6.func_228300_a_(-1.0F, -1.0F, -1.0F, 16, 2, 2);
         this.Leg6.setRotationPoint(4.0F, 16.0F, 0.0F);
         this.Leg6.setTextureSize(64, 32);
         this.Leg6.mirror = true;
         this.setRotation(this.Leg6, 0.0F, 0.2792527F, 0.1919862F);
         this.Leg4 = new ModelRenderer(this, 18, 0);
-        this.Leg4.addBox(-1.0F, -1.0F, -1.0F, 16, 2, 2);
+        this.Leg4.func_228300_a_(-1.0F, -1.0F, -1.0F, 16, 2, 2);
         this.Leg4.setRotationPoint(4.0F, 16.0F, 1.0F);
         this.Leg4.setTextureSize(64, 32);
         this.Leg4.mirror = true;
         this.setRotation(this.Leg4, 0.0F, -0.2792527F, 0.1919862F);
         this.Leg7 = new ModelRenderer(this, 18, 0);
-        this.Leg7.addBox(-15.0F, -1.0F, -1.0F, 16, 4, 4);
+        this.Leg7.func_228300_a_(-15.0F, -1.0F, -1.0F, 16, 4, 4);
         this.Leg7.setRotationPoint(-4.0F, 16.0F, -4.0F);
         this.Leg7.setTextureSize(64, 32);
         this.Leg7.mirror = true;
         this.setRotation(this.Leg7, 0.0F, -0.5759587F, 0.1396263F);
         this.Leg5 = new ModelRenderer(this, 18, 0);
-        this.Leg5.addBox(-15.0F, -1.0F, -1.0F, 16, 2, 2);
+        this.Leg5.func_228300_a_(-15.0F, -1.0F, -1.0F, 16, 2, 2);
         this.Leg5.setRotationPoint(-4.0F, 16.0F, 0.0F);
         this.Leg5.setTextureSize(64, 32);
         this.Leg5.mirror = true;
         this.setRotation(this.Leg5, 0.0F, -0.2792527F, -0.1919862F);
         this.Leg3 = new ModelRenderer(this, 18, 0);
-        this.Leg3.addBox(-15.0F, -1.0F, -1.0F, 16, 2, 2);
+        this.Leg3.func_228300_a_(-15.0F, -1.0F, -1.0F, 16, 2, 2);
         this.Leg3.setRotationPoint(-4.0F, 16.0F, 1.0F);
         this.Leg3.setTextureSize(64, 32);
         this.Leg3.mirror = true;
@@ -63,7 +63,7 @@ public class CrabModel<T extends Entity> extends DivineModel<T> {
     }
 
     @Override
-    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
+    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         float var7 = ((float) Math.PI / 4F);
         this.Leg3.rotateAngleZ = -var7 * 0.74F;
         this.Leg4.rotateAngleZ = var7 * 0.74F;

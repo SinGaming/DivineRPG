@@ -14,7 +14,7 @@ public class GolemRender extends DivineRender<MobEntity, GolemModel> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(MobEntity entity) {
+    public ResourceLocation getEntityTexture(MobEntity entity) {
         return textureBasedOnType(entity);
     }
 }

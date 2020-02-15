@@ -37,9 +37,9 @@ public class EntityHelper {
     }
 
     public static void spawnParticle(ThrowableEntity bullet, IParticleData data) {
-        double x = bullet.posX;
-        double y = bullet.posY;
-        double z = bullet.posZ;
+        double x = bullet.serverPosX;
+        double y = bullet.serverPosY;
+        double z = bullet.serverPosZ;
 
         Random rand = bullet.getEntityWorld().rand;
         Supplier<Integer> randPos = () -> rand.nextInt(2) - 1;

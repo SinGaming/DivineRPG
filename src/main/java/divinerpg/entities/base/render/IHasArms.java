@@ -1,5 +1,6 @@
 package divinerpg.entities.base.render;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.util.HandSide;
 
 public interface IHasArms {
@@ -17,5 +18,5 @@ public interface IHasArms {
      * @param scale
      * @param side
      */
-    void postRenderArm(int index, float scale, HandSide side);
+    void postRenderArm(int index, HandSide side, MatrixStack stack);
 }

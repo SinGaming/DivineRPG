@@ -87,9 +87,9 @@ public class PortalRelocator {
         playerlist.updatePermissionLevel(entity);
         currentWorld.removeEntity(entity, true); //Forge: the player entity is moved to the new world, NOT cloned. So keep the data alive with no matching invalidate call.
         entity.revive();
-        double d0 = entity.posX;
-        double d1 = entity.posY;
-        double d2 = entity.posZ;
+        double d0 = entity.serverPosX;
+        double d1 = entity.serverPosY;
+        double d2 = entity.serverPosZ;
         float f = entity.rotationPitch;
         float f1 = entity.rotationYaw;
         double d3 = 8.0D;
@@ -115,7 +115,7 @@ public class PortalRelocator {
         currentWorld.getProfiler().endSection();
         entity.setWorld(destinationWorld);
         destinationWorld.func_217447_b(entity);
-        entity.connection.setPlayerLocation(entity.posX, entity.posY, entity.posZ, f1, f);
+        entity.connection.setPlayerLocation(entity.serverPosX, entity.serverPosY, entity.serverPosZ, f1, f);
         entity.interactionManager.setWorld(destinationWorld);
         entity.connection.sendPacket(new SPlayerAbilitiesPacket(entity.abilities));
         playerlist.sendWorldInfo(entity, destinationWorld);
@@ -151,8 +151,8 @@ public class PortalRelocator {
         float f = 0.0F;
         BlockPos blockpos;
         double movementFactor = currentWorld.getDimension().getMovementFactor() / destinationWorld.getDimension().getMovementFactor();
-        double d0 = entity.posX * movementFactor;
-        double d1 = entity.posZ * movementFactor;
+        double d0 = entity.serverPosX * movementFactor;
+        double d1 = entity.serverPosZ * movementFactor;
 
         double d3 = Math.min(-2.9999872E7D, destinationWorld.getWorldBorder().minX() + 16.0D);
         double d4 = Math.min(-2.9999872E7D, destinationWorld.getWorldBorder().minZ() + 16.0D);
@@ -162,7 +162,7 @@ public class PortalRelocator {
         d0 = MathHelper.clamp(d0, d3, d5);
         d1 = MathHelper.clamp(d1, d4, d6);
         Vec3d vec3d1 = entity.getLastPortalVec();
-        blockpos = new BlockPos(d0, entity.posY, d1);
+        blockpos = new BlockPos(d0, entity.serverPosY, d1);
 
         placeInPortal(currentWorld, destinationWorld, entity.rotationYaw);
         blockpos = entity.getPosition();

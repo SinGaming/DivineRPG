@@ -51,7 +51,7 @@ public class SunBurnGoal extends Goal {
     protected boolean isInDaylight() {
         if (entity.world.isDaytime() && !entity.world.isRemote) {
             float f = entity.getBrightness();
-            BlockPos blockpos = entity.getRidingEntity() instanceof BoatEntity ? (new BlockPos(entity.posX, (double) Math.round(entity.posY), entity.posZ)).up() : new BlockPos(entity.posX, (double) Math.round(entity.posY), entity.posZ);
+            BlockPos blockpos = entity.getRidingEntity() instanceof BoatEntity ? (new BlockPos(entity.serverPosX, (double) Math.round(entity.serverPosY), entity.serverPosZ)).up() : new BlockPos(entity.serverPosX, (double) Math.round(entity.serverPosY), entity.serverPosZ);
             return f > 0.5F && entity.world.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && entity.world.isSkyLightMax(blockpos);
         }
 

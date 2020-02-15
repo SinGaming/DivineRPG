@@ -15,7 +15,7 @@ public class BunnyRender extends DivineRender<Bunny, BunnyModel> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(Bunny entity) {
+    public ResourceLocation getEntityTexture(Bunny entity) {
         if (entity.isTamed()) {
             return entity.isAggressive()
                     // texture is jumping from aggressive to regular.
