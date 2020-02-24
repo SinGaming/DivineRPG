@@ -50,7 +50,7 @@ public class ScepterItem extends TieredItem {
             performBlockTrace(worldIn, playerIn, result.getResult(), range);
             performEntityRayTrace(playerIn, result.getResult(), range);
 
-            result = ActionResult.newResult(ActionResultType.SUCCESS, result.getResult());
+            result = new ActionResult<>(ActionResultType.SUCCESS, result.getResult());
         }
 
         return result;

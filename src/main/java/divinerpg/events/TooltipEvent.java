@@ -22,7 +22,7 @@ public class TooltipEvent {
     public static void addTooltip(ItemTooltipEvent event) {
         List<ITextComponent> toolTip = event.getToolTip();
         ItemStack stack = event.getItemStack();
-        PlayerEntity player = event.getEntityPlayer();
+        PlayerEntity player = event.getPlayer();
 
         if (stack.getItem() instanceof ArmorItem) {
             IArmorMaterial material = ((ArmorItem) stack.getItem()).getArmorMaterial();

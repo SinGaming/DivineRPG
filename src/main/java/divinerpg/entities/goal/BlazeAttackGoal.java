@@ -90,7 +90,7 @@ public class BlazeAttackGoal extends Goal {
 
                         for (int i = 0; i < 1; ++i) {
                             Entity fireballEntity = createFireball(this.blaze, livingentity);
-                            fireballEntity.serverPosY = this.blaze.serverPosY + (double) (this.blaze.getHeight() / 2.0F) + 0.5D;
+                            fireballEntity.serverPosY = (long) (this.blaze.serverPosY + (this.blaze.getHeight() / 2.0F) + 0.5D);
                             this.blaze.world.addEntity(fireballEntity);
                         }
                     }

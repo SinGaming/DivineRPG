@@ -145,7 +145,7 @@ public class RangeWeaponItem extends ShootableItem {
             if (result.getType() != ActionResultType.FAIL) {
                 if (canShoot(playerIn, result.getResult())) {
                     performShoot(worldIn, playerIn, playerIn.findAmmo(weaponStack), weaponStack, handIn, 100);
-                    result = ActionResult.newResult(ActionResultType.SUCCESS, weaponStack);
+                    result = new ActionResult<>(ActionResultType.SUCCESS, weaponStack);
                 }
             }
 

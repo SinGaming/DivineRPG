@@ -3,7 +3,7 @@ package divinerpg.world.twilight;
 import divinerpg.DivineRPG;
 import divinerpg.registry.BlockRegistry;
 import divinerpg.registry.FeatureRegistry;
-import divinerpg.world.twilight.feature.DivineTreeFeature;
+import divinerpg.world.twilight.feature.DivineSmallTreeFeature;
 import divinerpg.world.twilight.feature.config.CustomFillerBlockType;
 import divinerpg.world.twilight.feature.config.DivineCountRangeConfig;
 import divinerpg.world.twilight.feature.config.DivineOreFeatureConfig;
@@ -34,7 +34,7 @@ public class DivineBiome extends Biome {
      * @param regularFlower - the most popular flower (50%)
      * @param ore           - biome ore
      */
-    public DivineBiome(Block grass, Block dirt, Color biomeColor, CustomFillerBlockType dirtFiller, DivineTreeFeature tree,
+    public DivineBiome(Block grass, Block dirt, Color biomeColor, CustomFillerBlockType dirtFiller, DivineSmallTreeFeature tree,
                        Block rarestFlower, Block commonFlower, Block regularFlower, Block ore) {
         this(new Builder()
                         .surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(grass.getDefaultState(),
@@ -43,7 +43,7 @@ public class DivineBiome extends Biome {
 
     }
 
-    public DivineBiome(Builder builder, Color biomeColor, CustomFillerBlockType dirtFiller, DivineTreeFeature tree,
+    public DivineBiome(Builder builder, Color biomeColor, CustomFillerBlockType dirtFiller, DivineSmallTreeFeature tree,
                        Block rarestFlower, Block commonFlower, Block regularFlower, Block ore) {
         super(builder
                 .precipitation(RainType.RAIN)

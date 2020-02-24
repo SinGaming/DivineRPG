@@ -1,6 +1,7 @@
 package divinerpg.entities.vanilla.bat;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import divinerpg.entities.base.render.DeobfHelper;
 import divinerpg.entities.base.render.DivineRender;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.model.BatModel;
@@ -21,13 +22,14 @@ public class DivineBatRender extends DivineRender<BatEntity, BatModel> {
         return textureBasedOnType(entity);
     }
 
-    protected void applyRotations(BatEntity entityLiving, float ageInTicks, float rotationYaw, float partialTicks) {
-        if (entityLiving.getIsBatHanging()) {
-            GlStateManager.translatef(0.0F, -0.1F, 0.0F);
+    @Override
+    protected void func_225621_a_(BatEntity entity, MatrixStack stack, float ageInTicks, float p_225621_4_, float p_225621_5_) {
+        if (entity.getIsBatHanging()) {
+            DeobfHelper.translate(stack, 0.0F, -0.1F, 0.0F);
         } else {
-            GlStateManager.translatef(0.0F, MathHelper.cos(ageInTicks * 0.3F) * 0.1F, 0.0F);
+            DeobfHelper.translate(stack, 0.0F, MathHelper.cos(ageInTicks * 0.3F) * 0.1F, 0.0F);
         }
 
-        super.applyRotations(entityLiving, ageInTicks, rotationYaw, partialTicks);
+        super.func_225621_a_(entity, stack, ageInTicks, p_225621_4_, p_225621_5_);
     }
 }

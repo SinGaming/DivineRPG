@@ -1,5 +1,6 @@
 package divinerpg.entities.bosses.etheral;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import divinerpg.entities.base.DivineBoss;
 import divinerpg.entities.base.render.DivineBossModel;
 import divinerpg.entities.base.render.IHasArms;
@@ -158,7 +159,7 @@ public class EternalArcherModel extends DivineBossModel<DivineBoss> implements I
     }
 
     @Override
-    public void postRenderArm(int index, float scale, HandSide side) {
+    public void postRenderArm(int index, HandSide side, MatrixStack stack) {
         boolean right = side == HandSide.RIGHT;
 
         ModelRenderer[] arms = right
@@ -172,12 +173,6 @@ public class EternalArcherModel extends DivineBossModel<DivineBoss> implements I
         if (arm == null)
             return;
 
-        arm.postRender(scale);
-
-//        GlStateManager.translatef(-0.0625F, 0.4375F, 0.0625F);
-//        GlStateManager.translatef(right ? 0.03F : 0.08F, 0F, 0F);
-//        GlStateManager.rotatef(90, 0, 1, 0);
-//        GlStateManager.rotatef(45, 0, 0, -1);
-//        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        arm.func_228307_a_(stack);
     }
 }

@@ -3,6 +3,7 @@ package divinerpg.entities.wildwood.wolf;
 import net.minecraft.client.renderer.entity.model.WolfModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
+// todo fix
 public class MoonWolfModel extends WolfModel<MoonWolf> {
     ModelRenderer Ear1;
     ModelRenderer Ear2;
@@ -27,7 +28,7 @@ public class MoonWolfModel extends WolfModel<MoonWolf> {
 
     @Override
     public void func_225597_a_(MoonWolf entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.func_225597_a_(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
+        super.func_225597_a_(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
         float yaw = netHeadYaw / (180F / (float) Math.PI);
         float pitch = headPitch / (180F / (float) Math.PI);

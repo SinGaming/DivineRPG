@@ -19,7 +19,7 @@ public class HealingStone extends Item {
 
         if (result.getType() != ActionResultType.FAIL) {
             if (playerIn.getHealth() >= playerIn.getMaxHealth())
-                return ActionResult.newResult(ActionResultType.FAIL, result.getResult());
+                return new ActionResult<>(ActionResultType.FAIL, result.getResult());
 
             playerIn.heal(playerIn.getMaxHealth() - playerIn.getHealth());
 

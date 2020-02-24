@@ -1,5 +1,6 @@
 package divinerpg.entities.eden.archer;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import divinerpg.entities.base.render.DivineModel;
 import net.minecraft.client.renderer.entity.model.IHasArm;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -131,11 +132,11 @@ public class SunArcherModel extends DivineModel<SunArcher> implements IHasArm {
     }
 
     @Override
-    public void postRenderArm(float scale, HandSide side) {
+    public void func_225599_a_(HandSide side, MatrixStack stack) {
         if (side == HandSide.LEFT) {
-            armLeft.postRender(scale);
+            armLeft.func_228307_a_(stack);
         } else {
-            armRight.postRender(scale);
+            armRight.func_228307_a_(stack);
         }
     }
 }

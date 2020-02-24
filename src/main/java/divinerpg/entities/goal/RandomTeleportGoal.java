@@ -1,10 +1,14 @@
 package divinerpg.entities.goal;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 
 public class RandomTeleportGoal extends Goal {
     private LivingEntity entity;
@@ -42,31 +46,30 @@ public class RandomTeleportGoal extends Goal {
     }
 
     /**
-     * Teleport the enderman
+     * Teleport the enderman (legacy copy of EndermanEntity.teleportTo)
      */
     private boolean teleportTo(double x, double y, double z) {
-        // can teleport when stucked in liquid
-        if (entity.isInWater() || entity.isInLava())
-            return false;
+        BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable(x, y, z);
 
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(x, y, z);
-
-        while (blockpos$mutableblockpos.getY() > 0 && !this.entity.world.getBlockState(blockpos$mutableblockpos).getMaterial().blocksMovement()) {
-            blockpos$mutableblockpos.move(Direction.DOWN);
+        while (blockpos$mutable.getY() > 0 && !entity.world.getBlockState(blockpos$mutable).getMaterial().blocksMovement()) {
+            blockpos$mutable.move(Direction.DOWN);
         }
 
-        if (!this.entity.world.getBlockState(blockpos$mutableblockpos).getMaterial().blocksMovement()) {
-            return false;
-        } else {
-            net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(this.entity, x, y, z, 0);
-            if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event)) return false;
-            boolean flag = this.entity.attemptTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true);
-            if (flag) {
-                this.entity.world.playSound(null, this.entity.prevPosX, this.entity.prevPosY, this.entity.prevPosZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, this.entity.getSoundCategory(), 1.0F, 1.0F);
-                this.entity.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 1.0F, 1.0F);
+        BlockState blockstate = entity.world.getBlockState(blockpos$mutable);
+        boolean flag = blockstate.getMaterial().blocksMovement();
+        boolean flag1 = blockstate.getFluidState().isTagged(FluidTags.WATER);
+        if (flag && !flag1) {
+            EnderTeleportEvent event = new EnderTeleportEvent(entity, x, y, z, 0);
+            if (MinecraftForge.EVENT_BUS.post(event)) return false;
+            boolean flag2 = entity.attemptTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true);
+            if (flag2) {
+                entity.world.playSound(null, entity.prevPosX, entity.prevPosY, entity.prevPosZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, entity.getSoundCategory(), 1.0F, 1.0F);
+                entity.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 1.0F, 1.0F);
             }
 
-            return flag;
+            return flag2;
+        } else {
+            return false;
         }
     }
 }

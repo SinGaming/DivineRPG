@@ -27,7 +27,7 @@ public class HellBat extends JungleBat {
     public void livingTick() {
         super.livingTick();
 
-        world.addParticle(ParticleTypes.FLAME, posX + getRandom(), posY + getRandom(), posZ + getRandom(),
+        world.addParticle(ParticleTypes.FLAME, serverPosX + getRandom(), serverPosX + getRandom(), serverPosZ + getRandom(),
                 getRandom() / 10, getRandom() / 10, getRandom() / 10);
     }
 

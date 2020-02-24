@@ -1,10 +1,12 @@
 package divinerpg.entities.vanilla.dramcryx;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import divinerpg.entities.base.render.DeobfHelper;
 import divinerpg.entities.base.render.DivineModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
-import org.lwjgl.opengl.GL11;
 
 public class DramcryxModel<T extends Entity> extends DivineModel<T> {
     ModelRenderer WolfHead;
@@ -112,13 +114,13 @@ public class DramcryxModel<T extends Entity> extends DivineModel<T> {
     }
 
     @Override
-    public void render(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+    public void render(MatrixStack stack, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
 
-        GL11.glScaled(1.5, 1.5, 1.5);
-        GL11.glTranslatef(0f, -0.5f, 0f);
+        // todo check if correct
+        DeobfHelper.scale(stack, 1.5F);
+        DeobfHelper.translate(stack, 0, -0.5F, 0);
 
-        parts.getValue().forEach(x -> x.render(scale));
+        super.render(stack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     }
 
     @Override

@@ -33,7 +33,7 @@ public class DivineRender<T extends MobEntity, M extends EntityModel<T>> extends
             this.addLayer(new HeldItemLayer(this));
 
         if (model instanceof IHasArms) {
-            this.addLayer(new HeldItemLayer<T, M>(this));
+            this.addLayer(new HeldItemLayer(this));
         }
     }
 

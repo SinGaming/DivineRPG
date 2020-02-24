@@ -173,8 +173,6 @@ import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -370,17 +368,17 @@ public class EntitiesRegistry {
     @ObjectHolder("workshop_tinkerer")
     public static EntityType<WorkshopTinkerer> workshop_tinkerer;
     @ObjectHolder("jack_o_man")
-    public static EntityType<? extends VillagerEntity> jack_o_man;
+    public static EntityType<? extends JackOMan> jack_o_man;
     @ObjectHolder("frost_archer")
-    public static EntityType<? extends MonsterEntity> frost_archer;
+    public static EntityType<? extends FrostArcher> frost_archer;
     @ObjectHolder("frosty")
-    public static EntityType<? extends MonsterEntity> frosty;
+    public static EntityType<? extends Frosty> frosty;
     @ObjectHolder("glacide")
-    public static EntityType<? extends MonsterEntity> glacide;
+    public static EntityType<? extends Glacide> glacide;
     @ObjectHolder("rollum")
-    public static EntityType<? extends MonsterEntity> rollum;
+    public static EntityType<? extends Rollum> rollum;
     @ObjectHolder("hastreus")
-    public static EntityType<? extends MonsterEntity> hastreus;
+    public static EntityType<? extends Hastreus> hastreus;
 
 
     @SubscribeEvent
@@ -502,89 +500,92 @@ public class EntitiesRegistry {
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
         // projectiles
-        registerForOneRender(BulletEntityRender::new, BulletEntity.class, FrostFireball.class, ScorcherFireball.class, SoulFiendShot.class);
+        registerForOneRender(BulletEntityRender::new, bullet_entity, frost_shot, scorcher_fireball, soul_fiend_shot);
 
-        RenderingRegistry.registerEntityRenderingHandler(DivineArrow.class, DivineArrowRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(ItemBulletEntity.class, factory -> new SpriteRenderer<>(factory, itemRenderer));
+        RenderingRegistry.registerEntityRenderingHandler(arrow_entity, DivineArrowRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(bullet_item_entity, factory -> new SpriteRenderer<>(factory, itemRenderer));
 
-        RenderingRegistry.registerEntityRenderingHandler(EnthralledDramcryx.class, EnthralledDramcryxRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(JungleDramcryx.class, JungleDramcryxRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Crab.class, CrabRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Frost.class, FrostRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Glacon.class, GlaconRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Rotatick.class, RotatickRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(KingCrab.class, KingCrabRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(JungleSpider.class, JungleSpiderRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(HellSpider.class, HellSpiderRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(EnderSpider.class, EnderSpiderRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(EnderWatcher.class, EnderWatcherRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(EnderTriplets.class, EnderTripletsRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Scorcher.class, ScorcherRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Wildfire.class, WildfireRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Grue.class, GrueRender::new);
-        registerForOneRender(CrawlerRender::new, CaveCrawler.class, DesertCrawler.class);
-        RenderingRegistry.registerEntityRenderingHandler(Cavelops.class, CavelopsRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Cyclops.class, CyclopsRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Miner.class, MinerRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(JungleBat.class, DivineBatRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(HellBat.class, DivineBatRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Eye.class, EyeRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Kobblin.class, KobblinRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Rainbour.class, RainbourRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(SaguaroWorm.class, SaguaroWormRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(AridWarrior.class, AridWarriorRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(PumpkinSpider.class, PumpkinSpiderRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(entrhralled_dramcryx, EnthralledDramcryxRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(jungle_dramcryx, JungleDramcryxRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(crab, CrabRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(frost, FrostRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(glacon, GlaconRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(rotatick, RotatickRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(king_crab, KingCrabRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(jungle_spider, JungleSpiderRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(hell_spider, HellSpiderRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(ender_spider, EnderSpiderRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(ender_watcher, EnderWatcherRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(ender_triplets, EnderTripletsRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(scorcher, ScorcherRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(wildfire, WildfireRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(grue, GrueRender::new);
 
-        registerForOneRender(TomoRender::new, EdenTomo.class, WildwoodTomo.class, ApalachiaTomo.class);
-        registerForOneRender(CadilionRender::new, EdenCadilion.class, WildwoodCadilion.class, ApalachiaCadilion.class,
-                MortumCadilion.class);
+        registerForOneRender(CrawlerRender::new, cave_crawler, desert_crawler);
 
-        registerForOneRender(CoriRender::new, WeakCori.class, AdvancedCori.class);
-        registerForOneRender(GolemRender::new, WildwoodGolem.class, ApalachiaGolem.class, SkythernGolem.class);
-        registerForOneRender(MysticRender::new, Spellbinder.class, Mystic.class);
-        registerForOneRender(SamekRender::new, Samek.class, Verek.class);
-        registerForOneRender(ArcherRender::new, EnchantedArcher.class, SkythernArcher.class);
-        registerForOneRender(DensosRender::new, Densos.class, Reyvor.class);
-        registerForOneRender(WorkshopMerchantRender::new, WorkshopMerchant.class, WorkshopTinkerer.class);
+        RenderingRegistry.registerEntityRenderingHandler(cavelops, CavelopsRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(cyclops, CyclopsRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(miner, MinerRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(jungle_bat, DivineBatRender::new);
 
-        RenderingRegistry.registerEntityRenderingHandler(MoonWolf.class, MoonWolfRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(HellPig.class, HellPigRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Bunny.class, BunnyRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(AngryBunny.class, AngryBunnyRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Greenfeet.class, GreenfeetRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Madivel.class, MadivelRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(SunArcher.class, SunArcherRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Epiphite.class, EpiphiteRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(EnchantedArcher.class, ArcherRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(EnchantedWarrior.class, EnchantedWarriorRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(SkythernFiend.class, SkythernFiendRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Mage.class, MageRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(TwilightArcher.class, TwilightArcherRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Megalith.class, MegalithRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(DemonOfDarkness.class, DemonOfDarknessRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Basilisk.class, BasiliskRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Sorcerer.class, SorcererRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(SoulStealer.class, SoulStealerRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Vamacheron.class, VamacheronRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Behemoth.class, BehemothRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Ayeraco.class, AyeracoRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(AncientEntity.class, AncientEntityRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(TwilightDemon.class, TwilightDemonRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Watcher.class, WatcherRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(EternalArcher.class, EternalArcherRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(SoulSpider.class, SoulSpiderRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(SoulFiend.class, SoulFiendRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Karot.class, KarotRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(KingOfScorchers.class, KingScorcherRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(hell_bat, DivineBatRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(eye, EyeRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(koblin, KobblinRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(rainbour, RainbourRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(saguaro_worm, SaguaroWormRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(arid_warrior, AridWarriorRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(pumpkin_spider, PumpkinSpiderRender::new);
 
-        RenderingRegistry.registerEntityRenderingHandler(Alicanto.class, AlicantoRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Fractite.class, FractiteRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(JackOMan.class, JackOManRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(FrostArcher.class, FrostArcherRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Frosty.class, FrostyRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Glacide.class, GlacideRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Rollum.class, RollumRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(Hastreus.class, HastreusRender::new);
+
+        registerForOneRender(TomoRender::new, eden_tomo, wildwood_tomo, apalachia_tomo);
+        registerForOneRender(CadilionRender::new, eden_cadillion, wildwood_cadillion, apalachia_cadillion, mortum_cadillion);
+
+        registerForOneRender(CoriRender::new, weak_cori, advanced_cori);
+        registerForOneRender(GolemRender::new, wildwood_golem, apalachia_golem, skythern_golem);
+        registerForOneRender(MysticRender::new, spellbinder, mystic);
+        registerForOneRender(SamekRender::new, samek, verek);
+        registerForOneRender(ArcherRender::new, enchanted_archer, skythern_archer);
+        registerForOneRender(DensosRender::new, densos, reyvor);
+        registerForOneRender(WorkshopMerchantRender::new, workshop_merchant, workshop_tinkerer);
+
+        RenderingRegistry.registerEntityRenderingHandler(moon_wolf, MoonWolfRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(hell_pig, HellPigRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(bunny, BunnyRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(angry_bunny, AngryBunnyRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(greenfeet, GreenfeetRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(madivel, MadivelRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(sun_archer, SunArcherRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(epiphite, EpiphiteRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(enchanted_archer, ArcherRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(enchanted_warrior, EnchantedWarriorRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(skythern_fiend, SkythernFiendRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(mage, MageRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(twilight_archer, TwilightArcherRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(megalith, MegalithRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(demon_of_darkness, DemonOfDarknessRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(basilisk, BasiliskRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(sorcerer, SorcererRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(soul_stealer, SoulStealerRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(vamacheron, VamacheronRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(behemoth, BehemothRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(ayeraco, AyeracoRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(ancient_entity, AncientEntityRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(twilight_demon, TwilightDemonRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(the_watcher, WatcherRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(eternal_archer, EternalArcherRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(soul_spider, SoulSpiderRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(soul_fiend, SoulFiendRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(karot, KarotRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(king_of_scorchers, KingScorcherRender::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(alicanto, AlicantoRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(fractite, FractiteRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(jack_o_man, JackOManRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(frost_archer, FrostArcherRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(frosty, FrostyRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(glacide, GlacideRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(rollum, RollumRender::new);
+        RenderingRegistry.registerEntityRenderingHandler(hastreus, HastreusRender::new);
     }
 
     private static <T extends Entity> void registerImmunedToFire(IForgeRegistry<EntityType<?>> registry, Function<World, T> createFunc, String name, float width, float height) {
@@ -611,9 +612,9 @@ public class EntitiesRegistry {
         );
     }
 
-    private static <T extends Entity> void registerForOneRender(IRenderFactory<T> render, Class<? extends T>... classes) {
-        for (Class clazz : classes) {
-            RenderingRegistry.registerEntityRenderingHandler(clazz, render);
+    private static <T extends Entity> void registerForOneRender(IRenderFactory<T> render, EntityType<? extends T>... types) {
+        for (EntityType<? extends T> type : types) {
+            RenderingRegistry.registerEntityRenderingHandler(type, render);
         }
     }
 

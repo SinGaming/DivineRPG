@@ -1,6 +1,7 @@
 package divinerpg.entities.twilight.archer;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import divinerpg.entities.base.render.DeobfHelper;
 import divinerpg.entities.base.render.DivineModel;
 import net.minecraft.client.renderer.entity.model.IHasArm;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -297,14 +298,6 @@ public class ArcherModel extends DivineModel<MobEntity> implements IHasArm {
     }
 
     @Override
-    public void postRenderArm(float scale, HandSide side) {
-        rightarm.postRender(scale);
-
-        GlStateManager.translatef(-0.0625F, 0, 0.0625F);
-        GlStateManager.translatef(-0.45F, 0.35F, -0.05F);
-    }
-
-    @Override
     public void setRotationAngles(MobEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
@@ -366,5 +359,13 @@ public class ArcherModel extends DivineModel<MobEntity> implements IHasArm {
         this.leftarm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
         this.leftarmcap.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
         this.leftarmext.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+    }
+
+    @Override
+    public void func_225599_a_(HandSide side, MatrixStack stack) {
+        rightarm.func_228307_a_(stack);
+
+        DeobfHelper.translate(stack, -0.0625F, 0, 0.0625F);
+        DeobfHelper.translate(stack, -0.45F, 0.35F, -0.05F);
     }
 }

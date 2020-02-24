@@ -1,9 +1,8 @@
 package divinerpg.entities.base.villager;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.merchant.villager.VillagerData;
 import net.minecraft.entity.player.PlayerInventory;
@@ -21,17 +20,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nonnull;
 
 /**
- * Legacy copy of MerchantScreen
+ * Legacy copy of MerchantScreen but with own GUI texture
  */
-@OnlyIn(Dist.CLIENT)
 public class DivineMerchantScreen extends ContainerScreen<MerchantContainer> {
-    private final TradeButton[] field_214138_m = new TradeButton[7];
     private int selectedMerchantRecipe;
+    private final DivineMerchantScreen.TradeButton[] field_214138_m = new DivineMerchantScreen.TradeButton[7];
     private int field_214139_n;
     private boolean field_214140_o;
 
-    public DivineMerchantScreen(MerchantContainer container, PlayerInventory inventory, ITextComponent name) {
-        super(container, inventory, name);
+    public DivineMerchantScreen(MerchantContainer p_i51080_1_, PlayerInventory p_i51080_2_, ITextComponent p_i51080_3_) {
+        super(p_i51080_1_, p_i51080_2_, p_i51080_3_);
         this.xSize = 276;
     }
 
@@ -101,11 +99,11 @@ public class DivineMerchantScreen extends ContainerScreen<MerchantContainer> {
      * Draws the background layer of this container (behind the items).
      */
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.getTextureManager().bindTexture(getGuiTexture());
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
-        blit(i, j, this.blitOffset, 0.0F, 0.0F, this.xSize, this.ySize, 256, 512);
+        blit(i, j, this.getBlitOffset(), 0.0F, 0.0F, this.xSize, this.ySize, 256, 512);
         MerchantOffers merchantoffers = this.container.func_217051_h();
         if (!merchantoffers.isEmpty()) {
             int k = this.selectedMerchantRecipe;
@@ -116,9 +114,8 @@ public class DivineMerchantScreen extends ContainerScreen<MerchantContainer> {
             MerchantOffer merchantoffer = merchantoffers.get(k);
             if (merchantoffer.func_222217_o()) {
                 this.minecraft.getTextureManager().bindTexture(getGuiTexture());
-                GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-                GlStateManager.disableLighting();
-                blit(this.guiLeft + 83 + 99, this.guiTop + 35, this.blitOffset, 311.0F, 0.0F, 28, 21, 256, 512);
+                RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+                blit(this.guiLeft + 83 + 99, this.guiTop + 35, this.getBlitOffset(), 311.0F, 0.0F, 28, 21, 256, 512);
             }
         }
 
@@ -129,17 +126,17 @@ public class DivineMerchantScreen extends ContainerScreen<MerchantContainer> {
         int i = this.container.func_217049_g();
         int j = this.container.func_217048_e();
         if (i < 5) {
-            blit(p_214130_1_ + 136, p_214130_2_ + 16, this.blitOffset, 0.0F, 186.0F, 102, 5, 256, 512);
+            blit(p_214130_1_ + 136, p_214130_2_ + 16, this.getBlitOffset(), 0.0F, 186.0F, 102, 5, 256, 512);
             int k = VillagerData.func_221133_b(i);
             if (j >= k && VillagerData.func_221128_d(i)) {
                 int l = 100;
                 float f = (float) (100 / (VillagerData.func_221127_c(i) - k));
-                int i1 = MathHelper.floor(f * (float) (j - k));
-                blit(p_214130_1_ + 136, p_214130_2_ + 16, this.blitOffset, 0.0F, 191.0F, i1 + 1, 5, 256, 512);
+                int i1 = Math.min(MathHelper.floor(f * (float) (j - k)), 100);
+                blit(p_214130_1_ + 136, p_214130_2_ + 16, this.getBlitOffset(), 0.0F, 191.0F, i1 + 1, 5, 256, 512);
                 int j1 = this.container.func_217047_f();
                 if (j1 > 0) {
                     int k1 = Math.min(MathHelper.floor((float) j1 * f), 100 - i1);
-                    blit(p_214130_1_ + 136 + i1 + 1, p_214130_2_ + 16 + 1, this.blitOffset, 2.0F, 182.0F, k1, 3, 256, 512);
+                    blit(p_214130_1_ + 136 + i1 + 1, p_214130_2_ + 16 + 1, this.getBlitOffset(), 2.0F, 182.0F, k1, 3, 256, 512);
                 }
 
             }
@@ -147,7 +144,6 @@ public class DivineMerchantScreen extends ContainerScreen<MerchantContainer> {
     }
 
     private void func_214129_a(int p_214129_1_, int p_214129_2_, MerchantOffers p_214129_3_) {
-        RenderHelper.disableStandardItemLighting();
         int i = p_214129_3_.size() + 1 - 7;
         if (i > 1) {
             int j = 139 - (27 + (i - 1) * 139 / i);
@@ -158,12 +154,11 @@ public class DivineMerchantScreen extends ContainerScreen<MerchantContainer> {
                 i1 = 113;
             }
 
-            blit(p_214129_1_ + 94, p_214129_2_ + 18 + i1, this.blitOffset, 0.0F, 199.0F, 6, 27, 256, 512);
+            blit(p_214129_1_ + 94, p_214129_2_ + 18 + i1, this.getBlitOffset(), 0.0F, 199.0F, 6, 27, 256, 512);
         } else {
-            blit(p_214129_1_ + 94, p_214129_2_ + 18, this.blitOffset, 6.0F, 199.0F, 6, 27, 256, 512);
+            blit(p_214129_1_ + 94, p_214129_2_ + 18, this.getBlitOffset(), 6.0F, 199.0F, 6, 27, 256, 512);
         }
 
-        RenderHelper.enableGUIStandardItemLighting();
     }
 
     public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
@@ -175,11 +170,8 @@ public class DivineMerchantScreen extends ContainerScreen<MerchantContainer> {
             int j = (this.height - this.ySize) / 2;
             int k = j + 16 + 1;
             int l = i + 5 + 5;
-            GlStateManager.pushMatrix();
-            RenderHelper.enableGUIStandardItemLighting();
-            GlStateManager.enableRescaleNormal();
-            GlStateManager.enableColorMaterial();
-            GlStateManager.enableLighting();
+            RenderSystem.pushMatrix();
+            RenderSystem.enableRescaleNormal();
             this.minecraft.getTextureManager().bindTexture(getGuiTexture());
             this.func_214129_a(i, j, merchantoffers);
             int i1 = 0;
@@ -211,12 +203,11 @@ public class DivineMerchantScreen extends ContainerScreen<MerchantContainer> {
 
             int k1 = this.selectedMerchantRecipe;
             MerchantOffer merchantoffer1 = merchantoffers.get(k1);
-            GlStateManager.disableLighting();
             if (this.container.func_217042_i()) {
                 this.func_214130_a(i, j, merchantoffer1);
             }
 
-            if (merchantoffer1.func_222217_o() && this.isPointInRegion(186, 35, 22, 21, (double) p_render_1_, (double) p_render_2_) && this.container.func_223432_h()) {
+            if (merchantoffer1.func_222217_o() && this.isPointInRegion(186, 35, 22, 21, p_render_1_, p_render_2_) && this.container.func_223432_h()) {
                 this.renderTooltip(I18n.format("merchant.deprecated"), p_render_1_, p_render_2_);
             }
 
@@ -228,26 +219,22 @@ public class DivineMerchantScreen extends ContainerScreen<MerchantContainer> {
                 merchantscreen$tradebutton.visible = merchantscreen$tradebutton.field_212938_a < this.container.func_217051_h().size();
             }
 
-            GlStateManager.popMatrix();
-            GlStateManager.enableLighting();
-            GlStateManager.enableDepthTest();
-            RenderHelper.enableStandardItemLighting();
+            RenderSystem.popMatrix();
+            RenderSystem.enableDepthTest();
         }
 
         this.renderHoveredToolTip(p_render_1_, p_render_2_);
     }
 
     private void func_214134_a(MerchantOffer p_214134_1_, int p_214134_2_, int p_214134_3_) {
-        RenderHelper.disableStandardItemLighting();
-        GlStateManager.enableBlend();
+        RenderSystem.enableBlend();
         this.minecraft.getTextureManager().bindTexture(getGuiTexture());
         if (p_214134_1_.func_222217_o()) {
-            blit(p_214134_2_ + 5 + 35 + 20, p_214134_3_ + 3, this.blitOffset, 25.0F, 171.0F, 10, 9, 256, 512);
+            blit(p_214134_2_ + 5 + 35 + 20, p_214134_3_ + 3, this.getBlitOffset(), 25.0F, 171.0F, 10, 9, 256, 512);
         } else {
-            blit(p_214134_2_ + 5 + 35 + 20, p_214134_3_ + 3, this.blitOffset, 15.0F, 171.0F, 10, 9, 256, 512);
+            blit(p_214134_2_ + 5 + 35 + 20, p_214134_3_ + 3, this.getBlitOffset(), 15.0F, 171.0F, 10, 9, 256, 512);
         }
 
-        RenderHelper.enableGUIStandardItemLighting();
     }
 
     private void func_214137_a(ItemStack p_214137_1_, ItemStack p_214137_2_, int p_214137_3_, int p_214137_4_) {
@@ -258,11 +245,9 @@ public class DivineMerchantScreen extends ContainerScreen<MerchantContainer> {
             this.itemRenderer.renderItemOverlayIntoGUI(this.font, p_214137_2_, p_214137_3_, p_214137_4_, p_214137_2_.getCount() == 1 ? "1" : null);
             this.itemRenderer.renderItemOverlayIntoGUI(this.font, p_214137_1_, p_214137_3_ + 14, p_214137_4_, p_214137_1_.getCount() == 1 ? "1" : null);
             this.minecraft.getTextureManager().bindTexture(getGuiTexture());
-            this.blitOffset += 300;
-            RenderHelper.disableStandardItemLighting();
-            blit(p_214137_3_ + 7, p_214137_4_ + 12, this.blitOffset, 0.0F, 176.0F, 9, 2, 256, 512);
-            RenderHelper.enableGUIStandardItemLighting();
-            this.blitOffset -= 300;
+            this.setBlitOffset(this.getBlitOffset() + 300);
+            blit(p_214137_3_ + 7, p_214137_4_ + 12, this.getBlitOffset(), 0.0F, 176.0F, 9, 2, 256, 512);
+            this.setBlitOffset(this.getBlitOffset() - 300);
         }
 
     }

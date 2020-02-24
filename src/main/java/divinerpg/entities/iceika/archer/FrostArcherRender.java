@@ -6,6 +6,6 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 
 public class FrostArcherRender extends DivineRender<FrostArcher, BipedModel<FrostArcher>> {
     public FrostArcherRender(EntityRendererManager manager) {
-        super(manager, new BipedModel<>(), 1, "frost_archer");
+        super(manager, new BipedModel<>(0), 1, "frost_archer");
     }
 }

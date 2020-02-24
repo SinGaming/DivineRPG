@@ -1,5 +1,6 @@
 package divinerpg.entities.base;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -10,7 +11,7 @@ import net.minecraft.util.math.Vec3d;
  * Copy of Ghast controller, but accepting any mob types
  */
 public class GhastMoveController extends MovementController {
-    private final MobEntity parentEntity;
+    private final LivingEntity parentEntity;
     private int courseChangeCooldown;
 
     public GhastMoveController(MobEntity ghast) {
@@ -22,7 +23,7 @@ public class GhastMoveController extends MovementController {
         if (this.action == MovementController.Action.MOVE_TO) {
             if (this.courseChangeCooldown-- <= 0) {
                 this.courseChangeCooldown += this.parentEntity.getRNG().nextInt(5) + 2;
-                Vec3d vec3d = new Vec3d(this.serverPosX - this.parentEntity.serverPosX, this.serverPosY - this.parentEntity.serverPosY, this.serverPosZ - this.parentEntity.serverPosZ);
+                Vec3d vec3d = new Vec3d(this.posX - this.parentEntity.func_226277_ct_(), this.posY - this.parentEntity.func_226278_cu_(), this.posZ - this.parentEntity.func_226281_cx_());
                 double d0 = vec3d.length();
                 vec3d = vec3d.normalize();
                 if (this.func_220673_a(vec3d, MathHelper.ceil(d0))) {
@@ -40,7 +41,7 @@ public class GhastMoveController extends MovementController {
 
         for (int i = 1; i < p_220673_2_; ++i) {
             axisalignedbb = axisalignedbb.offset(p_220673_1_);
-            if (!this.parentEntity.world.isCollisionBoxesEmpty(this.parentEntity, axisalignedbb)) {
+            if (!this.parentEntity.world.func_226665_a__(this.parentEntity, axisalignedbb)) {
                 return false;
             }
         }

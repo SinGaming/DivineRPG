@@ -16,6 +16,11 @@ public class SunBurnGoal extends Goal {
         this.entity = entity;
     }
 
+    /**
+     * Taken from ZombieEntity.livingTick
+     *
+     * @return
+     */
     @Override
     public boolean shouldExecute() {
         if (entity.isAlive() && isInDaylight()) {
@@ -48,11 +53,19 @@ public class SunBurnGoal extends Goal {
         entity.setFire(8);
     }
 
+    /**
+     * Legacy copy of MobEntity.isInDaylight
+     *
+     * @return
+     */
     protected boolean isInDaylight() {
         if (entity.world.isDaytime() && !entity.world.isRemote) {
             float f = entity.getBrightness();
-            BlockPos blockpos = entity.getRidingEntity() instanceof BoatEntity ? (new BlockPos(entity.serverPosX, (double) Math.round(entity.serverPosY), entity.serverPosZ)).up() : new BlockPos(entity.serverPosX, (double) Math.round(entity.serverPosY), entity.serverPosZ);
-            return f > 0.5F && entity.world.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && entity.world.isSkyLightMax(blockpos);
+            BlockPos blockpos = entity.getRidingEntity() instanceof BoatEntity
+                    ? (new BlockPos(entity.func_226277_ct_(), (double) Math.round(entity.func_226278_cu_()), entity.func_226281_cx_())).up()
+                    : new BlockPos(entity.func_226277_ct_(), (double) Math.round(entity.func_226278_cu_()), entity.func_226281_cx_());
+
+            return f > 0.5F && entity.world.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && entity.world.func_226660_f_(blockpos);
         }
 
         return false;

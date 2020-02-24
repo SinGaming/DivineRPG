@@ -7,11 +7,11 @@ import divinerpg.blocks.twilight.*;
 import divinerpg.entities.bosses.ayeraco.manager.AyeracoManager;
 import divinerpg.tile.statue.ItemStackStatueRender;
 import divinerpg.tile.statue.StatueConstants;
+import divinerpg.utils.DefaultFeaturesConfig;
 import divinerpg.utils.DivineParticleTypes;
 import divinerpg.utils.DivinePlantType;
 import divinerpg.utils.properties.block.ExtendedBlockProperties;
 import divinerpg.utils.properties.block.IExpDrop;
-import divinerpg.world.twilight.feature.DivineTreeFeature;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -25,6 +25,7 @@ import net.minecraft.util.Tuple;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -347,9 +348,13 @@ public class BlockRegistry {
                 , "eden_log", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.YELLOW).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
                 , "eden_planks", blockTabProperty);
-        registerBlock(new DivineSaplingBlock(new DivineTree(new DivineTreeFeature(true, 7,
-                        () -> edenSapling, () -> edenLog, () -> edenLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.YELLOW).withNonVanillaType(DivinePlantType.EDEN))
-                , "eden_sapling", blockTabProperty);
+        registerBlock(
+                new DivineSaplingBlock(
+                        new DivineTree(() ->
+                                Feature.NORMAL_TREE.func_225566_b_(DefaultFeaturesConfig.eden_tree_config)
+                        ), ExtendedBlockProperties.createForSapling(MaterialColor.YELLOW).withNonVanillaType(DivinePlantType.EDEN)
+                ), "eden_sapling", blockTabProperty
+        );
         registerBlock(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
                 , "eden_ore", blockTabProperty);
         registerBlock(new DivinePortalBlock(
@@ -384,9 +389,13 @@ public class BlockRegistry {
                 , "wildwood_log", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.LIGHT_BLUE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
                 , "wildwood_planks", blockTabProperty);
-        registerBlock(new DivineSaplingBlock(new DivineTree(new DivineTreeFeature(true, 7,
-                        () -> wildwoodSapling, () -> wildwoodLog, () -> wildwoodLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.LIGHT_BLUE).withNonVanillaType(DivinePlantType.WILDWOOD))
-                , "wildwood_sapling", blockTabProperty);
+        registerBlock(
+                new DivineSaplingBlock(
+                        new DivineTree(() ->
+                                Feature.NORMAL_TREE.func_225566_b_(DefaultFeaturesConfig.wildwood_tree_config)
+                        ), ExtendedBlockProperties.createForSapling(MaterialColor.LIGHT_BLUE).withNonVanillaType(DivinePlantType.WILDWOOD)
+                ), "wildwood_sapling", blockTabProperty
+        );
         registerBlock(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
                 , "wildwood_ore", blockTabProperty);
         registerBlock(new DivinePortalBlock(
@@ -421,9 +430,13 @@ public class BlockRegistry {
                 , "apalachia_log", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.PURPLE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
                 , "apalachia_planks", blockTabProperty);
-        registerBlock(new DivineSaplingBlock(new DivineTree(new DivineTreeFeature(true, 7,
-                        () -> apalachiaSapling, () -> apalachiaLog, () -> apalachiaLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.PURPLE).withNonVanillaType(DivinePlantType.APALACHIA))
-                , "apalachia_sapling", blockTabProperty);
+        registerBlock(
+                new DivineSaplingBlock(
+                        new DivineTree(() ->
+                                Feature.NORMAL_TREE.func_225566_b_(DefaultFeaturesConfig.apalachia_tree_config)
+                        ), ExtendedBlockProperties.createForSapling(MaterialColor.PURPLE).withNonVanillaType(DivinePlantType.APALACHIA)
+                ), "apalachia_sapling", blockTabProperty
+        );
         registerBlock(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
                 , "apalachia_ore", blockTabProperty);
         registerBlock(new DivinePortalBlock(
@@ -459,9 +472,13 @@ public class BlockRegistry {
                 , "skythern_log", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.GRAY).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
                 , "skythern_planks", blockTabProperty);
-        registerBlock(new DivineSaplingBlock(new DivineTree(new DivineTreeFeature(true, 7,
-                        () -> skythernSapling, () -> skythernLog, () -> skythernLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.GRAY).withNonVanillaType(DivinePlantType.SKYTHERN))
-                , "skythern_sapling", blockTabProperty);
+        registerBlock(
+                new DivineSaplingBlock(
+                        new DivineTree(() ->
+                                Feature.NORMAL_TREE.func_225566_b_(DefaultFeaturesConfig.skythern_tree_config)
+                        ), ExtendedBlockProperties.createForSapling(MaterialColor.GRAY).withNonVanillaType(DivinePlantType.SKYTHERN)
+                ), "skythern_sapling", blockTabProperty
+        );
         registerBlock(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
                 , "skythern_ore", blockTabProperty);
         registerBlock(new DivinePortalBlock(
@@ -497,10 +514,13 @@ public class BlockRegistry {
                 , "mortum_log", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.BLACK).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE))
                 , "mortum_planks", blockTabProperty);
-        registerBlock(new DivineSaplingBlock(new DivineTree(new DivineTreeFeature(true, 7,
-                        () -> mortumSapling, () -> mortumLog, () -> mortumLeaves)), ExtendedBlockProperties.createForSapling(MaterialColor.BLACK)
-                        .withNonVanillaType(DivinePlantType.MORTUM))
-                , "mortum_sapling", blockTabProperty);
+        registerBlock(
+                new DivineSaplingBlock(
+                        new DivineTree(() ->
+                                Feature.NORMAL_TREE.func_225566_b_(DefaultFeaturesConfig.mortum_tree_config)
+                        ), ExtendedBlockProperties.createForSapling(MaterialColor.BLACK).withNonVanillaType(DivinePlantType.MORTUM)
+                ), "mortum_sapling", blockTabProperty
+        );
         registerBlock(new DivineOre(ExtendedBlockProperties.createForOre(3, 50, DIAMOND, regularDrop))
                 , "mortum_ore", blockTabProperty);
         registerBlock(new DivinePortalBlock(

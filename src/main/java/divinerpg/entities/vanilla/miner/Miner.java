@@ -95,7 +95,7 @@ public class Miner extends DivineMonster {
         if (source.getTrueSource() instanceof PlayerEntity && rand.nextInt(1000) + looting * 10 < 25) {
             ItemStack pickaxe = this.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
             if (!pickaxe.isEmpty())
-                world.addEntity(new ItemEntity(world, posX, posY, posZ, pickaxe));
+                world.addEntity(new ItemEntity(world, serverPosX, serverPosY, serverPosZ, pickaxe));
         }
     }
 }

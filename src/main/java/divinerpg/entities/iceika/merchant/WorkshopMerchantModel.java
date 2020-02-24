@@ -85,19 +85,7 @@ public class WorkshopMerchantModel extends DivineModel<WorkshopMerchant> {
     }
 
     @Override
-    public void render(WorkshopMerchant entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-
-        rightarmtop.render(scale);
-        rightlegbottom.render(scale);
-        leftarmtop.render(scale);
-        leftlegbottom.render(scale);
-    }
-
-    @Override
     public void setRotationAngles(WorkshopMerchant entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-
 
         this.head.rotateAngleY = netHeadYaw / (180F / (float) Math.PI);
         this.head.rotateAngleX = headPitch / (180F / (float) Math.PI);

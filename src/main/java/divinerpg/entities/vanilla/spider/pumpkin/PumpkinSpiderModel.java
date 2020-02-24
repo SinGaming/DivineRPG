@@ -1,9 +1,12 @@
 package divinerpg.entities.vanilla.spider.pumpkin;
 
+import com.google.common.collect.ImmutableSet;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import divinerpg.entities.base.render.DeobfHelper;
 import divinerpg.entities.base.render.DivineModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
-import org.lwjgl.opengl.GL11;
 
 public class PumpkinSpiderModel extends DivineModel<PumpkinSpider> {
     private final ModelRenderer Head;
@@ -91,30 +94,20 @@ public class PumpkinSpiderModel extends DivineModel<PumpkinSpider> {
     }
 
     @Override
-    public void render(PumpkinSpider entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        this.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        GL11.glPushMatrix();
+    public void render(MatrixStack stack, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+        DeobfHelper.useMatirx(stack, () -> {
+            if (aggressive) {
+                DeobfHelper.translate(stack, 0, -0.1875f, 0);
+            }
+            super.render(stack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+        });
+    }
 
-        if (entityIn.isAggressive()) {
-            GL11.glTranslatef(0, -0.1875f, 0);
-        }
-
-        RearEnd.render(scale);
-
-        if (entityIn.isAggressive()) {
-            Head.render(scale);
-            Body.render(scale);
-            Leg8.render(scale);
-            Leg6.render(scale);
-            Leg4.render(scale);
-            Leg2.render(scale);
-            Leg7.render(scale);
-            Leg5.render(scale);
-            Leg3.render(scale);
-            Leg1.render(scale);
-        }
-
-        GL11.glPopMatrix();
+    @Override
+    public Iterable<ModelRenderer> getBodyParts() {
+        return aggressive
+                ? ImmutableSet.of(Head, Body, Leg8, Leg6, Leg4, Leg2, Leg7, Leg5, Leg3, Leg1)
+                : ImmutableSet.of(RearEnd);
     }
 
     @Override

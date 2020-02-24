@@ -7,6 +7,7 @@ import divinerpg.entities.goal.RandomTeleportGoal;
 import divinerpg.registry.EntitiesRegistry;
 import divinerpg.registry.SoundRegistry;
 import divinerpg.utils.properties.item.ICreateFireball;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
@@ -14,6 +15,7 @@ import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.World;
@@ -56,8 +58,8 @@ public class Watcher extends DivineBoss implements ICreateFireball {
     }
 
     @Override
-    public void fall(float distance, float damageMultiplier) {
-        // ignored
+    protected void updateFallState(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
+        // ignore fall damage (similar to FlyingEntity)
     }
 
     @Override

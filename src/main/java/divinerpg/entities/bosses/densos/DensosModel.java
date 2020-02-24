@@ -1,7 +1,8 @@
 package divinerpg.entities.bosses.densos;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import divinerpg.entities.base.DivineBoss;
+import divinerpg.entities.base.render.DeobfHelper;
 import divinerpg.entities.base.render.DivineBossModel;
 import net.minecraft.client.renderer.entity.model.IHasArm;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -113,18 +114,18 @@ public class DensosModel extends DivineBossModel<DivineBoss> implements IHasArm 
         this.leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
     }
 
-    @Override
-    public void postRenderArm(float scale, HandSide side) {
 
+    @Override
+    public void func_225599_a_(HandSide side, MatrixStack stack) {
         switch (side) {
             case RIGHT:
-                rightarm.postRender(scale);
+                rightarm.func_228307_a_(stack);
 
-                GlStateManager.translatef(-0.0625F, 0.4375F, 0.0625F);
+                DeobfHelper.translate(stack, -0.0625F, 0.4375F, 0.0625F);
                 break;
 
             case LEFT:
-                leftarm.postRender(scale);
+                leftarm.func_228307_a_(stack);
                 break;
         }
     }

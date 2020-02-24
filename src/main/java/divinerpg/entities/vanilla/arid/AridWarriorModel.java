@@ -1,5 +1,6 @@
 package divinerpg.entities.vanilla.arid;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import divinerpg.entities.base.render.DivineModel;
 import net.minecraft.client.renderer.entity.model.IHasArm;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -270,19 +271,17 @@ public class AridWarriorModel extends DivineModel<AridWarrior> implements IHasAr
         this.leftarmTS2.rotateAngleX -= xArmAngle;
     }
 
-    protected void setRotation(ModelRenderer model, float x, float y, float z) {
-        model.rotateAngleX = x;
-        model.rotateAngleY = y;
-        model.rotateAngleZ = z;
-    }
-
     @Override
-    public void postRenderArm(float scale, HandSide side) {
-        if (side == HandSide.LEFT) {
-            leftarmBS1.postRender(scale);
-        } else {
-            rightarmBS1.postRender(scale);
-        }
+    public void func_225599_a_(HandSide side, MatrixStack stack) {
 
+        switch (side) {
+            case LEFT:
+                leftarmBS1.func_228307_a_(stack);
+                break;
+
+            case RIGHT:
+                rightarmBS1.func_228307_a_(stack);
+                break;
+        }
     }
 }

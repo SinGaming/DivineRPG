@@ -1,6 +1,7 @@
 package divinerpg.entities.eden.bunny.pet;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import divinerpg.entities.base.render.DeobfHelper;
 import divinerpg.entities.base.render.DivineRender;
 import divinerpg.utils.CachedTexture;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -28,11 +29,11 @@ public class BunnyRender extends DivineRender<Bunny, BunnyModel> {
     }
 
     @Override
-    protected void preRenderCallback(Bunny bunny, float partialTickTime) {
-        super.preRenderCallback(bunny, partialTickTime);
+    public void preRenderCallback(Bunny bunny, MatrixStack stack, float partialTickTime) {
+        super.preRenderCallback(bunny, stack, partialTickTime);
 
         if (bunny.isTamed() && bunny.isAggressive()) {
-            GlStateManager.scalef(1.2F, 1.2F, 1.2F);
+            DeobfHelper.scale(stack, 1.2F, 1.2F, 1.2F);
         }
     }
 }

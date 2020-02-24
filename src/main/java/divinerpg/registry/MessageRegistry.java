@@ -2,8 +2,8 @@ package divinerpg.registry;
 
 import divinerpg.DivineRPG;
 import divinerpg.messages.ArcanaMessage;
-import divinerpg.messages.EquipmentChangedMessage;
 import divinerpg.messages.IMessage;
+import divinerpg.messages.PlayerLoggedMessage;
 import divinerpg.messages.TeleportMessage;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -18,9 +18,9 @@ public class MessageRegistry {
     public static void register() {
         int messageID = 0;
 
-        registerMessage(messageID++, EquipmentChangedMessage.class);
         registerMessage(messageID++, ArcanaMessage.class);
         registerMessage(messageID++, TeleportMessage.class);
+        registerMessage(messageID++, PlayerLoggedMessage.class);
     }
 
 

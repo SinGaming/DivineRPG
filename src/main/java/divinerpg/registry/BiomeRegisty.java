@@ -4,7 +4,7 @@ import divinerpg.DivineRPG;
 import divinerpg.world.iceika.IceikaBiome;
 import divinerpg.world.mortum.DivineCaveSurfaceBuilder;
 import divinerpg.world.twilight.DivineBiome;
-import divinerpg.world.twilight.feature.DivineTreeFeature;
+import divinerpg.world.twilight.feature.DivineSmallTreeFeature;
 import divinerpg.world.twilight.feature.config.CustomFillerBlockType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
@@ -47,7 +47,7 @@ public class BiomeRegisty {
                 BlockRegistry.edenDirt,
                 Color.YELLOW,
                 CustomFillerBlockType.EDEN_DIRT,
-                new DivineTreeFeature(false, 7, () -> BlockRegistry.edenSapling, () -> BlockRegistry.edenLog, () -> BlockRegistry.edenLeaves),
+                new DivineSmallTreeFeature(7, () -> BlockRegistry.edenSapling, () -> BlockRegistry.edenLog, () -> BlockRegistry.edenLeaves),
                 BlockRegistry.sunbloom,
                 BlockRegistry.sunBlossom,
                 BlockRegistry.edenBrush,
@@ -61,7 +61,7 @@ public class BiomeRegisty {
                 BlockRegistry.wildwoodDirt,
                 Color.BLUE,
                 CustomFillerBlockType.WILDWOOD_DIRT,
-                new DivineTreeFeature(false, 7, () -> BlockRegistry.wildwoodSapling, () -> BlockRegistry.wildwoodLog, () -> BlockRegistry.wildwoodLeaves),
+                new DivineSmallTreeFeature(7, () -> BlockRegistry.wildwoodSapling, () -> BlockRegistry.wildwoodLog, () -> BlockRegistry.wildwoodLeaves),
                 BlockRegistry.wildwoodTallgrass,
                 BlockRegistry.moonlightFern,
                 BlockRegistry.moonBud,
@@ -72,7 +72,7 @@ public class BiomeRegisty {
                 BlockRegistry.apalachiaDirt,
                 Color.PINK,
                 CustomFillerBlockType.APALACHIA_DIRT,
-                new DivineTreeFeature(false, 7, () -> BlockRegistry.apalachiaSapling, () -> BlockRegistry.apalachiaLog, () -> BlockRegistry.apalachiaLeaves),
+                new DivineSmallTreeFeature(7, () -> BlockRegistry.apalachiaSapling, () -> BlockRegistry.apalachiaLog, () -> BlockRegistry.apalachiaLeaves),
                 BlockRegistry.apalachiaTallgrass,
                 BlockRegistry.dusk_flower,
                 BlockRegistry.dusk_bloom,
@@ -83,7 +83,7 @@ public class BiomeRegisty {
                 BlockRegistry.skythernDirt,
                 Color.GRAY,
                 CustomFillerBlockType.SKYTHERN_DIRT,
-                new DivineTreeFeature(false, 7, () -> BlockRegistry.skythernSapling, () -> BlockRegistry.skythernLog, () -> BlockRegistry.skythernLeaves),
+                new DivineSmallTreeFeature(7, () -> BlockRegistry.skythernSapling, () -> BlockRegistry.skythernLog, () -> BlockRegistry.skythernLeaves),
                 BlockRegistry.dust_lily,
                 BlockRegistry.dust_brambles,
                 BlockRegistry.skythern_brush,
@@ -97,7 +97,7 @@ public class BiomeRegisty {
                                         BlockRegistry.twilightStone.getDefaultState())),
                 Color.BLACK,
                 CustomFillerBlockType.MORTUM_DIRT,
-                new DivineTreeFeature(false, 7, () -> BlockRegistry.mortumSapling, () -> BlockRegistry.mortumLog, () -> BlockRegistry.mortumLeaves),
+                new DivineSmallTreeFeature(7, () -> BlockRegistry.mortumSapling, () -> BlockRegistry.mortumLog, () -> BlockRegistry.mortumLeaves),
                 BlockRegistry.eye_plant,
                 BlockRegistry.mortum_brush,
                 BlockRegistry.demon_brambles,

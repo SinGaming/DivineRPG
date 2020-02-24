@@ -75,9 +75,9 @@ public class GhastAttackGoal extends Goal {
                     ((FireballEntity) fireballentity).explosionPower = ((GhastEntity) this.parentEntity).getFireballStrength();
                 }
 
-                fireballentity.serverPosX = this.parentEntity.serverPosX + vec3d.x * 4.0D;
-                fireballentity.serverPosY = this.parentEntity.serverPosY + (double) (this.parentEntity.getHeight() / 2.0F) + 0.5D;
-                fireballentity.serverPosZ = this.parentEntity.serverPosZ + vec3d.z * 4.0D;
+                fireballentity.serverPosX = (long) (this.parentEntity.serverPosX + vec3d.x * 4.0D);
+                fireballentity.serverPosY = (long) (this.parentEntity.serverPosY + (double) (this.parentEntity.getHeight() / 2.0F) + 0.5D);
+                fireballentity.serverPosZ = (long) (this.parentEntity.serverPosZ + vec3d.z * 4.0D);
                 world.addEntity(fireballentity);
                 this.attackTimer = -40;
             }

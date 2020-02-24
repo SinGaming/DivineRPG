@@ -18,6 +18,16 @@ public class DeobfHelper {
 
     /**
      * Scales matirx
+     *
+     * @param stack
+     * @param x
+     */
+    public static void scale(MatrixStack stack, float x) {
+        scale(stack, x, x, x);
+    }
+
+    /**
+     * Scales matirx
      */
     public static void scale(MatrixStack stack, float x, float y, float z) {
         stack.func_227862_a_(x, y, z);
