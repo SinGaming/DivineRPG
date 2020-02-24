@@ -16,7 +16,6 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.placement.ChanceConfig;
 import net.minecraft.world.gen.placement.HeightWithChanceConfig;
-import net.minecraft.world.gen.placement.LakeChanceConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
@@ -48,40 +47,35 @@ public class IceikaBiome extends Biome {
 
         // lakes
         addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS,
-                createDecoratedFeature(new DivineLakeFeature(), new LakeConfig(Blocks.ICE.getDefaultState(), BlockRegistry.frozen_grass.getDefaultState()),
-                        Placement.WATER_LAKE, new LakeChanceConfig(4)));
+                new DivineLakeFeature().func_225566_b_(
+                        new LakeConfig(Blocks.ICE.getDefaultState(), BlockRegistry.frozen_grass.getDefaultState()))
+                        .func_227228_a_(Placement.WATER_LAKE.func_227446_a_(new ChanceConfig(4))));
 
         // add giant tree
         addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
-                createDecoratedFeature(
-                        new HugeDivineTree(false, true, BlockRegistry.frozen_log, BlockRegistry.brittle_leaves, null),
-                        IFeatureConfig.NO_FEATURE_CONFIG,
-                        Placement.COUNT_CHANCE_HEIGHTMAP,
-                        new HeightWithChanceConfig(3, 0.4F)
-                )
-        );
+                new HugeDivineTree(false, true, BlockRegistry.frozen_log, BlockRegistry.brittle_leaves, null).func_225566_b_(
+                        IFeatureConfig.NO_FEATURE_CONFIG)
+                        .func_227228_a_(Placement.COUNT_CHANCE_HEIGHTMAP.func_227446_a_(new HeightWithChanceConfig(3, 0.4F))));
 
         // lamps
         for (int i = 1; i <= 3; i++) {
             addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES,
-                    createDecoratedFeature(
-                            baseTemplateFeature,
-                            new TemplateFeatureConfig(new ResourceLocation(DivineRPG.MODID, "coalstone_lamp_" + i), BlockRegistry.frozen_grass.getDefaultState()),
-                            Placement.CHANCE_TOP_SOLID_HEIGHTMAP,
-                            new ChanceConfig(25)
-                    ));
+                    baseTemplateFeature.func_225566_b_(
+                            new TemplateFeatureConfig(new ResourceLocation(DivineRPG.MODID, "coalstone_lamp_" + i), BlockRegistry.frozen_grass.getDefaultState()))
+                            .func_227228_a_(Placement.CHANCE_TOP_SOLID_HEIGHTMAP.func_227446_a_(
+                                    new ChanceConfig(25)
+                            )));
         }
 
         // houses
         // todo add from 4 to 6
         for (int i = 1; i <= 3; i++) {
             addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES,
-                    createDecoratedFeature(
-                            baseTemplateFeature,
-                            new TemplateFeatureConfig(new ResourceLocation(DivineRPG.MODID, "workshop_house_" + i), BlockRegistry.frozen_grass.getDefaultState()),
-                            Placement.CHANCE_TOP_SOLID_HEIGHTMAP,
-                            new ChanceConfig(10)
-                    ));
+                    baseTemplateFeature.func_225566_b_(
+                            new TemplateFeatureConfig(new ResourceLocation(DivineRPG.MODID, "workshop_house_" + i), BlockRegistry.frozen_grass.getDefaultState()))
+                            .func_227228_a_(Placement.CHANCE_TOP_SOLID_HEIGHTMAP.func_227446_a_(
+                                    new ChanceConfig(10)
+                            )));
         }
     }
 

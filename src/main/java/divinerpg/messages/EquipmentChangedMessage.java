@@ -1,7 +1,5 @@
 package divinerpg.messages;
 
-import divinerpg.events.FullArmorEventHandler;
-import divinerpg.utils.ArmorObserver;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;

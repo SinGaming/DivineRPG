@@ -13,7 +13,6 @@ import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
@@ -32,7 +31,9 @@ public class StatueBlock extends ContainerBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
     public StatueBlock(String name) {
-        super(Block.Properties.create(Material.ROCK, MaterialColor.GRAY).hardnessAndResistance(6).harvestTool(ToolType.PICKAXE).harvestLevel(0));
+        super(Block.Properties.create(Material.ROCK, MaterialColor.GRAY).hardnessAndResistance(6).harvestTool(ToolType.PICKAXE).harvestLevel(0)
+        // notSolid
+        .func_226896_b_());
         this.name = name;
 
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
@@ -61,11 +62,6 @@ public class StatueBlock extends ContainerBlock {
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.INVISIBLE;
-    }
-
-    @Override
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT;
     }
 
     @Override

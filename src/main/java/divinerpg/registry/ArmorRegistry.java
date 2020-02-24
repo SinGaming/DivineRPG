@@ -2,6 +2,8 @@ package divinerpg.registry;
 
 import divinerpg.DivineRPG;
 import divinerpg.api.armor.*;
+import divinerpg.api.armor.interfaces.IArmorSet;
+import divinerpg.api.armor.interfaces.IPoweredArmor;
 import divinerpg.utils.DivineArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.potion.EffectInstance;
@@ -32,42 +34,37 @@ public class ArmorRegistry {
     }
 
     @SubscribeEvent
-    public static void registerPowers(RegistryEvent.Register<IPoweredArmorSet> e) {
-        IForgeRegistry<IPoweredArmorSet> registry = e.getRegistry();
+    public static void registerPowers(RegistryEvent.Register<IPoweredArmor> e) {
+        IForgeRegistry<IPoweredArmor> registry = e.getRegistry();
 
         // Rupee sets
-        registry.register(new PoweredArmorSet(
+        registry.register(new PoweredArmor(
                 new ArmorSet()
-                        .withVariants(
-                                Arrays.stream(getArmorColors()).map(x -> ItemRegistry.find(x + "rupee_helmet")).toArray(Item[]::new),
-                                Arrays.stream(getArmorColors()).map(x -> ItemRegistry.find(x + "rupee_chestplate")).toArray(Item[]::new),
-                                Arrays.stream(getArmorColors()).map(x -> ItemRegistry.find(x + "rupee_leggings")).toArray(Item[]::new),
-                                Arrays.stream(getArmorColors()).map(x -> ItemRegistry.find(x + "rupee_boots")).toArray(Item[]::new),
-                                null
-                        ), null
-        )
+                        .withVariants(Arrays.stream(getArmorColors()).map(x -> ItemRegistry.find(x + "rupee_helmet")),
+                                Arrays.stream(getArmorColors()).map(x -> ItemRegistry.find(x + "rupee_chestplate")),
+                                Arrays.stream(getArmorColors()).map(x -> ItemRegistry.find(x + "rupee_leggings")),
+                                Arrays.stream(getArmorColors()).map(x -> ItemRegistry.find(x + "rupee_boots"))
+                        ))
                 .addAbility(LivingHurtEvent.class, event -> ArmorEvents.onPlayerReceiveDamage(event, ArmorEvents::isMeeleeDamage, x -> x * 0.15F))
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "rupee_set")));
 
         // ender sets
-        registry.register(new PoweredArmorSet(
+        registry.register(new PoweredArmor(
                 new ArmorSet()
                         .withVariants(
-                                Arrays.stream(getArmorColors()).map(x -> ItemRegistry.find(x + "ender_helmet")).toArray(Item[]::new),
-                                Arrays.stream(getArmorColors()).map(x -> ItemRegistry.find(x + "ender_chestplate")).toArray(Item[]::new),
-                                Arrays.stream(getArmorColors()).map(x -> ItemRegistry.find(x + "ender_leggings")).toArray(Item[]::new),
-                                Arrays.stream(getArmorColors()).map(x -> ItemRegistry.find(x + "ender_boots")).toArray(Item[]::new),
-                                null
-                        ), null
-        )
+                                Arrays.stream(getArmorColors()).map(x -> ItemRegistry.find(x + "ender_helmet")),
+                                Arrays.stream(getArmorColors()).map(x -> ItemRegistry.find(x + "ender_chestplate")),
+                                Arrays.stream(getArmorColors()).map(x -> ItemRegistry.find(x + "ender_leggings")),
+                                Arrays.stream(getArmorColors()).map(x -> ItemRegistry.find(x + "ender_boots"))
+                        ))
                 .addAbility(LivingHurtEvent.class, event -> ArmorEvents.onCancelPlayerReceiveDamage(event, DamageSource::isExplosion))
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "ender_set")));
 
         // jack-o-man
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.JACK_O_MAN), null).setRegistryName(JACKOMAN));
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.JACK_O_MAN), null).setRegistryName(JACKOMAN));
 
         // divine
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.DIVINE), null)
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.DIVINE), null)
                 .addAbility(LivingHurtEvent.class, event -> ArmorEvents.onAddMeleeDamage(event, x -> x + 6))
                 .addAbility(TickEvent.PlayerTickEvent.class, ArmorEvents::disableFallDamage)
                 .addAbility(LivingEvent.LivingJumpEvent.class, event -> ArmorEvents.adjustJumpHeight(event, 2))
@@ -75,25 +72,25 @@ public class ArmorRegistry {
         );
 
         // halite
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.HALITE),
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.HALITE),
                 null)
                 .addAbility(LivingHurtEvent.class, event -> ArmorEvents.onAddMeleeDamage(event, x -> x + 16))
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "halite_set"))
         );
 
         // bedrock
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.BEDROCK), null
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.BEDROCK), null
         ).addAbility(LivingHurtEvent.class, event -> ArmorEvents.onCancelPlayerReceiveDamage(event, s -> s.isFireDamage() || s.isExplosion() || s == DamageSource.LAVA))
                 .addAbility(TickEvent.PlayerTickEvent.class, ArmorEvents::removeFire)
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "bedrock_set")));
 
         // elite realmit
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.ELITE_REALMIT), null
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.ELITE_REALMIT), null
         ).addAbility(TickEvent.PlayerTickEvent.class, ArmorEvents::disableFallDamage)
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "elite_realmite_set")));
 
         // arlemite
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.ARLEMITE), null
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.ARLEMITE), null
         ).addAbility(LivingHurtEvent.class, event -> {
             ArmorEvents.onPlayerReceiveDamage(event,
                     source -> source.isProjectile() || source.damageType.equals("thrown"),
@@ -102,70 +99,70 @@ public class ArmorRegistry {
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "arlemite_set")));
 
         // kraken
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.KRAKEN), null
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.KRAKEN), null
         ).addAbility(TickEvent.PlayerTickEvent.class, ArmorEvents::breatheUnderwater)
                 .addAbility(LivingHurtEvent.class, event -> ArmorEvents.onCancelPlayerReceiveDamage(event, source -> source.equals(DamageSource.DROWN)))
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "kraken_set")));
 
         // wither_reaper
-        registry.register(new PoweredArmorSet(createFromName("wither_reaper"), null
+        registry.register(new PoweredArmor(createFromName("wither_reaper"), null
         ).addAbility(LivingHurtEvent.class, event -> ArmorEvents.onCancelPlayerReceiveDamage(event, source -> source.equals(DamageSource.WITHER)))
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "wither_reaper_set")));
 
         // skeleman
-        registry.register(new PoweredArmorSet(createFromName("skeleman"), null
+        registry.register(new PoweredArmor(createFromName("skeleman"), null
         ).addAbility(TickEvent.PlayerTickEvent.class, ArmorEvents::refillHunger)
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "skeleman_set")));
 
         // inferno
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.INFERNO), null
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.INFERNO), null
         ).addAbility(TickEvent.PlayerTickEvent.class, ArmorEvents::removeFire)
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "inferno_set")));
 
         // aquastrive
-        registry.register(new PoweredArmorSet(createFromName("aquastrive"), (player, isEquipped) -> ArmorEvents.speedUpInWater(player, -1, true)
+        registry.register(new PoweredArmor(createFromName("aquastrive"), (player, isEquipped) -> ArmorEvents.speedUpInWater(player, -1, true)
         ).addAbility(TickEvent.PlayerTickEvent.class, event -> ArmorEvents.speedUpInWater(event.player, 3, false))
                 .addAbility(TickEvent.PlayerTickEvent.class, ArmorEvents::breatheUnderwater)
                 .addAbility(LivingHurtEvent.class, event -> ArmorEvents.onCancelPlayerReceiveDamage(event, source -> source.equals(DamageSource.DROWN)))
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "aquastrive_set")));
 
         // shadow
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.SHADOW), (player, isEquipped) -> ArmorEvents.speedUpPlayer(player, -1, true)
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.SHADOW), (player, isEquipped) -> ArmorEvents.speedUpPlayer(player, -1, true)
         ).addAbility(TickEvent.PlayerTickEvent.class, event -> ArmorEvents.speedUpPlayer(event.player, 2.4F, false))
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "shadow_set")));
 
         // netherite
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.NETHERITE), null
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.NETHERITE), null
         ).addAbility(TickEvent.PlayerTickEvent.class, ArmorEvents::removeFire)
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "netherite_set")));
 
         // jungle
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.JUNGLE), null)
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.JUNGLE), null)
                 .addAbility(LivingHurtEvent.class, event -> ArmorEvents.onCancelPlayerReceiveDamage(event, DamageSource::isMagicDamage))
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "jungle_set")));
 
         // frozen
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.FROZEN), null)
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.FROZEN), null)
                 .addAbility(TickEvent.PlayerTickEvent.class, event -> ArmorEvents.frozeNearMobs(event, 10, 6))
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "frozen_set")));
 
         // corrupted
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.CORRUPTED), null)
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.CORRUPTED), null)
                 .addAbility(LivingHurtEvent.class, event -> ArmorEvents.onAddRangedDamage(event, CORRUPTED, x -> x * 1.5F))
                 .setRegistryName(CORRUPTED));
 
         // terran
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.TERRAN), null)
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.TERRAN), null)
                 .addAbility(TickEvent.PlayerTickEvent.class, event -> event.player.addPotionEffect(new EffectInstance(Effects.HASTE, 20, 2)))
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "terran_set")));
 
         // eden
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.EDEN), null)
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.EDEN), null)
                 .addAbility(BlockEvent.HarvestDropsEvent.class, ArmorEvents::increaseFragmentDrops)
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "eden_set")));
 
         // wildwood
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.WILDWOOD), null)
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.WILDWOOD), null)
                 .addAbility(TickEvent.PlayerTickEvent.class, event -> {
                     if (event.player.isInWater()) {
                         event.player.heal(0.5F);
@@ -174,7 +171,7 @@ public class ArmorRegistry {
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "wildwood_set")));
 
         // apalachia
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.APALACHIA), null)
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.APALACHIA), null)
                 .addAbility(LivingHurtEvent.class, event -> ArmorEvents.onCancelPlayerReceiveDamage(event,
                         s -> s.equals(DamageSource.CACTUS)
                                 // todo add arcana trap source
@@ -184,25 +181,25 @@ public class ArmorRegistry {
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "apalachia_set")));
 
         // skythern
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.SKYTHERN), null)
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.SKYTHERN), null)
                 .addAbility(TickEvent.PlayerTickEvent.class, ArmorEvents::disableFallDamage)
                 .addAbility(LivingEvent.LivingJumpEvent.class, event -> ArmorEvents.adjustJumpHeight(event, 5))
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "skythern_set")));
 
         // mortum
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.MORTUM), null)
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.MORTUM), null)
                 .addAbility(TickEvent.PlayerTickEvent.class, event -> event.player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 20, 2)))
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "mortum_set")));
 
         // angelic
-        registry.register(new PoweredArmorSet(createFromName(DivineArmorMaterial.ANGELIC), ArmorEvents::onCanFlyChanged)
+        registry.register(new PoweredArmor(createFromName(DivineArmorMaterial.ANGELIC), ArmorEvents::onCanFlyChanged)
                 .addAbility(TickEvent.PlayerTickEvent.class, event -> {
                     ArmorEvents.onCanFlyChanged(event.player, true);
                     ArmorEvents.disableFallDamage(event);
                 })
                 .setRegistryName(new ResourceLocation(DivineRPG.MODID, "angelic_set")));
 
-        registry.register(new PoweredArmorSet(
+        registry.register(new PoweredArmor(
                 new ArmorSet().withVariant(
                         ItemRegistry.santa_cap,
                         ItemRegistry.santa_tunic,
@@ -210,7 +207,7 @@ public class ArmorRegistry {
                         ItemRegistry.santa_boots, null),
                 (player, isEquipped) -> ArmorEvents.speedUpPlayer(player, -1, true))
                 .addAbility(LivingHurtEvent.class, event -> {
-                    if (event.getEntity().dimension.getModType() == DimensionRegistry.ICEIKA){
+                    if (event.getEntity().dimension.getModType() == DimensionRegistry.ICEIKA) {
                         // handle 80% damage
                         ArmorEvents.onPlayerReceiveDamage(event, ArmorEvents::isMeeleeDamage, x -> x * 0.2F);
                         // Adds +6 melee damage
@@ -218,7 +215,7 @@ public class ArmorRegistry {
                     }
                 })
                 .addAbility(TickEvent.PlayerTickEvent.class, event -> {
-                    if (event.player.dimension.getModType() == DimensionRegistry.ICEIKA){
+                    if (event.player.dimension.getModType() == DimensionRegistry.ICEIKA) {
                         // removes hunger
                         ArmorEvents.refillHunger(event);
                         // increase speed

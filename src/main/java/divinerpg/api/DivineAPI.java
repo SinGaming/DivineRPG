@@ -2,10 +2,9 @@ package divinerpg.api;
 
 import divinerpg.api.arcana.ArcanaProvider;
 import divinerpg.api.arcana.IArcana;
-import divinerpg.api.armor.IPoweredArmorSet;
+import divinerpg.api.armor.interfaces.IPoweredArmor;
 import divinerpg.arcana.Arcana;
-import divinerpg.events.FullArmorEventHandler;
-import divinerpg.utils.ArmorObserver;
+import divinerpg.events.ArmorMapEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -17,8 +16,8 @@ public class DivineAPI {
     /**
      * Contains all possible power sets data
      */
-    public static IForgeRegistry<IPoweredArmorSet> getPowerRegistry() {
-        return RegistryManager.ACTIVE.getRegistry(IPoweredArmorSet.class);
+    public static IForgeRegistry<IPoweredArmor> getPowerRegistry() {
+        return RegistryManager.ACTIVE.getRegistry(IPoweredArmor.class);
     }
 
     /**
@@ -45,10 +44,6 @@ public class DivineAPI {
         if (id == null || !(entity instanceof PlayerEntity))
             return false;
 
-        ArmorObserver observer = FullArmorEventHandler.getPlayerMap().get(entity.getUniqueID());
-        if (observer == null)
-            return false;
-
-        return observer.isOn(id);
+        return ArmorMapEvents.findPlayerArmorObserver((PlayerEntity) entity).isOn(id);
     }
 }

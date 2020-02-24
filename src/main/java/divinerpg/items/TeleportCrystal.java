@@ -46,11 +46,11 @@ public class TeleportCrystal extends Item {
         if (result.getType() != ActionResultType.FAIL) {
             ItemStack stack = result.getResult();
 
-            ActionResultType type = playerIn.isSneaking()
+            ActionResultType type = playerIn.isCrouching()
                     ? remember(playerIn, stack)
                     : teleportEntity(playerIn, stack, handIn);
 
-            return ActionResult.newResult(type, stack);
+            return new ActionResult<>(type, stack);
         }
 
         return result;

@@ -513,7 +513,7 @@ public class BlockRegistry {
 
         for (String name : StatueConstants.getStatueNames()) {
             Item.Properties itemGroup = new Item.Properties().group(DivineRPGTabs.DivineBlocks)
-                    .setTEISR(() -> ItemStackStatueRender::new);
+                    .setISTER(() -> ItemStackStatueRender::new);
 
             registerBlock(new StatueBlock(name), name, itemGroup);
         }
@@ -572,7 +572,9 @@ public class BlockRegistry {
         registerBlock(new Block(Block.Properties.create(Material.WOOL, MaterialColor.GREEN).hardnessAndResistance(0.1F)),
                 "workshop_carpet", blockTabProperty);
 
-        registerBlock(new ImprovedGlass(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS)),
+        registerBlock(new GlassBlock(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS)
+                        // notSolid
+                        .func_226896_b_()),
                 "frosted_glass", blockTabProperty);
         registerBlock(new Block(Block.Properties.create(Material.WOOD, MaterialColor.RED_TERRACOTTA).hardnessAndResistance(1.5F)),
                 "workshop_bookcase", blockTabProperty);

@@ -1,7 +1,7 @@
 package divinerpg;
 
 import divinerpg.api.arcana.IArcana;
-import divinerpg.api.armor.IPoweredArmorSet;
+import divinerpg.api.armor.interfaces.IPoweredArmor;
 import divinerpg.arcana.Arcana;
 import divinerpg.arcana.ArcanaStorage;
 import divinerpg.arcana.client.ArcanaRender;
@@ -121,9 +121,9 @@ public class DivineRPG {
      * Creating new registry here
      */
     private void createRegistries(RegistryEvent.NewRegistry event) {
-        new RegistryBuilder<IPoweredArmorSet>()
+        new RegistryBuilder<IPoweredArmor>()
                 .setName(new ResourceLocation(DivineRPG.MODID, "powers"))
-                .setType(IPoweredArmorSet.class)
+                .setType(IPoweredArmor.class)
                 .create();
     }
 

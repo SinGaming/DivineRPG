@@ -1,12 +1,13 @@
 package divinerpg.arcana.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import divinerpg.DivineRPG;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.config.GuiUtils;
+import net.minecraftforge.fml.client.gui.GuiUtils;
 
 public class ArcanaRender {
 
@@ -28,14 +29,15 @@ public class ArcanaRender {
         int y = e.getWindow().getScaledHeight() - DivineRPG.CONFIG.arcanaBar.height.get();
         int x = e.getWindow().getScaledWidth() - DivineRPG.CONFIG.arcanaBar.width.get();
 
-        GlStateManager.pushMatrix();
-        GlStateManager.enableBlend();
+
+        RenderSystem.pushMatrix();
+        RenderSystem.enableBlend();
 
         mc.getTextureManager().bindTexture(bar);
         GuiUtils.drawTexturedModalRect(x, y, 0, 0, 100, 9, 0);
         GuiUtils.drawTexturedModalRect(x, y, 0, 9, percentage, 9, 0);
 
-        GlStateManager.disableBlend();
-        GlStateManager.popMatrix();
+        RenderSystem.disableBlend();
+        RenderSystem.popMatrix();
     }
 }

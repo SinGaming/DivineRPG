@@ -29,7 +29,7 @@ public class SamekModel extends DivineBipedModel<MobEntity> {
     }
 
     @Override
-    public void setRotationAngles(MobEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch,) {
+    public void setRotationAngles(MobEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
         this.secondHead.rotateAngleX = bipedHead.rotateAngleX;

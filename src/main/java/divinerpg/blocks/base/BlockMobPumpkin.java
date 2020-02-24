@@ -25,7 +25,7 @@ public class BlockMobPumpkin extends Block {
 
     @Deprecated
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (!player.isSneaking() && this.pumpkinSound != null) {
+        if (!player.isCrouching() && this.pumpkinSound != null) {
             worldIn.playSound(null, pos, this.pumpkinSound, SoundCategory.BLOCKS, 20.0F, 1.0F);
             return true;
         }
