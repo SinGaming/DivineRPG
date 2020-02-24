@@ -23,11 +23,11 @@ public class ArcanaDimension extends Dimension {
     private final SingleBiomeProvider biomeProvider;
 
     public ArcanaDimension(World worldIn, DimensionType typeIn) {
-        super(worldIn, typeIn);
+        super(worldIn, typeIn, 0);
 
         Biome biome = Biomes.FLOWER_FOREST;
 
-        biomeProvider = new SingleBiomeProvider(new SingleBiomeProviderSettings().setBiome(biome));
+        biomeProvider = new SingleBiomeProvider(new SingleBiomeProviderSettings(worldIn.getWorldInfo()).setBiome(biome));
 
         settings = new FlatGenerationSettings();
         settings.setBiome(biome);

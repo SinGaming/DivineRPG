@@ -54,9 +54,9 @@ public class TileEntityRegistry {
 
     @OnlyIn(Dist.CLIENT)
     public static void registerRender() {
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStatue.class, new StatueRender());
-        ClientRegistry.bindTileEntitySpecialRenderer(AyeracoBeam.class, new AyeracoBeamRender());
-        ClientRegistry.bindTileEntitySpecialRenderer(AyeracoSpawn.class, new AyeracoSpawnRender());
+        ClientRegistry.bindTileEntityRenderer(statue, new StatueRender());
+        ClientRegistry.bindTileEntityRenderer(ayeraco_beam, new AyeracoBeamRender());
+        ClientRegistry.bindTileEntityRenderer(ayeraco_spawner, new AyeracoSpawnRender());
     }
 
     private static Block[] byName(List<String> names) {

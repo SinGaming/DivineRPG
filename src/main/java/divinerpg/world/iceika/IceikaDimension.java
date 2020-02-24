@@ -31,9 +31,9 @@ public class IceikaDimension extends Dimension {
     final private Vec3d fog;
 
     public IceikaDimension(World worldIn, DimensionType type) {
-        super(worldIn, type);
+        super(worldIn, type, 0);
 
-        this.biomeProvider = new SingleBiomeProvider(new SingleBiomeProviderSettings().setBiome(BiomeRegisty.ICEIKA));
+        this.biomeProvider = new SingleBiomeProvider(new SingleBiomeProviderSettings(worldIn.getWorldInfo()).setBiome(BiomeRegisty.ICEIKA));
         fog = RGBHelper.vecFromColor(Color.BLUE.darker());
 
         this.settings = new OverworldGenSettings();
@@ -66,8 +66,8 @@ public class IceikaDimension extends Dimension {
     @Nullable
     @Override
     public BlockPos findSpawn(int posX, int posZ, boolean checkValid) {
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(posX, 0, posZ);
-        Biome biome = this.world.getBiome(blockpos$mutableblockpos);
+        BlockPos.Mutable blockpos$mutableblockpos = new BlockPos.Mutable(posX, 0, posZ);
+        Biome biome = this.world.func_226691_t_(blockpos$mutableblockpos);
         BlockState blockstate = biome.getSurfaceBuilderConfig().getTop();
         if (checkValid && !blockstate.getBlock().isIn(BlockTags.VALID_SPAWN)) {
             return null;

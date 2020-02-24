@@ -25,7 +25,7 @@ public class TemplateStructure<T extends IFeatureConfig> extends Structure<T> {
     @Override
     public boolean hasStartAt(ChunkGenerator<?> chunkGen, Random rand, int chunkPosX, int chunkPosZ) {
         // don't know why but we need to add 9 to find a start
-        Biome biome = chunkGen.getBiomeProvider().getBiome(new BlockPos((chunkPosX << 4) + 9, chunkGen.getSeaLevel(), (chunkPosZ << 4) + 9));
+        Biome biome = chunkGen.func_226691_t_Provider().func_226691_t_(new BlockPos((chunkPosX << 4) + 9, chunkGen.getSeaLevel(), (chunkPosZ << 4) + 9));
         return chunkGen.hasStructure(biome, this);
     }
 

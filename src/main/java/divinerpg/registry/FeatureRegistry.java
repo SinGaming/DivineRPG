@@ -90,7 +90,6 @@ public class FeatureRegistry {
     public static void registerFeatures(RegistryEvent.Register<Feature<?>> e) {
         IForgeRegistry<Feature<?>> registry = e.getRegistry();
 
-        registry.register(small_tree_feature.setRegistryName(DivineRPG.MODID, "eden_tree_feature"));
         registry.register(flowers_feature.setRegistryName(DivineRPG.MODID, "flowers_feature"));
         registry.register(ORE.setRegistryName(DivineRPG.MODID, "ore_feature"));
         registry.register(new ArcanaMazeStructure().setRegistryName(DivineRPG.MODID, "arcana_maze"));

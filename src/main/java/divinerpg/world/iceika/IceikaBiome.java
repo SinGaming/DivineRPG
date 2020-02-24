@@ -3,7 +3,6 @@ package divinerpg.world.iceika;
 import divinerpg.DivineRPG;
 import divinerpg.registry.BlockRegistry;
 import divinerpg.world.iceika.feature.DivineLakeFeature;
-import divinerpg.world.iceika.feature.HugeDivineTree;
 import divinerpg.world.iceika.feature.LakeConfig;
 import divinerpg.world.structure.TemplateFeature;
 import divinerpg.world.structure.TemplateFeatureConfig;
@@ -13,9 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.placement.ChanceConfig;
-import net.minecraft.world.gen.placement.HeightWithChanceConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
@@ -52,10 +49,10 @@ public class IceikaBiome extends Biome {
                         .func_227228_a_(Placement.WATER_LAKE.func_227446_a_(new ChanceConfig(4))));
 
         // add giant tree
-        addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
-                new HugeDivineTree(false, true, BlockRegistry.frozen_log, BlockRegistry.brittle_leaves, null).func_225566_b_(
-                        IFeatureConfig.NO_FEATURE_CONFIG)
-                        .func_227228_a_(Placement.COUNT_CHANCE_HEIGHTMAP.func_227446_a_(new HeightWithChanceConfig(3, 0.4F))));
+//        addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+//                new HugeDivineTree(false, true, BlockRegistry.frozen_log, BlockRegistry.brittle_leaves, null).func_225566_b_(
+//                        IFeatureConfig.NO_FEATURE_CONFIG)
+//                        .func_227228_a_(Placement.COUNT_CHANCE_HEIGHTMAP.func_227446_a_(new HeightWithChanceConfig(3, 0.4F))));
 
         // lamps
         for (int i = 1; i <= 3; i++) {

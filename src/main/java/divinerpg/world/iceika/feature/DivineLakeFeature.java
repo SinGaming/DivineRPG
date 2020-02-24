@@ -97,7 +97,7 @@ public class DivineLakeFeature extends Feature<LakeConfig> {
                         for(int j4 = 4; j4 < 8; ++j4) {
                             if (aboolean[(i2 * 16 + j3) * 8 + j4]) {
                                 BlockPos blockpos = pos.add(i2, j4 - 1, j3);
-                                if (Block.isDirt(worldIn.getBlockState(blockpos).getBlock()) && worldIn.getLightFor(LightType.SKY, pos.add(i2, j4, j3)) > 0) {
+                                if (Block.isDirt(worldIn.getBlockState(blockpos).getBlock()) && worldIn.func_226658_a_(LightType.SKY, pos.add(i2, j4, j3)) > 0) {
                                     worldIn.setBlockState(blockpos, config.topBlock, 2);
                                 }
                             }
@@ -123,7 +123,7 @@ public class DivineLakeFeature extends Feature<LakeConfig> {
                         for(int l3 = 0; l3 < 16; ++l3) {
                             int l4 = 4;
                             BlockPos blockpos1 = pos.add(k2, 4, l3);
-                            if (worldIn.getBiome(blockpos1).doesWaterFreeze(worldIn, blockpos1, false)) {
+                            if (worldIn.func_226691_t_(blockpos1).doesWaterFreeze(worldIn, blockpos1, false)) {
                                 worldIn.setBlockState(blockpos1, config.topBlock, 2);
                             }
                         }

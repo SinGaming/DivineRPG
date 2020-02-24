@@ -15,8 +15,8 @@ import java.util.Map;
 public class ArcanaMazeStart extends StructureStart {
     private final MazeConfig config;
 
-    public ArcanaMazeStart(Structure<?> structure, int chunkX, int chunkZ, Biome biomeIn, MutableBoundingBox boundsIn, int referenceIn, long seed) {
-        super(structure, chunkX, chunkZ, biomeIn, boundsIn, referenceIn, seed);
+    public ArcanaMazeStart(Structure<?> structure, int chunkX, int chunkZ, MutableBoundingBox boundsIn, int referenceIn, long seed) {
+        super(structure, chunkX, chunkZ, boundsIn, referenceIn, seed);
 
         config = new MazeConfig(this.rand, this.getStructure().getSize());
     }

@@ -1,6 +1,7 @@
 package divinerpg.world.arcana.structure;
 
-import net.minecraft.util.math.ChunkPos;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -12,9 +13,14 @@ public class ArcanaMazeStructure extends Structure<NoFeatureConfig> {
         super(NoFeatureConfig::deserialize);
     }
 
+//    @Override
+//    public boolean hasStartAt(ChunkGenerator<?> chunkGen, Random rand, int chunkPosX, int chunkPosZ) {
+//        return chunkGen.hasStructure(chunkGen.func_226691_t_Provider().func_226691_t_(new ChunkPos(chunkPosX, chunkPosZ).asBlockPos()), this);
+//    }
+
     @Override
-    public boolean hasStartAt(ChunkGenerator<?> chunkGen, Random rand, int chunkPosX, int chunkPosZ) {
-        return chunkGen.hasStructure(chunkGen.getBiomeProvider().getBiome(new ChunkPos(chunkPosX, chunkPosZ).asBlockPos()), this);
+    public boolean func_225558_a_(BiomeManager p_225558_1_, ChunkGenerator<?> p_225558_2_, Random p_225558_3_, int p_225558_4_, int p_225558_5_, Biome p_225558_6_) {
+        return false;
     }
 
     @Override

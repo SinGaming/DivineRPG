@@ -1,10 +1,8 @@
 package divinerpg.world.arcana;
 
-import divinerpg.registry.FeatureRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
@@ -12,7 +10,7 @@ public class ArcanaBiome extends Biome {
     public ArcanaBiome() {
         super(CreateArcanaBuilder());
 
-        addStructure(FeatureRegistry.arcana_maze, NoFeatureConfig.NO_FEATURE_CONFIG);
+        // addStructure(FeatureRegistry.arcana_maze, NoFeatureConfig.NO_FEATURE_CONFIG);
     }
 
     private static Builder CreateArcanaBuilder() {
