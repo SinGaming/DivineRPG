@@ -2,8 +2,6 @@ package divinerpg.world.iceika;
 
 import divinerpg.DivineRPG;
 import divinerpg.registry.BlockRegistry;
-import divinerpg.world.iceika.feature.DivineLakeFeature;
-import divinerpg.world.iceika.feature.LakeConfig;
 import divinerpg.world.structure.TemplateFeature;
 import divinerpg.world.structure.TemplateFeatureConfig;
 import net.minecraft.block.Blocks;
@@ -12,6 +10,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.BlockStateFeatureConfig;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.placement.ChanceConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
@@ -33,19 +33,17 @@ public class IceikaBiome extends Biome {
                 .category(Category.NONE)
                 .waterColor(Color.BLUE.brighter().getRGB())
                 .waterFogColor(Color.BLUE.brighter().brighter().getRGB())
-                .temperature(-1)
+                .temperature(0.01F)
                 // TODO some unknown values below. If we can live with it, remove this line
                 .parent("")
                 .scale(0.025F)
-                .downfall(0.0F)
                 .depth(1.5F)
                 .downfall(1)
         );
 
         // lakes
         addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS,
-                new DivineLakeFeature().func_225566_b_(
-                        new LakeConfig(Blocks.ICE.getDefaultState(), BlockRegistry.frozen_grass.getDefaultState()))
+                Feature.LAKE.func_225566_b_(new BlockStateFeatureConfig(Blocks.WATER.getDefaultState()))
                         .func_227228_a_(Placement.WATER_LAKE.func_227446_a_(new ChanceConfig(4))));
 
         // add giant tree

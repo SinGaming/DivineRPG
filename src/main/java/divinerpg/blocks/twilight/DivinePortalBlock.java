@@ -1,15 +1,14 @@
 package divinerpg.blocks.twilight;
 
+import divinerpg.utils.portal.DivineTeleporter;
 import divinerpg.utils.portal.PortalConstants;
 import divinerpg.utils.portal.description.IPortalDescription;
-import divinerpg.utils.portal.relocate.PortalRelocator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
@@ -118,22 +117,16 @@ public class DivinePortalBlock extends Block {
 
         entityIn.timeUntilPortal = 400;
 
-        if (!(worldIn instanceof ServerWorld)
-                || !(entityIn instanceof ServerPlayerEntity)
-                || entityIn.isPassenger()
-                || entityIn.isBeingRidden()
-                || !entityIn.isNonBoss())
+        if (!(worldIn instanceof ServerWorld))
             return;
+
+        ServerWorld current = (ServerWorld) worldIn;
 
         DimensionType destination = worldIn.getDimension().getType() == type.get()
                 ? DimensionType.OVERWORLD
                 : type.get();
 
-        IPortalDescription description = PortalConstants.findByFrame(frame.get());
-        if (description == null)
-            return;
-
-        new PortalRelocator(((ServerPlayerEntity) entityIn), destination, description).relocate();
+        DivineTeleporter.Instance.placeEntity(entityIn, current.getServer().getWorld(destination), true);
     }
 
     @Override
@@ -144,7 +137,7 @@ public class DivinePortalBlock extends Block {
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
         // TODO optimize, heavy calculation
-        IPortalDescription description = PortalConstants.findByFrame(frame.get());
+        IPortalDescription description = PortalConstants.portalBlockMap.get(frame.get());
         if (description != null && worldIn instanceof World) {
             BlockPattern.PatternHelper match = description.matchFrame(((World) worldIn), currentPos);
             if (match == null)

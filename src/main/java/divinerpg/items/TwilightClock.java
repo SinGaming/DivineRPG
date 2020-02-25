@@ -27,7 +27,7 @@ public class TwilightClock extends Item {
         Block frame = world.getBlockState(pos).getBlock();
 
         // frame can create portal
-        IPortalDescription description = PortalConstants.findByFrame(frame);
+        IPortalDescription description = PortalConstants.portalBlockMap.get(frame);
 
         if (description != null
                 // clicked within frame

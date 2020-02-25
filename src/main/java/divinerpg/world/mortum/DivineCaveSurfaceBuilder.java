@@ -1,6 +1,5 @@
 package divinerpg.world.mortum;
 
-import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.SharedSeedRandom;
@@ -12,56 +11,59 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
 import java.util.Random;
-import java.util.function.Function;
 
+/**
+ * Stolen from NetherSurfaceBuilder.
+ * Customizable.
+ * For nether settings:
+ * SurfaceBuilderConfig.getTop() - NETHERRACK
+ * SurfaceBuilderConfig.getUnderWaterMaterial() - GRAVEL
+ * SurfaceBuilderConfig.getUnder() - SOUL_SAND
+ */
 public class DivineCaveSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
-    protected OctavesNoiseGenerator noiseGenerator;
-    protected long seed;
-    protected BlockState CAVE_AIR = Blocks.CAVE_AIR.getDefaultState();
+    private static final BlockState CAVE_AIR = Blocks.CAVE_AIR.getDefaultState();
 
-    public DivineCaveSurfaceBuilder(Function<Dynamic<?>, ? extends SurfaceBuilderConfig> factory) {
-        super(factory);
+    protected long field_205552_a;
+    protected OctavesNoiseGenerator field_205553_b;
+
+    public DivineCaveSurfaceBuilder() {
+        super(SurfaceBuilderConfig::deserialize);
     }
 
-    @Override
-    public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock,
-                             BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
-        BlockState TOP = config.getTop();
-        BlockState TWILIGHT_STONE = config.getUnderWaterMaterial();
-        BlockState SOUL_SAND = config.getUnder();
-
+    public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel,
+                             long seed, SurfaceBuilderConfig config) {
         int i = seaLevel + 1;
         int j = x & 15;
         int k = z & 15;
         double d0 = 0.03125D;
-        boolean flag = this.noiseGenerator.func_205563_a((double) x * 0.03125D, (double) z * 0.03125D, 0.0D) + random.nextDouble() * 0.2D > 0.0D;
-        boolean flag1 = this.noiseGenerator.func_205563_a((double) x * 0.03125D, 109.0D, (double) z * 0.03125D) + random.nextDouble() * 0.2D > 0.0D;
+        boolean flag = this.field_205553_b.func_205563_a((double) x * 0.03125D, (double) z * 0.03125D, 0.0D) * 75.0D + random.nextDouble() > 0.0D;
+        boolean flag1 = this.field_205553_b.func_205563_a((double) x * 0.03125D, 109.0D, (double) z * 0.03125D) * 75.0D + random.nextDouble() > 0.0D;
         int l = (int) (noise / 3.0D + 3.0D + random.nextDouble() * 0.25D);
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
         int i1 = -1;
-        BlockState blockstate = TOP;
-        BlockState blockstate1 = TOP;
+        BlockState blockstate = config.getTop();
+        BlockState blockstate1 = config.getTop();
 
         for (int j1 = 127; j1 >= 0; --j1) {
-            blockpos$mutableblockpos.setPos(j, j1, k);
-            BlockState blockstate2 = chunkIn.getBlockState(blockpos$mutableblockpos);
+            blockpos$mutable.setPos(j, j1, k);
+            BlockState blockstate2 = chunkIn.getBlockState(blockpos$mutable);
             if (blockstate2.getBlock() != null && !blockstate2.isAir()) {
                 if (blockstate2.getBlock() == defaultBlock.getBlock()) {
                     if (i1 == -1) {
                         if (l <= 0) {
                             blockstate = CAVE_AIR;
-                            blockstate1 = TOP;
+                            blockstate1 = config.getTop();
                         } else if (j1 >= i - 4 && j1 <= i + 1) {
-                            blockstate = TOP;
-                            blockstate1 = TOP;
+                            blockstate = config.getTop();
+                            blockstate1 = config.getTop();
                             if (flag1) {
-                                blockstate = TWILIGHT_STONE;
-                                blockstate1 = TOP;
+                                blockstate = config.getUnderWaterMaterial();
+                                blockstate1 = config.getTop();
                             }
 
                             if (flag) {
-                                blockstate = SOUL_SAND;
-                                blockstate1 = SOUL_SAND;
+                                blockstate = config.getUnder();
+                                blockstate1 = config.getUnder();
                             }
                         }
 
@@ -71,26 +73,27 @@ public class DivineCaveSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfi
 
                         i1 = l;
                         if (j1 >= i - 1) {
-                            chunkIn.setBlockState(blockpos$mutableblockpos, blockstate, false);
+                            chunkIn.setBlockState(blockpos$mutable, blockstate, false);
                         } else {
-                            chunkIn.setBlockState(blockpos$mutableblockpos, blockstate1, false);
+                            chunkIn.setBlockState(blockpos$mutable, blockstate1, false);
                         }
                     } else if (i1 > 0) {
                         --i1;
-                        chunkIn.setBlockState(blockpos$mutableblockpos, blockstate1, false);
+                        chunkIn.setBlockState(blockpos$mutable, blockstate1, false);
                     }
                 }
             } else {
                 i1 = -1;
             }
         }
+
     }
 
     public void setSeed(long seed) {
-        if (this.seed != seed || this.noiseGenerator == null) {
-            this.noiseGenerator = new OctavesNoiseGenerator(new SharedSeedRandom(seed), 4);
+        if (this.field_205552_a != seed || this.field_205553_b == null) {
+            this.field_205553_b = new OctavesNoiseGenerator(new SharedSeedRandom(seed), 3, 0);
         }
 
-        this.seed = seed;
+        this.field_205552_a = seed;
     }
 }

@@ -92,7 +92,7 @@ public class BiomeRegisty {
         // TODO spawn trees
         registry.register(new DivineBiome(
                 new Biome.Builder()
-                        .surfaceBuilder(new DivineCaveSurfaceBuilder(SurfaceBuilderConfig::deserialize),
+                        .surfaceBuilder(new DivineCaveSurfaceBuilder(),
                                 new SurfaceBuilderConfig(BlockRegistry.mortumGrass.getDefaultState(), BlockRegistry.mortumDirt.getDefaultState(),
                                         BlockRegistry.twilightStone.getDefaultState())),
                 Color.BLACK,

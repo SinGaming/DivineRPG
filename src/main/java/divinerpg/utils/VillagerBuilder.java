@@ -114,7 +114,8 @@ public class VillagerBuilder {
      * @return
      */
     public VillagerProfession build(PointOfInterestType interestType) {
-        VillagerProfession profession = new VillagerProfession(name, interestType, ImmutableSet.of(), ImmutableSet.of()).setRegistryName(DivineRPG.MODID, name);
+        // todo reflection...
+        VillagerProfession profession = new VillagerProfession(name, interestType, ImmutableSet.of(), ImmutableSet.of(), null).setRegistryName(DivineRPG.MODID, name);
         registry.register(profession);
 
         checkStaticField();

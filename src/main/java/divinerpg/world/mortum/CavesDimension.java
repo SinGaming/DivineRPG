@@ -25,7 +25,7 @@ public class CavesDimension extends NetherDimension {
         super(worldIn, typeIn);
         this.doesWaterVaporize = false;
 
-        biomeProvider = new SingleBiomeProvider(new SingleBiomeProviderSettings().setBiome(singleBiome));
+        biomeProvider = new SingleBiomeProvider(new SingleBiomeProviderSettings(worldIn.getWorldInfo()).setBiome(singleBiome));
         this.fog = RGBHelper.vecFromColor(color);
 
         settings = ChunkGeneratorType.CAVES.createSettings();

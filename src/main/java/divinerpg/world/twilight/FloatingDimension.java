@@ -25,9 +25,9 @@ public class FloatingDimension extends Dimension {
     private final EndGenerationSettings settings;
 
     public FloatingDimension(World worldIn, DimensionType typeIn, BlockState defaultBlock, Biome singleBiome, Color color) {
-        super(worldIn, typeIn);
+        super(worldIn, typeIn, 0);
 
-        biomeProvider = new SingleBiomeProvider(new SingleBiomeProviderSettings().setBiome(singleBiome));
+        biomeProvider = new SingleBiomeProvider(new SingleBiomeProviderSettings(worldIn.getWorldInfo()).setBiome(singleBiome));
         this.fog = RGBHelper.vecFromColor(color);
         settings = ChunkGeneratorType.FLOATING_ISLANDS.createSettings();
         settings.setDefaultBlock(defaultBlock);

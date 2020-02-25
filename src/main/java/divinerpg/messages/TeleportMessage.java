@@ -1,6 +1,6 @@
 package divinerpg.messages;
 
-import divinerpg.utils.portal.relocate.NoPortalRelocator;
+import divinerpg.utils.portal.DivineTeleporter;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
@@ -42,8 +42,11 @@ public class TeleportMessage implements IMessage {
     public void handleServerSide(NetworkEvent.Context context) {
         ServerPlayerEntity sender = context.getSender();
 
-        if (dim != null && pos != null) {
-            new NoPortalRelocator(sender, dim, pos).relocate();
+        if (dim != null
+                && pos != null
+                && sender != null
+                && sender.getServer() != null) {
+            DivineTeleporter.Instance.placeEntity(sender, sender.getServer().getWorld(dim), false);
         }
     }
 }
