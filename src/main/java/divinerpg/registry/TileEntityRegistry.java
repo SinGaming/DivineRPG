@@ -35,7 +35,7 @@ public class TileEntityRegistry {
     @ObjectHolder("ayeraco_spawner")
     public static TileEntityType<?> ayeraco_spawner;
     @ObjectHolder("ayeraco_beam")
-    public static TileEntityType<?> ayeraco_beam;
+    public static TileEntityType<AyeracoBeam> ayeraco_beam;
     @ObjectHolder("infinite_furnace")
     public static TileEntityType<?> infinite_furnace;
 
@@ -55,7 +55,7 @@ public class TileEntityRegistry {
     @OnlyIn(Dist.CLIENT)
     public static void registerRender() {
         ClientRegistry.bindTileEntityRenderer(statue, new StatueRender());
-        ClientRegistry.bindTileEntityRenderer(ayeraco_beam, new AyeracoBeamRender());
+        ClientRegistry.bindTileEntityRenderer(ayeraco_beam, AyeracoBeamRender::new);
         ClientRegistry.bindTileEntityRenderer(ayeraco_spawner, new AyeracoSpawnRender());
     }
 

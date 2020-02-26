@@ -1,7 +1,7 @@
 package divinerpg.tile.statue;
 
 import divinerpg.entities.base.render.DivineBossModel;
-import divinerpg.entities.base.render.IItemModel;
+import divinerpg.entities.base.render.DivineModel;
 import divinerpg.entities.bosses.ancient.AncientEntityModel;
 import divinerpg.entities.bosses.ayeraco.AyeracoModel;
 import divinerpg.entities.bosses.ayeraco.manager.AyeracoManager;
@@ -27,7 +27,7 @@ import java.util.function.Supplier;
 
 public class StatueConstants {
     // Filled on client side only
-    private static final HashMap<String, IItemModel> MODELS;
+    private static final HashMap<String, DivineModel> MODELS;
     private static final HashMap<String, VoxelShape> SIZES;
 
     static {
@@ -103,9 +103,9 @@ public class StatueConstants {
      * @param name - name of statue
      * @return Always not null
      */
-    public static IItemModel get(String name) {
+    public static DivineModel get(String name) {
         if (name != null && !name.isEmpty()) {
-            IItemModel result = MODELS.get(name);
+            DivineModel result = MODELS.get(name);
             if (result != null)
                 return result;
         }
