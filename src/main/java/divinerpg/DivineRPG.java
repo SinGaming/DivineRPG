@@ -10,6 +10,7 @@ import divinerpg.events.ArcanaTickHandler;
 import divinerpg.events.EventEntityDrop;
 import divinerpg.proxy.CommonProxy;
 import divinerpg.registry.*;
+import divinerpg.test.Tests;
 import divinerpg.utils.Utils;
 import divinerpg.utils.attributes.AttributeFixer;
 import net.minecraft.util.ResourceLocation;
@@ -78,6 +79,8 @@ public class DivineRPG {
             ProjectECompat.init();
         }
         ModSpawns.initSpawns();
+
+        Tests.start();
     }
 
     /** For Registering Commands */
