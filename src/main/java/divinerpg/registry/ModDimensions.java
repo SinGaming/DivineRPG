@@ -8,9 +8,12 @@ import divinerpg.dimensions.eden.WorldProviderEden;
 import divinerpg.dimensions.iceika.WorldProviderIceika;
 import divinerpg.dimensions.mortum.WorldProviderMortum;
 import divinerpg.dimensions.skythern.WorldProviderSkythern;
-import divinerpg.dimensions.vethea.WorldProviderVethea;
+import divinerpg.dimensions.vethea_new.VetheaWorldProvider;
 import divinerpg.dimensions.wildwood.WorldProviderWildWood;
+import divinerpg.structure.DivineStructureComponentTemplate;
+import divinerpg.structure.DivineStructureStart;
 import net.minecraft.world.DimensionType;
+import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.DimensionManager;
 
 public class ModDimensions {
@@ -24,8 +27,14 @@ public class ModDimensions {
     public static DimensionType vetheaDimension;
 
     public static void init() {
+        registerStructures();
         registerDimensionTypes();
         registerDimensions();
+    }
+
+    private static void registerStructures() {
+        MapGenStructureIO.registerStructure(DivineStructureStart.class, "DrpgSS");
+        MapGenStructureIO.registerStructureComponent(DivineStructureComponentTemplate.class, "DrpgCmp");
     }
 
     private static void registerDimensionTypes() {
@@ -43,8 +52,8 @@ public class ModDimensions {
                 WorldProviderIceika.class, false);
         arcanaDimension = DimensionType.register(Reference.MODID + ":arcana", "_arcana", Config.arcanaDimensionId,
                 WorldProviderArcana.class, false);
-        vetheaDimension = DimensionType.register(Reference.MODID + ":vethea", "_vethea", Config.vetheaDimensionId, 
-        		WorldProviderVethea.class, false);
+        vetheaDimension = DimensionType.register(Reference.MODID + ":vethea", "_vethea", Config.vetheaDimensionId,
+                VetheaWorldProvider.class, false);
     }
 
     private static void registerDimensions() {
