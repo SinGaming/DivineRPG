@@ -23,10 +23,7 @@ public class DivineLargeStructure extends MapGenStructure {
         this.manager = world.getSaveHandler().getStructureTemplateManager();
         this.height = height;
         this.chunkDistance = chunkDistance;
-
-        rand.setSeed(world.rand.nextLong() ^ 10387313);
     }
-
 
     @Override
     public String getStructureName() {
@@ -44,12 +41,8 @@ public class DivineLargeStructure extends MapGenStructure {
 
     @Override
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
-        // todo???
-        Random random = world.setRandomSeed(chunkX / chunkDistance,
-                chunkZ / chunkDistance,
-                10387313);
-
-        return random.nextInt((int) Math.sqrt(chunkDistance)) == 0;
+        Random random = world.setRandomSeed(chunkX / chunkDistance, chunkZ / chunkDistance, 14357617);
+        return random.nextInt((int) Math.sqrt(chunkDistance)) == chunkDistance;
     }
 
     @Override

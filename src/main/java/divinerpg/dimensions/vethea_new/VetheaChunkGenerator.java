@@ -43,7 +43,7 @@ public class VetheaChunkGenerator implements IChunkGenerator {
 
     public VetheaChunkGenerator(World world) {
         this.world = world;
-        this.rand = new Random(world.rand.nextLong() ^ 10387313);
+        this.rand = new Random(world.getSeed());
 
         int floor = 0;
 
@@ -65,20 +65,20 @@ public class VetheaChunkGenerator implements IChunkGenerator {
                         "Hive",
                         new ResourceLocation(Reference.MODID, "hive"),
                         floor * floorHeight + roofHeight,
-                        48));
+                        16));
 
                 floorGenerators.add(new DivineLargeStructure(world,
                         "Pyramid1",
                         new ResourceLocation(Reference.MODID, "pyramid"),
                         floor * floorHeight + roofHeight,
-                        48));
+                        16));
                 break;
         }
     }
 
     @Override
     public Chunk generateChunk(int x, int z) {
-        this.rand.setSeed(rand.nextLong() ^ 10387313);
+        this.rand.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
 
         ChunkPrimer chunkPrimer = new ChunkPrimer();
 
