@@ -43,7 +43,7 @@ public class VetheaChunkGenerator implements IChunkGenerator {
 
     public VetheaChunkGenerator(World world) {
         this.world = world;
-        this.rand = new Random(world.rand.nextLong());
+        this.rand = new Random(world.rand.nextLong() ^ 10387313);
 
         int floor = 0;
 
@@ -78,7 +78,8 @@ public class VetheaChunkGenerator implements IChunkGenerator {
 
     @Override
     public Chunk generateChunk(int x, int z) {
-        this.rand.setSeed(rand.nextLong() ^ world.getSeed());
+        this.rand.setSeed(rand.nextLong() ^ 10387313);
+
         ChunkPrimer chunkPrimer = new ChunkPrimer();
 
         for (int i = 0; i < totalFloors; i++) {
