@@ -26,6 +26,7 @@ import net.minecraft.world.gen.structure.template.TemplateManager;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class VetheaChunkGenerator implements IChunkGenerator {
     private final World world;
@@ -60,6 +61,7 @@ public class VetheaChunkGenerator implements IChunkGenerator {
 
     private final WorldGenVillageIsland village = new WorldGenVillageIsland();
     private final List<Template> floatingTrees = new ArrayList<>();
+    private final WorldGenVetheanPillarNew pillar = new WorldGenVetheanPillarNew();
 
 
     public VetheaChunkGenerator(World world) {
@@ -274,10 +276,16 @@ public class VetheaChunkGenerator implements IChunkGenerator {
 
         for (int i = 0; i < totalFloors; i++) {
             final int finalI = i;
+            final int surfaceLevel = finalI * floorHeight + roofHeight;
 
-            floatingTrees.stream()
-                    .filter(tree -> rand.nextInt(floatingTrees.size() * 5) == 0)
-                    .forEach(tree -> {
+            if (rand.nextInt(16) == 0) {
+                pillar.generate(world, rand, chunkPos.getBlock(0, surfaceLevel, 0));
+            } else {
+                Stream<Template> floatingTrees = this.floatingTrees.stream()
+                        .filter(tree -> rand.nextInt(this.floatingTrees.size() * 5) == 0);
+
+                if (floatingTrees.count() > 0) {
+                    floatingTrees.forEach(tree -> {
                         PlacementSettings settings = new PlacementSettings();
 
                         double height = (finalI + 1) * floorHeight - roofHeight
@@ -290,6 +298,8 @@ public class VetheaChunkGenerator implements IChunkGenerator {
 
                         tree.addBlocksToWorldChunk(world, pos, settings);
                     });
+                }
+            }
 
             structureByLevelMap.get(i).forEach(gen -> gen.generateStructure(world, rand, chunkPos));
 
@@ -299,7 +309,7 @@ public class VetheaChunkGenerator implements IChunkGenerator {
                     .forEach(entry ->
                             entry.getValue()
                                     // generating every world gen on floor surface
-                                    .generate(world, rand, chunkPos.getBlock(0, finalI * floorHeight + roofHeight, 0)));
+                                    .generate(world, rand, chunkPos.getBlock(0, surfaceLevel, 0)));
 
 
             // Special world gen

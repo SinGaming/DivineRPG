@@ -1,5 +1,6 @@
 package divinerpg.test;
 
+import divinerpg.dimensions.vethea.FloorTexture;
 import divinerpg.dimensions.vethea.IVetheanStructure;
 import divinerpg.dimensions.vethea.all.*;
 import divinerpg.dimensions.vethea.layer1.*;
@@ -57,6 +58,20 @@ public class Tests {
         generate("floating_tree\\floatingtree5", new FloatingTree5());
         generate("floating_tree\\floatingtree6", new FloatingTree6());
         generate("floating_tree\\floatingtree7", new FloatingTree7());
+
+        generate("infusionoutpost", new InfusionOutpost());
+        generate("lamp1", new Lamp1());
+        generate("lamp2", new Lamp2());
+
+        generate("bow", new Bow());
+        generate("hook", new Hook());
+        generate("mushroom", new Mushroom());
+        generate("pickaxe", new Pickaxe());
+        generate("pointedsquare", new Pointedsquare());
+        generate("ring", new Ring());
+        generate("sword", new Sword());
+        generate("trident", new Trident());
+        generate("floortexture", new FloorTexture());
 
 
 //        generate("villagers\\housedown1", new HouseDown1());
