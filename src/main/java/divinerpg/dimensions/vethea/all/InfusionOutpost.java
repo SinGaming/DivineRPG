@@ -1,21 +1,20 @@
 package divinerpg.dimensions.vethea.all;
+import divinerpg.dimensions.vethea.IVetheaChunk;
 import divinerpg.dimensions.vethea.IVetheanStructure;
-import divinerpg.dimensions.vethea.VetheaChunk;
 import divinerpg.registry.ModBlocks;
 
-public class InfusionOutpost implements IVetheanStructure
-{
-	public void generate(VetheaChunk chunk, int i, int j, int k) {
+public class InfusionOutpost implements IVetheanStructure {
+    public void generate(IVetheaChunk chunk, int i, int j, int k) {
 
-		chunk.setBlock(i + 0, j + 0, k + 0, ModBlocks.everstone);
-		chunk.setBlock(i + 0, j + 0, k + 1, ModBlocks.everstone);
-		chunk.setBlock(i + 0, j + 0, k + 8, ModBlocks.everstone);
-		chunk.setBlock(i + 0, j + 0, k + 9, ModBlocks.everstone);
-		chunk.setBlock(i + 0, j + 1, k + 0, ModBlocks.everstone);
-		chunk.setBlock(i + 0, j + 1, k + 9, ModBlocks.everstone);
-		chunk.setBlock(i + 0, j + 2, k + 0, ModBlocks.everstone);
-		chunk.setBlock(i + 0, j + 2, k + 9, ModBlocks.everstone);
-		chunk.setBlock(i + 0, j + 3, k + 0, ModBlocks.everstone);
+        chunk.setBlock(i + 0, j + 0, k + 0, ModBlocks.everstone);
+        chunk.setBlock(i + 0, j + 0, k + 1, ModBlocks.everstone);
+        chunk.setBlock(i + 0, j + 0, k + 8, ModBlocks.everstone);
+        chunk.setBlock(i + 0, j + 0, k + 9, ModBlocks.everstone);
+        chunk.setBlock(i + 0, j + 1, k + 0, ModBlocks.everstone);
+        chunk.setBlock(i + 0, j + 1, k + 9, ModBlocks.everstone);
+        chunk.setBlock(i + 0, j + 2, k + 0, ModBlocks.everstone);
+        chunk.setBlock(i + 0, j + 2, k + 9, ModBlocks.everstone);
+        chunk.setBlock(i + 0, j + 3, k + 0, ModBlocks.everstone);
 		chunk.setBlock(i + 0, j + 3, k + 9, ModBlocks.everstone);
 		chunk.setBlock(i + 0, j + 4, k + 0, ModBlocks.everstone);
 		chunk.setBlock(i + 0, j + 4, k + 9, ModBlocks.everstone);

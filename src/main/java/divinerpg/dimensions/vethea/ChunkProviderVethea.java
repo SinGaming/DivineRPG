@@ -1,25 +1,13 @@
 package divinerpg.dimensions.vethea;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import divinerpg.dimensions.vethea.all.CeilingTexture;
 import divinerpg.dimensions.vethea.layer1.Crypt1;
 import divinerpg.dimensions.vethea.layer1.Crypt2;
 import divinerpg.dimensions.vethea.layer2.HiveNest;
 import divinerpg.dimensions.vethea.layer2.Pyramid1;
 import divinerpg.dimensions.vethea.layer2.Pyramid2;
-import divinerpg.dimensions.vethea.layer3.KarosMadhouse;
-import divinerpg.dimensions.vethea.layer3.QuadroticPost;
-import divinerpg.dimensions.vethea.layer3.Tree7;
-import divinerpg.dimensions.vethea.layer3.Tree8;
-import divinerpg.dimensions.vethea.layer3.WorldGenLayer3SmallTree;
-import divinerpg.dimensions.vethea.layer4.Evergarden;
-import divinerpg.dimensions.vethea.layer4.Layer4Tree1;
-import divinerpg.dimensions.vethea.layer4.Layer4Tree2;
-import divinerpg.dimensions.vethea.layer4.RaglokChamber;
-import divinerpg.dimensions.vethea.layer4.WreckHall;
+import divinerpg.dimensions.vethea.layer3.*;
+import divinerpg.dimensions.vethea.layer4.*;
 import divinerpg.dimensions.vethea.village.WorldGenVillageIsland;
 import divinerpg.registry.ModBlocks;
 import net.minecraft.block.BlockSand;
@@ -35,6 +23,10 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class ChunkProviderVethea implements IChunkGenerator {
 
@@ -109,6 +101,7 @@ public class ChunkProviderVethea implements IChunkGenerator {
 		shinegrass = new WorldGenVetheanFlower(ModBlocks.shineGrass);
 		shimmers = new WorldGenVetheanFlower(ModBlocks.shimmer);
 		dreamglows = new WorldGenVetheanFlower(ModBlocks.dreamglow);
+
 		greenGemTops = new WorldGenVetheanFlower(ModBlocks.greenGemtop);
 		purpleGemTops = new WorldGenVetheanFlower(ModBlocks.purpleGemtop);
 		//yellowGemTops = new WorldGenVetheanFlower(ModBlocks.yellowGemtop);
@@ -120,9 +113,9 @@ public class ChunkProviderVethea implements IChunkGenerator {
 	@Override
 	public Chunk generateChunk(int chunkX, int chunkZ) {
 		ChunkPrimer chunkPrimer = new ChunkPrimer();
-		this.rand.setSeed((long)chunkX * 341873128712L + (long)chunkZ * 132897987541L);
+		this.rand.setSeed((long) chunkX * 341873128712L + (long) chunkZ * 132897987541L);
 		VetheanChunkBuilder builder = new VetheanChunkBuilder(worldObj);
-		builder.rand.setSeed((long)chunkX * 341873128712L + (long)chunkZ * 132897987541L);
+		VetheanChunkBuilder.rand.setSeed((long) chunkX * 341873128712L + (long) chunkZ * 132897987541L);
 
 		// Setup biomes again for actual biome decoration
 		this.biomesForGeneration = this.worldObj.getBiomeProvider().getBiomes(this.biomesForGeneration, chunkX * 16, chunkZ * 16, 16, 16);
@@ -130,7 +123,7 @@ public class ChunkProviderVethea implements IChunkGenerator {
 
 		byte[] biomeArray = chunk.getBiomeArray();
 		for (int i = 0; i < biomeArray.length; ++i) {
-			biomeArray[i] = (byte)Biome.getIdForBiome(this.biomesForGeneration[i]);
+			biomeArray[i] = (byte) Biome.getIdForBiome(this.biomesForGeneration[i]);
 		}
 
 		chunk.generateSkylightMap();

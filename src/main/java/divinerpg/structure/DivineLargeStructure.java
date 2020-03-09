@@ -1,5 +1,6 @@
 package divinerpg.structure;
 
+import divinerpg.DivineRPG;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -22,6 +23,15 @@ public class DivineLargeStructure extends MapGenStructure {
         this.folder = folder;
         this.manager = world.getSaveHandler().getStructureTemplateManager();
         this.height = height;
+
+        if (chunkDistance < 2) {
+            DivineRPG.logger.warn(String.format("Spaces beetween structure %s can be closer than 2 chunks, but there is %s",
+                    getStructureName(),
+                    chunkDistance));
+
+            chunkDistance = 2;
+        }
+
         this.chunkDistance = chunkDistance;
     }
 
@@ -41,8 +51,30 @@ public class DivineLargeStructure extends MapGenStructure {
 
     @Override
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
-        Random random = world.setRandomSeed(chunkX / chunkDistance, chunkZ / chunkDistance, 14357617);
-        return random.nextInt((int) Math.sqrt(chunkDistance)) == chunkDistance;
+        int i = chunkX;
+        int j = chunkZ;
+        if (chunkX < 0) {
+            i = chunkX - chunkDistance - 1;
+        }
+
+        if (chunkZ < 0) {
+            j = chunkZ - chunkDistance - 1;
+        }
+
+        int k = i / chunkDistance;
+        int l = j / chunkDistance;
+
+        int folderHash = folder.hashCode();
+
+        Random random = this.world.setRandomSeed(k, l, folderHash);
+        k *= chunkDistance;
+        l *= chunkDistance;
+
+        int smallerParameter = (int) (chunkDistance * 0.75);
+
+        k += (random.nextInt(smallerParameter) + random.nextInt(smallerParameter)) / 2;
+        l += (random.nextInt(smallerParameter) + random.nextInt(smallerParameter)) / 2;
+        return chunkX == k && chunkZ == l;
     }
 
     @Override

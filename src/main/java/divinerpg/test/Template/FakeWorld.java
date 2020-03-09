@@ -1,5 +1,7 @@
 package divinerpg.test.Template;
 
+import divinerpg.dimensions.vethea.IVetheaChunk;
+import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -17,7 +19,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class FakeWorld extends World {
+public class FakeWorld extends World implements IVetheaChunk {
     /**
      * Blocks position
      */
@@ -158,5 +160,10 @@ public class FakeWorld extends World {
         return x <= pos.getX() && pos.getX() <= maxX
                 &&
                 z <= pos.getZ() && pos.getZ() <= maxZ;
+    }
+
+    @Override
+    public void setBlock(int x, int y, int z, Block b) {
+        setBlockState(new BlockPos(x, y, z), b.getDefaultState());
     }
 }

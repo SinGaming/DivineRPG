@@ -3,22 +3,21 @@
 */
 
 package divinerpg.dimensions.vethea.layer2;
-import java.util.Random;
 
 import divinerpg.dimensions.vethea.VetheaWorldGenerator;
 import divinerpg.objects.entities.entity.vethea.EntityTempleGuardian;
 import divinerpg.registry.ModBlocks;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class Pyramid2 extends VetheaWorldGenerator {
 
 	public boolean generate(World world, Random rand, int i, int j, int k) {
-		j = j - 1;
-		
-		setBlock(world,i, j, k, Blocks.AIR);
+
+        setBlock(world,i, j, k, Blocks.AIR);
 		setBlock(world,i, j, k + 1, Blocks.AIR);
 		setBlock(world,i, j, k + 2, ModBlocks.greenHungerstone);
 		setBlock(world,i, j, k + 3, ModBlocks.greenHungerstone);

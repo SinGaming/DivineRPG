@@ -1,21 +1,21 @@
 package divinerpg.dimensions.vethea.layer1;
+import divinerpg.dimensions.vethea.IVetheaChunk;
 import divinerpg.dimensions.vethea.IVetheanStructure;
-import divinerpg.dimensions.vethea.VetheaChunk;
 import divinerpg.registry.ModBlocks;
 
 public class Tree5 implements IVetheanStructure {
-	
-	public void generate(VetheaChunk chunk, int i, int j, int k) {
 
-		chunk.setBlock(i + 0, j + 8, k + 5, ModBlocks.mintwoodLeaves);
-		chunk.setBlock(i + 0, j + 9, k + 1, ModBlocks.mintwoodLeaves);
-		chunk.setBlock(i + 0, j + 9, k + 2, ModBlocks.mintwoodLeaves);
-		chunk.setBlock(i + 0, j + 9, k + 5, ModBlocks.mintwoodLeaves);
-		chunk.setBlock(i + 0, j + 10, k + 2, ModBlocks.mintwoodLeaves);
-		chunk.setBlock(i + 0, j + 10, k + 5, ModBlocks.mintwoodLeaves);
-		chunk.setBlock(i + 0, j + 11, k + 2, ModBlocks.mintwoodLeaves);
-		chunk.setBlock(i + 0, j + 12, k + 2, ModBlocks.mintwoodLeaves);
-		chunk.setBlock(i + 0, j + 13, k + 0, ModBlocks.mintwoodLeaves);
+    public void generate(IVetheaChunk chunk, int i, int j, int k) {
+
+        chunk.setBlock(i + 0, j + 8, k + 5, ModBlocks.mintwoodLeaves);
+        chunk.setBlock(i + 0, j + 9, k + 1, ModBlocks.mintwoodLeaves);
+        chunk.setBlock(i + 0, j + 9, k + 2, ModBlocks.mintwoodLeaves);
+        chunk.setBlock(i + 0, j + 9, k + 5, ModBlocks.mintwoodLeaves);
+        chunk.setBlock(i + 0, j + 10, k + 2, ModBlocks.mintwoodLeaves);
+        chunk.setBlock(i + 0, j + 10, k + 5, ModBlocks.mintwoodLeaves);
+        chunk.setBlock(i + 0, j + 11, k + 2, ModBlocks.mintwoodLeaves);
+        chunk.setBlock(i + 0, j + 12, k + 2, ModBlocks.mintwoodLeaves);
+        chunk.setBlock(i + 0, j + 13, k + 0, ModBlocks.mintwoodLeaves);
 		chunk.setBlock(i + 0, j + 13, k + 1, ModBlocks.mintwoodLeaves);
 		chunk.setBlock(i + 0, j + 13, k + 2, ModBlocks.mintwoodLeaves);
 		chunk.setBlock(i + 0, j + 13, k + 3, ModBlocks.mintwoodLeaves);

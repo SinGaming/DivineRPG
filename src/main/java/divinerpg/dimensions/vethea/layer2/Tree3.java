@@ -1,21 +1,21 @@
 package divinerpg.dimensions.vethea.layer2;
+import divinerpg.dimensions.vethea.IVetheaChunk;
 import divinerpg.dimensions.vethea.IVetheanStructure;
-import divinerpg.dimensions.vethea.VetheaChunk;
 import divinerpg.registry.ModBlocks;
 
 public class Tree3 implements IVetheanStructure {
 
-	public void generate(VetheaChunk chunk, int i, int j, int k) {
-		chunk.setBlock(i + 0, j + 17, k + 8, ModBlocks.dreamwoodLeaves);
-		chunk.setBlock(i + 0, j + 18, k + 7, ModBlocks.dreamwoodLeaves);
-		chunk.setBlock(i + 0, j + 18, k + 8, ModBlocks.dreamwoodLeaves);
-		chunk.setBlock(i + 0, j + 18, k + 9, ModBlocks.dreamwoodLeaves);
-		chunk.setBlock(i + 0, j + 19, k + 6, ModBlocks.dreamwoodLeaves);
-		chunk.setBlock(i + 0, j + 19, k + 7, ModBlocks.dreamwoodLeaves);
-		chunk.setBlock(i + 0, j + 19, k + 8, ModBlocks.dreamwoodLeaves);
-		chunk.setBlock(i + 0, j + 19, k + 9, ModBlocks.dreamwoodLeaves);
-		chunk.setBlock(i + 0, j + 19, k + 10, ModBlocks.dreamwoodLeaves);
-		chunk.setBlock(i + 0, j + 20, k + 7, ModBlocks.dreamwoodLeaves);
+    public void generate(IVetheaChunk chunk, int i, int j, int k) {
+        chunk.setBlock(i + 0, j + 17, k + 8, ModBlocks.dreamwoodLeaves);
+        chunk.setBlock(i + 0, j + 18, k + 7, ModBlocks.dreamwoodLeaves);
+        chunk.setBlock(i + 0, j + 18, k + 8, ModBlocks.dreamwoodLeaves);
+        chunk.setBlock(i + 0, j + 18, k + 9, ModBlocks.dreamwoodLeaves);
+        chunk.setBlock(i + 0, j + 19, k + 6, ModBlocks.dreamwoodLeaves);
+        chunk.setBlock(i + 0, j + 19, k + 7, ModBlocks.dreamwoodLeaves);
+        chunk.setBlock(i + 0, j + 19, k + 8, ModBlocks.dreamwoodLeaves);
+        chunk.setBlock(i + 0, j + 19, k + 9, ModBlocks.dreamwoodLeaves);
+        chunk.setBlock(i + 0, j + 19, k + 10, ModBlocks.dreamwoodLeaves);
+        chunk.setBlock(i + 0, j + 20, k + 7, ModBlocks.dreamwoodLeaves);
 		chunk.setBlock(i + 0, j + 20, k + 8, ModBlocks.dreamwoodLeaves);
 		chunk.setBlock(i + 0, j + 20, k + 9, ModBlocks.dreamwoodLeaves);
 		chunk.setBlock(i + 0, j + 21, k + 8, ModBlocks.dreamwoodLeaves);

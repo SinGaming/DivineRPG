@@ -1,17 +1,18 @@
 package divinerpg.dimensions.vethea.all;
 
-import java.util.Random;
-
+import divinerpg.dimensions.vethea.IVetheaChunk;
 import divinerpg.dimensions.vethea.IVetheanStructure;
 import divinerpg.dimensions.vethea.VetheaChunk;
 import divinerpg.registry.ModBlocks;
 
+import java.util.Random;
+
 public class WorldGenVetheanPillar implements IVetheanStructure {
 
 	private static Random rand = new Random();
-	
+
 	@Override
-	public void generate(VetheaChunk par1, int par3, int par4, int par5) {
+	public void generate(IVetheaChunk par1, int par3, int par4, int par5) {
 		int var1 = 34;
 		int var2 = rand.nextInt(4) + 3;
 		for (int i = 0; i < var1; i++) {
@@ -38,21 +39,21 @@ public class WorldGenVetheanPillar implements IVetheanStructure {
 				else break;
 			}
 		}
-		
-		while(i <= 255 && chunk.getBlock(par2, i, par4) == null) {
+
+		while (i <= 255 && chunk.getBlock(par2, i, par4) == null) {
 			i++;
 			var1++;
 		}
-		
+
 		return var1;
 	}
-	
-	private void placeBlockCircle(VetheaChunk chunk, int x, int y, int z, int radius) {
-		if(radius >= 9) radius = 8;
-		if(y >= 256) y = 255;
+
+	private void placeBlockCircle(IVetheaChunk chunk, int x, int y, int z, int radius) {
+		if (radius >= 9) radius = 8;
+		if (y >= 256) y = 255;
 		for (float i = 0; i < radius; i += 0.5) {
 			for (float j = 0; j < 2 * Math.PI * i; j += 0.5) {
-				chunk.setBlock((int)Math.floor(x + Math.sin(j) * i), y, (int)Math.floor(z + Math.cos(j) * i), ModBlocks.dreamStone);
+				chunk.setBlock((int) Math.floor(x + Math.sin(j) * i), y, (int) Math.floor(z + Math.cos(j) * i), ModBlocks.dreamStone);
 			}
 		}
 	}

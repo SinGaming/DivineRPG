@@ -1,21 +1,20 @@
 package divinerpg.dimensions.vethea.all;
+import divinerpg.dimensions.vethea.IVetheaChunk;
 import divinerpg.dimensions.vethea.IVetheanStructure;
-import divinerpg.dimensions.vethea.VetheaChunk;
 import divinerpg.registry.ModBlocks;
 
-public class FloatingTree6 implements IVetheanStructure
-{
-	public void generate(VetheaChunk chunk, int i, int j, int k) {
+public class FloatingTree6 implements IVetheanStructure {
+    public void generate(IVetheaChunk chunk, int i, int j, int k) {
 
-		chunk.setBlock(i + 0, j + 8, k + 1, ModBlocks.dreamwoodLeaves);
-		chunk.setBlock(i + 1, j + 1, k + 0, ModBlocks.dreamStone);
-		chunk.setBlock(i + 1, j + 1, k + 1, ModBlocks.dreamStone);
-		chunk.setBlock(i + 1, j + 2, k + 1, ModBlocks.dreamwoodLog);
-		chunk.setBlock(i + 1, j + 3, k + 1, ModBlocks.dreamwoodLog);
-		chunk.setBlock(i + 1, j + 4, k + 1, ModBlocks.dreamwoodLog);
-		chunk.setBlock(i + 1, j + 5, k + 1, ModBlocks.dreamwoodLog);
-		chunk.setBlock(i + 1, j + 6, k + 1, ModBlocks.dreamwoodLog);
-		chunk.setBlock(i + 1, j + 7, k + 1, ModBlocks.dreamwoodLog);
+        chunk.setBlock(i + 0, j + 8, k + 1, ModBlocks.dreamwoodLeaves);
+        chunk.setBlock(i + 1, j + 1, k + 0, ModBlocks.dreamStone);
+        chunk.setBlock(i + 1, j + 1, k + 1, ModBlocks.dreamStone);
+        chunk.setBlock(i + 1, j + 2, k + 1, ModBlocks.dreamwoodLog);
+        chunk.setBlock(i + 1, j + 3, k + 1, ModBlocks.dreamwoodLog);
+        chunk.setBlock(i + 1, j + 4, k + 1, ModBlocks.dreamwoodLog);
+        chunk.setBlock(i + 1, j + 5, k + 1, ModBlocks.dreamwoodLog);
+        chunk.setBlock(i + 1, j + 6, k + 1, ModBlocks.dreamwoodLog);
+        chunk.setBlock(i + 1, j + 7, k + 1, ModBlocks.dreamwoodLog);
 		chunk.setBlock(i + 1, j + 8, k + 0, ModBlocks.dreamwoodLeaves);
 		chunk.setBlock(i + 1, j + 8, k + 1, ModBlocks.dreamwoodLog);
 		chunk.setBlock(i + 1, j + 8, k + 2, ModBlocks.dreamwoodLeaves);

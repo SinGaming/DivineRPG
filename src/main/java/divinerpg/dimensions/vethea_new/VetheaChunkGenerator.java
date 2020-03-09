@@ -1,8 +1,13 @@
 package divinerpg.dimensions.vethea_new;
 
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.Multimap;
 import divinerpg.api.java.divinerpg.api.Reference;
+import divinerpg.dimensions.vethea.WorldGenVetheanFlower;
+import divinerpg.dimensions.vethea.village.WorldGenVillageIsland;
 import divinerpg.registry.ModBlocks;
 import divinerpg.structure.DivineLargeStructure;
+import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -12,7 +17,12 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.gen.feature.WorldGenMinable;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.world.gen.structure.MapGenStructure;
+import net.minecraft.world.gen.structure.template.PlacementSettings;
+import net.minecraft.world.gen.structure.template.Template;
+import net.minecraft.world.gen.structure.template.TemplateManager;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -41,6 +51,17 @@ public class VetheaChunkGenerator implements IChunkGenerator {
      */
     private final Map<Integer, List<MapGenStructure>> structureByLevelMap = new HashMap<>();
 
+    /**
+     * Custom generators by level.
+     * Contains map with own gen possibility
+     */
+    private final Map<Integer, Multimap<Integer, WorldGenerator>> worldGenByLevelMap = new HashMap<>();
+
+
+    private final WorldGenVillageIsland village = new WorldGenVillageIsland();
+    private final List<Template> floatingTrees = new ArrayList<>();
+
+
     public VetheaChunkGenerator(World world) {
         this.world = world;
         this.rand = new Random(world.getSeed());
@@ -48,38 +69,156 @@ public class VetheaChunkGenerator implements IChunkGenerator {
         int floor = 0;
 
         for (int i = 0; i < world.getHeight(); i += floorHeight) {
-            ArrayList<MapGenStructure> generators = new ArrayList<>();
-            fillFloors(world, floor, generators);
-            structureByLevelMap.put(floor, generators);
+            ArrayList<MapGenStructure> structures = new ArrayList<>();
+            Multimap<Integer, WorldGenerator> generators = LinkedHashMultimap.create();
+            fillFloors(world, floor, structures, generators);
+            structureByLevelMap.put(floor, structures);
+            worldGenByLevelMap.put(floor, generators);
 
             floor++;
         }
 
         totalFloors = floor;
+
+        TemplateManager manager = world.getSaveHandler().getStructureTemplateManager();
+
+        for (int i = 0; i < 7; i++) {
+            floatingTrees.add(manager.getTemplate(null, new ResourceLocation(Reference.MODID,
+                    String.format("vethea/floating_tree/floatingtree%s", i + 1))));
+        }
     }
 
-    private void fillFloors(World world, int floor, List<MapGenStructure> floorGenerators) {
-        switch (floor) {
-            case 1:
-                floorGenerators.add(new DivineLargeStructure(world,
-                        "Hive",
-                        new ResourceLocation(Reference.MODID, "hive"),
-                        floor * floorHeight + roofHeight,
-                        16));
+    private void fillFloors(World world, int floor, ArrayList<MapGenStructure> structures,
+                            Multimap<Integer, WorldGenerator> generators) {
 
-                floorGenerators.add(new DivineLargeStructure(world,
-                        "Pyramid1",
-                        new ResourceLocation(Reference.MODID, "pyramid"),
+        // todo InfusionOutpost for all levels
+        // TODO add decorations
+
+        generators.put(7 * 6, new WorldGenMinable(ModBlocks.fireCrystal.getDefaultState(),
+                50,
+                BlockStateMatcher.forBlock(ModBlocks.dreamGrass)));
+
+        generators.put(2 * 6, new WorldGenMinable(ModBlocks.fireCrystal.getDefaultState(),
+                45,
+                BlockStateMatcher.forBlock(ModBlocks.dreamGrass)));
+
+        generators.put(6, new WorldGenMinable(ModBlocks.fireCrystal.getDefaultState(),
+                20,
+                BlockStateMatcher.forBlock(ModBlocks.dreamGrass)));
+
+        switch (floor) {
+            case 0:
+                generators.put(5, new WorldGenVetheanFlower(ModBlocks.greenGemtop));
+                generators.put(5, new WorldGenVetheanFlower(ModBlocks.purpleGemtop));
+                generators.put(5, new WorldGenVetheanFlower(ModBlocks.yellowDulah));
+                generators.put(5, new WorldGenVetheanFlower(ModBlocks.greenDulah));
+
+                structures.add(new DivineLargeStructure(world,
+                        "Crypt1",
+                        createForVethea(floor, "crypt1"),
+                        floor * floorHeight + 13,
+                        40));
+
+                structures.add(new DivineLargeStructure(world,
+                        "Crypt2",
+                        createForVethea(floor, "crypt2"),
+                        floor * floorHeight + 13,
+                        40));
+
+                break;
+
+            case 1:
+                structures.add(new DivineLargeStructure(world,
+                        "Hive",
+                        createForVethea(floor, "hive"),
                         floor * floorHeight + roofHeight,
-                        16));
+                        25));
+
+                structures.add(new DivineLargeStructure(world,
+                        "Pyramid1",
+                        createForVethea(floor, "pyramid"),
+                        floor * floorHeight + roofHeight,
+                        40));
+
+                structures.add(new DivineLargeStructure(world,
+                        "Pyramid2",
+                        createForVethea(floor, "pyramid2"),
+                        floor * floorHeight + roofHeight,
+                        40));
+
+                generators.put(5, new WorldGenVetheanFlower(ModBlocks.fernite));
+                generators.put(5, new WorldGenVetheanFlower(ModBlocks.dreamglow));
+                generators.put(5, new WorldGenVetheanFlower(ModBlocks.shimmer));
+
+                break;
+
+            case 2:
+                // todo fix
+//                structures.add(new DivineLargeStructure(world,
+//                        "QuadroticPost",
+//                        createForVethea(floor, "quadroticpost"),
+//                        floor * floorHeight + roofHeight,
+//                        40));
+
+
+//                structures.add(new DivineLargeStructure(world,
+//                        "KarosMadhouse",
+//                        createForVethea(floor, "karosmadhouse"),
+//                        floor * floorHeight + roofHeight,
+//                        40));
+
+                generators.put(5, new WorldGenVetheanFlower(ModBlocks.shineGrass));
+                generators.put(5, new WorldGenVetheanFlower(ModBlocks.cracklespike));
+                generators.put(5, new WorldGenVetheanFlower(ModBlocks.bulbatobe));
+
+                break;
+
+            case 3:
+                generators.put(5, new WorldGenVetheanFlower(ModBlocks.shimmer));
+                generators.put(5, new WorldGenVetheanFlower(ModBlocks.shineGrass));
+                generators.put(5, new WorldGenVetheanFlower(ModBlocks.dreamglow));
+
+
+                structures.add(new DivineLargeStructure(world,
+                        "Evergarden",
+                        createForVethea(floor, "evergarden"),
+                        floor * floorHeight + roofHeight,
+                        30));
+
+                structures.add(new DivineLargeStructure(world,
+                        "4Tree1",
+                        createForVethea(floor, "layer4tree1"),
+                        floor * floorHeight + roofHeight,
+                        25));
+
+                structures.add(new DivineLargeStructure(world,
+                        "4Tree2",
+                        createForVethea(floor, "layer4tree2"),
+                        floor * floorHeight + roofHeight,
+                        25));
+
+                structures.add(new DivineLargeStructure(world,
+                        "RaglokChamber",
+                        createForVethea(floor, "raglokchamber"),
+                        floor * floorHeight + roofHeight,
+                        30));
+
+                structures.add(new DivineLargeStructure(world,
+                        "WreckHall",
+                        createForVethea(floor, "wreckhall"),
+                        floor * floorHeight + roofHeight,
+                        30));
+
                 break;
         }
     }
 
+    private ResourceLocation createForVethea(int level, String structureFolder) {
+        return new ResourceLocation(Reference.MODID, String.format("vethea/%slevel/%s", level, structureFolder));
+    }
+
     @Override
     public Chunk generateChunk(int x, int z) {
-        this.rand.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
-
         ChunkPrimer chunkPrimer = new ChunkPrimer();
 
         for (int i = 0; i < totalFloors; i++) {
@@ -98,7 +237,7 @@ public class VetheaChunkGenerator implements IChunkGenerator {
     }
 
     /**
-     * Generating floor 17 blocks height. two top layers is grass and dirt
+     * Generating floor betwen floors. two top layers is grass and dirt
      *
      * @param chunkPrimer - chunk primer
      * @param y           - height of beginning of level
@@ -129,8 +268,48 @@ public class VetheaChunkGenerator implements IChunkGenerator {
         // togo some pretty regen
         net.minecraftforge.event.ForgeEventFactory.onChunkPopulate(true, this, this.world, this.rand, x, z, false);
 
+        // rand.setSeed(x * 10387319 + z * 10387319);
+
+        ChunkPos chunkPos = new ChunkPos(x, z);
+
         for (int i = 0; i < totalFloors; i++) {
-            structureByLevelMap.get(i).forEach(gen -> gen.generateStructure(world, rand, new ChunkPos(x, z)));
+            final int finalI = i;
+
+            floatingTrees.stream()
+                    .filter(tree -> rand.nextInt(floatingTrees.size() * 5) == 0)
+                    .forEach(tree -> {
+                        PlacementSettings settings = new PlacementSettings();
+
+                        double height = (finalI + 1) * floorHeight - roofHeight
+                                + rand.nextInt(13 * 2) - 13;
+
+                        BlockPos pos = chunkPos.getBlock(
+                                rand.nextInt(11) + 8,
+                                (int) height,
+                                rand.nextInt(11) + 8);
+
+                        tree.addBlocksToWorldChunk(world, pos, settings);
+                    });
+
+            structureByLevelMap.get(i).forEach(gen -> gen.generateStructure(world, rand, chunkPos));
+
+            worldGenByLevelMap.get(i).entries().stream()
+                    // Filter if can spawn
+                    .filter(key -> rand.nextInt(key.getKey()) == 0)
+                    .forEach(entry ->
+                            entry.getValue()
+                                    // generating every world gen on floor surface
+                                    .generate(world, rand, chunkPos.getBlock(0, finalI * floorHeight + roofHeight, 0)));
+
+
+            // Special world gen
+            if (i == 0) {
+
+                // TODO Too luggy!!!
+                if (rand.nextInt(500) == 0) {
+                    village.generate(world, rand, chunkPos.getBlock(0, 30, 0));
+                }
+            }
         }
     }
 
